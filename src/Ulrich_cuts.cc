@@ -18,13 +18,7 @@ void CutsFunction(const string& filename)
 {
 	gSystem->Load("libTreePlayer");
 
-	int i, j, m, n, p, q, k[4], l[4], entries, tracks, Plane;
-    
-    double dx0, dx1, dx2, dx3, dy1, dy2, dy3, ratio0, ratio1, ratio2, ratio3, ratio4;
-    
-    int LinearCount = 0;
-    int MuCount = 0;
-    int MuTestCount = 0;
+	int i, j, m, n, p, q, k[4], l[4], entries;
     
     double eps = 0.05;
     
@@ -37,7 +31,7 @@ void CutsFunction(const string& filename)
 	string filename2,title;
 	
     //---------Opening the .root file:
-    //filename = inputfile;
+    
     
     TFile *f = TFile::Open(filename.c_str());
 
@@ -75,6 +69,7 @@ void CutsFunction(const string& filename)
     cout << "Tree copied with " << entries << "entries\n\n\n" << endl;
 
     /*
+
     //--------Map in which to store all the particles by TrackID - more efficient than a vector
     //--------of objects since it doesn't require repeated looping over the whole shaboozle.
     
