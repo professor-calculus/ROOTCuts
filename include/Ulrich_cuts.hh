@@ -27,6 +27,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <TApplication.h>
 
 using namespace std;
 
