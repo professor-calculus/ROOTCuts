@@ -15,7 +15,7 @@
 using namespace std;
 
 
-void CutsFunction(const string& filename)
+void CutsFunction(const char* filename)
 {
 	gSystem->Load("libTreePlayer");
     gSystem->Load("libDelphes");

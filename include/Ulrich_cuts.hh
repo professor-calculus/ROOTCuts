@@ -38,23 +38,13 @@ class TTree;
 
 void CutsFunction(const string&);
 
-//--------The variables used temporarily inside the for loop - different data types so an array won't work!
-class Track
-{
-public:
-    double efficiency;
-    int Event, TrackID;
-};
-
 
 //--------The class which will store the data for each TrackID - then we can loop over each to do the tracking.
 class Constituents
 {
 public:
     
-    int ID, N_Jets;
-
-    double MET;
+    int ID;
     
     vector<double> Jet_PT;
     

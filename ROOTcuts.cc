@@ -11,13 +11,12 @@
 
 int main(int argc, char *argv[])
 {
-	string inputfile;
+
     if (argc>1)
     {
-      inputfile = argv[1];
+    	CutsFunction(argv[1]);
     }
-    CutsFunction(inputfile);
-    
+
     return 0;
     
 }
