@@ -28,6 +28,7 @@
 #include <sstream>
 #include <fstream>
 #include <TApplication.h>
+#include <TClonesArray.h>
 
 using namespace std;
 
