@@ -8,9 +8,15 @@
 
 #include <iostream>
 #include "../include/Ulrich_cuts.hh"
+#ifdef __CLING__
+R__LOAD_LIBRARY(libDelphes)
 #include "classes/DelphesClasses.h"
 #include "external/ExRootAnalysis/ExRootTreeReader.h"
-R__LOAD_LIBRARY(libDelphes)
+#include "external/ExRootAnalysis/ExRootResult.h"
+#else
+class ExRootTreeReader;
+class ExRootResult;
+#endif
 
 using namespace std;
 
