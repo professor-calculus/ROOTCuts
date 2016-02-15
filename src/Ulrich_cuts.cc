@@ -22,7 +22,7 @@ void CutsFunction(const char* filename)
 
 	int i, j, k, l, entries, npass, N_bjets, N_tau, N_PT;
 
-    double mbb, PT_tau;
+    double mbb, PT_tau, met;
     
     int percent, tintin;
 
@@ -116,6 +116,8 @@ void CutsFunction(const char* filename)
 
         npass = 0;
 
+        met = 0;
+
         N_bjets = 0;
         N_tau = 0;
         PT_tau = 0.0;
@@ -172,7 +174,13 @@ void CutsFunction(const char* filename)
             }
 
 
-            if(branchMET->MET > 30)
+            for (int m = 0; m < branchMET->GetEntries(); m++)
+            {
+                Double_t metv = ((MissingET*) branchMET->At(m))->MET;
+                met += metv;
+            }
+
+            if(met > 30)
             {
                 pass_MET++;
                 npass++;                    //passes the MET test
