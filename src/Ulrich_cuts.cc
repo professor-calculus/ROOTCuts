@@ -182,7 +182,7 @@ void CutsFunction(const char* filename)
             {
                 for(l=0; l<N_tau; l++)
                 {
-                    PT_tau += vectortaujet->PT;
+                    PT_tau += double(vectortaujet[l]->PT);
                 }
 
                 if(PT_tau > 100)
