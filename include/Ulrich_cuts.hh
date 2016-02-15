@@ -38,7 +38,7 @@ class TFile;
 class TObjArray;
 class TTree;
 
-void CutsFunction(const string&);
+void CutsFunction(const char*);
 
 
 //--------The class which will store the data for each TrackID - then we can loop over each to do the tracking.
