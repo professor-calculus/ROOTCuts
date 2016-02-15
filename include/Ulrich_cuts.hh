@@ -42,19 +42,21 @@ void CutsFunction(const string&);
 class Track
 {
 public:
-    double xpos, ypos;
-    int Plane, Event, TrackID;
+    double efficiency;
+    int Event, TrackID;
 };
 
 
 //--------The class which will store the data for each TrackID - then we can loop over each to do the tracking.
-class Tracking
+class Constituents
 {
 public:
     
-    int ID, Plane;
+    int ID, N_Jets;
+
+    double MET;
     
-    vector<vector<double> > x;
+    vector<double> Jet_PT;
     
     vector<vector<double> > y;
 
@@ -62,9 +64,9 @@ public:
 private:
     TTree*					 tree;
     TTree*					 tracker;
-    string                 filename;
+    //string                 filename;
     int                      maxtrack;
-    int                      entries;
+    //int                      entries;
     //TFile*                   f;
 };
 

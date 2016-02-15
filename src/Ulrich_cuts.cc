@@ -8,7 +8,8 @@
 
 #include <iostream>
 #include "../include/Ulrich_cuts.hh"
-
+#include "classes/DelphesClasses.h"
+#include "external/ExRootAnalysis/ExRootTreeReader.h"
 
 
 using namespace std;
@@ -17,22 +18,21 @@ using namespace std;
 void CutsFunction(const string& filename)
 {
 	gSystem->Load("libTreePlayer");
+    gSystem->Load("libDelphes");
 
-	int i, j, m, n, p, q, k[4], l[4], entries;
+	int i, j, k, l, entries, npass, N_bjets, N_tau, N_PT;
+
+    double mbb, PT_tau;
     
-    double eps = 0.05;
-    
-    int percent;
-    
+    int percent, tintin;
+
     string bar;
-    
-        
     
 	string filename2,title;
 	
     //---------Opening the .root file:
     
-    
+    /*
     TFile *f = TFile::Open(filename.c_str());
 
     //---------Aiming the pointers with the relevant TBranch and TLeaves
@@ -40,40 +40,61 @@ void CutsFunction(const string& filename)
     //---------Google is not your friend!
     TTree *EM = (TTree*)f->Get("Delphes");
 
-    TBranch *Jet = (TBranch*)EM->GetBranch("Jet");
+    TBranch *branchJet = (TBranch*)EM->GetBranch("Jet");
     TBranch *Event = (TBranch*)EM->GetBranch("Event");
     TBranch *MissingET = (TBranch*)EM->GetBranch("MissingET");
     TBranch *Particle = (TBranch*)EM->GetBranch("Particle");
     TBranch *Track = (TBranch*)EM->GetBranch("Track");
     
-    TLeaf *Btag = Jet->GetLeaf("Jet.BTag");
-    TLeaf *Tautag = Jet->GetLeaf("Jet.TauTag");
-    TLeaf *JetMass = Jet->GetLeaf("Jet.Mass");
-    TLeaf *JetEta = Jet->GetLeaf("Jet.Eta");
-    TLeaf *JetPhi = Jet->GetLeaf("Jet.Phi");
-    TLeaf *Evt = Branch->GetLeaf("Event");
-    TLeaf *Tr = Branch->GetLeaf("TrackID");
-    TLeaf *Na = Branch->GetLeaf("Name");
+    TLeaf *Btag = branchJet->GetLeaf("Jet.BTag");
+    TLeaf *Tautag = branchJet->GetLeaf("Jet.TauTag");
+    TLeaf *JetMass = branchJet->GetLeaf("Jet.Mass");
+    TLeaf *JetEta = branchJet->GetLeaf("Jet.Eta");
+    TLeaf *JetPhi = branchJet->GetLeaf("Jet.Phi");
+    TLeaf *NJets = Event->GetLeaf("Jet_size");
+    
+    */
 
-    
-    
+    TChain chain("Delphes");
+    chain.Add(filename);
+    ExRootTreeReader *reader = new ExRootTreeReader(&chain);
+
+    TClonesArray *branchJet = reader->UseBranch("Jet");
+    TClonesArray *branchEvent = reader->UseBranch("Event");
+    TClonesArray *branchMET = reader->UseBranch("MissingET");
+    TClonesArray *branchParticle = reader->UseBranch("Particle");
     
     //--------Tell it not to panic if there's no entries - it's better than a segfault!
-    if (EM->GetEntries() < 1)
+    if (reader->GetEntries() < 1)
     {
         cout << "Problem" << endl;
     }
         
-    entries = EM->GetEntries();
+    entries = reader->GetEntries();
 
     cout << "Tree copied with " << entries << "entries\n\n\n" << endl;
 
-    /*
+    // Book histograms
+    TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets", 5, 0.0, 5.0);
+    TH1 *histnptjet = new TH1F("nbjet", "Number of b-jets", 5, 0.0, 5.0);
+    TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b)", 75, 50.0, 200.0);
 
-    //--------Map in which to store all the particles by TrackID - more efficient than a vector
-    //--------of objects since it doesn't require repeated looping over the whole shaboozle.
+
+    int pass_jets = 0;
+    int pass_N_b_jets = 0;
+    int pass_PT_b_jets = 0;
+    int pass_MET = 0;
+    int pass_tau = 0;
+    int pass_bb_mass = 0;
+    int pass_N_jets = 0;
+
     
-    map<int, Tracking*> map2;
+    vector<Jet *> vectorjet;
+    vector<Jet *> vectorbjet;
+    vector<Jet *> vectortaujet;
+
+
+    TLorentzVector p4[2];
     
 
     //The for-loop: Loops over the tree to put the elements of each row into the class
@@ -81,165 +102,130 @@ void CutsFunction(const string& filename)
     //                  -- This is so it only loops over particles with the relevant
     //                      TrackID, not the entire Tree ~1600 times!
     
+
     for(i=0;i<entries;i++)
         
-	{
-		//----I hate Root for making bit this as illogical as possible. Also the only way
-        //----I managed to do it was by following a method suggested by Rene Brun on a Root
-        //----forum.
-        //----      Rene Brun wrote Root.     Rene Brun is taunting me.
-        
-        Evt->GetBranch()->GetEntry(i);
-        
-        X->GetBranch()->GetEntry(i);
-        Y->GetBranch()->GetEntry(i);
-        Pl->GetBranch()->GetEntry(i);
-        Plane = Pl->GetValue();
-        //Na->GetBranch()->GetEntry(i);
-        //cout << Na->GetValue() << endl;
-        
-        if((X->GetValue() < -(5+(2*Plane)) || X->GetValue() > (5+(2*Plane)) || Y->GetValue() < -(5+(2*Plane)) || Y->GetValue() > (5+(2*Plane)) ))
-        {
-        
-            int current_id = Evt->GetValue();
-        
-            if(map2[current_id]==NULL)
-            {
-                map2[current_id] = new Tracking();
-            }
-                
-            map2[current_id]->ID = current_id;
-        
-            map2[current_id]->x.resize (6);
-            map2[current_id]->y.resize (6);
-        
-            
-            map2[current_id]->Plane = Plane;
-        
-            map2[current_id]->x[Plane].push_back (X->GetValue());
-            map2[current_id]->y[Plane].push_back (Y->GetValue());
-		}
+	{   
+        reader->ReadEntry(i);
 
-        
-    }
- 
-    
-    //--------The loop to analyse the tracks to see which fit a straight line
-    //--------Straight line ---> MUON! (Probably)
+        vectorjet.clear();
+        vectorbjet.clear();
+        vectortaujet.clear();
 
-    for(map<int,Tracking*>::iterator it = map2.begin(); it!=map2.end(); ++it)
-    {
+        Jet *jet = NULL;
+
+        npass = 0;
+
+        N_bjets = 0;
+        N_tau = 0;
+        PT_tau = 0.0;
+        N_PT = 0;
         
-        for(int a=0;a<4;a++)
+        if(branchJet->GetEntries() > 3)
         {
-            k[a] = it->second->x[a].size();
-            //cout << "Tracker " << a << " tracked " << k[a] << " particles from incoming electron #" << it->first << endl; // lol
-        }
-        
-        //----This bit gives a nice progress bar - unnecessary but looks so nice, like an iPad mini
-        
-        percent = ((it->first)*100)/tracks;
-        
-        for(int tintin = 0; tintin < 50; tintin++){
-            if( tintin < (percent/2)){
-                bar.replace(tintin,1,"=");
-            }else if( tintin == (percent/2)){
-                bar.replace(tintin,1,">");
-            }else{
-                bar.replace(tintin,1," ");
-            }
-        }
-        
-        cout<< "\r" "[" << bar << "] ";
-        cout.width( 3 );
-        cout<< percent << "%     " << std::flush;   // lol
-        
-        //--------The Loop:
-        
-        for (m=0;m<k[0];m++)
+            pass_N_jets++;                  //passes number of hard jets test
+            npass++;
+
+            for(k=0; k<branchJet->GetEntries(); k++)
             {
-                for (n=0;n<k[1];n++)
+                jet = (Jet*) branchJet->At(k);
+
+                if(jet->PT > 100)
                 {
-                    for(p=0;p<k[2];p++)
-                    {
-                        for(q=0;q<k[3];q++)
-                        {
-                            dx0 = -(it->second->x[2][p]);
-                            dx1 = (it->second->x[1][n])-(it->second->x[2][p]);
-                            
-                            dx2 = (it->second->x[0][m])-(it->second->x[1][n]);
-                            
-                            ratio1 = dx1/dx2;
-                            ratio0 = dx0/dx2;
-                            
-                            if(ratio1 < 1+eps && ratio1 > 1-eps && ratio0 < 3+(3*eps) && ratio0 > 3-(3*eps))
-                            {
-                                dx3 = (it->second->x[2][p])-(it->second->x[3][q]);
-                                ratio2 = dx2/dx3;
-                                
-                                if(ratio2 < 1+eps && ratio2 > 1-eps)
-                                {
-                                    
-                                    dy1 = (it->second->x[1][n])-(it->second->x[2][p]);
-                                    dy2 = (it->second->x[0][m])-(it->second->x[1][n]);
-                                
-                                    ratio3 = dy1/dy2;
-                                
-                                    if(ratio3 < 1+eps && ratio3 > 1-eps)
-                                    {
-                                        dy3 = (it->second->x[2][p])-(it->second->x[3][q]);
-                                        ratio4 = dy2/dy3;
-                                    
-                                        if(ratio4 < 1+eps && ratio4 > 1-eps)
-                                        {
-                                            Linear.x[0] = it->second->x[0][m];
-                                            Linear.x[1] = it->second->x[1][n];
-                                            Linear.x[2] = it->second->x[2][p];
-                                            Linear.x[3] = it->second->x[3][q];
-                                     
-                                            Linear.y[0] = it->second->y[0][m];
-                                            Linear.y[1] = it->second->y[1][n];
-                                            Linear.y[2] = it->second->y[2][p];
-                                            Linear.y[3] = it->second->y[3][q];
-                                     
-                                            Linear.EventID = it->first;
-                                            Linear.MuonNumber = LinearCount;
-                                    
-                                            LinearMuons.push_back (Linear);
-                                    
-                                            MuCount++;
-                                            
-                                        }
-                                    }
-                                }
-                                
-                            }
-                        
-                        //else cout << "No!" << endl;
-                        }
-                    }
+                    N_PT++;
+                }
+
+                vectorjet.push_back(jet);
+
+                if(jet->BTag && jet->PT > 40)
+                {
+                    vectorbjet.push_back(jet);
+                    N_bjets++;
+                }
+                else if(jet->TauTag && jet->Mass > 20 && jet->Mass < 160)
+                {
+                    vectortaujet.push_back(jet);
+                    N_tau++;
                 }
             }
-        //--------If it finds one and only one straight line for a track, it's probably not a
-        //--------muon, since where is its antimuon?! They have to come in pairs via symmetry
-        //-------- and conservation of momentum!
-        if(MuCount > 1)
-        {
-            LinearCount++;
-            //cout << "Muon Pair!" << endl;
-            MuTestCount += MuCount;
+
+            if(N_bjets > 2)
+            {
+                pass_N_b_jets++;
+                npass++;                   //passes the number of b-jets test
+
+                p4[0] = vectorbjet[0]->P4();
+                p4[1] = vectorbjet[1]->P4();
+
+                mbb = ((p4[0]) + (p4[1])).M();
+
+                if(mbb > 60 && mbb < 160)
+                {
+                    npass++;                //passes the M_bb inv. mass test
+                }
+            }
+
+            if(vectorjet[0]->PT > 400 && vectorjet[1]->PT > 300 && vectorjet[2]->PT > 200 && vectorjet[3]->PT > 100)
+            {
+                pass_jets++;
+                npass++;                    //passes the PT of 4 leading jets test
+            }
+
+
+            if(branchMET->MET > 30)
+            {
+                pass_MET++;
+                npass++;                    //passes the MET test
+            }
+
+            if(N_tau > 1)
+            {
+                for(l=0; l<N_tau; l++)
+                {
+                    PT_tau += vectortaujet->PT;
+                }
+
+                if(PT_tau > 100)
+                {
+                    npass++;                //passes the total tau transverse momentum test
+
+                }
+            }
+            
+            //----This bit gives a nice progress bar - unnecessary but looks so nice, like an iPad mini
+        
+            percent = (i*100)/entries;
+        
+            for(tintin = 0; tintin < 50; tintin++)
+            {
+                if( tintin < (percent/2))
+                {
+                    bar.replace(tintin,1,"=");
+                }
+                else if( tintin == (percent/2))
+                {
+                    bar.replace(tintin,1,">");
+                }
+                else
+                {
+                bar.replace(tintin,1," ");
+                }
+            }
+
         }
-        MuCount = 0;
+
+        if(npass == 6)
+        {
+            histMbb->Fill(mbb);
+            histnbjet->Fill(N_bjets);
+            histnptjet->Fill(N_PT);
+        }
+
+
+
     }
-
-    cout << endl;
-    
-    cout << LinearCount << " muon pairs detected" << endl;
-    cout << MuTestCount << " muons possibly detected..." << endl;
-    
-*/
-
-f->Close();   
+ 
+//f->Close();   
 
 };
 
