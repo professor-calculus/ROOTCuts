@@ -10,7 +10,7 @@
 #include "../include/Ulrich_cuts.hh"
 #include "classes/DelphesClasses.h"
 #include "external/ExRootAnalysis/ExRootTreeReader.h"
-
+R__LOAD_LIBRARY(libDelphes)
 
 using namespace std;
 
