@@ -22,7 +22,7 @@ void CutsFunction(const char* filename)
 {
 	gSystem->Load("libTreePlayer");
     gSystem->Load("/home/ast1g15/delphes/libDelphes");
-    gSystem->Load("lib/libExRootAnalysis.so");
+    gSystem->Load("libExRootAnalysis.so");
 
 	int i, j, k, l, entries, npass, N_bjets, N_tau, N_PT;
 
