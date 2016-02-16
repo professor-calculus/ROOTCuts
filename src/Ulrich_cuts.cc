@@ -7,16 +7,11 @@
 //
 
 #include <iostream>
-#include "../include/Ulrich_cuts.hh"
-#ifdef __CLING__
+#include "../include/Ulrich_cuts.hh"_
 R__LOAD_LIBRARY(libDelphes)
 #include "classes/DelphesClasses.h"
 #include "external/ExRootAnalysis/ExRootTreeReader.h"
 #include "external/ExRootAnalysis/ExRootResult.h"
-#else
-class ExRootTreeReader;
-class ExRootResult;
-#endif
 
 using namespace std;
 
