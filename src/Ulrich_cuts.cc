@@ -10,8 +10,10 @@
 #include "../include/Ulrich_cuts.hh"
 R__LOAD_LIBRARY(libDelphes)
 #include "classes/DelphesClasses.h"
-#include "external/ExRootAnalysis/ExRootTreeReader.h"
-#include "external/ExRootAnalysis/ExRootResult.h"
+#include "ExRootAnalysis/ExRootTreeReader.h"
+#include "ExRootAnalysis/ExRootTreeBranch.h"
+#include "ExRootAnalysis/ExRootResult.h"
+#include "ExRootAnalysis/ExRootUtilities.h"
 
 using namespace std;
 
@@ -20,6 +22,7 @@ void CutsFunction(const char* filename)
 {
 	gSystem->Load("libTreePlayer");
     gSystem->Load("/home/ast1g15/delphes/libDelphes");
+    gSystem->Load("lib/libExRootAnalysis.so");
 
 	int i, j, k, l, entries, npass, N_bjets, N_tau, N_PT;
 
