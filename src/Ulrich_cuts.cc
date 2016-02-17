@@ -85,7 +85,7 @@ void CutsFunction(const char* filename)
 
     int pass_jets = 0;
     int pass_N_b_jets = 0;
-    int pass_PT_b_jets = 0;
+    //int pass_PT_b_jets = 0;
     int pass_MET = 0;
     int pass_tau = 0;
     int pass_bb_mass = 0;
@@ -166,7 +166,8 @@ void CutsFunction(const char* filename)
 
                 if(mbb > 60 && mbb < 160)
                 {
-                    npass++;                //passes the M_bb inv. mass test
+                    npass++;
+                    pass_bb_mass++;               //passes the M_bb inv. mass test
                 }
             }
 
@@ -199,7 +200,7 @@ void CutsFunction(const char* filename)
                 if(PT_tau > 100)
                 {
                     npass++;                //passes the total tau transverse momentum test
-
+                    pass_tau++;
                 }
             }
             
@@ -219,9 +220,13 @@ void CutsFunction(const char* filename)
                 }
                 else
                 {
-                bar.replace(tintin,1," ");
+                    bar.replace(tintin,1," ");
                 }
             }
+
+            cout << "\r" "[" << bar << "] ";
+            cout.width( 3 );
+            cout << percent << "%     " << std::flush;   // lol
 
         }
 
@@ -233,8 +238,17 @@ void CutsFunction(const char* filename)
         }
 
 
-
     }
+
+
+    cout << pass_N_jets << " events contained at least 4 jets" << endl;
+    cout << pass_jets << " events contained 4 leading jets with PT 400,300,200,100 GeV" << endl;
+    cout << pass_N_b_jets << " events contained at least 2 b-jets" << endl;
+    cout << pass_bb_mass << " events contained at least 2 b-jets with invariant mass within the bounds" << endl;
+    cout << pass_MET << " events had at least 30GeV Missing ET" << endl;
+    cout << pass_tau << " events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
+
+
  
 //f->Close();   
 
