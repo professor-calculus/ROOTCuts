@@ -80,7 +80,7 @@ void CutsFunction(const char* filename)
     // Book histograms
     TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets", 10, 0.0, 10.0);
     //TH1 *histnptjet = new TH1F("nbjet", "Number of b-jets", 5, 0.0, 5.0);
-    TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b)", 50, 60.0, 160.0);
+    TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b)", 20, 60.0, 160.0);
 
 
     TCanvas * cbjet = new TCanvas("cbjet", "cbjet", 600, 600);
@@ -263,10 +263,10 @@ void CutsFunction(const char* filename)
     histMbb->Draw();
     cmbb->Update();
 
-    histnbjet->Write();
+    histnbjet->Draw();
     cbjet->Update();
 
-    cmbb->SaveAs("../Mbb.pdf");
+    cmbb->SaveAs("Mbb.pdf");
     cbjet->SaveAs("n_b_jets.pdf");
 
 
