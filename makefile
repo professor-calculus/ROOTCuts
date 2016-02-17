@@ -5,9 +5,5 @@ clean:
 	-@rm ROOTCuts 2>/dev/null || true
 FILE = ROOTCuts
 foo:
-    @ if [ -f $(FILE) ]; then \
-        echo "\033[32;01mWinner Winner Chicken Dinner\033[0m"; \
-      else \
-        echo "\033[32;01mProblem\033[0m"; \
-     fi
+    @if [ -f $(FILE) ]; then echo "\033[32;01mWinner Winner Chicken Dinner\033[0m"; else echo "\033[32;01mProblem\033[0m"; fi
 #end makefile
