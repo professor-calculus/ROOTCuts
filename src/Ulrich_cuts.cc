@@ -198,7 +198,7 @@ void CutsFunction(const char* filename)
                     PT_tau += double(vectortaujet[l]->PT);
                 }
 
-                if(PT_tau > 100)
+                if(PT_tau > 10)
                 {
                     npass++;                //passes the total tau transverse momentum test
                     pass_tau++;
@@ -228,7 +228,7 @@ void CutsFunction(const char* filename)
             cout << "\r" "[" << bar << "] ";
             cout.width( 3 );
             cout << percent << "%     " << std::flush;   // lol
-
+            cout << "\n" << endl;
         }
 
         if(npass == 6)
@@ -250,10 +250,11 @@ void CutsFunction(const char* filename)
     cout << pass_N_b_jets << " events contained at least 2 b-jets" << endl;
     cout << pass_bb_mass << " events contained at least 2 b-jets with invariant mass within the bounds" << endl;
     cout << pass_MET << " events had at least 30GeV Missing ET" << endl;
-    cout << pass_tau << " events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
+    cout << pass_tau << " events contained at least 2 tau with SUM(PT) > 10GeV" << endl;
+    cout << "\n" << eventpass << " events passed all tests" << endl;
     cout << "\n\n\n" << endl;
-    cout << "Cross-section is now reduced by factor of" << efficiency << "\n\n" << endl;
-    cout << "Winner winner, chicken dinner";
+    cout << "Cross-section is now reduced by factor of " << efficiency << "\n\n" << endl;
+    cout << "Winner winner, chicken dinner\n"; << endl;
 
  
 //f->Close();   
