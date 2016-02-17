@@ -196,7 +196,7 @@ void CutsFunction(const char* filename)
                 for(l=0; l<N_tau; l++)
                 {
                     PT_tau += double(vectortaujet[l]->PT);
-                    cout << PT_tau;
+                    cout << "Tau PT " << PT_tau << endl;
                 }
 
                 if(PT_tau > 10)
