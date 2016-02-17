@@ -196,6 +196,7 @@ void CutsFunction(const char* filename)
                 for(l=0; l<N_tau; l++)
                 {
                     PT_tau += double(vectortaujet[l]->PT);
+                    cout << PT_tau;
                 }
 
                 if(PT_tau > 10)
@@ -225,9 +226,9 @@ void CutsFunction(const char* filename)
                 }
             }
 
-            cout << "\r" "[" << bar << "] ";
-            cout.width( 3 );
-            cout << percent << "%     " << std::flush;   // lol
+            //cout << "\r" "[" << bar << "] ";
+            //cout.width( 3 );
+            //cout << percent << "%     " << std::flush;   // lol
         }
 
         if(npass == 6)
