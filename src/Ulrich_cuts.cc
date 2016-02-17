@@ -35,7 +35,7 @@ void CutsFunction(const char* filename)
 	
     //---------Opening the .root file:
     
-    /*
+    
     TFile *f = TFile::Open(filename.c_str());
 
     //---------Aiming the pointers with the relevant TBranch and TLeaves
@@ -43,20 +43,20 @@ void CutsFunction(const char* filename)
     //---------Google is not your friend!
     TTree *EM = (TTree*)f->Get("Delphes");
 
-    TBranch *branchJet = (TBranch*)EM->GetBranch("Jet");
-    TBranch *Event = (TBranch*)EM->GetBranch("Event");
-    TBranch *MissingET = (TBranch*)EM->GetBranch("MissingET");
-    TBranch *Particle = (TBranch*)EM->GetBranch("Particle");
-    TBranch *Track = (TBranch*)EM->GetBranch("Track");
+    // TBranch *branchJet = (TBranch*)EM->GetBranch("Jet");
+    // TBranch *Event = (TBranch*)EM->GetBranch("Event");
+    // TBranch *MissingET = (TBranch*)EM->GetBranch("MissingET");
+    // TBranch *Particle = (TBranch*)EM->GetBranch("Particle");
+    // TBranch *Track = (TBranch*)EM->GetBranch("Track");
     
-    TLeaf *Btag = branchJet->GetLeaf("Jet.BTag");
-    TLeaf *Tautag = branchJet->GetLeaf("Jet.TauTag");
-    TLeaf *JetMass = branchJet->GetLeaf("Jet.Mass");
-    TLeaf *JetEta = branchJet->GetLeaf("Jet.Eta");
-    TLeaf *JetPhi = branchJet->GetLeaf("Jet.Phi");
-    TLeaf *NJets = Event->GetLeaf("Jet_size");
+    // TLeaf *Btag = branchJet->GetLeaf("Jet.BTag");
+    // TLeaf *Tautag = branchJet->GetLeaf("Jet.TauTag");
+    // TLeaf *JetMass = branchJet->GetLeaf("Jet.Mass");
+    // TLeaf *JetEta = branchJet->GetLeaf("Jet.Eta");
+    // TLeaf *JetPhi = branchJet->GetLeaf("Jet.Phi");
+    // TLeaf *NJets = Event->GetLeaf("Jet_size");
     
-    */
+    
 
     TChain chain("Delphes");
     chain.Add(filename);
@@ -256,6 +256,10 @@ void CutsFunction(const char* filename)
 
     }
 
+    histMbb->Write();
+    histnbjet->Write();
+    histnptjet->Write();
+
     efficiency = double(eventpass)/double(entries);
 
     cout << "\n" << endl;
@@ -264,14 +268,14 @@ void CutsFunction(const char* filename)
     cout << pass_N_b_jets << " events contained at least 2 b-jets" << endl;
     cout << pass_bb_mass << " events contained at least 2 b-jets with invariant mass within the bounds" << endl;
     cout << pass_MET << " events had at least 30GeV Missing ET" << endl;
-    cout << pass_tau << " events contained at least 2 tau with SUM(PT) > 10GeV" << endl;
+    cout << pass_tau << " events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
     cout << "\n" << eventpass << " events passed all tests" << endl;
     cout << "\n\n\n" << endl;
     cout << "Cross-section is now reduced by factor of " << efficiency << "\n\n" << endl;
     cout << "\033[32m" << "Winner winner, chicken dinner\n" << "\033[0m" << endl;
 
- 
-//f->Close();   
+f->Write();
+f->Close();   
 
 };
 
