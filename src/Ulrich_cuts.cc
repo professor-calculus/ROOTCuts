@@ -8,7 +8,6 @@
 
 #include <iostream>
 #include "../include/Ulrich_cuts.hh"
-R__LOAD_LIBRARY(libDelphes)
 #include "classes/DelphesClasses.h"
 #include "ExRootAnalysis/ExRootTreeReader.h"
 #include "ExRootAnalysis/ExRootTreeBranch.h"
