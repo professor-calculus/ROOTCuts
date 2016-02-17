@@ -253,7 +253,7 @@ void CutsFunction(const char* filename)
     cout << pass_tau << " events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
     cout << "\n\n\n" << endl;
     cout << "Cross-section is now reduced by factor of" << efficiency << "\n\n" << endl;
-    cout << "Winner winner, chicken dinner"
+    cout << "Winner winner, chicken dinner";
 
  
 //f->Close();   
