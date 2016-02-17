@@ -267,7 +267,7 @@ void CutsFunction(const char* filename)
     cbjet->Update();
 
     cmbb->SaveAs("../Mbb.pdf");
-    mbjet->SaveAs("n_b_jets.pdf");
+    cbjet->SaveAs("n_b_jets.pdf");
 
 
     efficiency = double(eventpass)/double(entries);
