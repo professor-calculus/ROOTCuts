@@ -36,7 +36,7 @@ void CutsFunction(const char* filename)
     //---------Opening the .root file:
     
     
-    TFile *f = TFile::Open(filename.c_str());
+    TFile *f = TFile::Open(filename);
 
     //---------Aiming the pointers with the relevant TBranch and TLeaves
     //---------This is not particularly well-documented online,
