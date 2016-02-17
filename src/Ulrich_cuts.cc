@@ -148,7 +148,7 @@ void CutsFunction(const char* filename)
                     vectorbjet.push_back(jet);
                     N_bjets++;
                 }
-                else if(jet->TauTag && jet->Mass > 20 && jet->Mass < 160)
+                else if(jet->TauTag) // && jet->Mass > 20 && jet->Mass < 160)
                 {
                     vectortaujet.push_back(jet);
                     N_tau++;
@@ -255,7 +255,7 @@ void CutsFunction(const char* filename)
     cout << "\n" << eventpass << " events passed all tests" << endl;
     cout << "\n\n\n" << endl;
     cout << "Cross-section is now reduced by factor of " << efficiency << "\n\n" << endl;
-    cout << "\033[31m" << "Winner winner, chicken dinner\n" << "\033[0m" << endl;
+    cout << "\033[32m" << "Winner winner, chicken dinner\n" << "\033[0m" << endl;
 
  
 //f->Close();   
