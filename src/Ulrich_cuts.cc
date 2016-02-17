@@ -228,7 +228,6 @@ void CutsFunction(const char* filename)
             cout << "\r" "[" << bar << "] ";
             cout.width( 3 );
             cout << percent << "%     " << std::flush;   // lol
-            cout << "\n" << endl;
         }
 
         if(npass == 6)
@@ -244,7 +243,7 @@ void CutsFunction(const char* filename)
 
     efficiency = double(eventpass)/double(entries);
 
-
+    cout << "\n" << endl;
     cout << pass_N_jets << " events contained at least 4 jets" << endl;
     cout << pass_jets << " events contained 4 leading jets with PT 400,300,200,100 GeV" << endl;
     cout << pass_N_b_jets << " events contained at least 2 b-jets" << endl;
@@ -254,7 +253,7 @@ void CutsFunction(const char* filename)
     cout << "\n" << eventpass << " events passed all tests" << endl;
     cout << "\n\n\n" << endl;
     cout << "Cross-section is now reduced by factor of " << efficiency << "\n\n" << endl;
-    cout << "Winner winner, chicken dinner\n" << endl;
+    cout << "\033[31m" << "Winner winner, chicken dinner\n" << "\033[0m" << endl;
 
  
 //f->Close();   
