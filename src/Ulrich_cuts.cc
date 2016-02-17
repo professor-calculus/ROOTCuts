@@ -25,7 +25,7 @@ void CutsFunction(const char* filename)
 
 	int i, j, k, l, entries, npass, N_bjets, N_tau, N_PT;
 
-    double mbb, PT_tau, met, efficiency;
+    double mbb, mtautau, PT_tau, met, efficiency;
     
     int percent, tintin;
 
@@ -90,6 +90,7 @@ void CutsFunction(const char* filename)
     int pass_tau = 0;
     int pass_bb_mass = 0;
     int pass_N_jets = 0;
+    int pass_tautau_mass = 0;
 
     int eventpass = 0;
     
@@ -98,7 +99,7 @@ void CutsFunction(const char* filename)
     vector<Jet *> vectortaujet;
 
 
-    TLorentzVector p4[2];
+    TLorentzVector p4[4];
     
 
     //The for-loop: Loops over the tree to put the elements of each row into the class
@@ -155,7 +156,7 @@ void CutsFunction(const char* filename)
                 }
             }
 
-            if(N_bjets > 2)
+            if(N_bjets > 1)
             {
                 pass_N_b_jets++;
                 npass++;                   //passes the number of b-jets test
@@ -193,17 +194,29 @@ void CutsFunction(const char* filename)
 
             if(N_tau > 1)
             {
+
+                p4[2] = vectortaujet[0]->P4();
+                p4[3] = vectortaujet[1]->P4();
+
+                mtautau = ((p4[2]) + (p4[3])).M();
+
+                if(mtautau > 20 && mtautau < 160)
+                {
+                    npass++;                //passes the tautau inv. mass test
+                    pass_tautau_mass++;
+                }
+
                 for(l=0; l<N_tau; l++)
                 {
                     PT_tau += double(vectortaujet[l]->PT);
-                    cout << "Tau PT " << PT_tau << endl;
+                    //cout << "Tau PT " << PT_tau << endl;
                 }
 
                 if(double(PT_tau) > 100.)
                 {
                     npass++;                //passes the total tau transverse momentum test
                     pass_tau++;
-                    cout << pass_tau << " events passed the tau test so far" << endl;
+                    //cout << pass_tau << " events passed the tau test so far" << endl;
                 }
             }
             
@@ -227,12 +240,12 @@ void CutsFunction(const char* filename)
                 }
             }
 
-            //cout << "\r" "[" << bar << "] ";
-            //cout.width( 3 );
-            //cout << percent << "%     " << std::flush;   // lol
+            cout << "\033[36m" << "\r" "[" << bar << "] ";
+            cout.width( 3 );
+            cout << "\033[0m" << percent << "%     " << std::flush;   // lol
         }
 
-        if(npass == 6)
+        if(npass == 7)
         {
             eventpass++;
             histMbb->Fill(mbb);
