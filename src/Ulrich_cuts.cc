@@ -25,7 +25,7 @@ void CutsFunction(const char* filename)
 
 	int i, j, k, l, entries, npass, N_bjets, N_tau, N_PT;
 
-    double mbb, PT_tau, met;
+    double mbb, PT_tau, met, efficiency;
     
     int percent, tintin;
 
@@ -91,6 +91,7 @@ void CutsFunction(const char* filename)
     int pass_bb_mass = 0;
     int pass_N_jets = 0;
 
+    int eventpass = 0;
     
     vector<Jet *> vectorjet;
     vector<Jet *> vectorbjet;
@@ -232,6 +233,7 @@ void CutsFunction(const char* filename)
 
         if(npass == 6)
         {
+            eventpass++;
             histMbb->Fill(mbb);
             histnbjet->Fill(N_bjets);
             histnptjet->Fill(N_PT);
@@ -240,6 +242,8 @@ void CutsFunction(const char* filename)
 
     }
 
+    efficiency = double(eventpass)/double(entries);
+
 
     cout << pass_N_jets << " events contained at least 4 jets" << endl;
     cout << pass_jets << " events contained 4 leading jets with PT 400,300,200,100 GeV" << endl;
@@ -247,7 +251,9 @@ void CutsFunction(const char* filename)
     cout << pass_bb_mass << " events contained at least 2 b-jets with invariant mass within the bounds" << endl;
     cout << pass_MET << " events had at least 30GeV Missing ET" << endl;
     cout << pass_tau << " events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
-
+    cout << "\n\n\n" << endl;
+    cout << "Cross-section is now reduced by factor of" << efficiency << "\n\n" << endl;
+    cout << "Winner winner, chicken dinner"
 
  
 //f->Close();   
