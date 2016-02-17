@@ -263,10 +263,11 @@ void CutsFunction(const char* filename)
     histMbb->Draw();
     cmbb->Update();
 
+    cmbb->SaveAs("Mbb.pdf");
+
     histnbjet->Draw();
     cbjet->Update();
 
-    cmbb->SaveAs("Mbb.pdf");
     cbjet->SaveAs("n_b_jets.pdf");
 
 
