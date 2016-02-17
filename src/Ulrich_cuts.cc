@@ -199,10 +199,11 @@ void CutsFunction(const char* filename)
                     cout << "Tau PT " << PT_tau << endl;
                 }
 
-                if(PT_tau > 10)
+                if(double(PT_tau) > 100.)
                 {
                     npass++;                //passes the total tau transverse momentum test
                     pass_tau++;
+                    cout << pass_tau << " events passed the tau test so far" << endl;
                 }
             }
             
