@@ -83,6 +83,10 @@ void CutsFunction(const char* filename)
     TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b)", 50, 60.0, 160.0);
 
 
+    TCanvas * cbjet = new TCanvas("cbjet", "cbjet", 600, 600);
+    TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
+
+
     int pass_jets = 0;
     int pass_N_b_jets = 0;
     //int pass_PT_b_jets = 0;
@@ -256,8 +260,15 @@ void CutsFunction(const char* filename)
 
     }
 
-    histMbb->Write();
+    histMbb->Draw();
+    cmbb->Update();
+
     histnbjet->Write();
+    cbjet->Update();
+
+    cmbb->SaveAs("../Mbb.pdf");
+    mbjet->SaveAs("n_b_jets.pdf");
+
 
     efficiency = double(eventpass)/double(entries);
 
@@ -273,7 +284,7 @@ void CutsFunction(const char* filename)
     cout << "Cross-section is now reduced by factor of " << efficiency << "\n\n" << endl;
     cout << "\033[32m" << "Winner winner, chicken dinner\n" << "\033[0m" << endl;
 
-f->Write();
+//f->Write();
 f->Close();   
 
 };
