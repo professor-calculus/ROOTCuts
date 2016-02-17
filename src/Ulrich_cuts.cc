@@ -254,7 +254,7 @@ void CutsFunction(const char* filename)
     cout << "\n" << eventpass << " events passed all tests" << endl;
     cout << "\n\n\n" << endl;
     cout << "Cross-section is now reduced by factor of " << efficiency << "\n\n" << endl;
-    cout << "Winner winner, chicken dinner\n"; << endl;
+    cout << "Winner winner, chicken dinner\n" << endl;
 
  
 //f->Close();   
