@@ -78,9 +78,9 @@ void CutsFunction(const char* filename)
     cout << "Tree copied with " << entries << "entries\n\n\n" << endl;
 
     // Book histograms
-    TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets", 5, 0.0, 5.0);
-    TH1 *histnptjet = new TH1F("nbjet", "Number of b-jets", 5, 0.0, 5.0);
-    TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b)", 75, 50.0, 200.0);
+    TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets", 10, 0.0, 10.0);
+    //TH1 *histnptjet = new TH1F("nbjet", "Number of b-jets", 5, 0.0, 5.0);
+    TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b)", 50, 60.0, 160.0);
 
 
     int pass_jets = 0;
@@ -161,6 +161,8 @@ void CutsFunction(const char* filename)
                 pass_N_b_jets++;
                 npass++;                   //passes the number of b-jets test
 
+                histnbjet->Fill(N_bjets);
+
                 p4[0] = vectorbjet[0]->P4();
                 p4[1] = vectorbjet[1]->P4();
 
@@ -168,6 +170,7 @@ void CutsFunction(const char* filename)
 
                 if(mbb > 60 && mbb < 160)
                 {
+                    histMbb->Fill(mbb);
                     npass++;
                     pass_bb_mass++;               //passes the M_bb inv. mass test
                 }
@@ -248,9 +251,6 @@ void CutsFunction(const char* filename)
         if(npass == 7)
         {
             eventpass++;
-            histMbb->Fill(mbb);
-            histnbjet->Fill(N_bjets);
-            histnptjet->Fill(N_PT);
         }
 
 
@@ -258,7 +258,6 @@ void CutsFunction(const char* filename)
 
     histMbb->Write();
     histnbjet->Write();
-    histnptjet->Write();
 
     efficiency = double(eventpass)/double(entries);
 
