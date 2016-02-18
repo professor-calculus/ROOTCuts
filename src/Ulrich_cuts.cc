@@ -162,7 +162,6 @@ void CutsFunction(const char* filename)
                 pass_N_b_jets++;
                 npass++;                   //passes the number of b-jets test
 
-                histnbjet->Fill(N_bjets);
 
                 p4[0] = vectorbjet[0]->P4();
                 p4[1] = vectorbjet[1]->P4();
@@ -171,7 +170,6 @@ void CutsFunction(const char* filename)
 
                 if(mbb > 60 && mbb < 160)
                 {
-                    histMbb->Fill(mbb);
                     npass++;
                     pass_bb_mass++;               //passes the M_bb inv. mass test
                 }
@@ -252,6 +250,9 @@ void CutsFunction(const char* filename)
         if(npass == 7)
         {
             eventpass++;
+
+            histMbb->Fill(mbb);
+            histnbjet->Fill(N_bjets);
         }
 
 
