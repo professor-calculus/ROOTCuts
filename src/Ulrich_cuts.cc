@@ -83,9 +83,6 @@ void CutsFunction(const char* filename)
     TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b)", 20, 60.0, 160.0);
 
 
-    TCanvas * cbjet = new TCanvas("cbjet", "cbjet", 600, 600);
-    TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
-
 
     int pass_jets = 0;
     int pass_N_b_jets = 0;
@@ -260,10 +257,16 @@ void CutsFunction(const char* filename)
 
     }
 
+
+    TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
+
     histMbb->Draw();
     cmbb->Update();
 
     cmbb->SaveAs("Mbb.pdf");
+
+
+    TCanvas * cbjet = new TCanvas("cbjet", "cbjet", 600, 600);
 
     histnbjet->Draw();
     cbjet->Update();
