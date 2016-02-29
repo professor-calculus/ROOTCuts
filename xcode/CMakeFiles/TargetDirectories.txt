@@ -1,0 +1,3 @@
+/Users/alex/Documents/ROOTCuts/xcode/CMakeFiles/ZERO_CHECK.dir
+/Users/alex/Documents/ROOTCuts/xcode/CMakeFiles/ALL_BUILD.dir
+/Users/alex/Documents/ROOTCuts/xcode/CMakeFiles/ROOTCuts.dir
