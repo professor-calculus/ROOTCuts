@@ -143,22 +143,18 @@ void CutsFunction(const char* filename)
                 pass_N_b_jets++;
                 npass++;                   //passes the number of b-jets test
                 
-                matchingbjets = JetPairFinder(vectorbjet, N_bjets, 0.4);
+                matchingbjets = JetPairFinder(vectorbjet, N_bjets);
                 
-                if(matchingbjets.size() == 2)
+                p4[0] = matchingbjets[0]->P4();
+                p4[1] = matchingbjets[1]->P4();
+
+                mbb = ((p4[0]) + (p4[1])).M();
+
+                if(mbb > 60 && mbb < 160)
                 {
-                    p4[0] = matchingbjets[0]->P4();
-                    p4[1] = matchingbjets[1]->P4();
-
-                    mbb = ((p4[0]) + (p4[1])).M();
-
-                    if(mbb > 60 && mbb < 160)
-                    {
-                        npass++;
-                        pass_bb_mass++;               //passes the M_bb inv. mass test
-                    }
+                    npass++;
+                    pass_bb_mass++;               //passes the M_bb inv. mass test
                 }
-                
             }
 
             if(vectorjet[0]->PT > 400 && vectorjet[1]->PT > 300 && vectorjet[2]->PT > 200 && vectorjet[3]->PT > 100)
@@ -182,22 +178,18 @@ void CutsFunction(const char* filename)
 
             if(N_tau > 1)
             {
-                matchingtaujets = JetPairFinder(vectortaujet, N_tau, 0.4);
-                
-                if(matchingtaujets.size() == 2)
+                matchingtaujets = JetPairFinder(vectortaujet, N_tau);
+
+                p4[2] = matchingtaujets[0]->P4();
+                p4[3] = matchingtaujets[1]->P4();
+
+                mtautau = ((p4[2]) + (p4[3])).M();
+
+                if(mtautau > 20 && mtautau < 160)
                 {
-                    p4[2] = matchingtaujets[0]->P4();
-                    p4[3] = matchingtaujets[1]->P4();
-
-                    mtautau = ((p4[2]) + (p4[3])).M();
-
-                    if(mtautau > 20 && mtautau < 160)
-                    {
-                        npass++;                //passes the tautau inv. mass test
-                        pass_tautau_mass++;
-                    }
+                    npass++;                //passes the tautau inv. mass test
+                    pass_tautau_mass++;
                 }
-                
 
                 for(l=0; l<N_tau; l++)
                 {

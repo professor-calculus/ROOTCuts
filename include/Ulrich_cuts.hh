@@ -44,7 +44,7 @@ class TObjArray;
 class TTree;
 
 void CutsFunction(const char*);
-vector<Jet *> JetPairFinder(vector<Jet *>, int, double);
+vector<Jet *> JetPairFinder(vector<Jet *>, int);
 
 
 //--------The class which will store the data for each TrackID - then we can loop over each to do the tracking.

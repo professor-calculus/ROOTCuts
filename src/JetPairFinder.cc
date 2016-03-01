@@ -9,12 +9,13 @@
 #include <iostream>
 #include "../include/Ulrich_cuts.hh"
 
-vector<Jet*> JetPairFinder(vector<Jet*> inputjets, int numberofjets, double DeltaR)
+vector<Jet*> JetPairFinder(vector<Jet*> inputjets, int numberofjets)
 {
     TLorentzVector p[2];
     
     Jets jets;
     int minindex;
+    double DeltaR;
     
     vector<Jet*> matchingjets;
     
@@ -35,11 +36,9 @@ vector<Jet*> JetPairFinder(vector<Jet*> inputjets, int numberofjets, double Delt
     
     minindex = min_element(jets.DelR.begin(), jets.DelR.end()) - jets.DelR.begin();
     
-    if(jets.DelR[minindex] < 0.4)
-    {
-        matchingjets.push_back(jets.j1[minindex]);
-        matchingjets.push_back(jets.j2[minindex]);
-    }
+
+    matchingjets.push_back(jets.j1[minindex]);
+    matchingjets.push_back(jets.j2[minindex]);
     
     return matchingjets;
 }
