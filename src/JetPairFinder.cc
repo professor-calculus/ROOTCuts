@@ -35,8 +35,11 @@ vector<Jet*> JetPairFinder(vector<Jet*> inputjets, int numberofjets, double Delt
     
     minindex = min_element(jets.DelR.begin(), jets.DelR.end()) - jets.DelR.begin();
     
-    matchingjets.push_back(jets.j1[minindex]);
-    matchingjets.push_back(jets.j2[minindex]);
+    if(jets.DelR[minindex] < 0.4)
+    {
+        matchingjets.push_back(jets.j1[minindex]);
+        matchingjets.push_back(jets.j2[minindex]);
+    }
     
     return matchingjets;
 }
