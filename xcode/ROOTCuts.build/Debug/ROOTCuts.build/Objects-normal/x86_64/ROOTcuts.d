@@ -95,4 +95,28 @@ dependencies: /Users/alex/Documents/ROOTCuts/ROOTcuts.cc \
   /Users/alex/ROOT/root_install/include/TH1D.h \
   /Users/alex/ROOT/root_install/include/TApplication.h \
   /Users/alex/ROOT/root_install/include/TApplicationImp.h \
-  /Users/alex/ROOT/root_install/include/TClonesArray.h
+  /Users/alex/ROOT/root_install/include/TClonesArray.h \
+  /Users/alex/Delphes-3.3.2/classes/DelphesClasses.h \
+  /Users/alex/ROOT/root_install/include/TRef.h \
+  /Users/alex/ROOT/root_install/include/TRefArray.h \
+  /Users/alex/ROOT/root_install/include/TProcessID.h \
+  /Users/alex/ROOT/root_install/include/TLorentzVector.h \
+  /Users/alex/ROOT/root_install/include/TMath.h \
+  /Users/alex/ROOT/root_install/include/TError.h \
+  /Users/alex/ROOT/root_install/include/TVector3.h \
+  /Users/alex/ROOT/root_install/include/TVector2.h \
+  /Users/alex/ROOT/root_install/include/TMatrix.h \
+  /Users/alex/ROOT/root_install/include/TMatrixF.h \
+  /Users/alex/ROOT/root_install/include/TMatrixT.h \
+  /Users/alex/ROOT/root_install/include/TMatrixTBase.h \
+  /Users/alex/ROOT/root_install/include/TMatrixTUtils.h \
+  /Users/alex/ROOT/root_install/include/TMatrixFfwd.h \
+  /Users/alex/ROOT/root_install/include/TMatrixFUtils.h \
+  /Users/alex/ROOT/root_install/include/TMatrixFUtilsfwd.h \
+  /Users/alex/ROOT/root_install/include/TRotation.h \
+  /Users/alex/Delphes-3.3.2/classes/SortableObject.h \
+  /Users/alex/Delphes-3.3.2/external/ExRootAnalysis/ExRootTreeReader.h \
+  /Users/alex/Delphes-3.3.2/external/ExRootAnalysis/ExRootTreeBranch.h \
+  /Users/alex/Delphes-3.3.2/external/ExRootAnalysis/ExRootResult.h \
+  /Users/alex/ROOT/root_install/include/Gtypes.h \
+  /Users/alex/Delphes-3.3.2/external/ExRootAnalysis/ExRootUtilities.h

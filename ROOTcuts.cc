@@ -15,9 +15,14 @@ int main(int argc, char *argv[])
     gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
     //gSystem->Load("libExRootAnalysis.so");
     
-    if (argc>1)
+    if (argc == 2)
     {
     	CutsFunction(argv[1]);
+    }
+    
+    else
+    {
+        std::cout << "Usage: ./ROOTCuts /path/to/root/file.root" << endl;
     }
 
     return 0;

@@ -8,11 +8,7 @@
 
 #include <iostream>
 #include "../include/Ulrich_cuts.hh"
-#include "classes/DelphesClasses.h"
-#include "ExRootAnalysis/ExRootTreeReader.h"
-#include "ExRootAnalysis/ExRootTreeBranch.h"
-#include "ExRootAnalysis/ExRootResult.h"
-#include "ExRootAnalysis/ExRootUtilities.h"
+
 
 using namespace std;
 
@@ -23,9 +19,11 @@ void CutsFunction(const char* filename)
     //gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
     //gSystem->Load("libExRootAnalysis.so");
 
-	int i, j, k, l, entries, npass, N_bjets, N_tau, N_PT;
+	int i, k, l, entries, npass, N_bjets, N_tau, N_PT;
 
-    double mbb, mtautau, PT_tau, met, efficiency;
+    double mtautau, PT_tau, met, efficiency;
+    
+    double mbb = 0;
     
     int percent, tintin;
 
@@ -38,44 +36,23 @@ void CutsFunction(const char* filename)
     
     TFile *f = TFile::Open(filename,"UPDATE");
 
-    //---------Aiming the pointers with the relevant TBranch and TLeaves
-    //---------This is not particularly well-documented online,
-    //---------Google is not your friend!
-    TTree *EM = (TTree*)f->Get("Delphes");
-
-    // TBranch *branchJet = (TBranch*)EM->GetBranch("Jet");
-    // TBranch *Event = (TBranch*)EM->GetBranch("Event");
-    // TBranch *MissingET = (TBranch*)EM->GetBranch("MissingET");
-    // TBranch *Particle = (TBranch*)EM->GetBranch("Particle");
-    // TBranch *Track = (TBranch*)EM->GetBranch("Track");
-    
-    // TLeaf *Btag = branchJet->GetLeaf("Jet.BTag");
-    // TLeaf *Tautag = branchJet->GetLeaf("Jet.TauTag");
-    // TLeaf *JetMass = branchJet->GetLeaf("Jet.Mass");
-    // TLeaf *JetEta = branchJet->GetLeaf("Jet.Eta");
-    // TLeaf *JetPhi = branchJet->GetLeaf("Jet.Phi");
-    // TLeaf *NJets = Event->GetLeaf("Jet_size");
-    
-    
-
     TChain chain("Delphes");
     chain.Add(filename);
     ExRootTreeReader *reader = new ExRootTreeReader(&chain);
 
     TClonesArray *branchJet = reader->UseBranch("Jet");
-    TClonesArray *branchEvent = reader->UseBranch("Event");
     TClonesArray *branchMET = reader->UseBranch("MissingET");
-    TClonesArray *branchParticle = reader->UseBranch("Particle");
+    
     
     //--------Tell it not to panic if there's no entries - it's better than a segfault!
     if (reader->GetEntries() < 1)
     {
-        cout << "Problem" << endl;
+        cout << "Problem! There's no entries!" << endl;
     }
         
     entries = reader->GetEntries();
 
-    cout << "Tree copied with " << entries << "entries\n\n\n" << endl;
+    cout << "Tree copied with " << entries << " entries\n\n" << endl;
 
     // Book histograms
     TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets", 10, 0.0, 10.0);
@@ -98,6 +75,8 @@ void CutsFunction(const char* filename)
     vector<Jet *> vectorjet;
     vector<Jet *> vectorbjet;
     vector<Jet *> vectortaujet;
+    vector<Jet *> matchingbjets;
+    vector<Jet *> matchingtaujets;
 
 
     TLorentzVector p4[4];
@@ -117,6 +96,8 @@ void CutsFunction(const char* filename)
         vectorjet.clear();
         vectorbjet.clear();
         vectortaujet.clear();
+        matchingbjets.clear();
+        matchingtaujets.clear();
 
         Jet *jet = NULL;
 
@@ -161,10 +142,11 @@ void CutsFunction(const char* filename)
             {
                 pass_N_b_jets++;
                 npass++;                   //passes the number of b-jets test
+                
+                matchingbjets = JetPairFinder(vectorbjet, N_bjets, 0.4);
 
-
-                p4[0] = vectorbjet[0]->P4();
-                p4[1] = vectorbjet[1]->P4();
+                p4[0] = matchingbjets[0]->P4();
+                p4[1] = matchingbjets[1]->P4();
 
                 mbb = ((p4[0]) + (p4[1])).M();
 
@@ -196,9 +178,10 @@ void CutsFunction(const char* filename)
 
             if(N_tau > 1)
             {
+                matchingtaujets = JetPairFinder(vectortaujet, N_tau, 0.4);
 
-                p4[2] = vectortaujet[0]->P4();
-                p4[3] = vectortaujet[1]->P4();
+                p4[2] = matchingtaujets[0]->P4();
+                p4[3] = matchingtaujets[1]->P4();
 
                 mtautau = ((p4[2]) + (p4[3])).M();
 
@@ -257,7 +240,8 @@ void CutsFunction(const char* filename)
 
 
     }
-
+    
+    cout << "\n" << endl;
 
     TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
 
@@ -290,7 +274,7 @@ void CutsFunction(const char* filename)
     cout << "\033[32m" << "Winner winner, chicken dinner\n" << "\033[0m" << endl;
 
 //f->Write();
-f->Close();   
+f->Close();
 
 };
 

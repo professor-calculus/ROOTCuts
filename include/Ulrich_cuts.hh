@@ -29,6 +29,11 @@
 #include <fstream>
 #include <TApplication.h>
 #include <TClonesArray.h>
+#include "classes/DelphesClasses.h"
+#include "ExRootAnalysis/ExRootTreeReader.h"
+#include "ExRootAnalysis/ExRootTreeBranch.h"
+#include "ExRootAnalysis/ExRootResult.h"
+#include "ExRootAnalysis/ExRootUtilities.h"
 
 using namespace std;
 
@@ -39,6 +44,7 @@ class TObjArray;
 class TTree;
 
 void CutsFunction(const char*);
+vector<Jet *> JetPairFinder(vector<Jet *>, int, double);
 
 
 //--------The class which will store the data for each TrackID - then we can loop over each to do the tracking.
@@ -54,20 +60,15 @@ public:
 
     
 private:
-    TTree*					 tree;
-    TTree*					 tracker;
-    //string                 filename;
-    int                      maxtrack;
     //int                      entries;
     //TFile*                   f;
 };
 
 
-class LinearTracks
+class Jets
 {
 public:
-    double x[4];
-    double y[4];
-    int EventID;
-    int MuonNumber;
+    vector<double> DelR;
+    vector<Jet*> j1;
+    vector<Jet*> j2;
 };
