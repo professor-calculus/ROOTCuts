@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include "../include/Ulrich_cuts.hh"
+#include "../include/TerminalPlot.hh"
 
 
 using namespace std;
@@ -250,6 +251,7 @@ void CutsFunction(const char* filename)
 
     cmbb->SaveAs("Mbb.pdf");
 
+    //cout << histMbb->GetBinContent(10) << "\n" << endl;
 
     TCanvas * cbjet = new TCanvas("cbjet", "cbjet", 600, 600);
 
@@ -271,7 +273,10 @@ void CutsFunction(const char* filename)
     cout << "\n" << eventpass << " events passed all tests" << endl;
     cout << "\n\n\n" << endl;
     cout << "Cross-section is now reduced by factor of " << efficiency << "\n\n" << endl;
-    cout << "\033[32m" << "Winner winner, chicken dinner\n" << "\033[0m" << endl;
+    cout << "\033[32m" << "Winner winner, chicken dinner\n" << "\033[0m" << "\n\n\n" << endl;
+    
+    TerminalPlot(histMbb, "M_bb", 40, 0.0, 160.0);
+    TerminalPlot(histnbjet, "No. of b-jets", 40, 0.0, 10.0);
 
 //f->Write();
 f->Close();

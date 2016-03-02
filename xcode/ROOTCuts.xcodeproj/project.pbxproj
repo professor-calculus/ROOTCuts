@@ -48,6 +48,7 @@
 /* Begin PBXBuildFile section */
 		49FA56CECBAE4EAB801E9C05 /* Ulrich_cuts.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0466FEFE7E934FCB93F47EFF /* Ulrich_cuts.cc */; settings = {COMPILER_FLAGS = ""; }; };
 		7D2A4468C79E4D79BF050FAC /* ROOTcuts.cc in Sources */ = {isa = PBXBuildFile; fileRef = 914C63136C314674BF2C4587 /* ROOTcuts.cc */; settings = {COMPILER_FLAGS = ""; }; };
+		FA98FC1D1C8686C900285479 /* TerminalPlot.cc in Sources */ = {isa = PBXBuildFile; fileRef = FA98FC1B1C8686C900285479 /* TerminalPlot.cc */; };
 		FAA0A4241C853769007C3DBC /* JetPairFinder.cc in Sources */ = {isa = PBXBuildFile; fileRef = FAA0A4231C853769007C3DBC /* JetPairFinder.cc */; };
 /* End PBXBuildFile section */
 
@@ -90,6 +91,8 @@
 		BD4445F8987944F1AE9EFF35 /* ROOTCuts */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = ROOTCuts; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF5211321EB2425C81835F05 /* Ulrich_cuts.hh */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = Ulrich_cuts.hh; path = include/Ulrich_cuts.hh; sourceTree = SOURCE_ROOT; };
 		F9A1D16C50874FEEB5033508 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		FA98FC1B1C8686C900285479 /* TerminalPlot.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TerminalPlot.cc; path = src/TerminalPlot.cc; sourceTree = "<group>"; };
+		FA98FC1E1C86874200285479 /* TerminalPlot.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TerminalPlot.hh; path = include/TerminalPlot.hh; sourceTree = "<group>"; };
 		FAA0A4231C853769007C3DBC /* JetPairFinder.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JetPairFinder.cc; path = src/JetPairFinder.cc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,6 +127,7 @@
 			children = (
 				914C63136C314674BF2C4587 /* ROOTcuts.cc */,
 				0466FEFE7E934FCB93F47EFF /* Ulrich_cuts.cc */,
+				FA98FC1B1C8686C900285479 /* TerminalPlot.cc */,
 				FAA0A4231C853769007C3DBC /* JetPairFinder.cc */,
 			);
 			name = "Source Files";
@@ -148,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				DF5211321EB2425C81835F05 /* Ulrich_cuts.hh */,
+				FA98FC1E1C86874200285479 /* TerminalPlot.hh */,
 			);
 			name = "Header Files";
 			sourceTree = "<group>";
@@ -276,6 +281,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA98FC1D1C8686C900285479 /* TerminalPlot.cc in Sources */,
 				FAA0A4241C853769007C3DBC /* JetPairFinder.cc in Sources */,
 				7D2A4468C79E4D79BF050FAC /* ROOTcuts.cc in Sources */,
 				49FA56CECBAE4EAB801E9C05 /* Ulrich_cuts.cc in Sources */,
