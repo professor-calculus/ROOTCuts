@@ -9,6 +9,7 @@
 #include "../include/Ulrich_cuts.hh"
 #include "../include/TerminalPlot.hh"
 
+using namespace std;
 
 void TerminalPlot(TH1* hist, string title, int height, double xmin, double xmax)
 {

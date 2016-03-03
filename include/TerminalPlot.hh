@@ -10,6 +10,7 @@
 #define TerminalPlot_hpp
 
 #include <stdio.h>
+#include <iomanip>
 
 #endif /* TerminalPlot_hpp */
 
