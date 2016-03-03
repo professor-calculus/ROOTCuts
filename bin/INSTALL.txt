@@ -1,0 +1,19 @@
+##############################
+####     ROOTCut v0.1     ####
+####  Alexander Titterton ####
+####        © 2016        ####
+##############################
+
+Working directory ’bin’: Once in here you can build ROOTCuts and the executable will appear in this directory. Files generated whilst running (e.g. PDFs of histograms) will also be written here.
+
+build:
+cmake -DDELPHES=/path/to/delphes ..
+cmake —build .
+
+build Xcode project:
+cmake -G Xcode -DDELPHES=/path/to/delphes ..
+
+
+
+
+A.T.
