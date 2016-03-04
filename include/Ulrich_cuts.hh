@@ -43,7 +43,7 @@ class TFile;
 class TObjArray;
 class TTree;
 
-void CutsFunction(const char*);
+void CutsFunction(const char*, double []);
 vector<Jet *> JetPairFinder(vector<Jet *>, int);
 
 

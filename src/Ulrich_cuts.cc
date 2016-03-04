@@ -14,11 +14,42 @@
 using namespace std;
 
 
-void CutsFunction(const char* filename)
+void CutsFunction(const char* filename, double params[10])
 {
     gSystem->Load("libTreePlayer");
     //gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
     //gSystem->Load("libExRootAnalysis.so");
+    
+    //              Parameters:
+    //      0       1st Leading jet PT
+    //      1       2nd Leading jet PT
+    //      2       3rd Leading jet PT
+    //      3       4th Leading jet PT
+    //      4       b-jet lower bound PT
+    //      5       MET lower bound
+    //      6       min. taus inv. mass
+    //      7       max. taus inv. mass
+    //      8       min. Sum taus' PT
+    //      9       min. M_bb
+    //      10      max. M_bb
+    
+    double jetPT1 = params[0];
+    double jetPT2 = params[1];
+    double jetPT3 = params[2];
+    double jetPT4 = params[3];
+    
+    double bjetminPT = params[4];
+    
+    double minMET = params[5];
+    
+    double minTauinvmass = params[6];
+    double maxTauinvmass = params[7];
+    
+    double minSumTauPT = params[8];
+    
+    double minMbb = params[9];
+    double maxMbb = params[10];
+    
 
 	int i, k, l, entries, npass, N_bjets, N_tau, N_PT;
 
@@ -58,7 +89,7 @@ void CutsFunction(const char* filename)
     // Book histograms
     TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets", 10, 0.0, 10.0);
     //TH1 *histnptjet = new TH1F("nbjet", "Number of b-jets", 5, 0.0, 5.0);
-    TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b)", 20, 60.0, 160.0);
+    TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b)", 20, minMbb, maxMbb);
 
 
 
@@ -120,19 +151,19 @@ void CutsFunction(const char* filename)
             {
                 jet = (Jet*) branchJet->At(k);
 
-                if(jet->PT > 100)
+                if(jet->PT > jetPT4)
                 {
                     N_PT++;
                 }
 
                 vectorjet.push_back(jet);
 
-                if(jet->BTag && jet->PT > 40)
+                if(jet->BTag && jet->PT > bjetminPT)
                 {
                     vectorbjet.push_back(jet);
                     N_bjets++;
                 }
-                else if(jet->TauTag) // && jet->Mass > 20 && jet->Mass < 160)
+                else if(jet->TauTag)
                 {
                     vectortaujet.push_back(jet);
                     N_tau++;
@@ -151,14 +182,14 @@ void CutsFunction(const char* filename)
 
                 mbb = ((p4[0]) + (p4[1])).M();
 
-                if(mbb > 60 && mbb < 160)
+                if(mbb > minMbb && mbb < maxMbb)
                 {
                     npass++;
                     pass_bb_mass++;               //passes the M_bb inv. mass test
                 }
             }
 
-            if(vectorjet[0]->PT > 400 && vectorjet[1]->PT > 300 && vectorjet[2]->PT > 200 && vectorjet[3]->PT > 100)
+            if(vectorjet[0]->PT > jetPT1 && vectorjet[1]->PT > jetPT2 && vectorjet[2]->PT > jetPT3 && vectorjet[3]->PT > jetPT4)
             {
                 pass_jets++;
                 npass++;                    //passes the PT of 4 leading jets test
@@ -171,7 +202,7 @@ void CutsFunction(const char* filename)
                 met += metv;
             }
 
-            if(met > 30)
+            if(met > minMET)
             {
                 pass_MET++;
                 npass++;                    //passes the MET test
@@ -186,7 +217,7 @@ void CutsFunction(const char* filename)
 
                 mtautau = ((p4[2]) + (p4[3])).M();
 
-                if(mtautau > 20 && mtautau < 160)
+                if(mtautau > minTauinvmass && mtautau < maxTauinvmass)
                 {
                     npass++;                //passes the tautau inv. mass test
                     pass_tautau_mass++;
@@ -198,7 +229,7 @@ void CutsFunction(const char* filename)
                     //cout << "Tau PT " << PT_tau << endl;
                 }
 
-                if(double(PT_tau) > 100.)
+                if(double(PT_tau) > minSumTauPT)
                 {
                     npass++;                //passes the total tau transverse momentum test
                     pass_tau++;
@@ -273,9 +304,17 @@ void CutsFunction(const char* filename)
     cout << "\n" << eventpass << " events passed all tests" << endl;
     cout << "\n\n\n" << endl;
     cout << "Cross-section is now reduced by factor of " << efficiency << "\n\n" << endl;
-    cout << "\033[32m" << "Winner winner, chicken dinner\n" << "\033[0m" << "\n\n\n" << endl;
+    cout << "\033[32m" << "Winner winner, chicken dinner\n" << "\033[0m" << "\n\n" << endl;
+    cout << "Cuts (Energy, masses, PT in GeV):\n" << endl;
+    cout << "PT of 1st-4th leading jets = " << jetPT1 << ", " << jetPT2 << ", " << jetPT3 << ", " << jetPT4 << " respectively" << endl;
+    cout << "Min. b-jet PT = " << bjetminPT << endl;
+    cout << "Min. Missing ET = " << minMET << endl;
+    cout << "M_tautau from " << minTauinvmass << " to " << maxTauinvmass << endl;
+    cout << "Min. Sum of taus' PT = " << minSumTauPT << endl;
+    cout << "M_bb from " << minMbb << " to " << maxMbb << "\n\n" << endl;
     
-    TerminalPlot(histMbb, "M_bb", 40, 0.0, 160.0);
+    cout << "Plots:\n" << endl;
+    TerminalPlot(histMbb, "M_bb", 40, minMbb, maxMbb);
     TerminalPlot(histnbjet, "No. of b-jets", 40, 0.0, 10.0);
 
 //f->Write();
