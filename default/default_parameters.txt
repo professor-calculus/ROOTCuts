@@ -1,0 +1,12 @@
+#### Default parameters, for use when only giving one argument to ROOTCuts (masses in GeV) ###
+0	400.	# 1st leading jet PT
+1	300.	# 2nd leading jet PT
+2	200.	# 3rd leading jet PT
+3	100.	# 4th leading jet PT
+4	40.	# min. b-jet PT
+5	30.	# min. MET
+6	20.	# min. Taus inv. mass
+7	160.	# max. Taus inv. mass
+8	100.	# min. Sum Taus PT
+9	60.	# min. Mbb
+10	160.	# max. Mbb

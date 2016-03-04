@@ -91,6 +91,8 @@
 		BD4445F8987944F1AE9EFF35 /* ROOTCuts */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = ROOTCuts; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF5211321EB2425C81835F05 /* Ulrich_cuts.hh */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = Ulrich_cuts.hh; path = include/Ulrich_cuts.hh; sourceTree = SOURCE_ROOT; };
 		F9A1D16C50874FEEB5033508 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		FA060D061C894DD700CFA803 /* default */ = {isa = PBXFileReference; lastKnownFileType = folder; path = default; sourceTree = "<group>"; };
+		FA060D071C894DF200CFA803 /* Ulrich_parameters.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Ulrich_parameters.txt; sourceTree = "<group>"; };
 		FA98FC1B1C8686C900285479 /* TerminalPlot.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TerminalPlot.cc; path = src/TerminalPlot.cc; sourceTree = "<group>"; };
 		FA98FC1E1C86874200285479 /* TerminalPlot.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TerminalPlot.hh; path = include/TerminalPlot.hh; sourceTree = "<group>"; };
 		FAA0A4231C853769007C3DBC /* JetPairFinder.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JetPairFinder.cc; path = src/JetPairFinder.cc; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 		BE52AFBBEBAA4C6DBBF2EC6A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FA060D061C894DD700CFA803 /* default */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -160,6 +163,7 @@
 		E294154CF43B4C68AE923DC0 /* ROOTCuts */ = {
 			isa = PBXGroup;
 			children = (
+				FA060D071C894DF200CFA803 /* Ulrich_parameters.txt */,
 				7938EA314D8D4BEDAD38FC4B /* Source Files */,
 				D48BAD77AE4B46C0B502A6E9 /* Header Files */,
 				708FD3ACE20F4F8EA2761C1E /* CMakeLists.txt */,
