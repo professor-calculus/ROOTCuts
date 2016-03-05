@@ -14,7 +14,7 @@ using namespace std;
 void TerminalPlot(TH1* hist, string title, int height, double xmin, double xmax)
 {
     int tempbin, bins, yvalue;
-    int binscale = 1;
+    int binscale;
     double xvalue;
     
     bins = hist->GetNbinsX();
