@@ -302,7 +302,9 @@ void CutsFunction(const char* filename, double params[10])
     cout << pass_MET << " events had at least 30GeV Missing ET" << endl;
     cout << pass_tau << " events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
     cout << "\n" << eventpass << " events passed all tests" << endl;
+    
     cout << "\n\n\n" << endl;
+    
     cout << "Cross-section is now reduced by factor of " << efficiency << "\n\n" << endl;
     cout << "\033[32m" << "Winner winner, chicken dinner\n" << "\033[0m" << "\n\n" << endl;
     cout << "Cuts (Energy, masses, PT in GeV):\n" << endl;

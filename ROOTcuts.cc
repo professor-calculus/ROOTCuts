@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     
     else if(argc == 2)
     {
-        fstream fin("default/default_parameters.txt");
+        fstream fin("../default/default_parameters.txt");
         string line;
         
         while(getline(fin, line))
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
     
     else
     {
-        std::cout << "Usage: ./ROOTCuts /path/to/root/file.root" << endl;
+        std::cout << "Usage: ./ROOTCuts /path/to/root/file.root /path/to/parameters/file.something" << endl;
     }
 
     return 0;
