@@ -90,6 +90,7 @@ void CutsFunction(const char* filename, double params[10])
     TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets", 10, 0.0, 10.0);
     //TH1 *histnptjet = new TH1F("nbjet", "Number of b-jets", 5, 0.0, 5.0);
     TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b)", 20, minMbb, maxMbb);
+    TH1 *histmet = new TH1F ("met", "Missing ET", 20, minMET, 1000.);
 
 
 
@@ -268,6 +269,7 @@ void CutsFunction(const char* filename, double params[10])
 
             histMbb->Fill(mbb);
             histnbjet->Fill(N_bjets);
+            histmet->Fill(met);
         }
 
 
@@ -281,6 +283,7 @@ void CutsFunction(const char* filename, double params[10])
     cmbb->Update();
 
     cmbb->SaveAs("Mbb.pdf");
+    
 
     //cout << histMbb->GetBinContent(10) << "\n" << endl;
 
@@ -290,6 +293,15 @@ void CutsFunction(const char* filename, double params[10])
     cbjet->Update();
 
     cbjet->SaveAs("n_b_jets.pdf");
+    
+    
+    TCanvas * cmet = new TCanvas ("cmet", "cmet", 600, 600);
+    
+    histmet->Draw();
+    cmet->Update();
+    
+    cmet->SaveAs("MET.pdf");
+    
 
 
     efficiency = double(eventpass)/double(entries);
@@ -318,6 +330,7 @@ void CutsFunction(const char* filename, double params[10])
     cout << "Plots:\n" << endl;
     TerminalPlot(histMbb, "M_bb", 40, minMbb, maxMbb);
     TerminalPlot(histnbjet, "No. of b-jets", 40, 0.0, 10.0);
+    TerminalPlot(histmet, "Missing ET", 40, minMET, 1000.);
 
 //f->Write();
 f->Close();
