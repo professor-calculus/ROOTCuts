@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CFCA4C6805F64BFFB9062745"
+               BlueprintIdentifier = "9FF40E95764F43379B382959"
                BuildableName = "install"
                BlueprintName = "install"
                ReferencedContainer = "container:xcode/ROOTCuts.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CFCA4C6805F64BFFB9062745"
+            BlueprintIdentifier = "9FF40E95764F43379B382959"
             BuildableName = "install"
             BlueprintName = "install"
             ReferencedContainer = "container:xcode/ROOTCuts.xcodeproj">
@@ -63,7 +63,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CFCA4C6805F64BFFB9062745"
+            BlueprintIdentifier = "9FF40E95764F43379B382959"
             BuildableName = "install"
             BlueprintName = "install"
             ReferencedContainer = "container:xcode/ROOTCuts.xcodeproj">

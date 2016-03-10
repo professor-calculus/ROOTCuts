@@ -21,16 +21,17 @@ int main(int argc, char *argv[])
     //      1       2nd Leading jet PT
     //      2       3rd Leading jet PT
     //      3       4th Leading jet PT
-    //      4       b-jet lower bound PT
-    //      5       MET lower bound
-    //      6       min. taus inv. mass
-    //      7       max. taus inv. mass
-    //      8       min. Sum taus' PT
-    //      9       min. M_bb
-    //      10      max. M_bb
+    //      4       0 = h->bb h->tau-tau; 1 = h->bb both cascades
+    //      5       b-jet lower bound PT
+    //      6       MET lower bound
+    //      7       min. taus inv. mass
+    //      8       max. taus inv. mass
+    //      9       min. Sum taus' PT
+    //      10      min. M_bb
+    //      11      max. M_bb
 
     
-    double params[11];
+    double params[12];
     int param;
     double value;
     

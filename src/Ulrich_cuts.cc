@@ -14,7 +14,7 @@
 using namespace std;
 
 
-void CutsFunction(const char* filename, double params[10])
+void CutsFunction(const char* filename, double params[12])
 {
     gSystem->Load("libTreePlayer");
     //gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
@@ -25,30 +25,38 @@ void CutsFunction(const char* filename, double params[10])
     //      1       2nd Leading jet PT
     //      2       3rd Leading jet PT
     //      3       4th Leading jet PT
-    //      4       b-jet lower bound PT
-    //      5       MET lower bound
-    //      6       min. taus inv. mass
-    //      7       max. taus inv. mass
-    //      8       min. Sum taus' PT
-    //      9       min. M_bb
-    //      10      max. M_bb
+    //      4       0 = h->bb h->tau-tau; 1 = h->bb both cascades
+    //      5       b-jet lower bound PT
+    //      6       MET lower bound
+    //      7       min. taus inv. mass
+    //      8       max. taus inv. mass
+    //      9       min. Sum taus' PT
+    //      10      min. M_bb
+    //      11      max. M_bb
     
     double jetPT1 = params[0];
     double jetPT2 = params[1];
     double jetPT3 = params[2];
     double jetPT4 = params[3];
     
-    double bjetminPT = params[4];
+    int higgsdecay = int(params[4]);
+    if(higgsdecay < 0 || higgsdecay > 1)
+    {
+        cout << "ERROR: Higgs Decay mode must be 0 or 1" << endl;
+        return;
+    }
     
-    double minMET = params[5];
+    double bjetminPT = params[5];
     
-    double minTauinvmass = params[6];
-    double maxTauinvmass = params[7];
+    double minMET = params[6];
     
-    double minSumTauPT = params[8];
+    double minTauinvmass = params[7];
+    double maxTauinvmass = params[8];
     
-    double minMbb = params[9];
-    double maxMbb = params[10];
+    double minSumTauPT = params[9];
+    
+    double minMbb = params[10];
+    double maxMbb = params[11];
     
 
 	int i, k, l, entries, npass, N_bjets, N_tau, N_PT;
@@ -56,6 +64,7 @@ void CutsFunction(const char* filename, double params[10])
     double mtautau, PT_tau, met, efficiency;
     
     double mbb = 0;
+    double mbb2 = 0;
     
     int percent, tintin;
 
@@ -87,10 +96,9 @@ void CutsFunction(const char* filename, double params[10])
     cout << "Tree copied with " << entries << " entries\n\n" << endl;
 
     // Book histograms
-    TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets", 10, 0.0, 10.0);
-    //TH1 *histnptjet = new TH1F("nbjet", "Number of b-jets", 5, 0.0, 5.0);
-    TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b)", 20, minMbb, maxMbb);
-    TH1 *histmet = new TH1F ("met", "Missing ET", 20, minMET, 1000.);
+    TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets (h->bb in both cascades); No. b-jets", 10, 0.0, 10.0);
+    TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b) (h->bb in both cascades); M_{inv}(b, b) (GeV)", 20, minMbb, maxMbb);
+    TH1 *histmet = new TH1F ("met", "Missing ET (h->bb in both cascades); MET (GeV)", 20, minMET, 1000.);
 
 
 
@@ -171,7 +179,7 @@ void CutsFunction(const char* filename, double params[10])
                 }
             }
 
-            if(N_bjets > 1)
+            if(higgsdecay == 0 && N_bjets > 1)
             {
                 pass_N_b_jets++;
                 npass++;                   //passes the number of b-jets test
@@ -186,6 +194,28 @@ void CutsFunction(const char* filename, double params[10])
                 if(mbb > minMbb && mbb < maxMbb)
                 {
                     npass++;
+                    pass_bb_mass++;               //passes the M_bb inv. mass test
+                }
+            }
+            else if(higgsdecay == 1 && N_bjets > 3)
+            {
+                pass_N_b_jets++;
+                npass += 2;                   //passes the number of b-jets test
+                
+                matchingbjets = JetDoublePairFinder(vectorbjet, N_bjets);
+                
+                p4[0] = matchingbjets[0]->P4();
+                p4[1] = matchingbjets[1]->P4();
+                p4[2] = matchingbjets[2]->P4();
+                p4[3] = matchingbjets[3]->P4();
+                
+                
+                mbb = ((p4[0]) + (p4[1])).M();
+                mbb2 = ((p4[2]) + (p4[3])).M();
+                
+                if(mbb > minMbb && mbb < maxMbb && mbb2 > minMbb && mbb2 < maxMbb)
+                {
+                    npass += 2;
                     pass_bb_mass++;               //passes the M_bb inv. mass test
                 }
             }
@@ -209,7 +239,7 @@ void CutsFunction(const char* filename, double params[10])
                 npass++;                    //passes the MET test
             }
 
-            if(N_tau > 1)
+            if(higgsdecay == 0 && N_tau > 1)
             {
                 matchingtaujets = JetPairFinder(vectortaujet, N_tau);
 
@@ -270,20 +300,37 @@ void CutsFunction(const char* filename, double params[10])
             histMbb->Fill(mbb);
             histnbjet->Fill(N_bjets);
             histmet->Fill(met);
+            if(higgsdecay == 1)
+            {
+                histMbb->Fill(mbb2);
+            }
         }
 
 
     }
     
     cout << "\n" << endl;
+    
+    if(higgsdecay == 0)
+    {
+        histMbb->SetTitle("M_{inv}(b, b) (h->bb and h->tau-tau); M_{inv}(b, b) (GeV)");
+        histnbjet->SetTitle("Number of b-jets (h->bb and h->tau-tau); No. b-jets");
+        histmet->SetTitle("Missing ET (h->bb and h->tau-tau); MET (GeV)");
+    }
 
     TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
-
+    
     histMbb->Draw();
     cmbb->Update();
-
-    cmbb->SaveAs("Mbb.pdf");
     
+    if(higgsdecay == 0)
+    {
+        cmbb->SaveAs("Mbb_tau.pdf");
+    }
+    else
+    {
+        cmbb->SaveAs("Mbb.pdf");
+    }
 
     //cout << histMbb->GetBinContent(10) << "\n" << endl;
 
@@ -292,7 +339,14 @@ void CutsFunction(const char* filename, double params[10])
     histnbjet->Draw();
     cbjet->Update();
 
-    cbjet->SaveAs("n_b_jets.pdf");
+    if(higgsdecay == 0)
+    {
+        cbjet->SaveAs("n_b_jets_tau.pdf");
+    }
+    else
+    {
+        cbjet->SaveAs("n_b_jets.pdf");
+    }
     
     
     TCanvas * cmet = new TCanvas ("cmet", "cmet", 600, 600);
@@ -300,13 +354,28 @@ void CutsFunction(const char* filename, double params[10])
     histmet->Draw();
     cmet->Update();
     
-    cmet->SaveAs("MET.pdf");
+    if(higgsdecay == 0)
+    {
+        cmet->SaveAs("MET_tau.pdf");
+    }
+    else
+    {
+        cmet->SaveAs("MET.pdf");
+    }
     
 
 
     efficiency = double(eventpass)/double(entries);
 
     cout << "\n" << endl;
+    if(higgsdecay == 0)
+    {
+        cout << "Higgs to bb and Higgs to tau-tau required\n" << endl;
+    }
+    else
+    {
+        cout << "Higgs to bb in both cascades required\n" << endl;
+    }
     cout << pass_N_jets << " events contained at least 4 jets" << endl;
     cout << pass_jets << " events contained 4 leading jets with PT 400,300,200,100 GeV" << endl;
     cout << pass_N_b_jets << " events contained at least 2 b-jets" << endl;
@@ -323,8 +392,11 @@ void CutsFunction(const char* filename, double params[10])
     cout << "PT of 1st-4th leading jets = " << jetPT1 << ", " << jetPT2 << ", " << jetPT3 << ", " << jetPT4 << " respectively" << endl;
     cout << "Min. b-jet PT = " << bjetminPT << endl;
     cout << "Min. Missing ET = " << minMET << endl;
-    cout << "M_tautau from " << minTauinvmass << " to " << maxTauinvmass << endl;
-    cout << "Min. Sum of taus' PT = " << minSumTauPT << endl;
+    if(higgsdecay == 0)
+    {
+        cout << "M_tautau from " << minTauinvmass << " to " << maxTauinvmass << endl;
+        cout << "Min. Sum of taus' PT = " << minSumTauPT << endl;
+    }
     cout << "M_bb from " << minMbb << " to " << maxMbb << "\n\n" << endl;
     
     cout << "Plots:\n" << endl;

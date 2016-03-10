@@ -19,7 +19,7 @@ vector<Jet*> JetPairFinder(vector<Jet*> inputjets, int numberofjets)
     
     vector<Jet*> matchingjets;
     
-    for(int j=0; j<numberofjets; j++)
+    for(int j=0; j<numberofjets-1; j++)
     {
         for(int a=j+1; a<numberofjets; a++)
         {

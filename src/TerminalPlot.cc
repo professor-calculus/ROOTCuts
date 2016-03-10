@@ -66,36 +66,40 @@ void TerminalPlot(TH1* hist, string title, int height, double xmin, double xmax)
         {
             if(scaledhist[k] > height-j+1)
             {
-                switch(binscale)
+                if(binscale == 4)
                 {
-                    case 4:
-                        cout << setw(4) << left << "\033[31m" << "****" << "\033[0m";
-                
-                    case 3:
-                        cout << setw(3) << left << "\033[31m" << "***" << "\033[0m";
-                        
-                    case 2:
-                        cout << setw(2) << left << "\033[31m" << "**" << "\033[0m";
-                        
-                    case 1:
-                        cout << setw(1) << left << "\033[31m" << "*" << "\033[0m";
+                    cout << setw(4) << left << "\033[31m" << "****" << "\033[0m";
+                }
+                else if(binscale == 3)
+                {
+                    cout << setw(3) << left << "\033[31m" << "***" << "\033[0m";
+                }
+                else if(binscale == 2)
+                {
+                    cout << setw(2) << left << "\033[31m" << "**" << "\033[0m";
+                }
+                else
+                {
+                    cout << setw(1) << left << "\033[31m" << "*" << "\033[0m";
                 }
             }
             else
             {
-                switch(binscale)
+                if(binscale == 4)
                 {
-                    case 4:
-                        cout << setw(4) << left << "\033[31m" << "    " << "\033[0m";
-
-                    case 3:
-                        cout << setw(3) << left << "\033[31m" << "   " << "\033[0m";
-
-                    case 2:
-                        cout << setw(2) << left << "\033[31m" << "  " << "\033[0m";
-                        
-                    case 1:
-                        cout << setw(1) << left << "\033[31m" << " " << "\033[0m";
+                    cout << setw(4) << left << "\033[31m" << "    " << "\033[0m";
+                }
+                else if(binscale == 3)
+                {
+                    cout << setw(3) << left << "\033[31m" << "   " << "\033[0m";
+                }
+                else if(binscale == 2)
+                {
+                    cout << setw(2) << left << "\033[31m" << "  " << "\033[0m";
+                }
+                else
+                {
+                    cout << setw(1) << left << "\033[31m" << " " << "\033[0m";
                 }
             }
         }
@@ -113,19 +117,21 @@ void TerminalPlot(TH1* hist, string title, int height, double xmin, double xmax)
     cout << setw(1) << "\033[36m" << "|" << "\033[0m";
     for(int l=0; l<bins; l++)
     {
-        switch(binscale)
+        if(binscale == 4)
         {
-            case 4:
-                cout << "\033[36m" << setw(4) << "----" << "\033[0m";
-                
-            case 3:
-                cout << "\033[36m" << setw(3) << "---" << "\033[0m";
-                
-            case 2:
-                cout << "\033[36m" << setw(2) << "--" << "\033[0m";
-        
-            case 1:
-                cout << "\033[36m" << setw(1) << "-" << "\033[0m";
+            cout << "\033[36m" << setw(4) << "----" << "\033[0m";
+        }
+        else if(binscale == 3)
+        {
+            cout << "\033[36m" << setw(3) << "---" << "\033[0m";
+        }
+        else if(binscale == 2)
+        {
+            cout << "\033[36m" << setw(2) << "--" << "\033[0m";
+        }
+        else
+        {
+            cout << "\033[36m" << setw(1) << "-" << "\033[0m";
         }
     }
     

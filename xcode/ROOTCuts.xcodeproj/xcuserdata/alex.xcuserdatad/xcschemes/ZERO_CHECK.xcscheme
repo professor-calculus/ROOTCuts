@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A37FF758FAFD4C568037C3FB"
+               BlueprintIdentifier = "14EC2A2F21204A4FBA1765C8"
                BuildableName = "ZERO_CHECK"
                BlueprintName = "ZERO_CHECK"
                ReferencedContainer = "container:xcode/ROOTCuts.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A37FF758FAFD4C568037C3FB"
+            BlueprintIdentifier = "14EC2A2F21204A4FBA1765C8"
             BuildableName = "ZERO_CHECK"
             BlueprintName = "ZERO_CHECK"
             ReferencedContainer = "container:xcode/ROOTCuts.xcodeproj">
@@ -63,7 +63,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A37FF758FAFD4C568037C3FB"
+            BlueprintIdentifier = "14EC2A2F21204A4FBA1765C8"
             BuildableName = "ZERO_CHECK"
             BlueprintName = "ZERO_CHECK"
             ReferencedContainer = "container:xcode/ROOTCuts.xcodeproj">

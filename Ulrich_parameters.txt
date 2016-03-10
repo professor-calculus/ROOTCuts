@@ -3,10 +3,11 @@
 1	300.	# 2nd leading jet PT
 2	200.	# 3rd leading jet PT
 3	100.	# 4th leading jet PT
-4	40.	# min. b-jet PT
-5	30.	# min. MET
-6	20.	# min. Taus inv. mass
-7	160.	# max. Taus inv. mass
-8	100.	# min. Sum Taus PT
-9	60.	# min. Mbb
-10	160.	# max. Mbb
+4	0.	# 0 = h->bb h->tau-tau; 1 = h->bbx2	
+5	40.	# min. b-jet PT
+6	30.	# min. MET
+7	20.	# min. Taus inv. mass
+8	160.	# max. Taus inv. mass
+9	100.	# min. Sum Taus PT
+10	60.	# min. Mbb
+11	160.	# max. Mbb

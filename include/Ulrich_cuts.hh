@@ -45,6 +45,7 @@ class TTree;
 
 void CutsFunction(const char*, double []);
 vector<Jet *> JetPairFinder(vector<Jet *>, int);
+vector<Jet *> JetDoublePairFinder(vector<Jet *>, int);
 
 
 //--------The class which will store the data for each TrackID - then we can loop over each to do the tracking.
@@ -71,4 +72,14 @@ public:
     vector<double> DelR;
     vector<Jet*> j1;
     vector<Jet*> j2;
+};
+
+class DoubleJets
+{
+public:
+    vector<double> DelR;
+    vector<Jet*> j1;
+    vector<Jet*> j2;
+    vector<Jet*> j3;
+    vector<Jet*> j4;
 };
