@@ -28,6 +28,8 @@ vector<Jet*> JetDoublePairFinder(vector<Jet*> inputjets, int numberofjets)
             {
                 for(int c=j+3; c<numberofjets; c++)
                 {
+                    DeltaRtot.clear();
+                    
                     p[0] = inputjets[j]->P4();
                     p[1] = inputjets[a]->P4();
                     p[2] = inputjets[b]->P4();

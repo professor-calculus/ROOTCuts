@@ -44,12 +44,6 @@ class TFile;
 class TObjArray;
 class TTree;
 
-class Graphs
-{
-public:
-    TH1 histMbb;
-    TH1 histMbbBkg;
-};
 
 void CutsFunction(const char*, double []);
 TH1 *CutsFunctionBkg(const char*, double [], string);
@@ -90,6 +84,16 @@ public:
     vector<double> DelR;
     vector<double> DelR2;
     vector<double> DelRtot;
+    vector<Jet*> j1;
+    vector<Jet*> j2;
+    vector<Jet*> j3;
+    vector<Jet*> j4;
+};
+
+class DoubleMbbJets
+{
+public:
+    vector<double> DelMbb;
     vector<Jet*> j1;
     vector<Jet*> j2;
     vector<Jet*> j3;

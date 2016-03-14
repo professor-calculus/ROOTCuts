@@ -33,6 +33,8 @@ void CutsFunction(const char* filename, double params[12])
     //      9       min. Sum taus' PT
     //      10      min. M_bb
     //      11      max. M_bb
+    //      12      Jet pair matching algorithm for 2 bb pairs: 0 = Smallest av. Delta-R; 1 = Pairs with closest M_inv(bb)
+
     
     double jetPT1 = params[0];
     double jetPT2 = params[1];
@@ -57,6 +59,8 @@ void CutsFunction(const char* filename, double params[12])
     
     double minMbb = params[10];
     double maxMbb = params[11];
+    
+    int jetmatchingalgo = params[12];
     
 
 	int i, k, l, entries, npass, N_bjets, N_tau, N_PT;
@@ -202,7 +206,14 @@ void CutsFunction(const char* filename, double params[12])
                 pass_N_b_jets++;
                 npass += 2;                   //passes the number of b-jets test
                 
-                matchingbjets = JetDoublePairFinder(vectorbjet, N_bjets);
+                if(jetmatchingalgo == 0)     //Jet pairs with smallest average Delta-R
+                {
+                    matchingbjets = JetDoublePairFinder(vectorbjet, N_bjets);
+                }
+                else if(jetmatchingalgo == 1)                   //Jet pairs with closest M_inv(bb)
+                {
+                    matchingbjets = JetDoubleMbbPairFinder(vectorbjet, N_bjets);
+                }
                 
                 p4[0] = matchingbjets[0]->P4();
                 p4[1] = matchingbjets[1]->P4();
