@@ -70,6 +70,8 @@ void CutsFunction(const char* filename, double params[12])
     double mbb = 0;
     double mbb2 = 0;
     
+    double DeltaR, DeltaR2;
+    
     int percent, tintin;
 
     string bar;
@@ -103,6 +105,7 @@ void CutsFunction(const char* filename, double params[12])
     TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets (h->bb in both cascades); No. b-jets", 10, 0.0, 10.0);
     TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b) (h->bb in both cascades); M_{inv}(b, b) (GeV)", 20, minMbb, maxMbb);
     TH1 *histmet = new TH1F ("met", "Missing ET (h->bb in both cascades); MET (GeV)", 20, minMET, 1000.);
+    TH1 *histDeltaR = new TH1F("DeltaR", "Delta R between b-jets; Delta R", 20, 0, 6);
 
 
 
@@ -199,6 +202,8 @@ void CutsFunction(const char* filename, double params[12])
                 {
                     npass++;
                     pass_bb_mass++;               //passes the M_bb inv. mass test
+                    
+                    DeltaR = p4[0].DeltaR(p4[1]);
                 }
             }
             else if(higgsdecay == 1 && N_bjets > 3)
@@ -224,10 +229,15 @@ void CutsFunction(const char* filename, double params[12])
                 mbb = ((p4[0]) + (p4[1])).M();
                 mbb2 = ((p4[2]) + (p4[3])).M();
                 
+                
+                
                 if(mbb > minMbb && mbb < maxMbb && mbb2 > minMbb && mbb2 < maxMbb)
                 {
                     npass += 2;
                     pass_bb_mass++;               //passes the M_bb inv. mass test
+                    
+                    DeltaR = p4[0].DeltaR(p4[1]);
+                    DeltaR2 = p4[2].DeltaR(p4[3]);
                 }
             }
 
@@ -311,9 +321,12 @@ void CutsFunction(const char* filename, double params[12])
             histMbb->Fill(mbb);
             histnbjet->Fill(N_bjets);
             histmet->Fill(met);
+            histDeltaR->Fill(DeltaR);
             if(higgsdecay == 1)
             {
                 histMbb->Fill(mbb2);
+                
+                histDeltaR->Fill(DeltaR2);
             }
         }
 
@@ -374,6 +387,22 @@ void CutsFunction(const char* filename, double params[12])
         cmet->SaveAs("MET.pdf");
     }
     
+    
+    TCanvas * cdelr = new TCanvas ("cdelr", "cdelr", 600, 600);
+    
+    histDeltaR->Draw();
+    cdelr->Update();
+    
+
+    if(higgsdecay == 0)
+    {
+        cdelr->SaveAs("DeltaR_tau.pdf");
+    }
+    else
+    {
+        cdelr->SaveAs("DeltaR.pdf");
+    }
+    
 
 
     efficiency = double(eventpass)/double(entries);
@@ -414,6 +443,7 @@ void CutsFunction(const char* filename, double params[12])
     TerminalPlot(histMbb, "M_bb", 40, minMbb, maxMbb);
     TerminalPlot(histnbjet, "No. of b-jets", 40, 0.0, 10.0);
     TerminalPlot(histmet, "Missing ET", 40, minMET, 1000.);
+    TerminalPlot(histDeltaR, "b-Jets DeltaR", 40, 0, 6);
 
 //f->Write();
 f->Close();

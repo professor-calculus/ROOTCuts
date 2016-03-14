@@ -70,6 +70,8 @@ TH1 *CutsFunctionBkg(const char* filename, double params[12], string mode)
     double mbb = 0;
     double mbb2 = 0;
     
+    double DeltaR, DeltaR2;
+    
     int percent, tintin;
     
     string bar;
@@ -199,6 +201,8 @@ TH1 *CutsFunctionBkg(const char* filename, double params[12], string mode)
                 {
                     npass++;
                     pass_bb_mass++;               //passes the M_bb inv. mass test
+                    
+                    DeltaR = p4[0].DeltaR(p4[1]);
                 }
             }
             else if(higgsdecay ==1 && N_bjets > 3)
@@ -228,6 +232,9 @@ TH1 *CutsFunctionBkg(const char* filename, double params[12], string mode)
                 {
                     npass += 2;
                     pass_bb_mass++;               //passes the M_bb inv. mass test
+                    
+                    DeltaR = p4[0].DeltaR(p4[1]);
+                    DeltaR2 = p4[2].DeltaR(p4[3]);
                 }
             }
             
@@ -311,9 +318,13 @@ TH1 *CutsFunctionBkg(const char* filename, double params[12], string mode)
             histMbb->Fill(mbb);
             histnbjet->Fill(N_bjets);
             histmet->Fill(met);
+            histDeltaR->Fill(DeltaR);
+            
             if(higgsdecay == 1)
             {
                 histMbb->Fill(mbb2);
+
+                histDeltaR->Fill(DeltaR2);
             }
         }
         
@@ -390,6 +401,34 @@ TH1 *CutsFunctionBkg(const char* filename, double params[12], string mode)
         }
     }
     
+    TCanvas * cdelr = new TCanvas ("cdelr", "cdelr", 600, 600);
+    
+    histDeltaR->Draw();
+    cdelr->Update();
+    
+    if(mode == "Signal")
+    {
+        if(higgsdecay == 0)
+        {
+            cdelr->SaveAs("DeltaR_tau.pdf");
+        }
+        else
+        {
+            cdelr->SaveAs("DeltaR.pdf");
+        }
+    }
+    else
+    {
+        if(higgsdecay == 0)
+        {
+            cdelr->SaveAs("DeltaR_tau_bkg.pdf");
+        }
+        else
+        {
+            cdelr->SaveAs("DeltaR_bkg.pdf");
+        }
+    }
+    
     
     
     efficiency = double(eventpass)/double(entries);
@@ -430,6 +469,8 @@ TH1 *CutsFunctionBkg(const char* filename, double params[12], string mode)
     //TerminalPlot(histMbb, "M_bb", 40, minMbb, maxMbb);
     TerminalPlot(histnbjet, "No. of b-jets", 40, 0.0, 10.0);
     TerminalPlot(histmet, "Missing ET", 40, minMET, 1000.);
+    TerminalPlot(histDeltaR, "b-Jets DeltaR", 40, 0, 6);
+
     
     //f->Write();
     f->Close();
