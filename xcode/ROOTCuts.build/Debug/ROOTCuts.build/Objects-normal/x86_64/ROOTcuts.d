@@ -28,6 +28,15 @@ dependencies: /Users/alex/Documents/ROOTCuts/ROOTcuts.cc \
   /Users/alex/ROOT/root_install/include/TIterator.h \
   /Users/alex/ROOT/root_install/include/TDatime.h \
   /Users/alex/ROOT/root_install/include/TUUID.h \
+  /Users/alex/ROOT/root_install/include/TLegend.h \
+  /Users/alex/ROOT/root_install/include/TPave.h \
+  /Users/alex/ROOT/root_install/include/TBox.h \
+  /Users/alex/ROOT/root_install/include/TAttLine.h \
+  /Users/alex/ROOT/root_install/include/TAttFill.h \
+  /Users/alex/ROOT/root_install/include/TAttBBox2D.h \
+  /Users/alex/ROOT/root_install/include/GuiTypes.h \
+  /Users/alex/ROOT/root_install/include/TPoint.h \
+  /Users/alex/ROOT/root_install/include/TAttText.h \
   /Users/alex/ROOT/root_install/include/TFile.h \
   /Users/alex/ROOT/root_install/include/TDirectoryFile.h \
   /Users/alex/ROOT/root_install/include/TMap.h \
@@ -37,11 +46,9 @@ dependencies: /Users/alex/Documents/ROOTCuts/ROOTcuts.cc \
   /Users/alex/ROOT/root_install/include/TTree.h \
   /Users/alex/ROOT/root_install/include/TBranch.h \
   /Users/alex/ROOT/root_install/include/TObjArray.h \
-  /Users/alex/ROOT/root_install/include/TAttFill.h \
   /Users/alex/ROOT/root_install/include/TDataType.h \
   /Users/alex/ROOT/root_install/include/TDictionary.h \
   /Users/alex/ROOT/root_install/include/ESTLType.h \
-  /Users/alex/ROOT/root_install/include/TAttLine.h \
   /Users/alex/ROOT/root_install/include/TAttMarker.h \
   /Users/alex/ROOT/root_install/include/TArrayD.h \
   /Users/alex/ROOT/root_install/include/TArray.h \
@@ -79,16 +86,11 @@ dependencies: /Users/alex/Documents/ROOTCuts/ROOTcuts.cc \
   /Users/alex/ROOT/root_install/include/TVirtualPad.h \
   /Users/alex/ROOT/root_install/include/TAttPad.h \
   /Users/alex/ROOT/root_install/include/TVirtualX.h \
-  /Users/alex/ROOT/root_install/include/TAttText.h \
-  /Users/alex/ROOT/root_install/include/GuiTypes.h \
   /Users/alex/ROOT/root_install/include/Buttons.h \
-  /Users/alex/ROOT/root_install/include/TAttBBox2D.h \
-  /Users/alex/ROOT/root_install/include/TPoint.h \
   /Users/alex/ROOT/root_install/include/TAttCanvas.h \
   /Users/alex/ROOT/root_install/include/TCanvasImp.h \
   /Users/alex/ROOT/root_install/include/TFrame.h \
   /Users/alex/ROOT/root_install/include/TWbox.h \
-  /Users/alex/ROOT/root_install/include/TBox.h \
   /Users/alex/ROOT/root_install/include/TColor.h \
   /Users/alex/ROOT/root_install/include/TChain.h \
   /Users/alex/ROOT/root_install/include/TLeaf.h \

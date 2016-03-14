@@ -1,15 +1,16 @@
 //
-//  JetDoublePairFinder.cc
+//  JetDoubleMbbPairFinder.cpp
 //  ROOTCuts
 //
-//  Created by Alexander Titterton on 01/03/2016.
+//  Created by Alexander Titterton on 14/03/2016.
 //
 //
 
+#include <stdio.h>
 #include <iostream>
 #include "../include/Ulrich_cuts.hh"
 
-vector<Jet*> JetDoublePairFinder(vector<Jet*> inputjets, int numberofjets)
+vector<Jet*> JetDoubleMbbPairFinder(vector<Jet*> inputjets, int numberofjets)
 {
     TLorentzVector p[4];
     
@@ -58,7 +59,7 @@ vector<Jet*> JetDoublePairFinder(vector<Jet*> inputjets, int numberofjets)
                             jets.j3.push_back(inputjets[b]);
                             jets.j4.push_back(inputjets[c]);
                             break;
-                    
+                            
                         case 1:
                             jets.DelR.push_back(DeltaR2[0]);
                             jets.DelR2.push_back(DeltaR2[1]);
@@ -68,7 +69,7 @@ vector<Jet*> JetDoublePairFinder(vector<Jet*> inputjets, int numberofjets)
                             jets.j3.push_back(inputjets[a]);
                             jets.j4.push_back(inputjets[c]);
                             break;
-                    
+                            
                         case 2:
                             jets.DelR.push_back(DeltaR3[0]);
                             jets.DelR2.push_back(DeltaR3[1]);
@@ -86,7 +87,7 @@ vector<Jet*> JetDoublePairFinder(vector<Jet*> inputjets, int numberofjets)
     
     minindex = min_element(jets.DelRtot.begin(), jets.DelRtot.end()) - jets.DelRtot.begin();
     
-
+    
     matchingjets.push_back(jets.j1[minindex]);
     matchingjets.push_back(jets.j2[minindex]);
     matchingjets.push_back(jets.j3[minindex]);

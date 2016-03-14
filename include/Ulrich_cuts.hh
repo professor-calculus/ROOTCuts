@@ -8,6 +8,7 @@
 
 
 #include <TROOT.h>
+#include <TLegend.h>
 #include <TFile.h>
 #include <TNtuple.h>
 #include <TH2.h>
@@ -43,9 +44,18 @@ class TFile;
 class TObjArray;
 class TTree;
 
+class Graphs
+{
+public:
+    TH1 histMbb;
+    TH1 histMbbBkg;
+};
+
 void CutsFunction(const char*, double []);
+TH1 *CutsFunctionBkg(const char*, double [], string);
 vector<Jet *> JetPairFinder(vector<Jet *>, int);
 vector<Jet *> JetDoublePairFinder(vector<Jet *>, int);
+vector<Jet *> JetDoubleMbbPairFinder(vector<Jet *>, int);
 
 
 //--------The class which will store the data for each TrackID - then we can loop over each to do the tracking.
@@ -78,6 +88,8 @@ class DoubleJets
 {
 public:
     vector<double> DelR;
+    vector<double> DelR2;
+    vector<double> DelRtot;
     vector<Jet*> j1;
     vector<Jet*> j2;
     vector<Jet*> j3;
