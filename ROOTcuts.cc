@@ -61,24 +61,27 @@ int main(int argc, char *argv[])
             return 0;
         }
         
-        TH1 *histMbb;
-        TH1 *histMbbBkg;
-        histMbb = CutsFunctionBkg(argv[1], params, "Signal");
-        histMbbBkg = CutsFunctionBkg(argv[2], params, "Background");
+        //TH1 *histMbb;
+        //TH1 *histMbbBkg;
+        
+        vector<TH1*> histos;
+        
+        histos.push_back(CutsFunctionBkg(argv[1], params, "Signal"));
+        histos.push_back(CutsFunctionBkg(argv[2], params, "Background"));
         
         TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
         
         
-        histMbb->Draw();
-        histMbb->SetLineColor(kBlue);
+        histos[0]->Draw();
+        histos[0]->SetLineColor(kBlue);
         cmbb->Update();
-        histMbbBkg->SetLineColor(kRed);
-        histMbbBkg->Draw("Same");
+        histos[1]->SetLineColor(kRed);
+        histos[1]->Draw("Same");
         cmbb->Update();
         
         TLegend *legend = new TLegend(0.1, 0.7, 0.48, 0.9);
-        legend->AddEntry(histMbb,"Signal","l");
-        legend->AddEntry(histMbbBkg,"Background","l");
+        legend->AddEntry(histos[0],"Signal","l");
+        legend->AddEntry(histos[1],"Background","l");
         legend->Draw();
         cmbb->Update();
         
