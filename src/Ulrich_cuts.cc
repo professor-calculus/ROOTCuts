@@ -440,10 +440,14 @@ void CutsFunction(const char* filename, double params[12])
     cout << "M_bb from " << minMbb << " to " << maxMbb << "\n\n" << endl;
     
     cout << "Plots:\n" << endl;
-    TerminalPlot(histMbb, "M_bb", 40, minMbb, maxMbb);
-    TerminalPlot(histnbjet, "No. of b-jets", 40, 0.0, 10.0);
-    TerminalPlot(histmet, "Missing ET", 40, minMET, 1000.);
-    TerminalPlot(histDeltaR, "b-Jets DeltaR", 40, 0, 6);
+    
+    if(eventpass != 0)
+    {
+        TerminalPlot(histMbb, "M_bb", 40, minMbb, maxMbb);
+        TerminalPlot(histnbjet, "No. of b-jets", 40, 0.0, 10.0);
+        TerminalPlot(histmet, "Missing ET", 40, minMET, 1000.);
+        TerminalPlot(histDeltaR, "b-Jets DeltaR", 40, 0, 6);
+    }
 
 //f->Write();
 f->Close();
