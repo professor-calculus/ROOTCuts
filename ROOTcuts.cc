@@ -69,8 +69,8 @@ int main(int argc, char *argv[])
         TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
         
         
-        histMbb->SetLineColor(kBlue);
         histMbb->Draw();
+        histMbb->SetLineColor(kBlue);
         cmbb->Update();
         histMbbBkg->SetLineColor(kRed);
         histMbbBkg->Draw("Same");
