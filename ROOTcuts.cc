@@ -61,27 +61,25 @@ int main(int argc, char *argv[])
             return 0;
         }
         
-        //TH1 *histMbb;
-        //TH1 *histMbbBkg;
+        TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b) (h->bb in both cascades); M_{inv}(b, b) (GeV)", 20, params[10], params[11]);
+        TH1 *histMbbBkg = new TH1F("mbb_bkg", "", 20, params[10], params[11]);
         
-        vector<TH1*> histos;
-        
-        histos.push_back(CutsFunctionBkg(argv[1], params, "Signal"));
-        histos.push_back(CutsFunctionBkg(argv[2], params, "Background"));
+        CutsFunctionBkg(argv[1], params, "Signal", histMbb);              //Signal
+        CutsFunctionBkg(argv[2], params, "Background", histMbbBkg);          //Background
         
         TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
         
         
-        histos[0]->Draw();
-        histos[0]->SetLineColor(kBlue);
+        histMbb->Draw();
+        histMbb->SetLineColor(kBlue);
         cmbb->Update();
-        histos[1]->SetLineColor(kRed);
-        histos[1]->Draw("Same");
+        histMbbBkg->SetLineColor(kRed);
+        histMbbBkg->Draw("Same");
         cmbb->Update();
         
         TLegend *legend = new TLegend(0.1, 0.7, 0.48, 0.9);
-        legend->AddEntry(histos[0],"Signal","l");
-        legend->AddEntry(histos[1],"Background","l");
+        legend->AddEntry(histMbb,"Signal","l");
+        legend->AddEntry(histMbbBkg,"Background","l");
         legend->Draw();
         cmbb->Update();
         
@@ -145,8 +143,11 @@ int main(int argc, char *argv[])
                 params[param] = value;
             }
             
-            CutsFunctionBkg(argv[1], params, "Signal");
-            CutsFunctionBkg(argv[2], params, "Background");
+            TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b) (h->bb in both cascades); M_{inv}(b, b) (GeV)", 20, params[10], params[11]);
+            TH1 *histMbbBkg = new TH1F("mbb_bkg", "", 20, params[10], params[11]);
+            
+            CutsFunctionBkg(argv[1], params, "Signal", histMbb);
+            CutsFunctionBkg(argv[2], params, "Background", histMbbBkg);
         }
     }
     

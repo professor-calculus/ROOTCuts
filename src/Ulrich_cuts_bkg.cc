@@ -14,7 +14,7 @@
 using namespace std;
 
 
-TH1 *CutsFunctionBkg(const char* filename, double params[12], string mode)
+void CutsFunctionBkg(const char* filename, double params[12], string mode, TH1* histmb)
 {
     gSystem->Load("libTreePlayer");
     //gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
@@ -44,8 +44,7 @@ TH1 *CutsFunctionBkg(const char* filename, double params[12], string mode)
     if(higgsdecay < 0 || higgsdecay > 1)
     {
         cout << "ERROR: Higgs Decay mode must be 0 or 1" << endl;
-        TH1 *error = nullptr;
-        return error;
+        return;
     }
     
     double bjetminPT = params[5];
@@ -103,7 +102,7 @@ TH1 *CutsFunctionBkg(const char* filename, double params[12], string mode)
     
     // Book histograms
     TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets (h->bb in both cascades); No. b-jets", 10, 0.0, 10.0);
-    TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b) (h->bb in both cascades); M_{inv}(b, b) (GeV)", 20, minMbb, maxMbb);
+    //TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b) (h->bb in both cascades); M_{inv}(b, b) (GeV)", 20, minMbb, maxMbb);
     TH1 *histmet = new TH1F ("met", "Missing ET (h->bb in both cascades); MET (GeV)", 20, minMET, 1000.);
     TH1 *histDeltaR = new TH1F("DeltaR", "Delta R between b-jets; Delta R", 20, 0, 6);
     
@@ -315,14 +314,14 @@ TH1 *CutsFunctionBkg(const char* filename, double params[12], string mode)
         {
             eventpass++;
             
-            histMbb->Fill(mbb);
+            histmb->Fill(mbb);
             histnbjet->Fill(N_bjets);
             histmet->Fill(met);
             histDeltaR->Fill(DeltaR);
             
             if(higgsdecay == 1)
             {
-                histMbb->Fill(mbb2);
+                histmb->Fill(mbb2);
 
                 histDeltaR->Fill(DeltaR2);
             }
@@ -335,7 +334,7 @@ TH1 *CutsFunctionBkg(const char* filename, double params[12], string mode)
     
     if(higgsdecay == 0)
     {
-        histMbb->SetTitle("M_{inv}(b, b) (h->bb and h->tau-tau); M_{inv}(b, b) (GeV)");
+        histmb->SetTitle("M_{inv}(b, b) (h->bb and h->tau-tau); M_{inv}(b, b) (GeV)");
         histnbjet->SetTitle("Number of b-jets (h->bb and h->tau-tau); No. b-jets");
         histmet->SetTitle("Missing ET (h->bb and h->tau-tau); MET (GeV)");
     }
@@ -483,6 +482,4 @@ TH1 *CutsFunctionBkg(const char* filename, double params[12], string mode)
     //f->Write();
     f->Close();
     
-    
-    return histMbb;
 };
