@@ -93,6 +93,7 @@ dependencies: /Users/alex/Documents/ROOTCuts/ROOTcuts.cc \
   /Users/alex/ROOT/root_install/include/TWbox.h \
   /Users/alex/ROOT/root_install/include/TColor.h \
   /Users/alex/ROOT/root_install/include/TChain.h \
+  /Users/alex/ROOT/root_install/include/THStack.h \
   /Users/alex/ROOT/root_install/include/TLeaf.h \
   /Users/alex/ROOT/root_install/include/TH1D.h \
   /Users/alex/ROOT/root_install/include/TApplication.h \
