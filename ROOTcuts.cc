@@ -69,13 +69,15 @@ int main(int argc, char *argv[])
         
         TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
         
+        THStack hs("hs","test stacked histograms");
         
-        histMbb->Draw();
+        hs.Add(histMbb);
         histMbb->SetLineColor(kBlue);
-        //cmbb->Update();
         
+        hs.Add(histMbbBkg);
         histMbbBkg->SetLineColor(kRed);
-        histMbbBkg->Draw("Same");
+        
+        hs.Draw();
         cmbb->Update();
         
         TLegend *legend = new TLegend(0.1, 0.7, 0.48, 0.9);

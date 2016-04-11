@@ -19,6 +19,7 @@
 #include <TCanvas.h>
 #include <TFrame.h>
 #include <TChain.h>
+#include <THStack.h>
 #include <TBranch.h>
 #include <TLeaf.h>
 #include <TString.h>
