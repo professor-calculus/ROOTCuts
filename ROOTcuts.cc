@@ -62,10 +62,8 @@ int main(int argc, char *argv[])
         }
         
         TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b) (h->bb in both cascades); M_{inv}(b, b) (GeV)", 20, params[10], params[11]);
-        TH1 *histMbbBkg = new TH1F("mbb_bkg", "", 20, params[10], params[11]);
         
         CutsFunctionBkg(argv[1], params, "Signal", histMbb);              //Signal
-        CutsFunctionBkg(argv[2], params, "Background", histMbbBkg);          //Background
         
         TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
         
@@ -73,6 +71,10 @@ int main(int argc, char *argv[])
         histMbb->Draw();
         histMbb->SetLineColor(kBlue);
         cmbb->Update();
+        
+        TH1 *histMbbBkg = new TH1F("mbb_bkg", "", 20, params[10], params[11]);
+        CutsFunctionBkg(argv[2], params, "Background", histMbbBkg);          //Background
+        
         histMbbBkg->SetLineColor(kRed);
         histMbbBkg->Draw("Same");
         cmbb->Update();
