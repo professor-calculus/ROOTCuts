@@ -1,8 +1,8 @@
 //
-//  Tracking_Main.cc
+//  ROOTCuts.cc
 //  
 //
-//  Created by Alex Titterton on 14/08/2013.
+//  Created by Alex Titterton on or around 01/03/2016.
 //
 //
 
@@ -143,11 +143,50 @@ int main(int argc, char *argv[])
                 params[param] = value;
             }
             
+            int higgsdecay = int(params[4]);
+            if(higgsdecay < 0 || higgsdecay > 1)
+            {
+                cout << "ERROR: Higgs Decay mode must be 0 or 1" << endl;
+                return 0;
+            }
+            
             TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b) (h->bb in both cascades); M_{inv}(b, b) (GeV)", 20, params[10], params[11]);
             TH1 *histMbbBkg = new TH1F("mbb_bkg", "", 20, params[10], params[11]);
             
             CutsFunctionBkg(argv[1], params, "Signal", histMbb);
             CutsFunctionBkg(argv[2], params, "Background", histMbbBkg);
+            
+            TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
+            
+            
+            histMbb->Draw();
+            histMbb->SetLineColor(kBlue);
+            cmbb->Update();
+            histMbbBkg->SetLineColor(kRed);
+            histMbbBkg->Draw("Same");
+            cmbb->Update();
+            
+            TLegend *legend = new TLegend(0.1, 0.7, 0.48, 0.9);
+            legend->AddEntry(histMbb,"Signal","l");
+            legend->AddEntry(histMbbBkg,"Background","l");
+            legend->Draw();
+            cmbb->Update();
+            
+            if(higgsdecay == 0)
+            {
+                cmbb->SaveAs("Mbb_SigBkg_tau.pdf");
+            }
+            else
+            {
+                cmbb->SaveAs("Mbb_SigBkg.pdf");
+            }
+            
+            TCanvas * cmbb_bkg = new TCanvas("cmbb_bkg", "cmbb_bkg", 600, 600);
+            histMbbBkg->Draw();
+            cmbb_bkg->Update();
+            
+            cmbb_bkg->SaveAs("Mbb_Bkg.pdf");
+            
         }
     }
     
