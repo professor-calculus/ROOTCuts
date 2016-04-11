@@ -92,6 +92,11 @@ int main(int argc, char *argv[])
             cmbb->SaveAs("Mbb_SigBkg.pdf");
         }
         
+        TCanvas * cmbb_bkg = new TCanvas("cmbb_bkg", "cmbb_bkg", 600, 600);
+        histMbbBkg->Draw();
+        cmbb_bkg->Update();
+        
+        cmbb_bkg->SaveAs("Mbb_Bkg.pdf");
         
     }
     
