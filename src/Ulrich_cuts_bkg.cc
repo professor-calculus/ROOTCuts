@@ -258,10 +258,10 @@ void CutsFunctionBkg(const char* filename, double params[12], string mode, TH1* 
                 
                 mbb = ((p4[0]) + (p4[1])).M();
                 mbb2 = matchingbjets[2]->Mass;
+                cout << mbb2;
                 
                 
-                
-                if(mbb > minMbb && mbb < maxMbb && mbb2 > minMbb && mbb2 < maxMbb)
+                if(mbb > minMbb && mbb < maxMbb)
                 {
                     npass += 2;
                     pass_bb_mass++;               //passes the M_bb inv. mass test
