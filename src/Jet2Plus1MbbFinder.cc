@@ -21,14 +21,13 @@ vector<Jet*> Jet2Plus1MbbFinder(vector<Jet*> inputjets, int numberofjets)
     
     vector<Jet*> matchingjets;
     
-    for(int j=0; j<numberofjets-3; j++)
+    for(int j=0; j<numberofjets-2; j++)
     {
-        for(int a=j+1; a<numberofjets-2; a++)
+        for(int a=j+1; a<numberofjets-1; a++)
         {
-            for(int b=j+2; b<numberofjets-1; b++)
+            for(int b=j+2; b<numberofjets; b++)
             {
-                for(int c=j+3; c<numberofjets; c++)
-                {
+                
                     DeltaMbb.clear();
                     
                     p[0] = inputjets[j]->P4();
@@ -75,7 +74,6 @@ vector<Jet*> Jet2Plus1MbbFinder(vector<Jet*> inputjets, int numberofjets)
                 }
             }
         }
-    }
     
     minindex = min_element(jets.DelMbb.begin(), jets.DelMbb.end()) - jets.DelMbb.begin();
     

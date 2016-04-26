@@ -145,10 +145,10 @@
 			isa = PBXGroup;
 			children = (
 				7D9F95BF85474CD8B787203E /* ROOTcuts.cc */,
+				77482662EAA240DB8A1C52DC /* JetPairFinder.cc */,
 				849C5402E7744E328F72C7C4 /* JetDoublePairFinder.cc */,
 				FA76D4441C966CAC00D1EFAC /* JetDoubleMbbPairFinder.cc */,
 				FAA0172A1CCF966D00DE1237 /* Jet2Plus1Finder.cc */,
-				77482662EAA240DB8A1C52DC /* JetPairFinder.cc */,
 				FAA0172E1CCF9A1000DE1237 /* Jet2Plus1MbbFinder.cc */,
 				0B2945E3315C48B085F4F4ED /* TerminalPlot.cc */,
 				C856DF386CE5484EACD28D6C /* Ulrich_cuts.cc */,

@@ -20,11 +20,11 @@ vector<Jet*> Jet2Plus1Finder(vector<Jet*> inputjets, int numberofjets)
     
     vector<Jet*> matchingjets;
     
-    for(int j=0; j<numberofjets-3; j++)
+    for(int j=0; j<numberofjets-2; j++)
     {
         for(int a=j+1; a<numberofjets-2; a++)
         {
-            for(int b=j+2; b<numberofjets-1; b++)
+            for(int b=j+2; b<numberofjets; b++)
             {
 
                     DeltaRtot.clear();
