@@ -43,9 +43,9 @@ void CutsFunctionBkg(const char* filename, double params[12], string mode, TH1* 
     double jetPT4 = params[3];
     
     int higgsdecay = int(params[4]);
-    if(higgsdecay < 0 || higgsdecay > 1)
+    if(higgsdecay < 0 || higgsdecay > 2)
     {
-        cout << "ERROR: Higgs Decay mode must be 0 or 1" << endl;
+        cout << "ERROR: Higgs Decay mode must be 0, 1 or 2" << endl;
         return;
     }
     

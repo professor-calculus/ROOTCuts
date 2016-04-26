@@ -57,9 +57,9 @@ int main(int argc, char *argv[])
         }
         
         int higgsdecay = int(params[4]);
-        if(higgsdecay < 0 || higgsdecay > 1)
+        if(higgsdecay < 0 || higgsdecay > 2)
         {
-            cout << "ERROR: Higgs Decay mode must be 0 or 1" << endl;
+            cout << "ERROR: Higgs Decay mode must be 0, 1 or 2" << endl;
             return 0;
         }
         
