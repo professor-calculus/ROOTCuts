@@ -40,7 +40,7 @@ vector<Jet*> Jet2Plus1Finder(vector<Jet*> inputjets, int numberofjets)
                     DeltaR2 = p[0].DeltaR(p[2]);
                     DeltaRtot.push_back(DeltaR2);
                     
-                    DeltaR3 = p[0].DeltaR(p[3]);
+                    DeltaR3 = p[1].DeltaR(p[2]);
                     DeltaRtot.push_back(DeltaR3);
                     
                     minindex2 = min_element(DeltaRtot.begin(), DeltaRtot.end()) - DeltaRtot.begin();
