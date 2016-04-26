@@ -20,12 +20,13 @@ void CutsFunctionBkg(const char* filename, double params[12], string mode, TH1* 
     //gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
     //gSystem->Load("libExRootAnalysis.so");
     
+
     //              Parameters:
     //      0       1st Leading jet PT
     //      1       2nd Leading jet PT
     //      2       3rd Leading jet PT
     //      3       4th Leading jet PT
-    //      4       0 = h->bb h->tau-tau; 1 = h->bb both cascades
+    //      4       0 = h->bb h->tau-tau; 1 = h->bb both cascades; 2 = 3 b-jets
     //      5       b-jet lower bound PT
     //      6       MET lower bound
     //      7       min. taus inv. mass
@@ -34,6 +35,7 @@ void CutsFunctionBkg(const char* filename, double params[12], string mode, TH1* 
     //      10      min. M_bb
     //      11      max. M_bb
     //      12      Jet pair matching algorithm for 2 bb pairs: 0 = Smallest av. Delta-R; 1 = Pairs with closest M_inv(bb)
+    
     
     double jetPT1 = params[0];
     double jetPT2 = params[1];
@@ -236,6 +238,38 @@ void CutsFunctionBkg(const char* filename, double params[12], string mode, TH1* 
                     DeltaR2 = p4[2].DeltaR(p4[3]);
                 }
             }
+            
+            else if(higgsdecay == 2 && N_bjets > 2)
+            {
+                pass_N_b_jets++;
+                npass += 2;                   //passes the number of b-jets test
+                
+                if(jetmatchingalgo == 0)     //Jet pairs with smallest average Delta-R
+                {
+                    matchingbjets = Jet2Plus1Finder(vectorbjet, N_bjets);
+                }
+                else if(jetmatchingalgo == 1)                   //Jet pairs with closest M_inv(bb)
+                {
+                    matchingbjets = Jet2Plus1Finder(vectorbjet, N_bjets);
+                }
+                
+                p4[0] = matchingbjets[0]->P4();
+                p4[1] = matchingbjets[1]->P4();
+                
+                mbb = ((p4[0]) + (p4[1])).M();
+                mbb2 = matchingbjets[2]->Mass;
+                
+                
+                
+                if(mbb > minMbb && mbb < maxMbb && mbb2 > minMbb && mbb2 < maxMbb)
+                {
+                    npass += 2;
+                    pass_bb_mass++;               //passes the M_bb inv. mass test
+                    
+                    DeltaR = p4[0].DeltaR(p4[1]);
+                }
+            }
+            
             
             if(vectorjet[0]->PT > jetPT1 && vectorjet[1]->PT > jetPT2 && vectorjet[2]->PT > jetPT3 && vectorjet[3]->PT > jetPT4)
             {

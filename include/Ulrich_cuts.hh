@@ -51,6 +51,8 @@ void CutsFunctionBkg(const char*, double [], string, TH1*);
 vector<Jet *> JetPairFinder(vector<Jet *>, int);
 vector<Jet *> JetDoublePairFinder(vector<Jet *>, int);
 vector<Jet *> JetDoubleMbbPairFinder(vector<Jet *>, int);
+vector<Jet *> Jet2Plus1Finder(vector<Jet *>, int);
+vector<Jet *> Jet2Plus1MbbFinder(vector<Jet *>, int);
 
 
 //--------The class which will store the data for each TrackID - then we can loop over each to do the tracking.

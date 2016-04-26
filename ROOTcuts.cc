@@ -16,12 +16,13 @@ int main(int argc, char *argv[])
     gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
     //gSystem->Load("libExRootAnalysis.so");
     
+
     //              Parameters:
     //      0       1st Leading jet PT
     //      1       2nd Leading jet PT
     //      2       3rd Leading jet PT
     //      3       4th Leading jet PT
-    //      4       0 = h->bb h->tau-tau; 1 = h->bb both cascades
+    //      4       0 = h->bb h->tau-tau; 1 = h->bb both cascades; 2 = 3 b-jets
     //      5       b-jet lower bound PT
     //      6       MET lower bound
     //      7       min. taus inv. mass
@@ -29,6 +30,7 @@ int main(int argc, char *argv[])
     //      9       min. Sum taus' PT
     //      10      min. M_bb
     //      11      max. M_bb
+    //      12      Jet pair matching algorithm for 2 bb pairs: 0 = Smallest av. Delta-R; 1 = Pairs with closest M_inv(bb)
 
     
     double params[12];

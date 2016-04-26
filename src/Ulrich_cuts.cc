@@ -25,7 +25,7 @@ void CutsFunction(const char* filename, double params[12])
     //      1       2nd Leading jet PT
     //      2       3rd Leading jet PT
     //      3       4th Leading jet PT
-    //      4       0 = h->bb h->tau-tau; 1 = h->bb both cascades
+    //      4       0 = h->bb h->tau-tau; 1 = h->bb both cascades; 2 = 3 b-jets
     //      5       b-jet lower bound PT
     //      6       MET lower bound
     //      7       min. taus inv. mass
@@ -42,9 +42,9 @@ void CutsFunction(const char* filename, double params[12])
     double jetPT4 = params[3];
     
     int higgsdecay = int(params[4]);
-    if(higgsdecay < 0 || higgsdecay > 1)
+    if(higgsdecay < 0 || higgsdecay > 2)
     {
-        cout << "ERROR: Higgs Decay mode must be 0 or 1" << endl;
+        cout << "ERROR: Higgs Decay mode must be 0, 1 or 2" << endl;
         return;
     }
     
@@ -238,6 +238,37 @@ void CutsFunction(const char* filename, double params[12])
                     
                     DeltaR = p4[0].DeltaR(p4[1]);
                     DeltaR2 = p4[2].DeltaR(p4[3]);
+                }
+            }
+            
+            else if(higgsdecay == 2 && N_bjets > 2)
+            {
+                pass_N_b_jets++;
+                npass += 2;                   //passes the number of b-jets test
+                
+                if(jetmatchingalgo == 0)     //Jet pairs with smallest average Delta-R
+                {
+                    matchingbjets = Jet2Plus1Finder(vectorbjet, N_bjets);
+                }
+                else if(jetmatchingalgo == 1)                   //Jet pairs with closest M_inv(bb)
+                {
+                    matchingbjets = Jet2Plus1Finder(vectorbjet, N_bjets);
+                }
+                
+                p4[0] = matchingbjets[0]->P4();
+                p4[1] = matchingbjets[1]->P4();
+                
+                mbb = ((p4[0]) + (p4[1])).M();
+                mbb2 = matchingbjets[2]->Mass;
+                
+                
+                
+                if(mbb > minMbb && mbb < maxMbb && mbb2 > minMbb && mbb2 < maxMbb)
+                {
+                    npass += 2;
+                    pass_bb_mass++;               //passes the M_bb inv. mass test
+                    
+                    DeltaR = p4[0].DeltaR(p4[1]);
                 }
             }
 

@@ -52,6 +52,8 @@
 		83DBDE84F4BC4FC7ACF0E6F2 /* Ulrich_cuts.cc in Sources */ = {isa = PBXBuildFile; fileRef = C856DF386CE5484EACD28D6C /* Ulrich_cuts.cc */; settings = {COMPILER_FLAGS = ""; }; };
 		FA76D4451C966CAC00D1EFAC /* JetDoubleMbbPairFinder.cc in Sources */ = {isa = PBXBuildFile; fileRef = FA76D4441C966CAC00D1EFAC /* JetDoubleMbbPairFinder.cc */; };
 		FA76D4491C9686F600D1EFAC /* Ulrich_cuts_bkg.cc in Sources */ = {isa = PBXBuildFile; fileRef = FA76D4481C9686F600D1EFAC /* Ulrich_cuts_bkg.cc */; };
+		FAA0172B1CCF966D00DE1237 /* Jet2Plus1Finder.cc in Sources */ = {isa = PBXBuildFile; fileRef = FAA0172A1CCF966D00DE1237 /* Jet2Plus1Finder.cc */; };
+		FAA0172F1CCF9A1000DE1237 /* Jet2Plus1MbbFinder.cc in Sources */ = {isa = PBXBuildFile; fileRef = FAA0172E1CCF9A1000DE1237 /* Jet2Plus1MbbFinder.cc */; };
 		FD5C0700B9484B8EA403764E /* ROOTcuts.cc in Sources */ = {isa = PBXBuildFile; fileRef = 7D9F95BF85474CD8B787203E /* ROOTcuts.cc */; settings = {COMPILER_FLAGS = ""; }; };
 /* End PBXBuildFile section */
 
@@ -99,6 +101,8 @@
 		F04CECD0B2BE40B098E789FB /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 		FA76D4441C966CAC00D1EFAC /* JetDoubleMbbPairFinder.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = JetDoubleMbbPairFinder.cc; path = src/JetDoubleMbbPairFinder.cc; sourceTree = "<group>"; };
 		FA76D4481C9686F600D1EFAC /* Ulrich_cuts_bkg.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Ulrich_cuts_bkg.cc; path = src/Ulrich_cuts_bkg.cc; sourceTree = "<group>"; };
+		FAA0172A1CCF966D00DE1237 /* Jet2Plus1Finder.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Jet2Plus1Finder.cc; path = src/Jet2Plus1Finder.cc; sourceTree = "<group>"; };
+		FAA0172E1CCF9A1000DE1237 /* Jet2Plus1MbbFinder.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Jet2Plus1MbbFinder.cc; path = src/Jet2Plus1MbbFinder.cc; sourceTree = "<group>"; };
 		FF5151C8CD014053B24A05A9 /* TerminalPlot.hh */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = TerminalPlot.hh; path = include/TerminalPlot.hh; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -143,7 +147,9 @@
 				7D9F95BF85474CD8B787203E /* ROOTcuts.cc */,
 				849C5402E7744E328F72C7C4 /* JetDoublePairFinder.cc */,
 				FA76D4441C966CAC00D1EFAC /* JetDoubleMbbPairFinder.cc */,
+				FAA0172A1CCF966D00DE1237 /* Jet2Plus1Finder.cc */,
 				77482662EAA240DB8A1C52DC /* JetPairFinder.cc */,
+				FAA0172E1CCF9A1000DE1237 /* Jet2Plus1MbbFinder.cc */,
 				0B2945E3315C48B085F4F4ED /* TerminalPlot.cc */,
 				C856DF386CE5484EACD28D6C /* Ulrich_cuts.cc */,
 				FA76D4481C9686F600D1EFAC /* Ulrich_cuts_bkg.cc */,
@@ -290,11 +296,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD5C0700B9484B8EA403764E /* ROOTcuts.cc in Sources */,
+				FAA0172F1CCF9A1000DE1237 /* Jet2Plus1MbbFinder.cc in Sources */,
 				2B9299D3DD27432696A3ED6B /* JetDoublePairFinder.cc in Sources */,
 				0F91C28DCF3A4653A434BB6E /* JetPairFinder.cc in Sources */,
 				7E68AD10745442B2A0B3AC12 /* TerminalPlot.cc in Sources */,
 				FA76D4491C9686F600D1EFAC /* Ulrich_cuts_bkg.cc in Sources */,
 				FA76D4451C966CAC00D1EFAC /* JetDoubleMbbPairFinder.cc in Sources */,
+				FAA0172B1CCF966D00DE1237 /* Jet2Plus1Finder.cc in Sources */,
 				83DBDE84F4BC4FC7ACF0E6F2 /* Ulrich_cuts.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
