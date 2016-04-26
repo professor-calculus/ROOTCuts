@@ -250,7 +250,7 @@ void CutsFunctionBkg(const char* filename, double params[12], string mode, TH1* 
                 }
                 else if(jetmatchingalgo == 1)                   //Jet pairs with closest M_inv(bb)
                 {
-                    matchingbjets = Jet2Plus1Finder(vectorbjet, N_bjets);
+                    matchingbjets = Jet2Plus1MbbFinder(vectorbjet, N_bjets);
                 }
                 
                 p4[0] = matchingbjets[0]->P4();

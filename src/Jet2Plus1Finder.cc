@@ -22,7 +22,7 @@ vector<Jet*> Jet2Plus1Finder(vector<Jet*> inputjets, int numberofjets)
     
     for(int j=0; j<numberofjets-2; j++)
     {
-        for(int a=j+1; a<numberofjets-2; a++)
+        for(int a=j+1; a<numberofjets-1; a++)
         {
             for(int b=j+2; b<numberofjets; b++)
             {
@@ -76,7 +76,7 @@ vector<Jet*> Jet2Plus1Finder(vector<Jet*> inputjets, int numberofjets)
         }
     
     minindex = min_element(jets.DelRtot.begin(), jets.DelRtot.end()) - jets.DelRtot.begin();
-    
+    cout << minindex;
     
     matchingjets.push_back(jets.j1[minindex]);
     matchingjets.push_back(jets.j2[minindex]);
