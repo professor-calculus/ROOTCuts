@@ -104,7 +104,7 @@ void CutsFunction(const char* filename, double params[12])
     // Book histograms
     TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets (h->bb in both cascades); No. b-jets", 10, 0.0, 10.0);
     TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b) (h->bb in both cascades); M_{inv}(b, b) (GeV)", 20, minMbb, maxMbb);
-    TH1 *histmet = new TH1F ("met", "Missing ET (h->bb in both cascades); MET (GeV)", 20, minMET, 1000.);
+    TH1 *histmet = new TH1F ("met", "Missing ET (h->bb in both cascades); MET (GeV)", 50, 0.0, 1000.);
     TH1 *histDeltaR = new TH1F("DeltaR", "Delta R between b-jets; Delta R", 20, 0, 6);
 
 
@@ -368,9 +368,9 @@ void CutsFunction(const char* filename, double params[12])
     
     if(higgsdecay == 0)
     {
-        histMbb->SetTitle("M_{inv}(b, b) (h->bb and h->tau-tau); M_{inv}(b, b) (GeV)");
+        histMbb->SetTitle("M_{inv}(b, b) (h->bb and h->tau-tau); M_{inv}(b, b) (GeV); Events / 5 GeV");
         histnbjet->SetTitle("Number of b-jets (h->bb and h->tau-tau); No. b-jets");
-        histmet->SetTitle("Missing ET (h->bb and h->tau-tau); MET (GeV)");
+        histmet->SetTitle("Missing ET (h->bb and h->tau-tau); MET (GeV); Events / 20 GeV");
     }
 
     TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
