@@ -14,7 +14,7 @@
 using namespace std;
 
 
-void CutsFunction(const char* filename, double params[12])
+void CutsFunction(const char* filename, double params[14])
 {
     gSystem->Load("libTreePlayer");
     //gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
@@ -62,6 +62,7 @@ void CutsFunction(const char* filename, double params[12])
     
     int jetmatchingalgo = params[12];
     
+	double sigbkgratio = params[13];
 
 	int i, k, l, entries, npass, N_bjets, N_tau, N_PT;
 
@@ -98,6 +99,8 @@ void CutsFunction(const char* filename, double params[12])
     }
         
     entries = reader->GetEntries();
+
+	double weight = double(entries)*sigbkgratio;
 
     cout << "Tree copied with " << entries << " entries\n\n" << endl;
 
@@ -349,15 +352,15 @@ void CutsFunction(const char* filename, double params[12])
         {
             eventpass++;
 
-            histMbb->Fill(mbb);
-            histnbjet->Fill(N_bjets);
-            histmet->Fill(met);
-            histDeltaR->Fill(DeltaR);
+            histMbb->Fill(mbb, weight);
+            histnbjet->Fill(N_bjets, weight);
+            histmet->Fill(met, weight);
+            histDeltaR->Fill(DeltaR, weight);
             if(higgsdecay == 1)
             {
-                histMbb->Fill(mbb2);
+                histMbb->Fill(mbb2, weight);
                 
-                histDeltaR->Fill(DeltaR2);
+                histDeltaR->Fill(DeltaR2, weight);
             }
         }
 
