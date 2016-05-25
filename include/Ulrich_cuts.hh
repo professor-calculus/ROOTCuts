@@ -47,7 +47,7 @@ class TTree;
 
 
 void CutsFunction(const char*, double []);
-void CutsFunctionBkg(const char*, double [], string, TH1*);
+int CutsFunctionBkg(const char*, double [], string, TH1*, int);
 vector<Jet *> JetPairFinder(vector<Jet *>, int);
 vector<Jet *> JetDoublePairFinder(vector<Jet *>, int);
 vector<Jet *> JetDoubleMbbPairFinder(vector<Jet *>, int);

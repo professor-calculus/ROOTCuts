@@ -14,7 +14,7 @@
 using namespace std;
 
 
-void CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* histmb)
+int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* histmb, int bkgentries)
 {
     gSystem->Load("libTreePlayer");
     //gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
@@ -98,11 +98,12 @@ void CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* 
     if (reader->GetEntries() < 1)
     {
         cout << "Problem! There's no entries!" << endl;
+	return 0;
     }
     
     entries = reader->GetEntries();
 
-	double weight = double(entries);
+	double weight = double(bkgentries)*sigbkgratio/(double(entries));
     
     cout << "Tree copied with " << entries << " entries\n\n" << endl;
     
@@ -351,18 +352,34 @@ void CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* 
         if(npass == 7)
         {
             eventpass++;
-            
-            histmb->Fill(mbb, weight);
-            histnbjet->Fill(N_bjets, weight);
-            histmet->Fill(met, weight);
-            histDeltaR->Fill(DeltaR, weight);
-            
+            if(mode == "Signal")
+			{
+            	histmb->Fill(mbb, weight);
+            	histnbjet->Fill(N_bjets, weight);
+            	histmet->Fill(met, weight);
+            	histDeltaR->Fill(DeltaR, weight);
+            }
+			else
+			{
+				histmb->Fill(mbb);
+            	histnbjet->Fill(N_bjets);
+            	histmet->Fill(met);
+            	histDeltaR->Fill(DeltaR);
+			}
+
             if(higgsdecay == 1)
             {
-                histmb->Fill(mbb2, weight);
-
-                histDeltaR->Fill(DeltaR2, weight);
-            }
+				if(mode == "Signal")
+                {
+					histmb->Fill(mbb2, weight);
+					histDeltaR->Fill(DeltaR2, weight);
+				}
+				else
+				{
+					histmb->Fill(mbb2);
+					histDeltaR->Fill(DeltaR2);
+				}
+           }
         }
         
         
@@ -520,4 +537,5 @@ void CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* 
     //f->Write();
     f->Close();
     
+	return entries;
 };
