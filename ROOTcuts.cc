@@ -74,15 +74,17 @@ int main(int argc, char *argv[])
         
         TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
         
-        THStack hs("hs","M_{bb}^{inv.} Signal vs Background; M_{bb} / GeV; Events / 5GeV");
+        THStack *hs("hs","M_{bb}^{inv.} Signal vs Background; M_{bb} / GeV; Events / 5GeV");
         
-        hs.Add(histMbb);
+        hs->Add(histMbb);
         histMbb->SetLineColor(kBlue);
         
-        hs.Add(histMbbBkg);
+        hs->Add(histMbbBkg);
         histMbbBkg->SetLineColor(kRed);
+
+		hs->GetYaxis()->SetLabelOffset(0.05);
         
-        hs.Draw("nostack");
+        hs->Draw("nostack");
         cmbb->Update();
         
         TLegend *legend = new TLegend(0.1, 0.7, 0.48, 0.9);
