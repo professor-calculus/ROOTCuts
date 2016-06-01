@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
         
         TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
         
-        THStack *hs("hs","M_{bb}^{inv.} Signal vs Background; M_{bb} / GeV; Events / 5GeV");
+        THStack *hs = new THStack("hs","M_{bb}^{inv.} Signal vs Background; M_{bb} / GeV; Events / 5GeV");
         
         hs->Add(histMbb);
         histMbb->SetLineColor(kBlue);
