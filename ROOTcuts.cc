@@ -81,10 +81,9 @@ int main(int argc, char *argv[])
         
         hs->Add(histMbbBkg);
         histMbbBkg->SetLineColor(kRed);
-
-		hs->GetYaxis()->SetLabelOffset(0.05);
         
         hs->Draw("nostack");
+		hs->GetYaxis()->SetLabelOffset(0.05);
         cmbb->Update();
         
         TLegend *legend = new TLegend(0.1, 0.7, 0.48, 0.9);
