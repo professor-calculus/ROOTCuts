@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
         
         TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
         
-        THStack *hs = new THStack("hs","M_{bb}^{inv.} Signal vs Background; M_{bb} / GeV; Events / 5GeV");
+        THStack *hs = new THStack("hs","M_{bb}^{inv.} Signal vs Background; M_{bb} / GeV");
         
         hs->Add(histMbb);
         histMbb->SetLineColor(kBlue);
@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
         histMbbBkg->SetLineColor(kRed);
         
         hs->Draw("nostack");
-		hs->GetYaxis()->SetTitleOffset(-0.1);
+
         cmbb->Update();
         
         TLegend *legend = new TLegend(0.1, 0.7, 0.48, 0.9);
