@@ -81,8 +81,6 @@ int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* h
     
     string filename2,title;
     
-    string outputfilename;
-    
     //---------Opening the .root file:
     
     
@@ -109,12 +107,15 @@ int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* h
     
     cout << "Tree copied with " << entries << " entries\n\n" << endl;
     
-    outputfilename = "output.txt";
     
+    
+    //----Output file
     ofstream outputfile;
-    outputfile.open(outputfilename);
+    outputfile.open("output.txt");
     outputfile << "\n\n\n BACKGROUND:" << endl;
     outputfile << "Tree copied with " << entries << " entries\n\n" << endl;
+    
+    
     
     // Book histograms
     TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets (h->bb in both cascades); No. b-jets", 10, 0.0, 10.0);
