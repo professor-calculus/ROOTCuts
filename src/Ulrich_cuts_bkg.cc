@@ -81,6 +81,8 @@ int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* h
     
     string filename2,title;
     
+    string outputfilename;
+    
     //---------Opening the .root file:
     
     
@@ -106,6 +108,13 @@ int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* h
 	double weight = double(bkgentries)*sigbkgratio/(double(entries));
     
     cout << "Tree copied with " << entries << " entries\n\n" << endl;
+    
+    outputfilename = "output.txt";
+    
+    ofstream outputfile;
+    outputfile.open(outputfilename);
+    outputfile << "\n\n\n BACKGROUND:" << endl;
+    outputfile << "Tree copied with " << entries << " entries\n\n" << endl;
     
     // Book histograms
     TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets (h->bb in both cascades); No. b-jets", 10, 0.0, 10.0);
@@ -488,13 +497,16 @@ int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* h
     efficiency = double(eventpass)/double(entries);
     
     cout << "\n" << endl;
+    outputfile << "\n" << endl;
     if(higgsdecay == 0)
     {
         cout << "Higgs to bb and Higgs to tau-tau required\n" << endl;
+        outputfile << "Higgs to bb and Higgs to tau-tau required\n" << endl;
     }
     else
     {
         cout << "Higgs to bb in both cascades required\n" << endl;
+        outputfile << "Higgs to bb in both cascades required\n" << endl;
     }
     cout << pass_N_jets << " events contained at least 4 jets" << endl;
     cout << pass_jets << " events contained 4 leading jets with PT 400,300,200,100 GeV" << endl;
@@ -512,12 +524,35 @@ int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* h
     cout << "PT of 1st-4th leading jets = " << jetPT1 << ", " << jetPT2 << ", " << jetPT3 << ", " << jetPT4 << " respectively" << endl;
     cout << "Min. b-jet PT = " << bjetminPT << endl;
     cout << "Min. Missing ET = " << minMET << endl;
+    
+    outputfile << pass_N_jets << " events contained at least 4 jets" << endl;
+    outputfile << pass_jets << " events contained 4 leading jets with PT 400,300,200,100 GeV" << endl;
+    outputfile << pass_N_b_jets << " events contained at least 2 b-jets" << endl;
+    outputfile << pass_bb_mass << " events contained at least 2 b-jets with invariant mass within the bounds" << endl;
+    outputfile << pass_MET << " events had at least 30GeV Missing ET" << endl;
+    outputfile << pass_tau << " events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
+    outputfile << "\n" << eventpass << " events passed all tests" << endl;
+    
+    outputfile << "\n\n\n" << endl;
+    
+    outputfile << "Cross-section is now reduced by factor of " << efficiency << "\n\n" << endl;
+    outputfile << "\033[32m" << "Winner winner, chicken dinner\n" << "\033[0m" << "\n\n" << endl;
+    outputfile << "Cuts (Energy, masses, PT in GeV):\n" << endl;
+    outputfile << "PT of 1st-4th leading jets = " << jetPT1 << ", " << jetPT2 << ", " << jetPT3 << ", " << jetPT4 << " respectively" << endl;
+    outputfile << "Min. b-jet PT = " << bjetminPT << endl;
+    outputfile << "Min. Missing ET = " << minMET << endl;
+    
+    
     if(higgsdecay == 0)
     {
         cout << "M_tautau from " << minTauinvmass << " to " << maxTauinvmass << endl;
         cout << "Min. Sum of taus' PT = " << minSumTauPT << endl;
+        
+        outputfile << "M_tautau from " << minTauinvmass << " to " << maxTauinvmass << endl;
+        outputfile << "Min. Sum of taus' PT = " << minSumTauPT << endl;
     }
     cout << "M_bb from " << minMbb << " to " << maxMbb << "\n\n" << endl;
+    outputfile << "M_bb from " << minMbb << " to " << maxMbb << "\n\n" << endl;
     
     cout << "Plots:\n" << endl;
     
@@ -536,6 +571,7 @@ int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* h
     
     //f->Write();
     f->Close();
+    outputfile.close();
     
 	return entries;
 };

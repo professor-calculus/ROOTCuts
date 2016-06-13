@@ -66,6 +66,11 @@ int main(int argc, char *argv[])
             return 0;
         }
         
+        ofstream outputfile;
+        outputfile.open("output.txt");
+        outputfile << "\n\n ######## NEW RUN #######\n\n";
+        outputfile.close();
+        
         TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b) (h->bb in both cascades); M_{inv}(b, b) (GeV)", 20, params[10], params[11]);
         TH1 *histMbbBkg = new TH1F("mbb_bkg", "", 20, params[10], params[11]);
         
