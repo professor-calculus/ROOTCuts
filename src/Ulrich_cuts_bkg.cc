@@ -111,8 +111,8 @@ int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* h
     
     //----Output file
     ofstream outputfile;
-    outputfile.open("output.txt");
-    outputfile << "\n\n\n BACKGROUND:" << endl;
+    outputfile.open("output.txt", std::ios_base::app | std::ios_base::out);
+    outputfile << "\n\n\n:" << endl;
     outputfile << "Tree copied with " << entries << " entries\n\n" << endl;
     
     

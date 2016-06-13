@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
         
         //---- Output File
         ofstream outputfile;
-        outputfile.open("output.txt");
+        outputfile.open("output.txt", std::ios_base::app | std::ios_base::out);
         outputfile << "\n\n ######## NEW RUN #######\n\n";
         outputfile.close();
         
