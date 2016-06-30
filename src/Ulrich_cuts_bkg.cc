@@ -121,7 +121,7 @@ int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* h
     TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets (h->bb in both cascades); No. b-jets", 10, 0.0, 10.0);
     //TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b) (h->bb in both cascades); M_{inv}(b, b) (GeV)", 20, minMbb, maxMbb);
     TH1 *histmet = new TH1F ("met", "Missing ET (h->bb in both cascades); MET (GeV)", 50, 0.0, 1000.);
-    TH1 *histDeltaR = new TH1F("DeltaR", "Delta R between b-jets; Delta R", 20, 0, 6);
+    TH1 *histDeltaR = new TH1F("DeltaR", "Delta R between b-jets; Delta R", 60, 0, 6);
     
     
     int pass_jets = 0;
