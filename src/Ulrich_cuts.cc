@@ -364,15 +364,15 @@ void CutsFunction(const char* filename, double params[14])
         {
             eventpass++;
 
-            histMbb->Fill(mbb, weight);
-            histnbjet->Fill(N_bjets, weight);
-            histmet->Fill(met, weight);
-            histDeltaR->Fill(DeltaR, weight);
+            histMbb->Fill(mbb);
+            histnbjet->Fill(N_bjets);
+            histmet->Fill(met);
+            histDeltaR->Fill(DeltaR);
             if(higgsdecay == 1)
             {
-                histMbb->Fill(mbb2, weight);
+                histMbb->Fill(mbb2);
                 
-                histDeltaR->Fill(DeltaR2, weight);
+                histDeltaR->Fill(DeltaR2);
             }
         }
 
