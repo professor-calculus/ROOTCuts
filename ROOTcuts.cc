@@ -121,98 +121,26 @@ int main(int argc, char *argv[])
     
     else if(argc == 3)
     {
-        int option;
-        
-        cout << "Select input file types:" << endl;
-        cout << "rootfile.root parameters.txt ------ Type 1\n" << "rootfile.root rootfile.root ------ Type 2" << endl;
-        
-        cin >> option;
-        
-        if(option == 1)
-        {
-            fstream fin(argv[2]);
-            string line;
+        fstream fin(argv[2]);
+        string line;
     
-            while(getline(fin, line))
-            {
-                //the following line trims white space from the beginning of the string
-                line.erase(line.begin(), find_if(line.begin(), line.end(), not1(ptr_fun<int, int>(isspace))));
-        
-                if(line[0] == '#') continue;
-        
-                istringstream is(line);
-                is >> param >> value;
-        
-                params[param] = value;
-            }
-    
-            CutsFunction(argv[1], params);
-        }
-        
-        else
+        while(getline(fin, line))
         {
-            fstream fin("../default/default_parameters.txt");
-            string line;
-            
-            while(getline(fin, line))
-            {
-                //the following line trims white space from the beginning of the string
-                line.erase(line.begin(), find_if(line.begin(), line.end(), not1(ptr_fun<int, int>(isspace))));
-                
-                if(line[0] == '#') continue;
-                
-                istringstream is(line);
-                is >> param >> value;
-                
-                params[param] = value;
-            }
-            
-            int higgsdecay = int(params[4]);
-            if(higgsdecay < 0 || higgsdecay > 1)
-            {
-                cout << "ERROR: Higgs Decay mode must be 0 or 1" << endl;
-                return 0;
-            }
-            
-            TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b) (h->bb in both cascades); M_{inv}(b, b) (GeV)", 20, params[10], params[11]);
-            TH1 *histMbbBkg = new TH1F("mbb_bkg", "", 20, params[10], params[11]);
-
-			bkg = CutsFunctionBkg(argv[2], params, "Background", histMbbBkg, 0); //Bkg            
-            signal = CutsFunctionBkg(argv[1], params, "Signal", histMbb, bkg);  //Signal
-            
-            TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
-            
-            
-            histMbb->Draw();
-            histMbb->SetLineColor(kBlue);
-            cmbb->Update();
-            histMbbBkg->SetLineColor(kRed);
-            histMbbBkg->Draw("Same");
-            cmbb->Update();
-            
-            TLegend *legend = new TLegend(0.1, 0.7, 0.48, 0.9);
-            legend->AddEntry(histMbb,"Signal","l");
-            legend->AddEntry(histMbbBkg,"Background","l");
-            legend->Draw();
-            cmbb->Update();
-            
-            if(higgsdecay == 0)
-            {
-                cmbb->SaveAs("Mbb_SigBkg_tau.pdf");
-            }
-            else
-            {
-                cmbb->SaveAs("Mbb_SigBkg.pdf");
-            }
-            
-            TCanvas * cmbb_bkg = new TCanvas("cmbb_bkg", "cmbb_bkg", 600, 600);
-            histMbbBkg->Draw();
-            cmbb_bkg->Update();
-            
-            cmbb_bkg->SaveAs("Mbb_Bkg.pdf");
-            
+            //the following line trims white space from the beginning of the string
+            line.erase(line.begin(), find_if(line.begin(), line.end(), not1(ptr_fun<int, int>(isspace))));
+        
+            if(line[0] == '#') continue;
+        
+            istringstream is(line);
+            is >> param >> value;
+        
+            params[param] = value;
         }
+    
+        CutsFunction(argv[1], params);
+    
     }
+    
     
     else if(argc == 2)
     {

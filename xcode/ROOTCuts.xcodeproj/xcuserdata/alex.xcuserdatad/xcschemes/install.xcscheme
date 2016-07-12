@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0720"
+   LastUpgradeVersion = "0730"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9FF40E95764F43379B382959"
+               BlueprintIdentifier = "00FCEF8D3E4847B09A0F8275"
                BuildableName = "install"
                BlueprintName = "install"
                ReferencedContainer = "container:xcode/ROOTCuts.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9FF40E95764F43379B382959"
+            BlueprintIdentifier = "00FCEF8D3E4847B09A0F8275"
             BuildableName = "install"
             BlueprintName = "install"
             ReferencedContainer = "container:xcode/ROOTCuts.xcodeproj">
@@ -63,7 +63,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9FF40E95764F43379B382959"
+            BlueprintIdentifier = "00FCEF8D3E4847B09A0F8275"
             BuildableName = "install"
             BlueprintName = "install"
             ReferencedContainer = "container:xcode/ROOTCuts.xcodeproj">

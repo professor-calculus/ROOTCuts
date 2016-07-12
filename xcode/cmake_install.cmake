@@ -41,10 +41,10 @@ file(INSTALL DESTINATION "/Users/alex/Documents/ROOTCuts" TYPE EXECUTABLE FILES 
     if(EXISTS "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts" AND
        NOT IS_SYMLINK "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       execute_process(COMMAND /usr/bin/install_name_tool
-        -delete_rpath "/Users/alex/ROOT/root_install/lib"
+        -delete_rpath "/Users/alex/ROOT/root-install/lib"
         "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       execute_process(COMMAND /usr/bin/install_name_tool
-        -delete_rpath "/Users/alex/Delphes-3.3.2"
+        -delete_rpath "/Users/alex/delphes"
         "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       if(CMAKE_INSTALL_DO_STRIP)
         execute_process(COMMAND "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip" "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
@@ -63,10 +63,10 @@ file(INSTALL DESTINATION "/Users/alex/Documents/ROOTCuts" TYPE EXECUTABLE FILES 
     if(EXISTS "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts" AND
        NOT IS_SYMLINK "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       execute_process(COMMAND /usr/bin/install_name_tool
-        -delete_rpath "/Users/alex/ROOT/root_install/lib"
+        -delete_rpath "/Users/alex/ROOT/root-install/lib"
         "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       execute_process(COMMAND /usr/bin/install_name_tool
-        -delete_rpath "/Users/alex/Delphes-3.3.2"
+        -delete_rpath "/Users/alex/delphes"
         "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       if(CMAKE_INSTALL_DO_STRIP)
         execute_process(COMMAND "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip" "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
@@ -85,10 +85,10 @@ file(INSTALL DESTINATION "/Users/alex/Documents/ROOTCuts" TYPE EXECUTABLE FILES 
     if(EXISTS "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts" AND
        NOT IS_SYMLINK "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       execute_process(COMMAND /usr/bin/install_name_tool
-        -delete_rpath "/Users/alex/ROOT/root_install/lib"
+        -delete_rpath "/Users/alex/ROOT/root-install/lib"
         "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       execute_process(COMMAND /usr/bin/install_name_tool
-        -delete_rpath "/Users/alex/Delphes-3.3.2"
+        -delete_rpath "/Users/alex/delphes"
         "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       if(CMAKE_INSTALL_DO_STRIP)
         execute_process(COMMAND "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip" "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
@@ -107,10 +107,10 @@ file(INSTALL DESTINATION "/Users/alex/Documents/ROOTCuts" TYPE EXECUTABLE FILES 
     if(EXISTS "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts" AND
        NOT IS_SYMLINK "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       execute_process(COMMAND /usr/bin/install_name_tool
-        -delete_rpath "/Users/alex/ROOT/root_install/lib"
+        -delete_rpath "/Users/alex/ROOT/root-install/lib"
         "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       execute_process(COMMAND /usr/bin/install_name_tool
-        -delete_rpath "/Users/alex/Delphes-3.3.2"
+        -delete_rpath "/Users/alex/delphes"
         "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       if(CMAKE_INSTALL_DO_STRIP)
         execute_process(COMMAND "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip" "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
