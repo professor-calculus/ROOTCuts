@@ -35,9 +35,12 @@ int main(int argc, char *argv[])
 
     
     double params[14];
-    int param, bkg, signal;
+    string param;
+    int bkg, signal;
     double value;
 
+    map<string, double> parameters;
+    
 	double weight = params[13];
     
     
@@ -56,8 +59,10 @@ int main(int argc, char *argv[])
             istringstream is(line);
             is >> param >> value;
             
-            params[param] = value;
+            parameters[param]=value;
+
         }
+        
         
         int higgsdecay = int(params[4]);
         if(higgsdecay < 0 || higgsdecay > 2)
@@ -134,38 +139,83 @@ int main(int argc, char *argv[])
             istringstream is(line);
             is >> param >> value;
         
-            params[param] = value;
+            parameters[param] = value;
         }
     
-        CutsFunction(argv[1], params);
+        CutsFunction(argv[1], parameters);
     
     }
     
     
     else if(argc == 2)
     {
-        fstream fin("../default/default_parameters.txt");
-        string line;
+        string input, command, argument;
+        double argument2;
         
-        while(getline(fin, line))
+        cout << "Welcome to ROOTCuts Version 2; these ARE the cuts you are looking for!" << endl;
+        cout << "\n" << "Opening " << argv[0] << "..." << endl;
+        cout << "\n" << "Please enter \" set\" followed by a parameter and a value, separated by a space" << endl;
+        cout << "alternatively enter \" open\" followed by the path to a parameter file \n" << endl;
+        cout << "when done, type \"go\" to run the program, or \"exit\" to exit." << endl;
+        
+        while(true)
         {
+            cin >> input;
+            
+            
             //the following line trims white space from the beginning of the string
-            line.erase(line.begin(), find_if(line.begin(), line.end(), not1(ptr_fun<int, int>(isspace))));
+            //input.erase(input.begin(), find_if(input.begin(), input.end(), not1(ptr_fun<int, int>(isspace))));
+                
+            istringstream is(input);
+            is >> command >> argument >> argument2;
             
-            if(line[0] == '#') continue;
-            
-            istringstream is(line);
-            is >> param >> value;
-            
-            params[param] = value;
+            if(command == "set")
+            {
+                parameters[argument] = argument2;
+                
+                continue;
+            }
+            else if(command == "open")
+            {
+                fstream fin(argument);
+                string line;
+                
+                while(getline(fin, line))
+                {
+                    //the following line trims white space from the beginning of the string
+                    line.erase(line.begin(), find_if(line.begin(), line.end(), not1(ptr_fun<int, int>(isspace))));
+                    
+                    if(line[0] == '#') continue;
+                    
+                    istringstream is2(line);
+                    is2 >> param >> value;
+                    
+                    parameters[param] = value;
+                    
+                    continue;
+                }
+            }
+            else if (command == "run")
+            {
+                break;
+            }
+            else
+            {
+                cout << "Invalid command, you plonker!" << endl;
+                
+                continue;
+            }
+                
+            //break;
         }
         
-        CutsFunction(argv[1], params);
+        
+        CutsFunction(argv[1], parameters);
     }
     
     else
     {
-        std::cout << "Usage: ./ROOTCuts /path/to/root/file.root /path/to/parameters/file.something" << endl;
+        std::cout << "Usage: ./ROOTCuts /path/to/root/file.root (optionally, you can add /path/to/parameters/file.something)" << endl;
     }
 
     return 0;

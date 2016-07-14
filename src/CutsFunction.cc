@@ -14,7 +14,7 @@
 using namespace std;
 
 
-void CutsFunction(const char* filename, double params[14])
+void CutsFunction(const char* filename, map<string, double> parameters)
 {
     gSystem->Load("libTreePlayer");
     //gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
@@ -35,50 +35,46 @@ void CutsFunction(const char* filename, double params[14])
     //      11      max. M_bb
     //      12      Jet pair matching algorithm for 2 bb pairs: 0 = Smallest av. Delta-R; 1 = Pairs with closest M_inv(bb)
     //      13      Sig/Bkg ratio
-
     
-    double jetPT1 = params[0];
-    double jetPT2 = params[1];
-    double jetPT3 = params[2];
-    double jetPT4 = params[3];
-    
-    int higgsdecay = int(params[4]);
+    int higgsdecay = int(parameters["higgsdecay"]);
     if(higgsdecay < 0 || higgsdecay > 2)
     {
         cout << "ERROR: Higgs Decay mode must be 0, 1 or 2" << endl;
         return;
     }
     
-    double bjetminPT = params[5];
+    double bjetminPT, taujetminPT;
     
-    double minMET = params[6];
+    double minMET = parameters["minMET"];
     
-    double minTauinvmass = params[7];
-    double maxTauinvmass = params[8];
+    double minTauinvmass = parameters["minTauinvmass"];
+    double maxTauinvmass = parameters["maxTauinvmass"];
     
-    double minSumTauPT = params[9];
+    double minSumTauPT = parameters["minSumTauPT"];
     
-    double minMbb = params[10];
-    double maxMbb = params[11];
+    double minMbb = parameters["minMbb"];
+    double maxMbb = parameters["maxMbb"];
     
-    int jetmatchingalgo = params[12];
+    int jetmatchingalgo = parameters["jetmatchingalgo"];
     
-	double sigbkgratio = params[13];
+	double sigbkgratio = parameters["sigbkgratio"];
 
-	int i, k, l, entries, npass, N_bjets, N_tau, N_PT;
+	int i, k, l, entries, npass, N_bjets, N_taujets, N_PT;
 
     double mtautau, PT_tau, met, efficiency;
     
     double mbb = 0;
     double mbb2 = 0;
     
+    int jetshardcut;
+    
     double DeltaR, DeltaR2;
     
-    int percent, tintin;
+    int no_jets, percent, tintin;
 
     string bar;
     
-	string filename2,title;
+	string filename2, title, jetpt_index;
     
     
 	
@@ -91,8 +87,22 @@ void CutsFunction(const char* filename, double params[14])
     chain.Add(filename);
     ExRootTreeReader *reader = new ExRootTreeReader(&chain);
 
+    
+    //--------- Load the Delphes branches ready for the cuts
     TClonesArray *branchJet = reader->UseBranch("Jet");
     TClonesArray *branchMET = reader->UseBranch("MissingET");
+    TClonesArray *branchParticle = reader->UseBranch("Particle");
+    TClonesArray *branchTrack = reader->UseBranch("Track");
+    TClonesArray *branchTower = reader->UseBranch("Tower");
+    TClonesArray *branchEFlowTrack = reader->UseBranch("EFlowTrack");
+    TClonesArray *branchEFlowPhoton = reader->UseBranch("EFlowPhoton");
+    TClonesArray *branchEFlowNeutralHadron = reader->UseBranch("EFlowNeutralHadron");
+    TClonesArray *branchGenJet = reader->UseBranch("GenJet");
+    TClonesArray *branchElectron = reader->UseBranch("Electron");
+    TClonesArray *branchPhoton = reader->UseBranch("Photon");
+    TClonesArray *branchMuon = reader->UseBranch("Muon");
+    TClonesArray *branchScalarHT = reader->UseBranch("ScalarHT");
+    
     
     
     //--------Tell it not to panic if there's no entries - it's better than a segfault!
@@ -141,7 +151,40 @@ void CutsFunction(const char* filename, double params[14])
     vector<Jet *> vectortaujet;
     vector<Jet *> matchingbjets;
     vector<Jet *> matchingtaujets;
-
+    
+    if(parameters.count("no_jets") == 1)
+    {
+        no_jets = parameters["no_jets"];
+    }
+    else
+    {
+        for(int jetno=1; jetno<5; jetno++)
+        {
+            jetpt_index = "jet_PT" + to_string(5 - jetno);
+            if(parameters.count(jetpt_index) == 1)
+            {
+                no_jets = jetno;
+            }
+            else
+            {
+                no_jets = 0;
+            }
+        }
+    }
+    
+    vector<double> jetPTcut;
+    
+    int njetcuts = 0;
+    
+    for(int jetptno=1; jetptno<5; jetptno++)
+    {
+        jetpt_index = "jet_PT" + to_string(jetptno);
+        if(parameters.count(jetpt_index) == 1)
+        {
+            jetPTcut.push_back(parameters[jetpt_index]);
+            njetcuts += 1;
+        }
+    }
 
     TLorentzVector p4[4];
     
@@ -168,221 +211,254 @@ void CutsFunction(const char* filename, double params[14])
         npass = 0;
 
         met = 0;
-
+        
+        jetshardcut = 0;
+        
         N_bjets = 0;
-        N_tau = 0;
+        N_taujets = 0;
         PT_tau = 0.0;
         N_PT = 0;
         
-        if(branchJet->GetEntries() > 3)
+        //------------- # of jets cut
+        if(branchJet->GetEntries() > no_jets)
         {
             pass_N_jets++;                  //passes number of hard jets test
             npass++;
+        }
+        
+        
+        //------------- Loop over jets, find b-jets, taus, whatever else.
+        for(k=0; k<branchJet->GetEntries(); k++)
+        {
+            jet = (Jet*) branchJet->At(k);
 
-            for(k=0; k<branchJet->GetEntries(); k++)
+            vectorjet.push_back(jet);
+            
+            if(parameters.count("n_bjets") == 1)
             {
-                jet = (Jet*) branchJet->At(k);
-
-                if(jet->PT > jetPT4)
+                if(parameters.count("bjetminPT") == 1)
                 {
-                    N_PT++;
+                    bjetminPT = parameters["bjetminPT"];
                 }
-
-                vectorjet.push_back(jet);
-
+                else
+                {
+                    bjetminPT = 0;
+                }
+                
+                
                 if(jet->BTag && jet->PT > bjetminPT)
                 {
                     vectorbjet.push_back(jet);
                     N_bjets++;
                 }
-                else if(jet->TauTag)
-                {
-                    vectortaujet.push_back(jet);
-                    N_tau++;
-                }
             }
-
-            if(higgsdecay == 0 && N_bjets > 1)
+            else if(parameters.count("n_taujets") == 1)
             {
-                pass_N_b_jets++;
-                npass++;                   //passes the number of b-jets test
-                
-                matchingbjets = JetPairFinder(vectorbjet, N_bjets);
-                
-                p4[0] = matchingbjets[0]->P4();
-                p4[1] = matchingbjets[1]->P4();
-
-                mbb = ((p4[0]) + (p4[1])).M();
-
-                if(mbb > minMbb && mbb < maxMbb)
+                if(parameters.count("taujetminPT") == 1)
                 {
-                    npass++;
-                    pass_bb_mass++;               //passes the M_bb inv. mass test
-                    
-                    DeltaR = p4[0].DeltaR(p4[1]);
-                }
-            }
-            else if(higgsdecay == 1 && N_bjets > 3)
-            {
-                pass_N_b_jets++;
-                npass += 2;                   //passes the number of b-jets test
-                
-                if(jetmatchingalgo == 0)     //Jet pairs with smallest average Delta-R
-                {
-                    matchingbjets = JetDoublePairFinder(vectorbjet, N_bjets);
-                }
-                else if(jetmatchingalgo == 1)                   //Jet pairs with closest M_inv(bb)
-                {
-                    matchingbjets = JetDoubleMbbPairFinder(vectorbjet, N_bjets);
-                }
-                
-                p4[0] = matchingbjets[0]->P4();
-                p4[1] = matchingbjets[1]->P4();
-                p4[2] = matchingbjets[2]->P4();
-                p4[3] = matchingbjets[3]->P4();
-                
-                
-                mbb = ((p4[0]) + (p4[1])).M();
-                mbb2 = ((p4[2]) + (p4[3])).M();
-                
-                
-                
-                if(mbb > minMbb && mbb < maxMbb && mbb2 > minMbb && mbb2 < maxMbb)
-                {
-                    npass += 2;
-                    pass_bb_mass++;               //passes the M_bb inv. mass test
-                    
-                    DeltaR = p4[0].DeltaR(p4[1]);
-                    DeltaR2 = p4[2].DeltaR(p4[3]);
-                }
-            }
-            
-            else if(higgsdecay == 2 && N_bjets > 2)
-            {
-                pass_N_b_jets++;
-                npass += 2;                   //passes the number of b-jets test
-                
-                if(jetmatchingalgo == 0)     //Jet pairs with smallest average Delta-R
-                {
-                    matchingbjets = Jet2Plus1Finder(vectorbjet, N_bjets);
-                }
-                else if(jetmatchingalgo == 1)                   //Jet pairs with closest M_inv(bb)
-                {
-                    matchingbjets = Jet2Plus1MbbFinder(vectorbjet, N_bjets);
-                }
-                
-                p4[0] = matchingbjets[0]->P4();
-                p4[1] = matchingbjets[1]->P4();
-                
-                mbb = ((p4[0]) + (p4[1])).M();
-                mbb2 = matchingbjets[2]->Mass;
-                
-                
-                
-                if(mbb > minMbb && mbb < maxMbb)
-                {
-                    npass += 2;
-                    pass_bb_mass++;               //passes the M_bb inv. mass test
-                    
-                    DeltaR = p4[0].DeltaR(p4[1]);
-                }
-            }
-
-            if(vectorjet[0]->PT > jetPT1 && vectorjet[1]->PT > jetPT2 && vectorjet[2]->PT > jetPT3 && vectorjet[3]->PT > jetPT4)
-            {
-                pass_jets++;
-                npass++;                    //passes the PT of 4 leading jets test
-            }
-
-
-            for (int m = 0; m < branchMET->GetEntries(); m++)
-            {
-                Double_t metv = ((MissingET*) branchMET->At(m))->MET;
-                met += metv;
-            }
-
-            if(met > minMET)
-            {
-                pass_MET++;
-                npass++;                    //passes the MET test
-            }
-
-            if(higgsdecay == 0 && N_tau > 1)
-            {
-                matchingtaujets = JetPairFinder(vectortaujet, N_tau);
-
-                p4[2] = matchingtaujets[0]->P4();
-                p4[3] = matchingtaujets[1]->P4();
-
-                mtautau = ((p4[2]) + (p4[3])).M();
-
-                if(mtautau > minTauinvmass && mtautau < maxTauinvmass)
-                {
-                    npass++;                //passes the tautau inv. mass test
-                    pass_tautau_mass++;
-                }
-
-                for(l=0; l<N_tau; l++)
-                {
-                    PT_tau += double(vectortaujet[l]->PT);
-                    //cout << "Tau PT " << PT_tau << endl;
-                }
-
-                if(double(PT_tau) > minSumTauPT)
-                {
-                    npass++;                //passes the total tau transverse momentum test
-                    pass_tau++;
-                    //cout << pass_tau << " events passed the tau test so far" << endl;
-                }
-            }
-            
-            //----This bit gives a nice progress bar - unnecessary but looks so nice, like an iPad mini
-        
-            percent = (i*100)/entries;
-        
-            for(tintin = 0; tintin < 50; tintin++)
-            {
-                if( tintin < (percent/2))
-                {
-                    bar.replace(tintin,1,"=");
-                }
-                else if( tintin == (percent/2))
-                {
-                    bar.replace(tintin,1,">");
+                    taujetminPT = parameters["taujetminPT"];
                 }
                 else
                 {
-                    bar.replace(tintin,1," ");
+                    taujetminPT = 0;
+                }
+                
+                
+                if(jet->TauTag && jet->PT > taujetminPT)
+                {
+                    vectortaujet.push_back(jet);
+                    N_taujets++;
                 }
             }
-
-            cout << "\033[36m" << "\r" "[" << bar << "] ";
-            cout.width( 3 );
-            cout << "\033[0m" << percent << "%     " << std::flush;   // lol
         }
 
-        if(npass == 7)
+        if(parameters["higgsdecay"] == 0 && N_bjets > 1)
         {
-            eventpass++;
+            pass_N_b_jets++;
+            npass++;                   //passes the number of b-jets test
+            
+            matchingbjets = JetPairFinder(vectorbjet, N_bjets);
+            
+            p4[0] = matchingbjets[0]->P4();
+            p4[1] = matchingbjets[1]->P4();
 
-            histMbb->Fill(mbb);
-            histnbjet->Fill(N_bjets);
-            histmet->Fill(met);
-            histDeltaR->Fill(DeltaR);
-            if(higgsdecay == 1)
+            mbb = ((p4[0]) + (p4[1])).M();
+
+            if(mbb > minMbb && mbb < maxMbb)
             {
-                histMbb->Fill(mbb2);
+                npass++;
+                pass_bb_mass++;               //passes the M_bb inv. mass test
                 
-                histDeltaR->Fill(DeltaR2);
+                DeltaR = p4[0].DeltaR(p4[1]);
+            }
+        }
+        else if(parameters["higgsdecay"] == 1 && N_bjets > 3)
+        {
+            pass_N_b_jets++;
+            npass += 2;                   //passes the number of b-jets test
+            
+            if(jetmatchingalgo == 0)     //Jet pairs with smallest average Delta-R
+            {
+                matchingbjets = JetDoublePairFinder(vectorbjet, N_bjets);
+            }
+            else if(jetmatchingalgo == 1)                   //Jet pairs with closest M_inv(bb)
+            {
+                matchingbjets = JetDoubleMbbPairFinder(vectorbjet, N_bjets);
+            }
+            
+            p4[0] = matchingbjets[0]->P4();
+            p4[1] = matchingbjets[1]->P4();
+            p4[2] = matchingbjets[2]->P4();
+            p4[3] = matchingbjets[3]->P4();
+            
+            
+            mbb = ((p4[0]) + (p4[1])).M();
+            mbb2 = ((p4[2]) + (p4[3])).M();
+            
+            
+            
+            if(mbb > minMbb && mbb < maxMbb && mbb2 > minMbb && mbb2 < maxMbb)
+            {
+                npass += 2;
+                pass_bb_mass++;               //passes the M_bb inv. mass test
+                
+                DeltaR = p4[0].DeltaR(p4[1]);
+                DeltaR2 = p4[2].DeltaR(p4[3]);
+            }
+        }
+        
+        else if(parameters["higgsdecay"] == 2 && N_bjets > 2)
+        {
+            pass_N_b_jets++;
+            npass += 2;                   //passes the number of b-jets test
+            
+            if(jetmatchingalgo == 0)     //Jet pairs with smallest average Delta-R
+            {
+                matchingbjets = Jet2Plus1Finder(vectorbjet, N_bjets);
+            }
+            else if(jetmatchingalgo == 1)                   //Jet pairs with closest M_inv(bb)
+            {
+                matchingbjets = Jet2Plus1MbbFinder(vectorbjet, N_bjets);
+            }
+            
+            p4[0] = matchingbjets[0]->P4();
+            p4[1] = matchingbjets[1]->P4();
+            
+            mbb = ((p4[0]) + (p4[1])).M();
+            mbb2 = matchingbjets[2]->Mass;
+            
+            
+            
+            if(mbb > minMbb && mbb < maxMbb)
+            {
+                npass += 2;
+                pass_bb_mass++;               //passes the M_bb inv. mass test
+                
+                DeltaR = p4[0].DeltaR(p4[1]);
+            }
+        }
+        
+        for (vector<double>::iterator it = jetPTcut.begin() ; it != jetPTcut.end(); ++it)
+        {
+            if(distance(jetPTcut.begin(), it) < no_jets + 1 && vectorjet[distance(jetPTcut.begin(), it)]->PT < *it)
+            {
+                jetshardcut += 1;
+            }
+        }
+        
+        if(jetshardcut == 0)
+        {
+            pass_jets++;
+            npass++;                    //passes the PT of 4 leading jets test
+        }
+
+
+        for (int m = 0; m < branchMET->GetEntries(); m++)
+        {
+            Double_t metv = ((MissingET*) branchMET->At(m))->MET;
+            met += metv;
+        }
+
+        if(met > minMET)
+        {
+            pass_MET++;
+            npass++;                    //passes the MET test
+        }
+
+        if(higgsdecay == 0 && N_taujets > 1)
+        {
+            matchingtaujets = JetPairFinder(vectortaujet, N_taujets);
+
+            p4[2] = matchingtaujets[0]->P4();
+            p4[3] = matchingtaujets[1]->P4();
+
+            mtautau = ((p4[2]) + (p4[3])).M();
+
+            if(mtautau > minTauinvmass && mtautau < maxTauinvmass)
+            {
+                npass++;                //passes the tautau inv. mass test
+                pass_tautau_mass++;
+            }
+
+            for(l=0; l<N_taujets; l++)
+            {
+                PT_tau += double(vectortaujet[l]->PT);
+                //cout << "Tau PT " << PT_tau << endl;
+            }
+
+            if(double(PT_tau) > minSumTauPT)
+            {
+                npass++;                //passes the total tau transverse momentum test
+                pass_tau++;
+                //cout << pass_tau << " events passed the tau test so far" << endl;
+            }
+        }
+        
+        //----This bit gives a nice progress bar - unnecessary but looks so nice, like an iPad mini
+    
+        percent = (i*100)/entries;
+    
+        for(tintin = 0; tintin < 50; tintin++)
+        {
+            if( tintin < (percent/2))
+            {
+                bar.replace(tintin,1,"=");
+            }
+            else if( tintin == (percent/2))
+            {
+                bar.replace(tintin,1,">");
+            }
+            else
+            {
+                bar.replace(tintin,1," ");
             }
         }
 
-
+        cout << "\033[36m" << "\r" "[" << bar << "] ";
+        cout.width( 3 );
+        cout << "\033[0m" << percent << "%     " << std::flush;   // lol
     }
+
+    if(npass == 7)
+    {
+        eventpass++;
+
+        histMbb->Fill(mbb);
+        histnbjet->Fill(N_bjets);
+        histmet->Fill(met);
+        histDeltaR->Fill(DeltaR);
+        if(higgsdecay == 1)
+        {
+            histMbb->Fill(mbb2);
+            
+            histDeltaR->Fill(DeltaR2);
+        }
+    }
+
     
     cout << "\n" << endl;
     
-    if(higgsdecay == 0)
+    if(parameters["higgsdecay"] == 0)
     {
         histMbb->SetTitle("M_{inv}(b, b) (h->bb and h->tau-tau); M_{inv}(b, b) (GeV); Events / 5 GeV");
         histnbjet->SetTitle("Number of b-jets (h->bb and h->tau-tau); No. b-jets");
@@ -394,7 +470,7 @@ void CutsFunction(const char* filename, double params[14])
     histMbb->Draw();
     cmbb->Update();
     
-    if(higgsdecay == 0)
+    if(parameters["higgsdecay"] == 0)
     {
         cmbb->SaveAs("Mbb_tau.pdf");
     }
@@ -410,7 +486,7 @@ void CutsFunction(const char* filename, double params[14])
     histnbjet->Draw();
     cbjet->Update();
 
-    if(higgsdecay == 0)
+    if(parameters["higgsdecay"] == 0)
     {
         cbjet->SaveAs("n_b_jets_tau.pdf");
     }
@@ -441,7 +517,7 @@ void CutsFunction(const char* filename, double params[14])
     cdelr->Update();
     
 
-    if(higgsdecay == 0)
+    if(parameters["higgsdecay"] == 0)
     {
         cdelr->SaveAs("DeltaR_tau.pdf");
     }
@@ -480,7 +556,12 @@ void CutsFunction(const char* filename, double params[14])
     cout << "Cross-section is now reduced by factor of " << efficiency << "\n\n" << endl;
     cout << "\033[32m" << "Winner winner, chicken dinner\n" << "\033[0m" << "\n\n" << endl;
     cout << "Cuts (Energy, masses, PT in GeV):\n" << endl;
-    cout << "PT of 1st-4th leading jets = " << jetPT1 << ", " << jetPT2 << ", " << jetPT3 << ", " << jetPT4 << " respectively" << endl;
+    cout << "PT of 1st-4th leading jets = ";
+    for(int n=0; n<njetcuts; n++)
+    {
+        cout << jetPTcut[n] << ", ";
+    }
+    cout << "respectively" << endl;
     cout << "Min. b-jet PT = " << bjetminPT << endl;
     cout << "Min. Missing ET = " << minMET << endl;
     
@@ -497,7 +578,12 @@ void CutsFunction(const char* filename, double params[14])
     outputfile << "Cross-section is now reduced by factor of " << efficiency << "\n\n" << endl;
     outputfile << "\033[32m" << "Winner winner, chicken dinner\n" << "\033[0m" << "\n\n" << endl;
     outputfile << "Cuts (Energy, masses, PT in GeV):\n" << endl;
-    outputfile << "PT of 1st-4th leading jets = " << jetPT1 << ", " << jetPT2 << ", " << jetPT3 << ", " << jetPT4 << " respectively" << endl;
+    outputfile << "PT of 1st-4th leading jets = ";
+    for(int n=0; n<njetcuts; n++)
+    {
+        outputfile << jetPTcut[n] << ", ";
+    }
+    outputfile << "respectively" << endl;
     outputfile << "Min. b-jet PT = " << bjetminPT << endl;
     outputfile << "Min. Missing ET = " << minMET << endl;
     
