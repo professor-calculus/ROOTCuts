@@ -100,6 +100,7 @@ int CutsFunctionBkg(const char* filename, double params[16], string mode, TH1* h
     
     TClonesArray *branchJet = reader->UseBranch("Jet");
     TClonesArray *branchMET = reader->UseBranch("MissingET");
+    TClonesArray *branchScalarHT = reader->UseBranch("ScalarHT");
     
     
     //--------Tell it not to panic if there's no entries - it's better than a segfault!
@@ -328,6 +329,18 @@ int CutsFunctionBkg(const char* filename, double params[16], string mode, TH1* h
                 npass++;                    //passes the MET test
             }
             
+            for (int v = 0; v < branchScalarHT->GetEntries(); v++)
+            {
+                Double_t HTv = ((ScalarHT*) branchScalarHT->At(v))->HT;
+                HT += HTv;
+            }
+            
+            if(HT > minHT)
+            {
+                pass_HT++;
+                npass++;                    //passes the HT test
+            }
+            
             if(higgsdecay == 0 && N_tau > 1)
             {
                 matchingtaujets = JetPairFinder(vectortaujet, N_tau);
@@ -356,11 +369,6 @@ int CutsFunctionBkg(const char* filename, double params[16], string mode, TH1* h
                     //cout << pass_tau << " events passed the tau test so far" << endl;
                 }
                 
-                if(HT > minHT)
-                {
-                    npass++;
-                    pass_HT++;
-                }
             }
             
             //----This bit gives a nice progress bar - unnecessary but looks so nice, like an iPad mini
@@ -546,6 +554,7 @@ int CutsFunctionBkg(const char* filename, double params[16], string mode, TH1* h
     cout << pass_tau << " events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
     cout << pass_HT << " events contained at least " << minHT << "GeV HT" << endl;
     cout << pass_N_jets << " events contained at least " << minN_jets << " jets" << endl;
+    cout << pass_biaseddeltaphi << " events had biased delta-phi > 0.5" << endl;
     cout << "\n" << eventpass << " events passed all tests" << endl;
     
     cout << "\n\n\n" << endl;
@@ -565,6 +574,7 @@ int CutsFunctionBkg(const char* filename, double params[16], string mode, TH1* h
     outputfile << pass_tau << " events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
     outputfile << pass_HT << " events contained at least " << minHT << "GeV HT" << endl;
     outputfile << pass_N_jets << " events contained at least " << minN_jets << " jets" << endl;
+    outputfile << pass_biaseddeltaphi << " events had biased delta-phi > 0.5" << endl;
     outputfile << "\n" << eventpass << " events passed all tests" << endl;
     
     outputfile << "\n\n\n" << endl;
