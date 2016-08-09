@@ -544,6 +544,8 @@ int CutsFunctionBkg(const char* filename, double params[16], string mode, TH1* h
     cout << pass_bb_mass << " events contained at least 2 b-jets with invariant mass within the bounds" << endl;
     cout << pass_MET << " events had at least 30GeV Missing ET" << endl;
     cout << pass_tau << " events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
+    cout << pass_HT << " events contained at least " << minHT << "GeV HT" << endl;
+    cout << pass_N_jets << " events contained at least " << minN_jets << " jets" << endl;
     cout << "\n" << eventpass << " events passed all tests" << endl;
     
     cout << "\n\n\n" << endl;
@@ -561,6 +563,8 @@ int CutsFunctionBkg(const char* filename, double params[16], string mode, TH1* h
     outputfile << pass_bb_mass << " events contained at least 2 b-jets with invariant mass within the bounds" << endl;
     outputfile << pass_MET << " events had at least 30GeV Missing ET" << endl;
     outputfile << pass_tau << " events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
+    outputfile << pass_HT << " events contained at least " << minHT << "GeV HT" << endl;
+    outputfile << pass_N_jets << " events contained at least " << minN_jets << " jets" << endl;
     outputfile << "\n" << eventpass << " events passed all tests" << endl;
     
     outputfile << "\n\n\n" << endl;
