@@ -32,13 +32,15 @@ int main(int argc, char *argv[])
     //      11      max. M_bb
     //      12      Jet pair matching algorithm for 2 bb pairs: 0 = Smallest av. Delta-R; 1 = Pairs with closest M_inv(bb)
 	//		13		User specify Signal/Background ratio (double precision)
+    //      14      min. HT
+    //      15      min. no. of jets
 
     
-    double params[14];
+    double params[15];
     int param, bkg, signal;
     double value;
 
-	double weight = params[13];
+	//double weight = params[13];
     
     
     if(argc == 4)

@@ -15,7 +15,7 @@
 using namespace std;
 
 
-int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* histmb, int bkgentries)
+int CutsFunctionBkg(const char* filename, double params[16], string mode, TH1* histmb, int bkgentries)
 {
     gSystem->Load("libTreePlayer");
     //gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
@@ -37,6 +37,8 @@ int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* h
     //      11      max. M_bb
     //      12      Jet pair matching algorithm for 2 bb pairs: 0 = Smallest av. Delta-R; 1 = Pairs with closest M_inv(bb)
     //      13      Sig/Bkg ratio
+    //      14      min. HT
+    //      15      min. no. of jets
     
     
     double jetPT1 = params[0];
@@ -67,6 +69,10 @@ int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* h
 
 	double sigbkgratio = params[13];
     
+    double minHT = params[14];
+    
+    int minN_jets = params[15];
+    
     
     int i, k, l, entries, npass, N_bjets, N_tau, N_PT, N_jets;
     
@@ -75,7 +81,7 @@ int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* h
     double mbb = 0;
     double mbb2 = 0;
     
-    double DeltaR, DeltaR2, biaseddeltaphi;
+    double DeltaR, DeltaR2, biaseddeltaphi, HT;
     
     int percent, tintin;
     
@@ -135,6 +141,7 @@ int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* h
     int pass_N_jets = 0;
     int pass_tautau_mass = 0;
     int pass_biaseddeltaphi = 0;
+    int pass_HT = 0;
     
     int eventpass = 0;
     
@@ -170,6 +177,7 @@ int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* h
         npass = 0;
         
         met = 0;
+        HT = 0;
         
         N_bjets = 0;
         N_tau = 0;
@@ -178,7 +186,7 @@ int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* h
         
         N_jets = branchJet->GetEntries();
         
-        if(N_jets > 3)
+        if(N_jets > minN_jets)
         {
             pass_N_jets++;                  //passes number of hard jets test
             npass++;
@@ -204,6 +212,8 @@ int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* h
                     vectortaujet.push_back(jet);
                     N_tau++;
                 }
+                
+                HT += jet->PT;
             }
             
             biaseddeltaphi = BiasedDeltaPhi(vectorjet, N_jets);
@@ -345,6 +355,12 @@ int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* h
                     pass_tau++;
                     //cout << pass_tau << " events passed the tau test so far" << endl;
                 }
+                
+                if(HT > minHT)
+                {
+                    npass++;
+                    pass_HT++;
+                }
             }
             
             //----This bit gives a nice progress bar - unnecessary but looks so nice, like an iPad mini
@@ -372,7 +388,7 @@ int CutsFunctionBkg(const char* filename, double params[14], string mode, TH1* h
             cout << "\033[0m" << percent << "%     " << std::flush;   // lol
         }
         
-        if(npass == 7)
+        if(npass == 9)
         {
             eventpass++;
             if(mode == "Signal")

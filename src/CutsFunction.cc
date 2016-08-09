@@ -15,7 +15,7 @@
 using namespace std;
 
 
-void CutsFunction(const char* filename, double params[14])
+void CutsFunction(const char* filename, double params[16])
 {
     gSystem->Load("libTreePlayer");
     //gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
@@ -36,6 +36,8 @@ void CutsFunction(const char* filename, double params[14])
     //      11      max. M_bb
     //      12      Jet pair matching algorithm for 2 bb pairs: 0 = Smallest av. Delta-R; 1 = Pairs with closest M_inv(bb)
     //      13      Sig/Bkg ratio
+    //      14      min. HT
+    //      15      min. no. of jets
 
     
     double jetPT1 = params[0];
@@ -65,6 +67,10 @@ void CutsFunction(const char* filename, double params[14])
     int jetmatchingalgo = params[12];
     
 	double sigbkgratio = params[13];
+    
+    double minHT = params[14];
+    
+    int minN_jets = params[15];
 
 	int i, k, l, entries, npass, N_bjets, N_tau, N_PT, N_jets;
 
@@ -73,7 +79,7 @@ void CutsFunction(const char* filename, double params[14])
     double mbb = 0;
     double mbb2 = 0;
     
-    double DeltaR, DeltaR2, biaseddeltaphi;
+    double DeltaR, DeltaR2, biaseddeltaphi, HT;
     
     int percent, tintin;
 
@@ -135,6 +141,7 @@ void CutsFunction(const char* filename, double params[14])
     int pass_bb_mass = 0;
     int pass_N_jets = 0;
     int pass_tautau_mass = 0;
+    int pass_HT = 0;
 
     int eventpass = 0;
     
@@ -170,6 +177,7 @@ void CutsFunction(const char* filename, double params[14])
         npass = 0;
 
         met = 0;
+        HT = 0;
 
         N_bjets = 0;
         N_tau = 0;
@@ -204,6 +212,8 @@ void CutsFunction(const char* filename, double params[14])
                     vectortaujet.push_back(jet);
                     N_tau++;
                 }
+                
+                HT += jet->PT;
             }
             
             biaseddeltaphi = BiasedDeltaPhi(vectorjet, N_jets);
@@ -346,6 +356,12 @@ void CutsFunction(const char* filename, double params[14])
                     pass_tau++;
                     //cout << pass_tau << " events passed the tau test so far" << endl;
                 }
+                
+                if(HT > minHT)
+                {
+                    npass++;
+                    pass_HT++;
+                }
             }
             
             //----This bit gives a nice progress bar - unnecessary but looks so nice, like an iPad mini
@@ -373,7 +389,7 @@ void CutsFunction(const char* filename, double params[14])
             cout << "\033[0m" << percent << "%     " << std::flush;   // lol
         }
 
-        if(npass == 8)
+        if(npass == 9)
         {
             eventpass++;
 
