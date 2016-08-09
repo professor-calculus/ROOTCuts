@@ -9,6 +9,7 @@
 #include <iostream>
 #include "../include/Ulrich_cuts.hh"
 #include "../include/TerminalPlot.hh"
+#include "../include/BiasedDeltaPhi.hh"
 
 
 using namespace std;
@@ -65,14 +66,14 @@ void CutsFunction(const char* filename, double params[14])
     
 	double sigbkgratio = params[13];
 
-	int i, k, l, entries, npass, N_bjets, N_tau, N_PT;
+	int i, k, l, entries, npass, N_bjets, N_tau, N_PT, N_jets;
 
     double mtautau, PT_tau, met, efficiency;
     
     double mbb = 0;
     double mbb2 = 0;
     
-    double DeltaR, DeltaR2;
+    double DeltaR, DeltaR2, biaseddeltaphi;
     
     int percent, tintin;
 
@@ -126,6 +127,7 @@ void CutsFunction(const char* filename, double params[14])
 
 
     int pass_jets = 0;
+    int pass_biaseddeltaphi = 0;
     int pass_N_b_jets = 0;
     //int pass_PT_b_jets = 0;
     int pass_MET = 0;
@@ -174,7 +176,9 @@ void CutsFunction(const char* filename, double params[14])
         PT_tau = 0.0;
         N_PT = 0;
         
-        if(branchJet->GetEntries() > 3)
+        N_jets = branchJet->GetEntries();
+        
+        if(N_jets > 3)
         {
             pass_N_jets++;                  //passes number of hard jets test
             npass++;
@@ -200,6 +204,14 @@ void CutsFunction(const char* filename, double params[14])
                     vectortaujet.push_back(jet);
                     N_tau++;
                 }
+            }
+            
+            biaseddeltaphi = BiasedDeltaPhi(vectorjet, N_jets);
+            
+            if(biaseddeltaphi > 0.5)
+            {
+                pass_biaseddeltaphi++;
+                npass++;
             }
 
             if(higgsdecay == 0 && N_bjets > 1)
@@ -361,7 +373,7 @@ void CutsFunction(const char* filename, double params[14])
             cout << "\033[0m" << percent << "%     " << std::flush;   // lol
         }
 
-        if(npass == 7)
+        if(npass == 8)
         {
             eventpass++;
 
