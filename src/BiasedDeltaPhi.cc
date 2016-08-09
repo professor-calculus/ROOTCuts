@@ -13,15 +13,15 @@
 double BiasedDeltaPhi(vector<Jet*> jets, int numberofjets)
 {
     int i, j, minindex;
-    double biaseddeltaphi, HTphi, Jetphi;
+    double biaseddeltaphi;
     vector<double> vectorbiaseddeltaphi;
     
-    vector<TLorentzVector> p;
-    TLorentzVector q;
+    TLorentzVector q, r, MHT, JetRemaining;
     
     for(i=0; i<numberofjets; i++)
     {
         q.Clear();
+        r.Clear();
         
         for(j=0; j<numberofjets; j++)
         {
@@ -29,19 +29,20 @@ double BiasedDeltaPhi(vector<Jet*> jets, int numberofjets)
             {
                 q += jets[i]->P4();
             }
+            
+            r += jets[i]->P4();
         }
         
-        p.push_back(q);
+        JetRemaining = jets[i]->P4();
         
-        HTphi = p[i].Phi();
-        Jetphi = jets[i]->Phi;
+        MHT = r - q;
         
-        vectorbiaseddeltaphi.push_back(HTphi + Jetphi);
+        vectorbiaseddeltaphi.push_back(MHT.DeltaPhi(JetRemaining));
     }
     
     minindex = min_element(vectorbiaseddeltaphi.begin(), vectorbiaseddeltaphi.end()) - vectorbiaseddeltaphi.begin();
     
     biaseddeltaphi = vectorbiaseddeltaphi[minindex];
     
-    return biaseddeltaphi;
+    return abs(biaseddeltaphi);
 };
