@@ -93,6 +93,7 @@ void CutsFunction(const char* filename, double params[16])
     
     
     TFile *f = TFile::Open(filename,"UPDATE");
+    
 
     TChain chain("Delphes");
     chain.Add(filename);
@@ -765,9 +766,18 @@ void CutsFunction(const char* filename, double params[16])
         TerminalPlot(histMHT, "Missing HT", 40, 0., 1000.);
     }
 
-//f->Write();
-f->Close();
+    f->Close();
     outputfile.close();
+    
+    
+    //----------- Writing all the histos into a .root file
+    TTimeStamp time;
+    string rootfile = "ROOTCuts_" + to_string(*filename) + to_string(time.GetDate()) + ".root";
+    const char * rootfilename = rootfile.c_str();
+    TFile *g = TFile::Open(rootfilename,"UPDATE");
+    
+    g->Write();
+    g->Close();
 
 };
 

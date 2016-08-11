@@ -28,6 +28,7 @@ dependencies: /Users/alex/Documents/ROOTCuts/ROOTcuts.cc \
   /Users/alex/ROOT/root-install/include/TIterator.h \
   /Users/alex/ROOT/root-install/include/TDatime.h \
   /Users/alex/ROOT/root-install/include/TUUID.h \
+  /Users/alex/ROOT/root-install/include/TTimeStamp.h \
   /Users/alex/ROOT/root-install/include/TLegend.h \
   /Users/alex/ROOT/root-install/include/TPave.h \
   /Users/alex/ROOT/root-install/include/TBox.h \
