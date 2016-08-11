@@ -126,10 +126,23 @@ void CutsFunction(const char* filename, double params[16])
     
     
     // Book histograms
-    TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets (h->bb in both cascades); No. b-jets", 10, 0.0, 10.0);
-    TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b) (h->bb in both cascades); M_{inv}(b, b) (GeV)", 20, minMbb, maxMbb);
-    TH1 *histmet = new TH1F ("met", "Missing ET (h->bb in both cascades); MET (GeV)", 50, 0.0, 1000.);
+    TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets; No. b-jets", 10, 0.0, 10.0);
+    TH1 *histnjet = new TH1F("njet", "Number of Jets; No. Jets", 15, 0.0, 15.0);
+    TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b); M_{inv}(b, b) (GeV)", 20, minMbb, maxMbb);
+    TH1 *histmet = new TH1F ("met", "Missing ET; MET (GeV)", 50, 0.0, 1000.);
     TH1 *histDeltaR = new TH1F("DeltaR", "Delta R between b-jets; Delta R", 60, 0, 6);
+    TH1 *histMHT = new TH1F("MHT", "Missing HT; Missing HT (GeV)", 50, 0., 1000.);
+    TH1 *histHT = new TH1F("HT", "Scalar HT; Scalar HT (GeV)", 100, 0., 4000.);
+    TH1 *histBiasedDeltaPhi = new TH1F("biaseddeltaphi", "Biased Delta Phi; Biased Delta Phi", 50, 0., 5.);
+    
+    TH1 *histnbjet_precut = new TH1F("nbjet", "Number of b-jets Before Cut; No. b-jets", 10, 0.0, 10.0);
+    TH1 *histnjet_precut = new TH1F("njet", "Number of Jets; No. Jets", 15, 0.0, 15.0);
+    TH1 *histMbb_precut = new TH1F("mbb", "M_{inv}(b, b) Before Cut; M_{inv}(b, b) (GeV)", 20, minMbb, maxMbb);
+    TH1 *histmet_precut = new TH1F ("met", "Missing ET Before Cut; MET (GeV)", 50, 0.0, 1000.);
+    TH1 *histDeltaR_precut = new TH1F("DeltaR", "Delta R between b-jets Before Cut; Delta R", 60, 0, 6);
+    TH1 *histMHT_precut = new TH1F("MHT", "Missing HT Before Cut; Missing HT (GeV)", 50, 0., 1000.);
+    TH1 *histHT_precut = new TH1F("HT", "Scalar HT Before Cut; Scalar HT (GeV)", 100, 0., 4000.);
+    TH1 *histBiasedDeltaPhi_precut = new TH1F("biaseddeltaphi", "Biased Delta Phi Before Cut; Biased Delta Phi", 50, 0., 5.);
 
 
 
@@ -151,9 +164,19 @@ void CutsFunction(const char* filename, double params[16])
     vector<Jet *> vectortaujet;
     vector<Jet *> matchingbjets;
     vector<Jet *> matchingtaujets;
+    
+    bool cut_Mbb = false;
+    bool cut_DeltaR = false;
+    bool cut_biaseddeltaphi = false;
+    bool cut_MET = false;
+    bool cut_HT = false;
+    bool cut_N_bjets = false;
+    bool cut_N_jets = false;
 
 
     TLorentzVector p4[4];
+    TLorentzVector MissingHT;
+    double ScalarMissingHT;
     
 
     //The for-loop: Loops over the tree to put the elements of each row into the class
@@ -172,6 +195,8 @@ void CutsFunction(const char* filename, double params[16])
         vectortaujet.clear();
         matchingbjets.clear();
         matchingtaujets.clear();
+        
+        MissingHT.Clear();
 
         Jet *jet = NULL;
 
@@ -185,12 +210,28 @@ void CutsFunction(const char* filename, double params[16])
         PT_tau = 0.0;
         N_PT = 0;
         
+        cut_Mbb = false;
+        cut_DeltaR = false;
+        cut_biaseddeltaphi = false;
+        cut_MET = false;
+        cut_HT = false;
+        cut_N_bjets = false;
+        cut_N_jets = false;
+        
         N_jets = branchJet->GetEntries();
         
-        if(N_jets > minN_jets)
+        
+        if(N_jets > 3)
         {
-            pass_N_jets++;                  //passes number of hard jets test
-            npass++;
+            
+            if(N_jets > minN_jets)
+            {
+                pass_N_jets++;                  //passes number of hard jets test
+                npass++;
+                
+                cut_N_jets = true;
+            }
+            
 
             for(k=0; k<branchJet->GetEntries(); k++)
             {
@@ -213,7 +254,13 @@ void CutsFunction(const char* filename, double params[16])
                     vectortaujet.push_back(jet);
                     N_tau++;
                 }
+                
+                MissingHT += jet->P4();
             }
+            
+            ScalarMissingHT = MissingHT.Pt();
+            
+            
             
             biaseddeltaphi = BiasedDeltaPhi(vectorjet, N_jets);
             
@@ -221,12 +268,16 @@ void CutsFunction(const char* filename, double params[16])
             {
                 pass_biaseddeltaphi++;
                 npass++;
+                
+                cut_biaseddeltaphi = true;
             }
+            
 
             if(higgsdecay == 0 && N_bjets > 1)
             {
                 pass_N_b_jets++;
                 npass++;                   //passes the number of b-jets test
+                cut_N_bjets = true;
                 
                 matchingbjets = JetPairFinder(vectorbjet, N_bjets);
                 
@@ -239,6 +290,8 @@ void CutsFunction(const char* filename, double params[16])
                 {
                     npass++;
                     pass_bb_mass++;               //passes the M_bb inv. mass test
+                    cut_Mbb = true;
+                    cut_DeltaR = true;
                     
                     DeltaR = p4[0].DeltaR(p4[1]);
                 }
@@ -247,6 +300,7 @@ void CutsFunction(const char* filename, double params[16])
             {
                 pass_N_b_jets++;
                 npass += 2;                   //passes the number of b-jets test
+                cut_N_bjets = true;
                 
                 if(jetmatchingalgo == 0)     //Jet pairs with smallest average Delta-R
                 {
@@ -273,6 +327,9 @@ void CutsFunction(const char* filename, double params[16])
                     npass += 2;
                     pass_bb_mass++;               //passes the M_bb inv. mass test
                     
+                    cut_Mbb = true;
+                    cut_DeltaR = true;
+                    
                     DeltaR = p4[0].DeltaR(p4[1]);
                     DeltaR2 = p4[2].DeltaR(p4[3]);
                 }
@@ -282,6 +339,7 @@ void CutsFunction(const char* filename, double params[16])
             {
                 pass_N_b_jets++;
                 npass += 2;                   //passes the number of b-jets test
+                cut_N_bjets = true;
                 
                 if(jetmatchingalgo == 0)     //Jet pairs with smallest average Delta-R
                 {
@@ -304,6 +362,8 @@ void CutsFunction(const char* filename, double params[16])
                 {
                     npass += 2;
                     pass_bb_mass++;               //passes the M_bb inv. mass test
+                    cut_Mbb = true;
+                    cut_DeltaR = true;
                     
                     DeltaR = p4[0].DeltaR(p4[1]);
                 }
@@ -326,6 +386,7 @@ void CutsFunction(const char* filename, double params[16])
             {
                 pass_MET++;
                 npass++;                    //passes the MET test
+                cut_MET = true;
             }
             
             for (int v = 0; v < branchScalarHT->GetEntries(); v++)
@@ -338,6 +399,7 @@ void CutsFunction(const char* filename, double params[16])
             {
                 pass_HT++;
                 npass++;                    //passes the HT test
+                cut_HT = true;
             }
 
             if(higgsdecay == 0 && N_tau > 1)
@@ -394,6 +456,7 @@ void CutsFunction(const char* filename, double params[16])
             cout.width( 3 );
             cout << "\033[0m" << percent << "%     " << std::flush;   // lol
         }
+        
 
         if(npass == 9)
         {
@@ -403,11 +466,50 @@ void CutsFunction(const char* filename, double params[16])
             histnbjet->Fill(N_bjets);
             histmet->Fill(met);
             histDeltaR->Fill(DeltaR);
+            histBiasedDeltaPhi->Fill(biaseddeltaphi);
+            histHT->Fill(HT);
+            histnjet->Fill(N_jets);
+            
             if(higgsdecay == 1)
             {
                 histMbb->Fill(mbb2);
                 
                 histDeltaR->Fill(DeltaR2);
+            }
+            
+            histMbb_precut->Fill(mbb);
+            histnbjet_precut->Fill(N_bjets);
+            histmet_precut->Fill(met);
+            histDeltaR_precut->Fill(DeltaR);
+            histBiasedDeltaPhi_precut->Fill(biaseddeltaphi);
+            histHT_precut->Fill(HT);
+            histnjet_precut->Fill(N_jets);
+            
+            if(higgsdecay == 1)
+            {
+                histMbb->Fill(mbb2);
+                
+                histDeltaR->Fill(DeltaR2);
+            }
+            
+            histMHT->Fill(ScalarMissingHT);
+            
+        }
+        else if(npass == 8)
+        {
+            if(!cut_Mbb) histMbb_precut->Fill(mbb);
+            else if(!cut_N_bjets) histnbjet_precut->Fill(N_bjets);
+            else if(!cut_MET) histmet_precut->Fill(met);
+            else if(!cut_DeltaR) histDeltaR_precut->Fill(DeltaR);
+            else if(!cut_biaseddeltaphi) histBiasedDeltaPhi_precut->Fill(biaseddeltaphi);
+            else if(!cut_HT) histHT_precut->Fill(HT);
+            else if(!cut_N_jets) histnjet_precut->Fill(N_jets);
+            
+            if(higgsdecay == 1)
+            {
+                if(!cut_Mbb) histMbb_precut->Fill(mbb2);
+                
+                if(!cut_DeltaR) histDeltaR_precut->Fill(DeltaR2);
             }
         }
 
@@ -422,7 +524,24 @@ void CutsFunction(const char* filename, double params[16])
         histnbjet->SetTitle("Number of b-jets (h->bb and h->tau-tau); No. b-jets");
         histmet->SetTitle("Missing ET (h->bb and h->tau-tau); MET (GeV); Events / 20 GeV");
     }
+    
+    
+    //--------- # of jets plots (with and without the cut)
+    TCanvas * cnjet = new TCanvas("cnjet", "cnjet", 600, 600);
+    
+    histnjet->Draw();
+    cnjet->Update();
+    cnjet->SaveAs("N_jets.pdf");
 
+    TCanvas * cnjet_precut = new TCanvas("cnjet_precut", "cnjet_precut", 600, 600);
+    
+    histnjet_precut->Draw();
+    cnjet_precut->Update();
+    cnjet_precut->SaveAs("N_jets_precut.pdf");
+
+    
+    
+    //----------- M_inv. b-bbar plots (with/without cuts)
     TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
     
     histMbb->Draw();
@@ -436,8 +555,24 @@ void CutsFunction(const char* filename, double params[16])
     {
         cmbb->SaveAs("Mbb.pdf");
     }
+    
+    TCanvas * cmbb_precut = new TCanvas("cmbb_precut", "cmbb_precut", 600, 600);
+    
+    histMbb_precut->Draw();
+    cmbb_precut->Update();
+    
+    if(higgsdecay == 0)
+    {
+        cmbb_precut->SaveAs("Mbb_tau_precut.pdf");
+    }
+    else
+    {
+        cmbb_precut->SaveAs("Mbb_precut.pdf");
+    }
 
-    //cout << histMbb->GetBinContent(10) << "\n" << endl;
+    
+    
+    //------------ # of b-jets plots (with/without the cut)
 
     TCanvas * cbjet = new TCanvas("cbjet", "cbjet", 600, 600);
 
@@ -453,6 +588,22 @@ void CutsFunction(const char* filename, double params[16])
         cbjet->SaveAs("n_b_jets.pdf");
     }
     
+    TCanvas * cbjet_precut = new TCanvas("cbjet_precut", "cbjet_precut", 600, 600);
+    
+    histnbjet_precut->Draw();
+    cbjet_precut->Update();
+    
+    if(higgsdecay == 0)
+    {
+        cbjet_precut->SaveAs("n_b_jets_tau_precut.pdf");
+    }
+    else
+    {
+        cbjet_precut->SaveAs("n_b_jets_precut.pdf");
+    }
+    
+    
+    //-------------- MET Plots (with/without cut)
     
     TCanvas * cmet = new TCanvas ("cmet", "cmet", 600, 600);
     
@@ -468,6 +619,23 @@ void CutsFunction(const char* filename, double params[16])
         cmet->SaveAs("MET.pdf");
     }
     
+    TCanvas * cmet_precut = new TCanvas ("cmet_precut", "cmet_precut", 600, 600);
+    
+    histmet_precut->Draw();
+    cmet_precut->Update();
+    
+    if(higgsdecay == 0)
+    {
+        cmet_precut->SaveAs("MET_tau_precut.pdf");
+    }
+    else
+    {
+        cmet_precut->SaveAs("MET_precut.pdf");
+    }
+    
+    
+    
+    //---------- Delta-R between b-jets (With/Without the cut)
     
     TCanvas * cdelr = new TCanvas ("cdelr", "cdelr", 600, 600);
     
@@ -484,7 +652,41 @@ void CutsFunction(const char* filename, double params[16])
         cdelr->SaveAs("DeltaR.pdf");
     }
     
-
+    TCanvas * cdelr_precut = new TCanvas ("cdelr_precut", "cdelr_precut", 600, 600);
+    
+    histDeltaR_precut->Draw();
+    cdelr_precut->Update();
+    
+    
+    if(higgsdecay == 0)
+    {
+        cdelr_precut->SaveAs("DeltaR_tau_precut.pdf");
+    }
+    else
+    {
+        cdelr_precut->SaveAs("DeltaR_precut.pdf");
+    }
+    
+    
+    
+    //---------- Missing HT (There's currently no cut on this)
+    TCanvas * cmht = new TCanvas("cmht", "cmht", 600, 600);
+    
+    histMHT->Draw();
+    cmht->Update();
+    
+    if(higgsdecay == 0)
+    {
+        cmht->SaveAs("MissingHT_tau.pdf");
+    }
+    else
+    {
+        cmht->SaveAs("MissingHT.pdf");
+    }
+    
+    
+    
+    //------------ Outputting the results...
 
     efficiency = double(eventpass)/double(entries);
 
@@ -501,16 +703,15 @@ void CutsFunction(const char* filename, double params[16])
         
         outputfile << "Higgs to bb in both cascades required\n" << endl;
     }
-    cout << pass_N_jets << " events contained at least 4 jets" << endl;
-    cout << pass_jets << " events contained 4 leading jets with PT 400,300,200,100 GeV" << endl;
-    cout << pass_N_b_jets << " events contained at least 2 b-jets" << endl;
-    cout << pass_bb_mass << " events contained at least 2 b-jets with invariant mass within the bounds" << endl;
-    cout << pass_MET << " events had at least 30GeV Missing ET" << endl;
-    cout << pass_tau << " events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
-    cout << pass_HT << " events contained at least " << minHT << "GeV HT" << endl;
-    cout << pass_N_jets << " events contained at least " << minN_jets << " jets" << endl;
-    cout << pass_biaseddeltaphi << " events had biased delta-phi > 0.5" << endl;
-    cout << "\n" << eventpass << " events passed all tests" << endl;
+    cout << pass_jets << " or " << 100.*double(pass_jets)/double(entries) << "percent of events contained 4 leading jets with PT 400,300,200,100 GeV" << endl;
+    cout << pass_N_b_jets << " or " << 100.*double(pass_N_b_jets)/double(entries) << "percent of events contained at least 2 b-jets" << endl;
+    cout << pass_bb_mass << " or " << 100.*double(pass_bb_mass)/double(entries) << "percent of events contained at least 2 b-jets with invariant mass within the bounds" << endl;
+    cout << pass_MET << " or " << 100.*double(pass_MET)/double(entries) << "percent of events had at least 30GeV Missing ET" << endl;
+    cout << pass_tau << " or " << 100.*double(pass_tau)/double(entries) << "percent of events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
+    cout << pass_HT << " or " << 100.*double(pass_HT)/double(entries) << "percent of events contained at least " << minHT << "GeV HT" << endl;
+    cout << pass_N_jets << " or " << 100.*double(pass_N_jets)/double(entries) << "percent of events contained at least " << minN_jets << " jets" << endl;
+    cout << pass_biaseddeltaphi << " or " << 100.*double(pass_biaseddeltaphi)/double(entries) << "percent of events had biased delta-phi > 0.5" << endl;
+    cout << "\n" << 100.*eventpass << "percent efficiency" << endl;
     
     cout << "\n\n\n" << endl;
     
@@ -521,16 +722,17 @@ void CutsFunction(const char* filename, double params[16])
     cout << "Min. b-jet PT = " << bjetminPT << endl;
     cout << "Min. Missing ET = " << minMET << endl;
     
-    outputfile << pass_N_jets << " events contained at least 4 jets" << endl;
-    outputfile << pass_jets << " events contained 4 leading jets with PT 400,300,200,100 GeV" << endl;
-    outputfile << pass_N_b_jets << " events contained at least 2 b-jets" << endl;
-    outputfile << pass_bb_mass << " events contained at least 2 b-jets with invariant mass within the bounds" << endl;
-    outputfile << pass_MET << " events had at least 30GeV Missing ET" << endl;
-    outputfile << pass_tau << " events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
-    outputfile << pass_HT << " events contained at least " << minHT << "GeV HT" << endl;
-    outputfile << pass_N_jets << " events contained at least " << minN_jets << " jets" << endl;
-    outputfile << pass_biaseddeltaphi << " events had biased delta-phi > 0.5" << endl;
-    outputfile << "\n" << eventpass << " events passed all tests" << endl;
+    
+    //--------- And outputting them to a file too...
+    outputfile << pass_jets << " or " << 100.*double(pass_jets)/double(entries) << "percent of events contained 4 leading jets with PT 400,300,200,100 GeV" << endl;
+    outputfile << pass_N_b_jets << " or " << 100.*double(pass_N_b_jets)/double(entries) << "percent of events contained at least 2 b-jets" << endl;
+    outputfile << pass_bb_mass << " or " << 100.*double(pass_bb_mass)/double(entries) << "percent of events contained at least 2 b-jets with invariant mass within the bounds" << endl;
+    outputfile << pass_MET << " or " << 100.*double(pass_MET)/double(entries) << "percent of events had at least 30GeV Missing ET" << endl;
+    outputfile << pass_tau << " or " << 100.*double(pass_tau)/double(entries) << "percent of events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
+    outputfile << pass_HT << " or " << 100.*double(pass_HT)/double(entries) << "percent of events contained at least " << minHT << "GeV HT" << endl;
+    outputfile << pass_N_jets << " or " << 100.*double(pass_N_jets)/double(entries) << "percent of events contained at least " << minN_jets << " jets" << endl;
+    outputfile << pass_biaseddeltaphi << " or " << 100.*double(pass_biaseddeltaphi)/double(entries) << "percent of events had biased delta-phi > 0.5" << endl;
+    outputfile << "\n" << 100.*eventpass << "percent efficiency" << endl;
     
     outputfile << "\n\n\n" << endl;
     
@@ -560,6 +762,7 @@ void CutsFunction(const char* filename, double params[16])
         TerminalPlot(histnbjet, "No. of b-jets", 40, 0.0, 10.0);
         TerminalPlot(histmet, "Missing ET", 40, minMET, 1000.);
         TerminalPlot(histDeltaR, "b-Jets DeltaR", 40, 0, 6);
+        TerminalPlot(histMHT, "Missing HT", 40, 0., 1000.);
     }
 
 //f->Write();
