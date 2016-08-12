@@ -542,8 +542,6 @@ void CutsFunction(const char* filename, double params[16])
     histnjet->Draw();
     cnjet->Update();
     
-    cnjet->Write();
-    
     cnjet->SaveAs("N_jets.pdf");
     
 
@@ -552,10 +550,10 @@ void CutsFunction(const char* filename, double params[16])
     histnjet_precut->Draw();
     cnjet_precut->Update();
     
-    cnjet_precut->Write();
-    
     cnjet_precut->SaveAs("N_jets_precut.pdf");
 
+    cnjet->Write();
+    cnjet_precut->Write();
     
     
     //----------- M_inv. b-bbar plots (with/without cuts)
