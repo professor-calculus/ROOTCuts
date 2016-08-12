@@ -804,27 +804,27 @@ void CutsFunction(const char* filename, double params[16])
     TTimeStamp time;
     string rootfile = "ROOTCuts_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".root";
     const char * rootfilename = rootfile.c_str();
-    TFile *g = TFile::Open(rootfilename,"UPDATE");
+    TFile *g = TFile::Open(rootfilename,"NEW");
     
-    cmht->Write();
+    histMHT->Write();
     
-    cbdp->Write();
-    cbdp_precut->Write();
+    histBiasedDeltaPhi->Write();
+    histBiasedDeltaPhi_precut->Write();
     
-    cmet->Write();
-    cmet_precut->Write();
+    histmet->Write();
+    histmet_precut->Write();
     
-    cmbb->Write();
-    cmbb_precut->Write();
+    histMbb->Write();
+    histMbb_precut->Write();
     
-    cdelr->Write();
-    cdelr_precut->Write();
+    histDeltaR->Write();
+    histDeltaR_precut->Write();
     
-    cbjet->Write();
-    cbjet_precut->Write();
+    histnbjet->Write();
+    histnbjet_precut->Write();
     
-    cnjet->Write();
-    cnjet_precut->Write();
+    histnjet->Write();
+    histnjet_precut->Write();
     
     
     g->Close();
