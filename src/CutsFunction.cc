@@ -517,15 +517,6 @@ void CutsFunction(const char* filename, double params[16])
 
     }
     
-    f->Close();
-
-    
-    //----------- Writing all the histos into a .root file
-    TTimeStamp time;
-    string rootfile = "ROOTCuts_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".root";
-    const char * rootfilename = rootfile.c_str();
-    TFile *g = TFile::Open(rootfilename,"UPDATE");
-    
     cout << "\n" << endl;
     
     if(higgsdecay == 0)
@@ -541,18 +532,14 @@ void CutsFunction(const char* filename, double params[16])
     
     histnjet->Draw();
     cnjet->Update();
-    
     cnjet->SaveAs("N_jets.pdf");
-    
 
     TCanvas * cnjet_precut = new TCanvas("cnjet_precut", "cnjet_precut", 600, 600);
     
     histnjet_precut->Draw();
     cnjet_precut->Update();
-    
     cnjet_precut->SaveAs("N_jets_precut.pdf");
 
-    
     
     
     //----------- M_inv. b-bbar plots (with/without cuts)
@@ -560,8 +547,6 @@ void CutsFunction(const char* filename, double params[16])
     
     histMbb->Draw();
     cmbb->Update();
-    
-    
     
     if(higgsdecay == 0)
     {
@@ -572,13 +557,10 @@ void CutsFunction(const char* filename, double params[16])
         cmbb->SaveAs("Mbb.pdf");
     }
     
-    
     TCanvas * cmbb_precut = new TCanvas("cmbb_precut", "cmbb_precut", 600, 600);
     
     histMbb_precut->Draw();
     cmbb_precut->Update();
-    
-    
     
     if(higgsdecay == 0)
     {
@@ -597,8 +579,6 @@ void CutsFunction(const char* filename, double params[16])
 
     histnbjet->Draw();
     cbjet->Update();
-    
-    
 
     if(higgsdecay == 0)
     {
@@ -609,13 +589,10 @@ void CutsFunction(const char* filename, double params[16])
         cbjet->SaveAs("n_b_jets.pdf");
     }
     
-    
     TCanvas * cbjet_precut = new TCanvas("cbjet_precut", "cbjet_precut", 600, 600);
     
     histnbjet_precut->Draw();
     cbjet_precut->Update();
-    
-    
     
     if(higgsdecay == 0)
     {
@@ -634,8 +611,6 @@ void CutsFunction(const char* filename, double params[16])
     histmet->Draw();
     cmet->Update();
     
-    
-    
     if(higgsdecay == 0)
     {
         cmet->SaveAs("MET_tau.pdf");
@@ -645,13 +620,10 @@ void CutsFunction(const char* filename, double params[16])
         cmet->SaveAs("MET.pdf");
     }
     
-    
     TCanvas * cmet_precut = new TCanvas ("cmet_precut", "cmet_precut", 600, 600);
     
     histmet_precut->Draw();
     cmet_precut->Update();
-    
-    
     
     if(higgsdecay == 0)
     {
@@ -671,7 +643,6 @@ void CutsFunction(const char* filename, double params[16])
     histDeltaR->Draw();
     cdelr->Update();
     
-    
 
     if(higgsdecay == 0)
     {
@@ -682,12 +653,10 @@ void CutsFunction(const char* filename, double params[16])
         cdelr->SaveAs("DeltaR.pdf");
     }
     
-    
     TCanvas * cdelr_precut = new TCanvas ("cdelr_precut", "cdelr_precut", 600, 600);
     
     histDeltaR_precut->Draw();
     cdelr_precut->Update();
-    
     
     
     if(higgsdecay == 0)
@@ -707,8 +676,6 @@ void CutsFunction(const char* filename, double params[16])
     histMHT->Draw();
     cmht->Update();
     
-    
-    
     if(higgsdecay == 0)
     {
         cmht->SaveAs("MissingHT_tau.pdf");
@@ -725,9 +692,6 @@ void CutsFunction(const char* filename, double params[16])
     histBiasedDeltaPhi->Draw();
     cbdp->Update();
     
-    
-
-    
     if(higgsdecay == 0)
     {
         cbdp->SaveAs("BiasedDeltaPhi_tau.pdf");
@@ -737,13 +701,10 @@ void CutsFunction(const char* filename, double params[16])
         cbdp->SaveAs("BiasedDeltaPhi.pdf");
     }
     
-    
     TCanvas * cbdp_precut = new TCanvas("cbdp_precut", "cbdp_precut", 600, 600);
     
     histBiasedDeltaPhi_precut->Draw();
     cbdp_precut->Update();
-    
-    
     
     if(higgsdecay == 0)
     {
@@ -834,29 +795,37 @@ void CutsFunction(const char* filename, double params[16])
         TerminalPlot(histDeltaR, "b-Jets DeltaR", 40, 0, 6);
         TerminalPlot(histMHT, "Missing HT", 40, 0., 1000.);
     }
+
+    f->Close();
+    outputfile.close();
     
     
-    cnjet->Write();
-    cnjet_precut->Write();
-    
-    cmbb->Write();
-    cmbb_precut->Write();
-    
-    cbjet->Write();
-    cbjet_precut->Write();
-    
-    cmet->Write();
-    cmet_precut->Write();
-    
-    cdelr->Write();
-    cdelr_precut->Write();
+    //----------- Writing all the histos into a .root file
+    TTimeStamp time;
+    string rootfile = "ROOTCuts_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".root";
+    const char * rootfilename = rootfile.c_str();
+    TFile *g = TFile::Open(rootfilename,"UPDATE");
     
     cmht->Write();
     
     cbdp->Write();
     cbdp_precut->Write();
     
-    outputfile.close();
+    cmet->Write();
+    cmet_precut->Write();
+    
+    cmbb->Write();
+    cmbb_precut->Write();
+    
+    cdelr->Write();
+    cdelr_precut->Write();
+    
+    cbjet->Write();
+    cbjet_precut->Write();
+    
+    cnjet->Write();
+    cnjet_precut->Write();
+    
     
     g->Close();
     
