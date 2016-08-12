@@ -532,12 +532,19 @@ void CutsFunction(const char* filename, double params[16])
     
     histnjet->Draw();
     cnjet->Update();
+    
+    cnjet->Write();
+    
     cnjet->SaveAs("N_jets.pdf");
+    
 
     TCanvas * cnjet_precut = new TCanvas("cnjet_precut", "cnjet_precut", 600, 600);
     
     histnjet_precut->Draw();
     cnjet_precut->Update();
+    
+    cnjet_precut->Write();
+    
     cnjet_precut->SaveAs("N_jets_precut.pdf");
 
     
@@ -548,6 +555,8 @@ void CutsFunction(const char* filename, double params[16])
     histMbb->Draw();
     cmbb->Update();
     
+    cmbb->Write();
+    
     if(higgsdecay == 0)
     {
         cmbb->SaveAs("Mbb_tau.pdf");
@@ -557,10 +566,13 @@ void CutsFunction(const char* filename, double params[16])
         cmbb->SaveAs("Mbb.pdf");
     }
     
+    
     TCanvas * cmbb_precut = new TCanvas("cmbb_precut", "cmbb_precut", 600, 600);
     
     histMbb_precut->Draw();
     cmbb_precut->Update();
+    
+    cmbb_precut->Write();
     
     if(higgsdecay == 0)
     {
@@ -579,6 +591,8 @@ void CutsFunction(const char* filename, double params[16])
 
     histnbjet->Draw();
     cbjet->Update();
+    
+    cbjet->Write();
 
     if(higgsdecay == 0)
     {
@@ -589,10 +603,13 @@ void CutsFunction(const char* filename, double params[16])
         cbjet->SaveAs("n_b_jets.pdf");
     }
     
+    
     TCanvas * cbjet_precut = new TCanvas("cbjet_precut", "cbjet_precut", 600, 600);
     
     histnbjet_precut->Draw();
     cbjet_precut->Update();
+    
+    cbjet_precut->Write();
     
     if(higgsdecay == 0)
     {
@@ -611,6 +628,8 @@ void CutsFunction(const char* filename, double params[16])
     histmet->Draw();
     cmet->Update();
     
+    cmet->Write();
+    
     if(higgsdecay == 0)
     {
         cmet->SaveAs("MET_tau.pdf");
@@ -620,10 +639,13 @@ void CutsFunction(const char* filename, double params[16])
         cmet->SaveAs("MET.pdf");
     }
     
+    
     TCanvas * cmet_precut = new TCanvas ("cmet_precut", "cmet_precut", 600, 600);
     
     histmet_precut->Draw();
     cmet_precut->Update();
+    
+    cmet_precut->Write();
     
     if(higgsdecay == 0)
     {
@@ -643,6 +665,7 @@ void CutsFunction(const char* filename, double params[16])
     histDeltaR->Draw();
     cdelr->Update();
     
+    cdelr->Write();
 
     if(higgsdecay == 0)
     {
@@ -653,11 +676,13 @@ void CutsFunction(const char* filename, double params[16])
         cdelr->SaveAs("DeltaR.pdf");
     }
     
+    
     TCanvas * cdelr_precut = new TCanvas ("cdelr_precut", "cdelr_precut", 600, 600);
     
     histDeltaR_precut->Draw();
     cdelr_precut->Update();
     
+    cdelr_precut->Write();
     
     if(higgsdecay == 0)
     {
@@ -676,6 +701,8 @@ void CutsFunction(const char* filename, double params[16])
     histMHT->Draw();
     cmht->Update();
     
+    cmht->Write();
+    
     if(higgsdecay == 0)
     {
         cmht->SaveAs("MissingHT_tau.pdf");
@@ -692,6 +719,9 @@ void CutsFunction(const char* filename, double params[16])
     histBiasedDeltaPhi->Draw();
     cbdp->Update();
     
+    cbdp->Write();
+
+    
     if(higgsdecay == 0)
     {
         cbdp->SaveAs("BiasedDeltaPhi_tau.pdf");
@@ -701,10 +731,13 @@ void CutsFunction(const char* filename, double params[16])
         cbdp->SaveAs("BiasedDeltaPhi.pdf");
     }
     
+    
     TCanvas * cbdp_precut = new TCanvas("cbdp_precut", "cbdp_precut", 600, 600);
     
     histBiasedDeltaPhi_precut->Draw();
     cbdp_precut->Update();
+    
+    cbdp_precut->Write();
     
     if(higgsdecay == 0)
     {
@@ -805,26 +838,6 @@ void CutsFunction(const char* filename, double params[16])
     string rootfile = "ROOTCuts_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".root";
     const char * rootfilename = rootfile.c_str();
     TFile *g = TFile::Open(rootfilename,"UPDATE");
-    
-    cmht->Write();
-    
-    cbdp->Write();
-    cbdp_precut->Write();
-    
-    cmet->Write();
-    cmet_precut->Write();
-    
-    cmbb->Write();
-    cmbb_precut->Write();
-    
-    cdelr->Write();
-    cdelr_precut->Write();
-    
-    cbjet->Write();
-    cbjet_precut->Write();
-    
-    cnjet->Write();
-    cnjet_precut->Write();
     
     
     g->Close();
