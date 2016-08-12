@@ -259,7 +259,7 @@ void CutsFunction(const char* filename, double params[16])
                 MissingHT += jet->P4();
             }
             
-            ScalarMissingHT = MissingHT.Pt();
+            ScalarMissingHT = MissingHT.M();
             
             
             
