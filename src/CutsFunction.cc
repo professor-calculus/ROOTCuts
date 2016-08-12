@@ -808,14 +808,14 @@ void CutsFunction(const char* filename, double params[16])
     
     histMHT->Write();
     
+    histMbb->Write();
+    histMbb_precut->Write();
+    
     histBiasedDeltaPhi->Write();
     histBiasedDeltaPhi_precut->Write();
     
     histmet->Write();
     histmet_precut->Write();
-    
-    histMbb->Write();
-    histMbb_precut->Write();
     
     histDeltaR->Write();
     histDeltaR_precut->Write();
