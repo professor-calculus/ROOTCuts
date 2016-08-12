@@ -556,9 +556,6 @@ void CutsFunction(const char* filename, double params[16])
     TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
     
     histMbb->Draw();
-    
-    histMbb->Write();
-    
     cmbb->Update();
     
     if(higgsdecay == 0)
@@ -573,9 +570,6 @@ void CutsFunction(const char* filename, double params[16])
     TCanvas * cmbb_precut = new TCanvas("cmbb_precut", "cmbb_precut", 600, 600);
     
     histMbb_precut->Draw();
-    
-    histMbb_precut->Write();
-    
     cmbb_precut->Update();
     
     if(higgsdecay == 0)
@@ -817,6 +811,8 @@ void CutsFunction(const char* filename, double params[16])
     
     histMHT->Write();
     
+//    histMbb->Write();
+//    histMbb_precut->Write();
     
     histBiasedDeltaPhi->Write();
     histBiasedDeltaPhi_precut->Write();
@@ -827,8 +823,8 @@ void CutsFunction(const char* filename, double params[16])
     histDeltaR->Write();
     histDeltaR_precut->Write();
     
-    histnbjet->Write();
-    histnbjet_precut->Write();
+//    histnbjet->Write();
+//    histnbjet_precut->Write();
     
     histnjet->Write();
     histnjet_precut->Write();
