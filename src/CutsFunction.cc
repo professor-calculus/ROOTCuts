@@ -808,7 +808,7 @@ void CutsFunction(const char* filename, double params[16])
     
     histMHT->Write();
     
-    //histMbb->Write();
+    histMbb->Write(rootfilename);
     //histMbb_precut->Write();
     
     histBiasedDeltaPhi->Write();
