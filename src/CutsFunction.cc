@@ -517,6 +517,16 @@ void CutsFunction(const char* filename, double params[16])
 
     }
     
+    f->Close();
+    
+    
+    //----------- Writing all the histos into a .root file
+    TTimeStamp time;
+    string rootfile = "ROOTCuts_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".root";
+    const char * rootfilename = rootfile.c_str();
+    TFile *g = TFile::Open(rootfilename,"NEW");
+    
+    
     cout << "\n" << endl;
     
     if(higgsdecay == 0)
@@ -546,6 +556,9 @@ void CutsFunction(const char* filename, double params[16])
     TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
     
     histMbb->Draw();
+    
+    histMbb->Write();
+    
     cmbb->Update();
     
     if(higgsdecay == 0)
@@ -560,6 +573,9 @@ void CutsFunction(const char* filename, double params[16])
     TCanvas * cmbb_precut = new TCanvas("cmbb_precut", "cmbb_precut", 600, 600);
     
     histMbb_precut->Draw();
+    
+    histMbb_precut->Write();
+    
     cmbb_precut->Update();
     
     if(higgsdecay == 0)
@@ -796,20 +812,11 @@ void CutsFunction(const char* filename, double params[16])
         TerminalPlot(histMHT, "Missing HT", 40, 0., 1000.);
     }
 
-    f->Close();
     outputfile.close();
     
     
-    //----------- Writing all the histos into a .root file
-    TTimeStamp time;
-    string rootfile = "ROOTCuts_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".root";
-    const char * rootfilename = rootfile.c_str();
-    TFile *g = TFile::Open(rootfilename,"NEW");
-    
     histMHT->Write();
     
-    //histMbb->Write();
-    //histMbb_precut->Write();
     
     histBiasedDeltaPhi->Write();
     histBiasedDeltaPhi_precut->Write();
