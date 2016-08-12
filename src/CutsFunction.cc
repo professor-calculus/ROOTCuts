@@ -829,16 +829,16 @@ void CutsFunction(const char* filename, double params[16])
     
     g->Close();
     
-    delete histBiasedDeltaPhi_precut;
-    delete histBiasedDeltaPhi;
-    delete histMHT;
-    delete histnjet_precut;
-    delete histHT;
-    delete histMbb;
-    delete histmet;
-    delete histnjet;
-    delete histMbb_precut;
-    delete histmet_precut;
+//    delete histBiasedDeltaPhi_precut;
+//    delete histBiasedDeltaPhi;
+//    delete histMHT;
+//    delete histnjet_precut;
+//    delete histHT;
+//    delete histMbb;
+//    delete histmet;
+//    delete histnjet;
+//    delete histMbb_precut;
+//    delete histmet_precut;
 
 };
 
