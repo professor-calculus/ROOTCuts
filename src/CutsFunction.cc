@@ -517,10 +517,6 @@ void CutsFunction(const char* filename, double params[16])
 
     }
     
-    f->Close();
-    
-    
-    //----------- Writing all the histos into a .root file
     
     cout << "\n" << endl;
     
@@ -804,16 +800,16 @@ void CutsFunction(const char* filename, double params[16])
     outputfile.close();
     
     
+    //----------- Writing all the histos into a .root file
     TTimeStamp time;
     string rootfile = "ROOTCuts_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".root";
     const char * rootfilename = rootfile.c_str();
     TFile *g = TFile::Open(rootfilename,"NEW");
-
     
     histMHT->Write();
     
-//    histMbb->Write();
-//    histMbb_precut->Write();
+    //histMbb->Write();
+    //histMbb_precut->Write();
     
     histBiasedDeltaPhi->Write();
     histBiasedDeltaPhi_precut->Write();
@@ -824,8 +820,8 @@ void CutsFunction(const char* filename, double params[16])
     histDeltaR->Write();
     histDeltaR_precut->Write();
     
-//    histnbjet->Write();
-//    histnbjet_precut->Write();
+    //histnbjet->Write();
+    //histnbjet_precut->Write();
     
     histnjet->Write();
     histnjet_precut->Write();
