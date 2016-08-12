@@ -809,7 +809,7 @@ void CutsFunction(const char* filename, double params[16])
     histMHT->Write();
     
     //histMbb->Write();
-    histMbb_precut->Write();
+    //histMbb_precut->Write();
     
     histBiasedDeltaPhi->Write();
     histBiasedDeltaPhi_precut->Write();
@@ -828,17 +828,6 @@ void CutsFunction(const char* filename, double params[16])
     
     
     g->Close();
-    
-//    delete histBiasedDeltaPhi_precut;
-//    delete histBiasedDeltaPhi;
-//    delete histMHT;
-//    delete histnjet_precut;
-//    delete histHT;
-//    delete histMbb;
-//    delete histmet;
-//    delete histnjet;
-//    delete histMbb_precut;
-//    delete histmet_precut;
 
 };
 
