@@ -129,20 +129,20 @@ void CutsFunction(const char* filename, double params[16])
     // Book histograms
     TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets; No. b-jets", 10, 0.0, 10.0);
     TH1 *histnjet = new TH1F("njet", "Number of Jets; No. Jets", 15, 0.0, 15.0);
-    TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b); M_{inv}(b, b) (GeV)", 20, minMbb, maxMbb);
+    TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b); M_{inv}(b, b) (GeV)", 40, 0., 200.);
     TH1 *histmet = new TH1F ("met", "Missing ET; MET (GeV)", 50, 0.0, 1000.);
     TH1 *histDeltaR = new TH1F("DeltaR", "Delta R between b-jets; Delta R", 60, 0, 6);
-    TH1 *histMHT = new TH1F("MHT", "Missing HT; Missing HT (GeV)", 50, 0., 1000.);
-    TH1 *histHT = new TH1F("HT", "Scalar HT; Scalar HT (GeV)", 100, 0., 4000.);
+    TH1 *histMHT = new TH1F("MHT", "Missing HT; Missing HT (GeV)", 100, 0., 8000.);
+    TH1 *histHT = new TH1F("HT", "Scalar HT; Scalar HT (GeV)", 100, 0., 8000.);
     TH1 *histBiasedDeltaPhi = new TH1F("biaseddeltaphi", "Biased Delta Phi; Biased Delta Phi", 50, 0., 5.);
     
     TH1 *histnbjet_precut = new TH1F("nbjet", "Number of b-jets Before Cut; No. b-jets", 10, 0.0, 10.0);
     TH1 *histnjet_precut = new TH1F("njet", "Number of Jets; No. Jets", 15, 0.0, 15.0);
-    TH1 *histMbb_precut = new TH1F("mbb", "M_{inv}(b, b) Before Cut; M_{inv}(b, b) (GeV)", 20, minMbb, maxMbb);
+    TH1 *histMbb_precut = new TH1F("mbb", "M_{inv}(b, b) Before Cut; M_{inv}(b, b) (GeV)", 40, 0., 200.);
     TH1 *histmet_precut = new TH1F ("met", "Missing ET Before Cut; MET (GeV)", 50, 0.0, 1000.);
     TH1 *histDeltaR_precut = new TH1F("DeltaR", "Delta R between b-jets Before Cut; Delta R", 60, 0, 6);
-    TH1 *histMHT_precut = new TH1F("MHT", "Missing HT Before Cut; Missing HT (GeV)", 50, 0., 1000.);
-    TH1 *histHT_precut = new TH1F("HT", "Scalar HT Before Cut; Scalar HT (GeV)", 100, 0., 4000.);
+    //TH1 *histMHT_precut = new TH1F("MHT", "Missing HT Before Cut; Missing HT (GeV)", 50, 0., 1000.);
+    TH1 *histHT_precut = new TH1F("HT", "Scalar HT Before Cut; Scalar HT (GeV)", 100, 0., 8000.);
     TH1 *histBiasedDeltaPhi_precut = new TH1F("biaseddeltaphi", "Biased Delta Phi Before Cut; Biased Delta Phi", 50, 0., 5.);
 
 
@@ -684,6 +684,36 @@ void CutsFunction(const char* filename, double params[16])
     {
         cmht->SaveAs("MissingHT.pdf");
     }
+
+    
+    //---------- Biased Delta-Phi (With/Without the Cut)
+    TCanvas * cbdp = new TCanvas("cbdp", "cbdp", 600, 600);
+    
+    histBiasedDeltaPhi->Draw();
+    cbdp->Update();
+    
+    if(higgsdecay == 0)
+    {
+        cbdp->SaveAs("BiasedDeltaPhi_tau.pdf");
+    }
+    else
+    {
+        cbdp->SaveAs("BiasedDeltaPhi.pdf");
+    }
+    
+    TCanvas * cbdp_precut = new TCanvas("cbdp_precut", "cbdp_precut", 600, 600);
+    
+    histBiasedDeltaPhi_precut->Draw();
+    cbdp_precut->Update();
+    
+    if(higgsdecay == 0)
+    {
+        cbdp_precut->SaveAs("BiasedDeltaPhi_tau_precut.pdf");
+    }
+    else
+    {
+        cbdp_precut->SaveAs("BiasedDeltaPhi_precut.pdf");
+    }
     
     
     
@@ -776,8 +806,39 @@ void CutsFunction(const char* filename, double params[16])
     const char * rootfilename = rootfile.c_str();
     TFile *g = TFile::Open(rootfilename,"UPDATE");
     
-    g->Write();
+    cmht->Write();
+    
+    cbdp->Write();
+    cbdp_precut->Write();
+    
+    cmet->Write();
+    cmet_precut->Write();
+    
+    cmbb->Write();
+    cmbb_precut->Write();
+    
+    cdelr->Write();
+    cdelr_precut->Write();
+    
+    cbjet->Write();
+    cbjet_precut->Write();
+    
+    cnjet->Write();
+    cnjet_precut->Write();
+    
+    
     g->Close();
+    
+    delete histBiasedDeltaPhi_precut;
+    delete histBiasedDeltaPhi;
+    delete histMHT;
+    delete histnjet_precut;
+    delete histHT;
+    delete histMbb;
+    delete histmet;
+    delete histnjet;
+    delete histMbb_precut;
+    delete histmet_precut;
 
 };
 
