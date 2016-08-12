@@ -129,7 +129,7 @@ void CutsFunction(const char* filename, double params[16])
     // Book histograms
     TH1 *histnbjet = new TH1F("nbjet", "Number of b-jets; No. b-jets", 10, 0.0, 10.0);
     TH1 *histnjet = new TH1F("njet", "Number of Jets; No. Jets", 15, 0.0, 15.0);
-    TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b); M_{inv}(b, b) (GeV)", 40, 0., 200.);
+    TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b); M_{inv}(b, b) (GeV)", 40, minMbb, maxMbb);
     TH1 *histmet = new TH1F ("met", "Missing ET; MET (GeV)", 50, 0.0, 1000.);
     TH1 *histDeltaR = new TH1F("DeltaR", "Delta R between b-jets; Delta R", 60, 0, 6);
     TH1 *histMHT = new TH1F("MHT", "Missing HT; Missing HT (GeV)", 100, 0., 8000.);
@@ -138,7 +138,7 @@ void CutsFunction(const char* filename, double params[16])
     
     TH1 *histnbjet_precut = new TH1F("nbjet_precut", "Number of b-jets Before Cut; No. b-jets", 10, 0.0, 10.0);
     TH1 *histnjet_precut = new TH1F("njet_precut", "Number of Jets; No. Jets", 15, 0.0, 15.0);
-    TH1 *histMbb_precut = new TH1F("mbb_precut", "M_{inv}(b, b) Before Cut; M_{inv}(b, b) (GeV)", 40, 0., 200.);
+    TH1 *histMbb_precut = new TH1F("mbb_precut", "M_{inv}(b, b) Before Cut; M_{inv}(b, b) (GeV)", 40, minMbb, maxMbb);
     TH1 *histmet_precut = new TH1F ("met_precut", "Missing ET Before Cut; MET (GeV)", 50, 0.0, 1000.);
     TH1 *histDeltaR_precut = new TH1F("DeltaR_precut", "Delta R between b-jets Before Cut; Delta R", 60, 0, 6);
     //TH1 *histMHT_precut = new TH1F("MHT_precut", "Missing HT Before Cut; Missing HT (GeV)", 50, 0., 1000.);
