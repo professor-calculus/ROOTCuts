@@ -808,8 +808,8 @@ void CutsFunction(const char* filename, double params[16])
     
     histMHT->Write();
     
-    histMbb->Write(rootfilename);
-    //histMbb_precut->Write();
+    histMbb->Write("Mbb_hist");
+    histMbb_precut->Write("Mbb_hist_precut");
     
     histBiasedDeltaPhi->Write();
     histBiasedDeltaPhi_precut->Write();
@@ -820,8 +820,8 @@ void CutsFunction(const char* filename, double params[16])
     histDeltaR->Write();
     histDeltaR_precut->Write();
     
-    //histnbjet->Write();
-    //histnbjet_precut->Write();
+    histnbjet->Write("n_b_jet_hist");
+    histnbjet_precut->Write("n_b_jet_hist_precuts");
     
     histnjet->Write();
     histnjet_precut->Write();
