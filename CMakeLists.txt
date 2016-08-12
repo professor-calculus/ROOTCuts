@@ -23,7 +23,7 @@ set(DelphesExternals_INCLUDE_DIR ${DELPHES}/external)
 include(${ROOT_USE_FILE})
 
 include_directories(${CMAKE_SOURCE_DIR} ${ROOT_INCLUDE_DIRS} ${DelphesExternals_INCLUDE_DIR} ${DELPHES})
-add_definitions(${ROOT_CXX_FLAGS} --std=C++11)
+add_definitions(${ROOT_CXX_FLAGS} -std=c++11)
 link_directories(${DELPHES})
 
 #---Create  a main program using the library
