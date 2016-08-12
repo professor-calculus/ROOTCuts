@@ -136,14 +136,14 @@ void CutsFunction(const char* filename, double params[16])
     TH1 *histHT = new TH1F("HT", "Scalar HT; Scalar HT (GeV)", 100, 0., 8000.);
     TH1 *histBiasedDeltaPhi = new TH1F("biaseddeltaphi", "Biased Delta Phi; Biased Delta Phi", 50, 0., 5.);
     
-    TH1 *histnbjet_precut = new TH1F("nbjet", "Number of b-jets Before Cut; No. b-jets", 10, 0.0, 10.0);
-    TH1 *histnjet_precut = new TH1F("njet", "Number of Jets; No. Jets", 15, 0.0, 15.0);
-    TH1 *histMbb_precut = new TH1F("mbb", "M_{inv}(b, b) Before Cut; M_{inv}(b, b) (GeV)", 40, 0., 200.);
-    TH1 *histmet_precut = new TH1F ("met", "Missing ET Before Cut; MET (GeV)", 50, 0.0, 1000.);
-    TH1 *histDeltaR_precut = new TH1F("DeltaR", "Delta R between b-jets Before Cut; Delta R", 60, 0, 6);
-    //TH1 *histMHT_precut = new TH1F("MHT", "Missing HT Before Cut; Missing HT (GeV)", 50, 0., 1000.);
-    TH1 *histHT_precut = new TH1F("HT", "Scalar HT Before Cut; Scalar HT (GeV)", 100, 0., 8000.);
-    TH1 *histBiasedDeltaPhi_precut = new TH1F("biaseddeltaphi", "Biased Delta Phi Before Cut; Biased Delta Phi", 50, 0., 5.);
+    TH1 *histnbjet_precut = new TH1F("nbjet_precut", "Number of b-jets Before Cut; No. b-jets", 10, 0.0, 10.0);
+    TH1 *histnjet_precut = new TH1F("njet_precut", "Number of Jets; No. Jets", 15, 0.0, 15.0);
+    TH1 *histMbb_precut = new TH1F("mbb_precut", "M_{inv}(b, b) Before Cut; M_{inv}(b, b) (GeV)", 40, 0., 200.);
+    TH1 *histmet_precut = new TH1F ("met_precut", "Missing ET Before Cut; MET (GeV)", 50, 0.0, 1000.);
+    TH1 *histDeltaR_precut = new TH1F("DeltaR_precut", "Delta R between b-jets Before Cut; Delta R", 60, 0, 6);
+    //TH1 *histMHT_precut = new TH1F("MHT_precut", "Missing HT Before Cut; Missing HT (GeV)", 50, 0., 1000.);
+    TH1 *histHT_precut = new TH1F("HT_precut", "Scalar HT Before Cut; Scalar HT (GeV)", 100, 0., 8000.);
+    TH1 *histBiasedDeltaPhi_precut = new TH1F("biaseddeltaphi_precut", "Biased Delta Phi Before Cut; Biased Delta Phi", 50, 0., 5.);
 
 
 
@@ -552,8 +552,7 @@ void CutsFunction(const char* filename, double params[16])
     
     cnjet_precut->SaveAs("N_jets_precut.pdf");
 
-    cnjet->Write();
-    cnjet_precut->Write();
+    
     
     
     //----------- M_inv. b-bbar plots (with/without cuts)
@@ -562,7 +561,7 @@ void CutsFunction(const char* filename, double params[16])
     histMbb->Draw();
     cmbb->Update();
     
-    cmbb->Write();
+    
     
     if(higgsdecay == 0)
     {
@@ -579,7 +578,7 @@ void CutsFunction(const char* filename, double params[16])
     histMbb_precut->Draw();
     cmbb_precut->Update();
     
-    cmbb_precut->Write();
+    
     
     if(higgsdecay == 0)
     {
@@ -599,7 +598,7 @@ void CutsFunction(const char* filename, double params[16])
     histnbjet->Draw();
     cbjet->Update();
     
-    cbjet->Write();
+    
 
     if(higgsdecay == 0)
     {
@@ -616,7 +615,7 @@ void CutsFunction(const char* filename, double params[16])
     histnbjet_precut->Draw();
     cbjet_precut->Update();
     
-    cbjet_precut->Write();
+    
     
     if(higgsdecay == 0)
     {
@@ -635,7 +634,7 @@ void CutsFunction(const char* filename, double params[16])
     histmet->Draw();
     cmet->Update();
     
-    cmet->Write();
+    
     
     if(higgsdecay == 0)
     {
@@ -652,7 +651,7 @@ void CutsFunction(const char* filename, double params[16])
     histmet_precut->Draw();
     cmet_precut->Update();
     
-    cmet_precut->Write();
+    
     
     if(higgsdecay == 0)
     {
@@ -672,7 +671,7 @@ void CutsFunction(const char* filename, double params[16])
     histDeltaR->Draw();
     cdelr->Update();
     
-    cdelr->Write();
+    
 
     if(higgsdecay == 0)
     {
@@ -689,7 +688,7 @@ void CutsFunction(const char* filename, double params[16])
     histDeltaR_precut->Draw();
     cdelr_precut->Update();
     
-    cdelr_precut->Write();
+    
     
     if(higgsdecay == 0)
     {
@@ -708,7 +707,7 @@ void CutsFunction(const char* filename, double params[16])
     histMHT->Draw();
     cmht->Update();
     
-    cmht->Write();
+    
     
     if(higgsdecay == 0)
     {
@@ -726,7 +725,7 @@ void CutsFunction(const char* filename, double params[16])
     histBiasedDeltaPhi->Draw();
     cbdp->Update();
     
-    cbdp->Write();
+    
 
     
     if(higgsdecay == 0)
@@ -744,7 +743,7 @@ void CutsFunction(const char* filename, double params[16])
     histBiasedDeltaPhi_precut->Draw();
     cbdp_precut->Update();
     
-    cbdp_precut->Write();
+    
     
     if(higgsdecay == 0)
     {
@@ -835,7 +834,27 @@ void CutsFunction(const char* filename, double params[16])
         TerminalPlot(histDeltaR, "b-Jets DeltaR", 40, 0, 6);
         TerminalPlot(histMHT, "Missing HT", 40, 0., 1000.);
     }
-
+    
+    
+    cnjet->Write();
+    cnjet_precut->Write();
+    
+    cmbb->Write();
+    cmbb_precut->Write();
+    
+    cbjet->Write();
+    cbjet_precut->Write();
+    
+    cmet->Write();
+    cmet_precut->Write();
+    
+    cdelr->Write();
+    cdelr_precut->Write();
+    
+    cmht->Write();
+    
+    cbdp->Write();
+    cbdp_precut->Write();
     
     outputfile.close();
     
