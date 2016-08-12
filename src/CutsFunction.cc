@@ -521,11 +521,6 @@ void CutsFunction(const char* filename, double params[16])
     
     
     //----------- Writing all the histos into a .root file
-    TTimeStamp time;
-    string rootfile = "ROOTCuts_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".root";
-    const char * rootfilename = rootfile.c_str();
-    TFile *g = TFile::Open(rootfilename,"NEW");
-    
     
     cout << "\n" << endl;
     
@@ -808,6 +803,12 @@ void CutsFunction(const char* filename, double params[16])
 
     outputfile.close();
     
+    
+    TTimeStamp time;
+    string rootfile = "ROOTCuts_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".root";
+    const char * rootfilename = rootfile.c_str();
+    TFile *g = TFile::Open(rootfilename,"NEW");
+
     
     histMHT->Write();
     
