@@ -177,23 +177,23 @@ void CutsFunction(const char* filename, double params[16])
     
     TTree *outputtree = new TTree("ROOTCuts","ROOTCuts output TTree");
     
-    TH1 *histnbjet_nocuts = new TH1F("n_bjet", "Number of b-jets; No. b-jets", 10, 0.0, 10.0);
-    TH1 *histnjet_nocuts = new TH1F("n_jet", "Number of Jets; No. Jets", 15, 0.0, 15.0);
-    TH1 *histMbb_nocuts = new TH1F("M_bb", "M_{inv}(b, b); M_{inv}(b, b) (GeV)", 40, 0., 200.);
-    TH1 *histmet_nocuts = new TH1F ("M_ET", "Missing ET; MET (GeV)", 50, 0.0, 1000.);
-    TH1 *histDeltaR_nocuts = new TH1F("Delta_R", "Delta R between b-jets; Delta R", 60, 0, 6);
-    TH1 *histMHT_nocuts = new TH1F("M_HT", "Missing HT; Missing HT (GeV)", 100, 0., 8000.);
-    TH1 *histHT_nocuts = new TH1F("Total_HT", "Scalar HT; Scalar HT (GeV)", 100, 0., 8000.);
-    TH1 *histBiasedDeltaPhi_nocuts = new TH1F("biased_deltaphi", "Biased Delta Phi; Biased Delta Phi", 50, 0., 5.);
+    int32_t *histnbjet_nocuts;
+    int32_t *histnjet_nocuts;
+    double_t *histMbb_nocuts;
+    double_t *histmet_nocuts;
+    double_t *histDeltaR_nocuts;
+    double_t *histMHT_nocuts;
+    double_t *histHT_nocuts;
+    double_t *histBiasedDeltaPhi_nocuts;
     
-    outputtree->Branch("n_bjet","TH1F",&histnbjet_nocuts,320000,0);
-    outputtree->Branch("n_jet","TH1F",&histnjet_nocuts,320000,0);
-    outputtree->Branch("M_bb","TH1F",&histMbb_nocuts,320000,0);
-    outputtree->Branch("M_ET","TH1F",&histmet_nocuts,320000,0);
-    outputtree->Branch("Delta_R","TH1F",&histDeltaR_nocuts,320000,0);
-    outputtree->Branch("M_HT","TH1F",&histMHT_nocuts,320000,0);
-    outputtree->Branch("Total_HT","TH1F",&histHT_nocuts,320000,0);
-    outputtree->Branch("biased_deltaphi","TH1F",&histBiasedDeltaPhi_nocuts,320000,0);
+    outputtree->Branch("n_bjet",&histnbjet_nocuts,"I",320000);
+    outputtree->Branch("n_jet",&histnjet_nocuts,"I",320000);
+    outputtree->Branch("M_bb",&histMbb_nocuts,"D",320000);
+    outputtree->Branch("M_ET",&histmet_nocuts,"D",320000);
+    outputtree->Branch("Delta_R",&histDeltaR_nocuts,"D",320000);
+    outputtree->Branch("M_HT",&histMHT_nocuts,"D",320000);
+    outputtree->Branch("Total_HT",&histHT_nocuts,"D",320000);
+    outputtree->Branch("biased_deltaphi",&histBiasedDeltaPhi_nocuts,"D",320000);
     
     outputtree->Branch("cut_n_jets",cut_N_jets,"O",320000);
     outputtree->Branch("cut_n_b_jets",cut_N_bjets,"O",320000);
@@ -498,22 +498,22 @@ void CutsFunction(const char* filename, double params[16])
         //------------- Uncut variables for .root file
         
         
-        histMbb_nocuts->Fill(mbb);
-        histnbjet_nocuts->Fill(N_bjets);
-        histmet_nocuts->Fill(met);
-        histDeltaR_nocuts->Fill(DeltaR);
-        histBiasedDeltaPhi_nocuts->Fill(biaseddeltaphi);
-        histHT_nocuts->Fill(HT);
-        histnjet_nocuts->Fill(N_jets);
-        
-        if(higgsdecay == 1)
-        {
-            histMbb_nocuts->Fill(mbb2);
-            
-            histDeltaR_nocuts->Fill(DeltaR2);
-        }
-        
-        histMHT_nocuts->Fill(ScalarMissingHT);
+//        histMbb_nocuts->Fill(mbb);
+//        histnbjet_nocuts->Fill(N_bjets);
+//        histmet_nocuts->Fill(met);
+//        histDeltaR_nocuts->Fill(DeltaR);
+//        histBiasedDeltaPhi_nocuts->Fill(biaseddeltaphi);
+//        histHT_nocuts->Fill(HT);
+//        histnjet_nocuts->Fill(N_jets);
+//        
+//        if(higgsdecay == 1)
+//        {
+//            histMbb_nocuts->Fill(mbb2);
+//            
+//            histDeltaR_nocuts->Fill(DeltaR2);
+//        }
+//        
+//        histMHT_nocuts->Fill(ScalarMissingHT);
         
         
         outputtree->Fill();
@@ -783,23 +783,23 @@ void CutsFunction(const char* filename, double params[16])
     
 
     
-    histMbb_nocuts->Draw();
-    histnbjet_nocuts->Draw();
-    histmet_nocuts->Draw();
-    histDeltaR_nocuts->Draw();
-    histBiasedDeltaPhi_nocuts->Draw();
-    histHT_nocuts->Draw();
-    histnjet_nocuts->Draw();
-    histMHT_nocuts->Draw();
-    
-    histMbb_nocuts->Write();
-    histnbjet_nocuts->Write();
-    histmet_nocuts->Write();
-    histDeltaR_nocuts->Write();
-    histBiasedDeltaPhi_nocuts->Write();
-    histHT_nocuts->Write();
-    histnjet_nocuts->Write();
-    histMHT_nocuts->Write();
+//    histMbb_nocuts->Draw();
+//    histnbjet_nocuts->Draw();
+//    histmet_nocuts->Draw();
+//    histDeltaR_nocuts->Draw();
+//    histBiasedDeltaPhi_nocuts->Draw();
+//    histHT_nocuts->Draw();
+//    histnjet_nocuts->Draw();
+//    histMHT_nocuts->Draw();
+//    
+//    histMbb_nocuts->Write();
+//    histnbjet_nocuts->Write();
+//    histmet_nocuts->Write();
+//    histDeltaR_nocuts->Write();
+//    histBiasedDeltaPhi_nocuts->Write();
+//    histHT_nocuts->Write();
+//    histnjet_nocuts->Write();
+//    histMHT_nocuts->Write();
     
     
     //----------- Writing all the histos into a .root file
