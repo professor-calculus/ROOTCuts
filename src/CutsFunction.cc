@@ -286,7 +286,10 @@ void CutsFunction(const char* filename, double params[16])
                     N_tau++;
                 }
                 
-                MissingHT += jet->P4();
+                if(jet->PT > 30.)
+                {
+                    MissingHT += jet->P4();
+                }
                 
             }
             
