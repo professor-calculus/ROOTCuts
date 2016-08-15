@@ -778,18 +778,54 @@ void CutsFunction(const char* filename, double params[16])
         cbdp_precut->SaveAs("BiasedDeltaPhi_precut.pdf");
     }
     
+
     
     
-    //------------ Outputting the results...
+    //----------- Writing all the histos into a .root file
+    
+    //------ Pre-cuts
+    
+    
+    
+    
+    outputtree->Print();
+    
+    //------ Post-cuts
+    
+    histMHT->Write();
+    
+    histMbb->Write("Mbb_hist");
+    histMbb_precut->Write("Mbb_hist_precut");
+    
+    histBiasedDeltaPhi->Write();
+    histBiasedDeltaPhi_precut->Write();
+    
+    histmet->Write();
+    histmet_precut->Write();
+    
+    histDeltaR->Write();
+    histDeltaR_precut->Write();
+    
+    histnbjet->Write("n_b_jet_hist");
+    histnbjet_precut->Write("n_b_jet_hist_precuts");
+    
+    histnjet->Write();
+    histnjet_precut->Write();
+    
+    g->Close();
+    
+    
+    
+    //------------ Outputting the results to .txt ...
     
     //----- Output File
     ofstream outputfile;
     outputfile.open("output.txt");
     outputfile << "\n\n\n SIGNAL:" << endl;
     outputfile << "Tree copied with " << entries << " entries\n\n" << endl;
-
+    
     efficiency = double(eventpass)/double(entries);
-
+    
     cout << "\n" << endl;
     if(higgsdecay == 0)
     {
@@ -853,7 +889,7 @@ void CutsFunction(const char* filename, double params[16])
     }
     cout << "M_bb from " << minMbb << " to " << maxMbb << "\n\n" << endl;
     outputfile << "M_bb from " << minMbb << " to " << maxMbb << "\n\n" << endl;
-
+    
     cout << "Plots:\n" << endl;
     
     if(eventpass != 0)
@@ -864,42 +900,8 @@ void CutsFunction(const char* filename, double params[16])
         TerminalPlot(histDeltaR, "b-Jets DeltaR", 40, 0, 6);
         TerminalPlot(histMHT, "Missing HT", 40, 0., 1000.);
     }
-
+    
     outputfile.close();
-    
-    
-    //----------- Writing all the histos into a .root file
-    
-    //------ Pre-cuts
-    
-    
-    
-    
-    outputtree->Print();
-    
-    //------ Post-cuts
-    
-    histMHT->Write();
-    
-    histMbb->Write("Mbb_hist");
-    histMbb_precut->Write("Mbb_hist_precut");
-    
-    histBiasedDeltaPhi->Write();
-    histBiasedDeltaPhi_precut->Write();
-    
-    histmet->Write();
-    histmet_precut->Write();
-    
-    histDeltaR->Write();
-    histDeltaR_precut->Write();
-    
-    histnbjet->Write("n_b_jet_hist");
-    histnbjet_precut->Write("n_b_jet_hist_precuts");
-    
-    histnjet->Write();
-    histnjet_precut->Write();
-    
-    g->Close();
 
 };
 
