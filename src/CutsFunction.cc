@@ -115,14 +115,6 @@ void CutsFunction(const char* filename, double params[16])
 	double weight = double(entries)*sigbkgratio;
 
     cout << "Tree copied with " << entries << " entries\n\n" << endl;
-    
-    
-    
-    //----- Output File
-    ofstream outputfile;
-    outputfile.open("output.txt");
-    outputfile << "\n\n\n SIGNAL:" << endl;
-    outputfile << "Tree copied with " << entries << " entries\n\n" << endl;
 
     
     
@@ -210,6 +202,11 @@ void CutsFunction(const char* filename, double params[16])
     outputtree->Branch("cut_HT",cut_HT,"O",320000);
     outputtree->Branch("cut_Delta_R",cut_DeltaR,"O",320000);
     outputtree->Branch("cut_biaseddeltaphi",cut_biaseddeltaphi,"O",320000);
+    
+    TTimeStamp time;
+    string rootfile = "ROOTCuts_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".root";
+    const char * rootfilename = rootfile.c_str();
+    TFile *g = TFile::Open(rootfilename,"NEW");
     
     
 
@@ -784,6 +781,12 @@ void CutsFunction(const char* filename, double params[16])
     
     
     //------------ Outputting the results...
+    
+    //----- Output File
+    ofstream outputfile;
+    outputfile.open("output.txt");
+    outputfile << "\n\n\n SIGNAL:" << endl;
+    outputfile << "Tree copied with " << entries << " entries\n\n" << endl;
 
     efficiency = double(eventpass)/double(entries);
 
@@ -869,10 +872,7 @@ void CutsFunction(const char* filename, double params[16])
     
     //------ Pre-cuts
     
-    TTimeStamp time;
-    string rootfile = "ROOTCuts_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".root";
-    const char * rootfilename = rootfile.c_str();
-    TFile *g = TFile::Open(rootfilename,"NEW");
+    
     
     
     outputtree->Print();
