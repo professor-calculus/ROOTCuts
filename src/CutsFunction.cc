@@ -177,6 +177,7 @@ void CutsFunction(const char* filename, double params[16])
 
     TLorentzVector p4[4];
     TLorentzVector MissingHT;
+    TVector2 MissingHT2Vector;
     double ScalarMissingHT;
     
     //double cut_efficiencies;
@@ -193,22 +194,22 @@ void CutsFunction(const char* filename, double params[16])
     TH1 *histHT_nocuts = new TH1F("Total_HT", "Scalar HT; Scalar HT (GeV)", 100, 0., 8000.);
     TH1 *histBiasedDeltaPhi_nocuts = new TH1F("biased_deltaphi", "Biased Delta Phi; Biased Delta Phi", 50, 0., 5.);
     
-    outputtree->Branch("n_bjet","TH1F",&histnbjet_nocuts,32000,0);
-    outputtree->Branch("n_jet","TH1F",&histnjet_nocuts,32000,0);
-    outputtree->Branch("M_bb","TH1F",&histMbb_nocuts,32000,0);
-    outputtree->Branch("M_ET","TH1F",&histmet_nocuts,32000,0);
-    outputtree->Branch("Delta_R","TH1F",&histDeltaR_nocuts,32000,0);
-    outputtree->Branch("M_HT","TH1F",&histMHT_nocuts,32000,0);
-    outputtree->Branch("Total_HT","TH1F",&histHT_nocuts,32000,0);
-    outputtree->Branch("biased_deltaphi","TH1F",&histBiasedDeltaPhi_nocuts,32000,0);
+    outputtree->Branch("n_bjet","TH1F",&histnbjet_nocuts,320000,0);
+    outputtree->Branch("n_jet","TH1F",&histnjet_nocuts,320000,0);
+    outputtree->Branch("M_bb","TH1F",&histMbb_nocuts,320000,0);
+    outputtree->Branch("M_ET","TH1F",&histmet_nocuts,320000,0);
+    outputtree->Branch("Delta_R","TH1F",&histDeltaR_nocuts,320000,0);
+    outputtree->Branch("M_HT","TH1F",&histMHT_nocuts,320000,0);
+    outputtree->Branch("Total_HT","TH1F",&histHT_nocuts,320000,0);
+    outputtree->Branch("biased_deltaphi","TH1F",&histBiasedDeltaPhi_nocuts,320000,0);
     
-    outputtree->Branch("cut_n_jets",cut_N_jets,"O",32000);
-    outputtree->Branch("cut_n_b_jets",cut_N_bjets,"O",32000);
-    outputtree->Branch("cut_M_bb",cut_Mbb,"O",32000);
-    outputtree->Branch("cut_MET",cut_MET,"O",32000);
-    outputtree->Branch("cut_HT",cut_HT,"O",32000);
-    outputtree->Branch("cut_Delta_R",cut_DeltaR,"O",32000);
-    outputtree->Branch("cut_biaseddeltaphi",cut_biaseddeltaphi,"O",32000);
+    outputtree->Branch("cut_n_jets",cut_N_jets,"O",320000);
+    outputtree->Branch("cut_n_b_jets",cut_N_bjets,"O",320000);
+    outputtree->Branch("cut_M_bb",cut_Mbb,"O",320000);
+    outputtree->Branch("cut_MET",cut_MET,"O",320000);
+    outputtree->Branch("cut_HT",cut_HT,"O",320000);
+    outputtree->Branch("cut_Delta_R",cut_DeltaR,"O",320000);
+    outputtree->Branch("cut_biaseddeltaphi",cut_biaseddeltaphi,"O",320000);
     
     
 
@@ -254,7 +255,7 @@ void CutsFunction(const char* filename, double params[16])
         N_jets = branchJet->GetEntries();
         
         
-        if(N_jets > 3)
+        if(N_jets > 1)
         {
             
             if(N_jets > minN_jets)
@@ -289,9 +290,12 @@ void CutsFunction(const char* filename, double params[16])
                 }
                 
                 MissingHT += jet->P4();
+                
             }
             
-            ScalarMissingHT = MissingHT.M();
+            MissingHT2Vector.Set(MissingHT.Px(), MissingHT.Py());
+            
+            ScalarMissingHT = MissingHT2Vector.Mod();
             
             
             
