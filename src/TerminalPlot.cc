@@ -26,7 +26,11 @@ void TerminalPlot(TH1* hist, string title, int height, double xmin, double xmax)
     for(int i=0; i<bins; i++)
     {
         tempbin = hist->GetBinContent(i+1);
-        scaledhist[i] = tempbin*height/maxbin;
+        if(maxbin != 0)
+        {
+            scaledhist[i] = tempbin*height/maxbin;
+        }
+        else return;
     }
     
     if(bins>0 && bins<25)
