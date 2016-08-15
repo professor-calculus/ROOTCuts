@@ -13,7 +13,7 @@
 double BiasedDeltaPhi(vector<Jet*> jets, int numberofjets)
 {
     int i, j, minindex;
-    double biaseddeltaphi;
+    double biaseddeltaphi, phi1, phi2;
     vector<double> vectorbiaseddeltaphi;
     
     TLorentzVector q, r, MHT, JetRemaining;
@@ -37,7 +37,10 @@ double BiasedDeltaPhi(vector<Jet*> jets, int numberofjets)
         
         MHT = r - q;
         
-        vectorbiaseddeltaphi.push_back(abs(MHT.DeltaPhi(JetRemaining)));
+        phi1 = atan2(-MHT.Py() - JetRemaining.Py(), MHT.Px() + JetRemaining.Px());
+        phi2 = JetRemaining.Phi();
+        
+        vectorbiaseddeltaphi.push_back(abs(phi1 - phi2));
     }
     
     minindex = min_element(vectorbiaseddeltaphi.begin(), vectorbiaseddeltaphi.end()) - vectorbiaseddeltaphi.begin();

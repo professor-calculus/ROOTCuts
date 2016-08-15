@@ -792,6 +792,15 @@ void CutsFunction(const char* filename, double params[16])
     histnjet_nocuts->Draw();
     histMHT_nocuts->Draw();
     
+    histMbb_nocuts->Write();
+    histnbjet_nocuts->Write();
+    histmet_nocuts->Write();
+    histDeltaR_nocuts->Write();
+    histBiasedDeltaPhi_nocuts->Write();
+    histHT_nocuts->Write();
+    histnjet_nocuts->Write();
+    histMHT_nocuts->Write();
+    
     
     //----------- Writing all the histos into a .root file
     
