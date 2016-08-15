@@ -498,22 +498,22 @@ void CutsFunction(const char* filename, double params[16])
         //------------- Uncut variables for .root file
         
         
-//        histMbb_nocuts->Fill(mbb);
-//        histnbjet_nocuts->Fill(N_bjets);
-//        histmet_nocuts->Fill(met);
-//        histDeltaR_nocuts->Fill(DeltaR);
-//        histBiasedDeltaPhi_nocuts->Fill(biaseddeltaphi);
-//        histHT_nocuts->Fill(HT);
-//        histnjet_nocuts->Fill(N_jets);
-//        
-//        if(higgsdecay == 1)
-//        {
-//            histMbb_nocuts->Fill(mbb2);
-//            
-//            histDeltaR_nocuts->Fill(DeltaR2);
-//        }
-//        
-//        histMHT_nocuts->Fill(ScalarMissingHT);
+        histMbb_nocuts = &mbb;
+        histnbjet_nocuts = &N_bjets;
+        histmet_nocuts = &met;
+        histDeltaR_nocuts = &DeltaR;
+        histBiasedDeltaPhi_nocuts = &biaseddeltaphi;
+        histHT_nocuts = &HT;
+        histnjet_nocuts = &N_jets;
+        
+        if(higgsdecay == 1)
+        {
+            histMbb_nocuts = &mbb2;
+            
+            histDeltaR_nocuts = &DeltaR2;
+        }
+        
+        histMHT_nocuts = &ScalarMissingHT;
         
         
         outputtree->Fill();
