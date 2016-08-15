@@ -37,7 +37,7 @@ double BiasedDeltaPhi(vector<Jet*> jets, int numberofjets)
         
         MHT = r - q;
         
-        vectorbiaseddeltaphi.push_back(MHT.DeltaPhi(JetRemaining));
+        vectorbiaseddeltaphi.push_back(abs(MHT.DeltaPhi(JetRemaining)));
     }
     
     minindex = min_element(vectorbiaseddeltaphi.begin(), vectorbiaseddeltaphi.end()) - vectorbiaseddeltaphi.begin();
