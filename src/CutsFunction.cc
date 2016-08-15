@@ -513,7 +513,7 @@ void CutsFunction(const char* filename, double params[16])
         histMHT_nocuts->Fill(ScalarMissingHT);
         
         
-        outputtree->Fill();
+        //outputtree->Fill();
         
         
         
@@ -780,13 +780,22 @@ void CutsFunction(const char* filename, double params[16])
     
 
     
+    histMbb_nocuts->Draw();
+    histnbjet_nocuts->Draw();
+    histmet_nocuts->Draw();
+    histDeltaR_nocuts->Draw();
+    histBiasedDeltaPhi_nocuts->Draw();
+    histHT_nocuts->Draw();
+    histnjet_nocuts->Draw();
+    histMHT_nocuts->Draw();
+    
     
     //----------- Writing all the histos into a .root file
     
     //------ Pre-cuts
     
     
-    
+    outputtree->Fill();
     
     outputtree->Print();
     outputtree->Write();
