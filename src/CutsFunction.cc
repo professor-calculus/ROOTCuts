@@ -516,7 +516,7 @@ void CutsFunction(const char* filename, double params[16])
         histMHT_nocuts->Fill(ScalarMissingHT);
         
         
-        //outputtree->Fill();
+        outputtree->Fill();
         
         
         
@@ -796,12 +796,10 @@ void CutsFunction(const char* filename, double params[16])
     //----------- Writing all the histos into a .root file
     
     //------ Pre-cuts
-    
-    
-    outputtree->Fill();
+
     
     outputtree->Print();
-    outputtree->Write();
+    g->Write();
     
     //------ Post-cuts
     
