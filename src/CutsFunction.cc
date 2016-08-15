@@ -789,6 +789,7 @@ void CutsFunction(const char* filename, double params[16])
     
     
     outputtree->Print();
+    outputtree->Write();
     
     //------ Post-cuts
     
