@@ -92,7 +92,7 @@ void CutsFunction(const char* filename, double params[16])
     //---------Opening the .root file:
     
     
-    TFile *f = TFile::Open(filename,"UPDATE");
+    //TFile *f = TFile::Open(filename,"UPDATE");
     
 
     TChain chain("Delphes");
@@ -136,14 +136,14 @@ void CutsFunction(const char* filename, double params[16])
     TH1 *histHT = new TH1F("HT", "Scalar HT; Scalar HT (GeV)", 100, 0., 8000.);
     TH1 *histBiasedDeltaPhi = new TH1F("biaseddeltaphi", "Biased Delta Phi; Biased Delta Phi", 50, 0., 5.);
     
-    TH1 *histnbjet_precut = new TH1F("nbjet_precut", "Number of b-jets Before Cut; No. b-jets", 10, 0.0, 10.0);
-    TH1 *histnjet_precut = new TH1F("njet_precut", "Number of Jets; No. Jets", 15, 0.0, 15.0);
-    TH1 *histMbb_precut = new TH1F("mbb_precut", "M_{inv}(b, b) Before Cut; M_{inv}(b, b) (GeV)", 40, 0., 200.);
-    TH1 *histmet_precut = new TH1F ("met_precut", "Missing ET Before Cut; MET (GeV)", 50, 0.0, 1000.);
-    TH1 *histDeltaR_precut = new TH1F("DeltaR_precut", "Delta R between b-jets Before Cut; Delta R", 60, 0, 6);
+    TH1 *histnbjet_precut = new TH1F("nbjet_n-1cut", "Number of b-jets Before Cut; No. b-jets", 10, 0.0, 10.0);
+    TH1 *histnjet_precut = new TH1F("njet_n-1cut", "Number of Jets; No. Jets", 15, 0.0, 15.0);
+    TH1 *histMbb_precut = new TH1F("mbb_n-1cut", "M_{inv}(b, b) Before Cut; M_{inv}(b, b) (GeV)", 40, 0., 200.);
+    TH1 *histmet_precut = new TH1F ("met_n-1cut", "Missing ET Before Cut; MET (GeV)", 50, 0.0, 1000.);
+    TH1 *histDeltaR_precut = new TH1F("DeltaR_n-1cut", "Delta R between b-jets Before Cut; Delta R", 60, 0, 6);
     //TH1 *histMHT_precut = new TH1F("MHT_precut", "Missing HT Before Cut; Missing HT (GeV)", 50, 0., 1000.);
-    TH1 *histHT_precut = new TH1F("HT_precut", "Scalar HT Before Cut; Scalar HT (GeV)", 100, 0., 8000.);
-    TH1 *histBiasedDeltaPhi_precut = new TH1F("biaseddeltaphi_precut", "Biased Delta Phi Before Cut; Biased Delta Phi", 50, 0., 5.);
+    TH1 *histHT_precut = new TH1F("HT_n-1cut", "Scalar HT Before Cut; Scalar HT (GeV)", 100, 0., 8000.);
+    TH1 *histBiasedDeltaPhi_precut = new TH1F("biaseddeltaphi_n-1cut", "Biased Delta Phi Before Cut; Biased Delta Phi", 50, 0., 5.);
 
 
 
@@ -178,6 +178,38 @@ void CutsFunction(const char* filename, double params[16])
     TLorentzVector p4[4];
     TLorentzVector MissingHT;
     double ScalarMissingHT;
+    
+    //double cut_efficiencies;
+    
+    
+    TTree *outputtree = new TTree("ROOTCuts","ROOTCuts output TTree");
+    
+    TH1 *histnbjet_nocuts = new TH1F("n_bjet", "Number of b-jets; No. b-jets", 10, 0.0, 10.0);
+    TH1 *histnjet_nocuts = new TH1F("n_jet", "Number of Jets; No. Jets", 15, 0.0, 15.0);
+    TH1 *histMbb_nocuts = new TH1F("M_bb", "M_{inv}(b, b); M_{inv}(b, b) (GeV)", 40, 0., 200.);
+    TH1 *histmet_nocuts = new TH1F ("M_ET", "Missing ET; MET (GeV)", 50, 0.0, 1000.);
+    TH1 *histDeltaR_nocuts = new TH1F("Delta_R", "Delta R between b-jets; Delta R", 60, 0, 6);
+    TH1 *histMHT_nocuts = new TH1F("M_HT", "Missing HT; Missing HT (GeV)", 100, 0., 8000.);
+    TH1 *histHT_nocuts = new TH1F("Total_HT", "Scalar HT; Scalar HT (GeV)", 100, 0., 8000.);
+    TH1 *histBiasedDeltaPhi_nocuts = new TH1F("biased_deltaphi", "Biased Delta Phi; Biased Delta Phi", 50, 0., 5.);
+    
+    outputtree->Branch("n_bjet","TH1F",&histnbjet_nocuts,32000,0);
+    outputtree->Branch("n_jet","TH1F",&histnjet_nocuts,32000,0);
+    outputtree->Branch("M_bb","TH1F",&histMbb_nocuts,32000,0);
+    outputtree->Branch("M_ET","TH1F",&histmet_nocuts,32000,0);
+    outputtree->Branch("Delta_R","TH1F",&histDeltaR_nocuts,32000,0);
+    outputtree->Branch("M_HT","TH1F",&histMHT_nocuts,32000,0);
+    outputtree->Branch("Total_HT","TH1F",&histHT_nocuts,32000,0);
+    outputtree->Branch("biased_deltaphi","TH1F",&histBiasedDeltaPhi_nocuts,32000,0);
+    
+    outputtree->Branch("cut_n_jets",cut_N_jets,"O",32000);
+    outputtree->Branch("cut_n_b_jets",cut_N_bjets,"O",32000);
+    outputtree->Branch("cut_M_bb",cut_Mbb,"O",32000);
+    outputtree->Branch("cut_MET",cut_MET,"O",32000);
+    outputtree->Branch("cut_HT",cut_HT,"O",32000);
+    outputtree->Branch("cut_Delta_R",cut_DeltaR,"O",32000);
+    outputtree->Branch("cut_biaseddeltaphi",cut_biaseddeltaphi,"O",32000);
+    
     
 
     //The for-loop: Loops over the tree to put the elements of each row into the class
@@ -457,6 +489,35 @@ void CutsFunction(const char* filename, double params[16])
             cout.width( 3 );
             cout << "\033[0m" << percent << "%     " << std::flush;   // lol
         }
+        
+        
+        //------------- Uncut variables for .root file
+        
+        
+        histMbb_nocuts->Fill(mbb);
+        histnbjet_nocuts->Fill(N_bjets);
+        histmet_nocuts->Fill(met);
+        histDeltaR_nocuts->Fill(DeltaR);
+        histBiasedDeltaPhi_nocuts->Fill(biaseddeltaphi);
+        histHT_nocuts->Fill(HT);
+        histnjet_nocuts->Fill(N_jets);
+        
+        if(higgsdecay == 1)
+        {
+            histMbb_nocuts->Fill(mbb2);
+            
+            histDeltaR_nocuts->Fill(DeltaR2);
+        }
+        
+        histMHT_nocuts->Fill(ScalarMissingHT);
+        
+        
+        outputtree->Fill();
+        
+        
+        
+        
+        //------------- Post-cuts stuff
         
 
         if(npass == 9)
@@ -801,10 +862,18 @@ void CutsFunction(const char* filename, double params[16])
     
     
     //----------- Writing all the histos into a .root file
+    
+    //------ Pre-cuts
+    
     TTimeStamp time;
     string rootfile = "ROOTCuts_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".root";
     const char * rootfilename = rootfile.c_str();
     TFile *g = TFile::Open(rootfilename,"NEW");
+    
+    
+    outputtree->Print();
+    
+    //------ Post-cuts
     
     histMHT->Write();
     

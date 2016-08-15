@@ -92,7 +92,7 @@ int CutsFunctionBkg(const char* filename, double params[16], string mode, TH1* h
     //---------Opening the .root file:
     
     
-    TFile *f = TFile::Open(filename,"UPDATE");
+    //TFile *f = TFile::Open(filename,"UPDATE");
     
     TChain chain("Delphes");
     chain.Add(filename);
@@ -614,7 +614,7 @@ int CutsFunctionBkg(const char* filename, double params[16], string mode, TH1* h
 
     
     //f->Write();
-    f->Close();
+    //f->Close();
     outputfile.close();
     
 	return entries;
