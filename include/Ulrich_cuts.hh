@@ -11,6 +11,7 @@
 #include <TTimeStamp.h>
 #include <TLegend.h>
 #include <TFile.h>
+#include <TMath.h>
 #include <TNtuple.h>
 #include <TH2.h>
 #include <TSystem.h>

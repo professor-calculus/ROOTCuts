@@ -40,7 +40,7 @@ double BiasedDeltaPhi(vector<Jet*> jets, int numberofjets)
         phi1 = atan2(-MHT.Py() - JetRemaining.Py(), MHT.Px() + JetRemaining.Px());
         phi2 = JetRemaining.Phi();
         
-        vectorbiaseddeltaphi.push_back(abs(phi1 - phi2));
+        vectorbiaseddeltaphi.push_back(min(abs(phi1 - phi2), abs(TMath::Pi() - phi1 + phi2)));
     }
     
     minindex = min_element(vectorbiaseddeltaphi.begin(), vectorbiaseddeltaphi.end()) - vectorbiaseddeltaphi.begin();
