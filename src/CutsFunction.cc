@@ -798,8 +798,8 @@ void CutsFunction(const char* filename, double params[16])
     //------ Pre-cuts
 
     
-    outputtree->Print();
-    g->Write();
+    //outputtree->Print();
+    outputtree->Write();
     
     //------ Post-cuts
     

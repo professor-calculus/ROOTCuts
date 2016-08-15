@@ -35,7 +35,7 @@ double BiasedDeltaPhi(vector<Jet*> jets, int numberofjets)
         
         JetRemaining = jets[i]->P4();
         
-        MHT = r - q;
+        MHT = q - r;
         
         vectorbiaseddeltaphi.push_back(MHT.DeltaPhi(JetRemaining));
     }
