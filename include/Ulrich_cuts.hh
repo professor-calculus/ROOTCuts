@@ -57,6 +57,8 @@ vector<Jet *> Jet2Plus1Finder(vector<Jet *>, int);
 vector<Jet *> Jet2Plus1MbbFinder(vector<Jet *>, int);
 
 
+typedef struct {double M_bb, MET, DeltaR, biaseddeltaphi, HT, MHT; int n_bjets, n_jets; bool cut_Mbb, cut_DeltaR, cut_biaseddeltaphi, cut_MET, cut_HT, cut_N_bjets, cut_N_jets;} UNCUT;
+
 
 //--------The class which will store the data for each TrackID - then we can loop over each to do the tracking.
 class Constituents
