@@ -43,6 +43,8 @@ dependencies: /Users/alex/Documents/ROOTCuts/ROOTcuts.cc \
   /Users/alex/ROOT/root-install/include/TMap.h \
   /Users/alex/ROOT/root-install/include/THashTable.h \
   /Users/alex/ROOT/root-install/include/TUrl.h \
+  /Users/alex/ROOT/root-install/include/TMath.h \
+  /Users/alex/ROOT/root-install/include/TError.h \
   /Users/alex/ROOT/root-install/include/TNtuple.h \
   /Users/alex/ROOT/root-install/include/TTree.h \
   /Users/alex/ROOT/root-install/include/TBranch.h \
@@ -105,8 +107,6 @@ dependencies: /Users/alex/Documents/ROOTCuts/ROOTcuts.cc \
   /Users/alex/ROOT/root-install/include/TRefArray.h \
   /Users/alex/ROOT/root-install/include/TProcessID.h \
   /Users/alex/ROOT/root-install/include/TLorentzVector.h \
-  /Users/alex/ROOT/root-install/include/TMath.h \
-  /Users/alex/ROOT/root-install/include/TError.h \
   /Users/alex/ROOT/root-install/include/TVector3.h \
   /Users/alex/ROOT/root-install/include/TVector2.h \
   /Users/alex/ROOT/root-install/include/TMatrix.h \

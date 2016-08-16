@@ -158,13 +158,13 @@ void CutsFunction(const char* filename, double params[16])
     vector<Jet *> matchingbjets;
     vector<Jet *> matchingtaujets;
     
-    bool cut_Mbb = false;
-    bool cut_DeltaR = false;
-    bool cut_biaseddeltaphi = false;
-    bool cut_MET = false;
-    bool cut_HT = false;
-    bool cut_N_bjets = false;
-    bool cut_N_jets = false;
+    Bool_t cut_Mbb = false;
+    Bool_t cut_DeltaR = false;
+    Bool_t cut_biaseddeltaphi = false;
+    Bool_t cut_MET = false;
+    Bool_t cut_HT = false;
+    Bool_t cut_N_bjets = false;
+    Bool_t cut_N_jets = false;
 
 
     TLorentzVector p4[4];
@@ -186,22 +186,41 @@ void CutsFunction(const char* filename, double params[16])
     double_t *histHT_nocuts;
     double_t *histBiasedDeltaPhi_nocuts;
     
-    outputtree->Branch("n_bjet",&histnbjet_nocuts,"I",320000);
-    outputtree->Branch("n_jet",&histnjet_nocuts,"I",320000);
-    outputtree->Branch("M_bb",&histMbb_nocuts,"D",320000);
-    outputtree->Branch("M_ET",&histmet_nocuts,"D",320000);
-    outputtree->Branch("Delta_R",&histDeltaR_nocuts,"D",320000);
-    outputtree->Branch("M_HT",&histMHT_nocuts,"D",320000);
-    outputtree->Branch("Total_HT",&histHT_nocuts,"D",320000);
-    outputtree->Branch("biased_deltaphi",&histBiasedDeltaPhi_nocuts,"D",320000);
     
-    outputtree->Branch("cut_n_jets",cut_N_jets,"O",320000);
-    outputtree->Branch("cut_n_b_jets",cut_N_bjets,"O",320000);
-    outputtree->Branch("cut_M_bb",cut_Mbb,"O",320000);
-    outputtree->Branch("cut_MET",cut_MET,"O",320000);
-    outputtree->Branch("cut_HT",cut_HT,"O",320000);
-    outputtree->Branch("cut_Delta_R",cut_DeltaR,"O",320000);
-    outputtree->Branch("cut_biaseddeltaphi",cut_biaseddeltaphi,"O",320000);
+    histMbb_nocuts = &mbb;
+    histnbjet_nocuts = &N_bjets;
+    histmet_nocuts = &met;
+    histDeltaR_nocuts = &DeltaR;
+    histBiasedDeltaPhi_nocuts = &biaseddeltaphi;
+    histHT_nocuts = &HT;
+    histnjet_nocuts = &N_jets;
+    
+    if(higgsdecay == 1)
+    {
+        histMbb_nocuts = &mbb2;
+        
+        histDeltaR_nocuts = &DeltaR2;
+    }
+    
+    histMHT_nocuts = &ScalarMissingHT;
+    
+    
+    outputtree->SetBranchAddress("n_bjet", &histnbjet_nocuts);
+    outputtree->SetBranchAddress("n_jet",&histnjet_nocuts);
+    outputtree->SetBranchAddress("M_bb",&histMbb_nocuts);
+    outputtree->SetBranchAddress("M_ET",&histmet_nocuts);
+    outputtree->SetBranchAddress("Delta_R",&histDeltaR_nocuts);
+    outputtree->SetBranchAddress("M_HT",&histMHT_nocuts);
+    outputtree->SetBranchAddress("Total_HT",&histHT_nocuts);
+    outputtree->SetBranchAddress("biased_deltaphi",&histBiasedDeltaPhi_nocuts);
+    
+    outputtree->SetBranchAddress("cut_n_jets",&cut_N_jets);
+    outputtree->SetBranchAddress("cut_n_b_jets",&cut_N_bjets);
+    outputtree->SetBranchAddress("cut_M_bb",&cut_Mbb);
+    outputtree->SetBranchAddress("cut_MET",&cut_MET);
+    outputtree->SetBranchAddress("cut_HT",&cut_HT);
+    outputtree->SetBranchAddress("cut_Delta_R",&cut_DeltaR);
+    outputtree->SetBranchAddress("cut_biaseddeltaphi",&cut_biaseddeltaphi);
     
     TTimeStamp time;
     string rootfile = "ROOTCuts_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".root";
@@ -498,22 +517,22 @@ void CutsFunction(const char* filename, double params[16])
         //------------- Uncut variables for .root file
         
         
-        histMbb_nocuts = &mbb;
-        histnbjet_nocuts = &N_bjets;
-        histmet_nocuts = &met;
-        histDeltaR_nocuts = &DeltaR;
-        histBiasedDeltaPhi_nocuts = &biaseddeltaphi;
-        histHT_nocuts = &HT;
-        histnjet_nocuts = &N_jets;
-        
-        if(higgsdecay == 1)
-        {
-            histMbb_nocuts = &mbb2;
-            
-            histDeltaR_nocuts = &DeltaR2;
-        }
-        
-        histMHT_nocuts = &ScalarMissingHT;
+//        histMbb_nocuts = &mbb;
+//        histnbjet_nocuts = &N_bjets;
+//        histmet_nocuts = &met;
+//        histDeltaR_nocuts = &DeltaR;
+//        histBiasedDeltaPhi_nocuts = &biaseddeltaphi;
+//        histHT_nocuts = &HT;
+//        histnjet_nocuts = &N_jets;
+//        
+//        if(higgsdecay == 1)
+//        {
+//            histMbb_nocuts = &mbb2;
+//            
+//            histDeltaR_nocuts = &DeltaR2;
+//        }
+//        
+//        histMHT_nocuts = &ScalarMissingHT;
         
         
         outputtree->Fill();
