@@ -56,11 +56,11 @@ void TerminalPlot(TH1* hist, string title, int height, double xmin, double xmax)
         yvalue = maxbin*(height - j)/height;
         if(int(yvalue) == double(maxbin)*(double(height) - double(j))/double(height))
         {
-            cout << setw(2) << left << yvalue;
+            cout << setw(5) << left << yvalue;
         }
         else
         {
-            cout << setw(2) << left << "  ";
+            cout << setw(5) << left << "     ";
         }
         
         cout << setw(1) << left << "\033[36m" << "|" << "\033[0m";
@@ -117,7 +117,7 @@ void TerminalPlot(TH1* hist, string title, int height, double xmin, double xmax)
     }
     
     
-    cout << "\n" << setw(2) << left << 0;
+    cout << "\n" << setw(5) << left << 0;
     cout << setw(1) << "\033[36m" << "|" << "\033[0m";
     for(int l=0; l<bins; l++)
     {
@@ -139,7 +139,7 @@ void TerminalPlot(TH1* hist, string title, int height, double xmin, double xmax)
         }
     }
     
-    cout << "\n" << setw(3) << left << "   ";
+    cout << "\n" << setw(6) << left << "      ";
     
     for(int m=0; m<bins*binscale/8; m++)
     {
