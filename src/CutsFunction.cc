@@ -905,14 +905,14 @@ void CutsFunction(const char* filename, double params[16])
         
         outputfile << "Higgs to bb in both cascades required\n" << endl;
     }
-    cout << pass_jets << " or " << 100.*double(pass_jets)/double(entries) << " % of events contained 4 leading jets with PT 400,300,200,100 GeV" << endl;
-    cout << pass_N_b_jets << " or " << 100.*double(pass_N_b_jets)/double(entries) << " % of events contained at least 2 b-jets" << endl;
-    cout << pass_bb_mass << " or " << 100.*double(pass_bb_mass)/double(entries) << " % of events contained at least 2 b-jets with invariant mass within the bounds" << endl;
-    cout << pass_MET << " or " << 100.*double(pass_MET)/double(entries) << " % of events had at least 30GeV Missing ET" << endl;
-    cout << pass_tau << " or " << 100.*double(pass_tau)/double(entries) << " % of events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
-    cout << pass_HT << " or " << 100.*double(pass_HT)/double(entries) << " % of events contained at least " << minHT << "GeV HT" << endl;
-    cout << pass_N_jets << " or " << 100.*double(pass_N_jets)/double(entries) << " % of events contained at least " << minN_jets << " jets" << endl;
-    cout << pass_biaseddeltaphi << " or " << 100.*double(pass_biaseddeltaphi)/double(entries) << " % of events had biased delta-phi > 0.5" << endl;
+    cout << pass_jets << " or \t" << 100.*double(pass_jets)/double(entries) << " % of events contained 4 leading jets with PT 400,300,200,100 GeV" << endl;
+    cout << pass_N_b_jets << " or \t" << 100.*double(pass_N_b_jets)/double(entries) << " % of events contained at least 2 b-jets" << endl;
+    cout << pass_bb_mass << " or \t" << 100.*double(pass_bb_mass)/double(entries) << " % of events contained at least 2 b-jets with invariant mass within the bounds" << endl;
+    cout << pass_MET << " or \t" << 100.*double(pass_MET)/double(entries) << " % of events had at least 30GeV Missing ET" << endl;
+    cout << pass_tau << " or \t" << 100.*double(pass_tau)/double(entries) << " % of events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
+    cout << pass_HT << " or \t" << 100.*double(pass_HT)/double(entries) << " % of events contained at least " << minHT << "GeV HT" << endl;
+    cout << pass_N_jets << " or \t" << 100.*double(pass_N_jets)/double(entries) << " % of events contained at least " << minN_jets << " jets" << endl;
+    cout << pass_biaseddeltaphi << " or \t" << 100.*double(pass_biaseddeltaphi)/double(entries) << " % of events had biased delta-phi > 0.5" << endl;
     cout << "\n" << 100.*double(eventpass)/double(entries) << " % efficiency" << endl;
     
     cout << "\n\n\n" << endl;
