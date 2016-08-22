@@ -133,7 +133,7 @@ void CutsFunction(const char* filename, double params[16])
     TH1 *histMbb_precut = new TH1F("mbb_n-1cut", "M_{inv}(b, b) Before Cut; M_{inv}(b, b) (GeV)", 40, 0., 200.);
     TH1 *histmet_precut = new TH1F ("met_n-1cut", "Missing ET Before Cut; MET (GeV)", 50, 0.0, 1000.);
     TH1 *histDeltaR_precut = new TH1F("DeltaR_n-1cut", "Delta R between b-jets Before Cut; Delta R", 60, 0, 6);
-    TH1 *histMHT_precut = new TH1F("MHT_n-1cut", "Missing HT Before Cut; Missing HT (GeV)", 50, 0., 1000.);
+    TH1 *histMHT_precut = new TH1F("MHT_n-1cut", "Missing HT Before Cut; Missing HT (GeV)", 100, 0., 8000.);
     TH1 *histHT_precut = new TH1F("HT_n-1cut", "Scalar HT Before Cut; Scalar HT (GeV)", 100, 0., 8000.);
     TH1 *histBiasedDeltaPhi_precut = new TH1F("biaseddeltaphi_n-1cut", "Biased Delta Phi Before Cut; Biased Delta Phi", 50, 0., 5.);
 
@@ -319,7 +319,7 @@ void CutsFunction(const char* filename, double params[16])
             
             MissingHT2Vector.Set(MissingHT.Px(), MissingHT.Py());
             
-            ScalarMissingHT = MissingHT2Vector.Mod();
+            ScalarMissingHT = TMath::Sqrt((MissingHT.Px()*MissingHT.Px()) + (MissingHT.Py()*MissingHT.Py()));
             
             if(ScalarMissingHT > 130.)
             {
