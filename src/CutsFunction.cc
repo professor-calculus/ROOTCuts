@@ -193,7 +193,7 @@ void CutsFunction(const char* filename, double params[16])
     histnjet_nocuts = &N_jets;
     
     
-    outputtree->Branch("Uncut", &uncut, "M_bb/D:MET:DeltaR:biaseddeltaphi:HT:MHT:n_bjets/I:n_jets:cut_Mbb/O:cut_DeltaR:cut_biaseddeltaphi:cut_MET:cut_HT:cut_N_bjets:cut_N_jets");
+    outputtree->Branch("Uncut", &uncut, "M_bb/D:MET:DeltaR:biaseddeltaphi:HT:MHT:n_bjets/I:n_jets:cut_Mbb/O:cut_DeltaR:cut_biaseddeltaphi:cut_MET:cut_HT:cut_N_bjets:cut_N_jets:cut_MHT");
     
     
 //    outputtree->Branch("n_bjet",&histnbjet_nocuts,"I",320000);
