@@ -133,7 +133,7 @@ void CutsFunction(const char* filename, double params[16])
     TH1 *histMbb_precut = new TH1F("mbb_n-1cut", "M_{inv}(b, b) Before Cut; M_{inv}(b, b) (GeV)", 40, 0., 200.);
     TH1 *histmet_precut = new TH1F ("met_n-1cut", "Missing ET Before Cut; MET (GeV)", 50, 0.0, 1000.);
     TH1 *histDeltaR_precut = new TH1F("DeltaR_n-1cut", "Delta R between b-jets Before Cut; Delta R", 60, 0, 6);
-    //TH1 *histMHT_precut = new TH1F("MHT_precut", "Missing HT Before Cut; Missing HT (GeV)", 50, 0., 1000.);
+    TH1 *histMHT_precut = new TH1F("MHT_n-1cut", "Missing HT Before Cut; Missing HT (GeV)", 50, 0., 1000.);
     TH1 *histHT_precut = new TH1F("HT_n-1cut", "Scalar HT Before Cut; Scalar HT (GeV)", 100, 0., 8000.);
     TH1 *histBiasedDeltaPhi_precut = new TH1F("biaseddeltaphi_n-1cut", "Biased Delta Phi Before Cut; Biased Delta Phi", 50, 0., 5.);
 
@@ -167,6 +167,7 @@ void CutsFunction(const char* filename, double params[16])
     bool cut_HT = false;
     bool cut_N_bjets = false;
     bool cut_N_jets = false;
+    bool cut_MHT = false;
 
 
     TLorentzVector p4[4];
@@ -181,12 +182,12 @@ void CutsFunction(const char* filename, double params[16])
     
     int32_t *histnbjet_nocuts;
     int32_t *histnjet_nocuts;
-    double_t *histMbb_nocuts;
-    double_t *histmet_nocuts;
-    double_t *histDeltaR_nocuts;
-    double_t *histMHT_nocuts;
-    double_t *histHT_nocuts;
-    double_t *histBiasedDeltaPhi_nocuts;
+//    double_t *histMbb_nocuts;
+//    double_t *histmet_nocuts;
+//    double_t *histDeltaR_nocuts;
+//    double_t *histMHT_nocuts;
+//    double_t *histHT_nocuts;
+//    double_t *histBiasedDeltaPhi_nocuts;
     
     histnbjet_nocuts = &N_bjets;
     histnjet_nocuts = &N_jets;
@@ -239,6 +240,7 @@ void CutsFunction(const char* filename, double params[16])
         MissingHT.Clear();
 
         Jet *jet = NULL;
+        Jet *jet2 = NULL;
 
         npass = 0;
 
@@ -257,14 +259,25 @@ void CutsFunction(const char* filename, double params[16])
         cut_HT = false;
         cut_N_bjets = false;
         cut_N_jets = false;
+        cut_MHT = false;
         
-        N_jets = branchJet->GetEntries();
+        N_jets = 0;
+        
+        for(int lol=0; lol<branchJet->GetEntries(); lol++)
+        {
+            jet2 = (Jet*) branchJet->At(lol);
+            
+            if(jet2->PT > 40.)
+            {
+                N_jets += 1;
+            }
+        }
         
         
         if(N_jets > 1)
         {
             
-            if(N_jets > minN_jets)
+            if(N_jets >= minN_jets)
             {
                 pass_N_jets++;                  //passes number of hard jets test
                 npass++;
@@ -295,16 +308,24 @@ void CutsFunction(const char* filename, double params[16])
                     N_tau++;
                 }
                 
-                if(jet->PT > 30.)
+                if(jet->PT > 40.)
                 {
                     MissingHT += jet->P4();
                 }
                 
             }
             
+            
+            
             MissingHT2Vector.Set(MissingHT.Px(), MissingHT.Py());
             
             ScalarMissingHT = MissingHT2Vector.Mod();
+            
+            if(ScalarMissingHT > 130.)
+            {
+                cut_MHT = true;
+                npass++;
+            }
             
             
             
@@ -531,6 +552,7 @@ void CutsFunction(const char* filename, double params[16])
         uncut.cut_N_jets = cut_N_jets;
         uncut.cut_N_bjets = cut_N_bjets;
         uncut.cut_biaseddeltaphi = cut_biaseddeltaphi;
+        uncut.cut_MHT = cut_MHT;
         
         
         outputtree->Fill();
@@ -541,7 +563,7 @@ void CutsFunction(const char* filename, double params[16])
         //------------- Post-cuts stuff
         
 
-        if(npass == 9)
+        if(npass == 10)
         {
             eventpass++;
 
@@ -576,9 +598,10 @@ void CutsFunction(const char* filename, double params[16])
             }
             
             histMHT->Fill(ScalarMissingHT);
+            histMHT_precut->Fill(ScalarMissingHT);
             
         }
-        else if(npass == 8)
+        else if(npass == 9)
         {
             if(!cut_Mbb) histMbb_precut->Fill(mbb);
             else if(!cut_N_bjets) histnbjet_precut->Fill(N_bjets);
@@ -587,6 +610,7 @@ void CutsFunction(const char* filename, double params[16])
             else if(!cut_biaseddeltaphi) histBiasedDeltaPhi_precut->Fill(biaseddeltaphi);
             else if(!cut_HT) histHT_precut->Fill(HT);
             else if(!cut_N_jets) histnjet_precut->Fill(N_jets);
+            else if(!cut_MHT) histMHT_precut->Fill(ScalarMissingHT);
             
             if(higgsdecay == 1)
             {
@@ -857,8 +881,11 @@ void CutsFunction(const char* filename, double params[16])
     //------------ Outputting the results to .txt ...
     
     //----- Output File
+    
+    string outputfilename = "In_Numbers_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".txt";
+    
     ofstream outputfile;
-    outputfile.open("output.txt");
+    outputfile.open(outputfilename);
     outputfile << "\n\n\n SIGNAL:" << endl;
     outputfile << "Tree copied with " << entries << " entries\n\n" << endl;
     
