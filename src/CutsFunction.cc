@@ -176,6 +176,8 @@ void CutsFunction(const char* filename, double params[16])
     TVector2 MissingHT2Vector;
     double ScalarMissingHT;
     
+    double HT_x, HT_y;
+    
     //double cut_efficiencies;
     
     
@@ -262,6 +264,9 @@ void CutsFunction(const char* filename, double params[16])
         cut_N_jets = false;
         cut_MHT = false;
         
+        HT_x = 0;
+        HT_y = 0;
+        
         N_jets = 0;
         
         for(int lol=0; lol<branchJet->GetEntries(); lol++)
@@ -311,7 +316,8 @@ void CutsFunction(const char* filename, double params[16])
                 
                 if(jet->PT > 40.)
                 {
-                    MissingHT += jet->P4();
+                    HT_x += jet->P4().Px();
+                    HT_y += jet->P4().Py();
                 }
                 
             }
@@ -320,7 +326,7 @@ void CutsFunction(const char* filename, double params[16])
             
             MissingHT2Vector.Set(MissingHT.Px(), MissingHT.Py());
             
-            ScalarMissingHT = MissingHT.Pt();
+            ScalarMissingHT = TMath::Sqrt((HT_x*HT_x) + (HT_y*HT_y));
             
             if(ScalarMissingHT > 130.)
             {
