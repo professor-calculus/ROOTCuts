@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
     //      1       2nd Leading jet PT
     //      2       3rd Leading jet PT
     //      3       4th Leading jet PT
-    //      4       0 = h->bb h->tau-tau; 1 = h->bb both cascades; 2 = 3 b-jets
+    //      4       0 = h->bb h->tau-tau; 1 = h->bb both cascades; 2 = 3 b-jets, 3: EXACTLY 2 b-jets
     //      5       b-jet lower bound PT
     //      6       MET lower bound
     //      7       min. taus inv. mass
@@ -62,9 +62,9 @@ int main(int argc, char *argv[])
         }
         
         int higgsdecay = int(params[4]);
-        if(higgsdecay < 0 || higgsdecay > 2)
+        if(higgsdecay < 0 || higgsdecay > 3)
         {
-            cout << "ERROR: Higgs Decay mode must be 0, 1 or 2" << endl;
+            cout << "ERROR: Higgs Decay mode must be 0, 1, 2 or 3" << endl;
             return 0;
         }
         

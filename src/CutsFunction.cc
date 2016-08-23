@@ -46,9 +46,9 @@ void CutsFunction(const char* filename, double params[16])
     double jetPT4 = params[3];
     
     int higgsdecay = int(params[4]);
-    if(higgsdecay < 0 || higgsdecay > 2)
+    if(higgsdecay < 0 || higgsdecay > 3)
     {
-        cout << "ERROR: Higgs Decay mode must be 0, 1 or 2" << endl;
+        cout << "ERROR: Higgs Decay mode must be 0, 1, 2 or 3" << endl;
         return;
     }
     
@@ -348,7 +348,7 @@ void CutsFunction(const char* filename, double params[16])
             }
             
 
-            if(higgsdecay == 0 && N_bjets == 2)
+            if(higgsdecay == 0 && N_bjets > 1)
             {
                 pass_N_b_jets++;
                 npass++;                   //passes the number of b-jets test
@@ -443,6 +443,31 @@ void CutsFunction(const char* filename, double params[16])
                     DeltaR = p4[0].DeltaR(p4[1]);
                 }
             }
+            else if(higgsdecay == 3 && N_bjets == 2)
+            {
+                pass_N_b_jets++;
+                npass++;                   //passes the number of b-jets test
+                cut_N_bjets = true;
+                
+                matchingbjets = JetPairFinder(vectorbjet, N_bjets);
+                
+                p4[0] = matchingbjets[0]->P4();
+                p4[1] = matchingbjets[1]->P4();
+                
+                mbb = ((p4[0]) + (p4[1])).M();
+                
+                if(mbb > minMbb && mbb < maxMbb)
+                {
+                    npass++;
+                    pass_bb_mass++;               //passes the M_bb inv. mass test
+                    cut_Mbb = true;
+                    cut_DeltaR = true;
+                    
+                    DeltaR = p4[0].DeltaR(p4[1]);
+                }
+            }
+            
+            
 
             if(vectorjet[0]->PT > jetPT1 && vectorjet[1]->PT > jetPT2 && vectorjet[2]->PT > jetPT3 && vectorjet[3]->PT > jetPT4)
             {
