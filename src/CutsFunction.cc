@@ -348,7 +348,7 @@ void CutsFunction(const char* filename, double params[16])
             }
             
 
-            if(higgsdecay == 0 && N_bjets > 1)
+            if(higgsdecay == 0 && N_bjets == 2)
             {
                 pass_N_b_jets++;
                 npass++;                   //passes the number of b-jets test
@@ -410,7 +410,7 @@ void CutsFunction(const char* filename, double params[16])
                 }
             }
             
-            else if(higgsdecay == 2 && N_bjets == 2)
+            else if(higgsdecay == 2 && N_bjets > 2)
             {
                 pass_N_b_jets++;
                 npass += 2;                   //passes the number of b-jets test
