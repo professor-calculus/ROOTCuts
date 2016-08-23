@@ -320,7 +320,7 @@ void CutsFunction(const char* filename, double params[16])
             
             MissingHT2Vector.Set(MissingHT.Px(), MissingHT.Py());
             
-            ScalarMissingHT = TMath::Sqrt((MissingHT.Px()*MissingHT.Px()) + (MissingHT.Py()*MissingHT.Py()));
+            ScalarMissingHT = MissingHT.Pt();
             
             if(ScalarMissingHT > 130.)
             {
