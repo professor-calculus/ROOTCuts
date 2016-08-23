@@ -446,19 +446,19 @@ void CutsFunction(const char* filename, double params[16])
             else if(higgsdecay == 3 && N_bjets == 2)
             {
                 pass_N_b_jets++;
-                npass++;                   //passes the number of b-jets test
+                npass+=2;                   //passes the number of b-jets test
                 cut_N_bjets = true;
                 
-                matchingbjets = JetPairFinder(vectorbjet, N_bjets);
+                //matchingbjets = JetPairFinder(vectorbjet, N_bjets);
                 
-                p4[0] = matchingbjets[0]->P4();
-                p4[1] = matchingbjets[1]->P4();
+                p4[0] = vectorbjet[0]->P4();
+                p4[1] = vectorbjet[1]->P4();
                 
                 mbb = ((p4[0]) + (p4[1])).M();
                 
                 if(mbb > minMbb && mbb < maxMbb)
                 {
-                    npass++;
+                    npass+=2;
                     pass_bb_mass++;               //passes the M_bb inv. mass test
                     cut_Mbb = true;
                     cut_DeltaR = true;
