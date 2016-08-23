@@ -151,6 +151,7 @@ void CutsFunction(const char* filename, double params[16])
     int pass_N_jets = 0;
     int pass_tautau_mass = 0;
     int pass_HT = 0;
+    int pass_MHT = 0;
 
     int eventpass = 0;
     
@@ -325,6 +326,7 @@ void CutsFunction(const char* filename, double params[16])
             {
                 cut_MHT = true;
                 npass++;
+                pass_MHT++;
             }
             
             
@@ -913,6 +915,7 @@ void CutsFunction(const char* filename, double params[16])
     cout << pass_HT << " or \t" << 100.*double(pass_HT)/double(entries) << " % of events contained at least " << minHT << "GeV HT" << endl;
     cout << pass_N_jets << " or \t" << 100.*double(pass_N_jets)/double(entries) << " % of events contained at least " << minN_jets << " jets" << endl;
     cout << pass_biaseddeltaphi << " or \t" << 100.*double(pass_biaseddeltaphi)/double(entries) << " % of events had biased delta-phi > 0.5" << endl;
+    cout << pass_MHT << " or \t" << 100.*double(pass_MHT)/double(entries) << " % of events had Missing HT > 130GeV" << endl;
     cout << "\n" << 100.*double(eventpass)/double(entries) << " % efficiency" << endl;
     
     cout << "\n\n\n" << endl;
