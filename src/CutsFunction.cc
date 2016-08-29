@@ -652,6 +652,14 @@ void CutsFunction(const char* filename, double params[16])
                 if(!cut_DeltaR) histDeltaR_precut->Fill(DeltaR2);
             }
         }
+        else if(npass == 8)
+        {
+            if(!cut_Mbb) histMbb_precut->Fill(mbb);
+        }
+        else if(npass == 6)
+        {
+            if(!cut_N_bjets && !cut_Mbb) histnbjet_precut->Fill(N_bjets);
+        }
 
 
     }
