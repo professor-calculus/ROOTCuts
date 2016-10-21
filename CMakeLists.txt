@@ -6,7 +6,7 @@ project(ROOTCuts)
 file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH $ENV{ROOTSYS}/etc/cmake)
 set(CMAKE_PREFIX_PATH $ENV{DELPHES_DIR})
 
 # You need to tell CMake where to find the ROOT installation. This can be done in a number of ways:
