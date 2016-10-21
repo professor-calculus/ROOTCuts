@@ -1,4 +1,5 @@
 #!/bin/bash
+source ~/.bash_profile
 echo 'Installing latest version of Delphes'
 cd ..
 git clone https://github.com/delphes/delphes.git
