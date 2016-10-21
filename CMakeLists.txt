@@ -21,9 +21,9 @@ find_package(ROOT REQUIRED COMPONENTS MathCore RIO Hist Tree Net)
 set(DelphesExternals_INCLUDE_DIR ${DELPHES}/external)
 
 #---Define useful ROOT functions and macros (e.g. ROOT_GENERATE_DICTIONARY)
-if(DEFINED ROOT_USE_FILE)
+if(DEFINED ROOT_USE_FILE)    #---If ROOT was built with the classic configure/make---
     include(${ROOT_USE_FILE})
-else()  #---If ROOT was built with the classic configure/make---
+endif(DEFINED ROOT_USE_FILE)
 
 include_directories(${CMAKE_SOURCE_DIR} ${ROOT_INCLUDE_DIRS} ${DelphesExternals_INCLUDE_DIR} ${DELPHES})
 add_definitions(${ROOT_CXX_FLAGS} -std=c++11)
