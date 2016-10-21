@@ -8,3 +8,5 @@ cd ../bin
 echo 'Delphes installed, now installing ROOTCuts :)'
 cmake -DDELPHES=../delphes ..
 cmake --build .
+source env.sh
+echo 'All done!'

@@ -1,2 +1,2 @@
 export ROOTCUTS_DIR=$PWD/../
-alias rootcuts=$PWD/rootcuts
+alias rootcuts=$PWD/ROOTCuts
