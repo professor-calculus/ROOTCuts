@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 	//double weight = params[13];
     
     
-    if(argc == 4)
+    if(argc == 4)               // Here we would be feeding the program with 2 .root files (sig, bkg) and a parameter file.
     {
         fstream fin(argv[3]);
         string line;
@@ -121,7 +121,7 @@ int main(int argc, char *argv[])
         
     }
     
-    else if(argc == 3)
+    else if(argc == 3)                  // Here just one .root file and a parameter file. (i.e. no sig vs. bkg etc)
     {
         fstream fin(argv[2]);
         string line;
@@ -144,9 +144,9 @@ int main(int argc, char *argv[])
     }
     
     
-    else if(argc == 2)
+    else if(argc == 2)                  // Uses default parameter file, for test purposes
     {
-        fstream fin("../default/default_parameters.txt");
+        fstream fin("$ROOTCUTS_DIR/example.rootcuts");
         string line;
         
         while(getline(fin, line))
