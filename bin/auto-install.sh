@@ -1,3 +1,5 @@
+echo 'Using ROOT installed in:'
+echo $ROOTSYS
 echo 'Installing latest version of Delphes'
 cd ..
 git clone https://github.com/delphes/delphes.git

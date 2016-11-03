@@ -1,17 +1,19 @@
 #### Ulrich BP5 parameters, ArXiv 1412.6384 (masses in GeV)         ###
 #### This file is set up to look for 4 b-tags and                   ###
 #### (if fed with 2 root files) compare signal vs b-bbar background ###
-0	400.	# 1st leading jet PT
-1	300.	# 2nd leading jet PT
-2	200.	# 3rd leading jet PT
-3	100.	# 4th leading jet PT
-4	1.	# 0 = h->bb h->tau-tau; 1 = h->bbx2; 2 = 3x b-tag	
-5	40.	# min. b-jet PT
-6	30.	# min. MET
-7	20.	# min. Taus inv. mass
-8	160.	# max. Taus inv. mass
-9	100.	# min. Sum Taus PT
-10	60.	# min. Mbb
-11	160.	# max. Mbb
-12	1.	# Jet pair matching, 0 = smallest average deltaR; 1 = closest in M_inv(bb)
-13	0.000000005	# approx Bkg = 4.24e08, Sig = 0.218
+0	100.    # 1st leading jet PT
+1	100.    # 2nd leading jet PT
+2	100.    # 3rd leading jet PT
+3	100.    # 4th leading jet PT
+4	3.      # Higgs decay -- 0 = 2 b-tags && 2 tau-tags; 1 = 4 b-tags; 2 = ge3 b-tags; 3 = 2 b-tags
+5	40.     # min. b-jet PT
+6	0.      # min. MET
+7	0.      # min. Taus inv. mass
+8	160000. # max. Taus inv. mass
+9	0.      # min. Sum Taus PT
+10	0.      # min. Mbb
+11	160000. # max. Mbb
+12	1.      # Jet pair matching, 0 = smallest average deltaR; 1 = closest in M_inv(bb)
+13	1.      # Sig/bkg ratio (only used for input containing 2 root files.)
+14	800.    # min. HT
+15	5       # min. no. of jets
