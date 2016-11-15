@@ -11,6 +11,10 @@ as per instructions should be fine too.
 Then to build it go to path/to/ROOTCuts/bin and do "cmake -DDELPHES=/path/to/delphes/install/location .. '' (the .. are important)
 And then "cmake --build .''
 
+OR: You can do (in bin/) ./auto-install.sh -- this will download Delphes, install it and link to it.
+
+OR: do ./auto-install-no-delphes /path/to/delphes if you have it already and don't want a new one!
+
 You should now have an executable called rootcuts in that folder. For ease it’s wise to add a line in ~/.bash_profile containing “alias rootcuts = /path/to/rootcuts/install/bin/rootcuts’’ — I’m hoping to 
 make a shell script to do this for the end user but haven’t got round to it yet…
 

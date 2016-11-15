@@ -111,6 +111,7 @@
 		FA4D60181DBA425A001EC9D6 /* env.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = env.sh; path = bin/env.sh; sourceTree = "<group>"; };
 		FA4D60191DBA5598001EC9D6 /* auto-install.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "auto-install.sh"; path = "bin/auto-install.sh"; sourceTree = "<group>"; };
 		FA84EE82D3AE4B339EEA7D98 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		FAF785BE1DDB28DF00E084E2 /* auto-install-no-delphes.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = "auto-install-no-delphes.sh"; path = "bin/auto-install-no-delphes.sh"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -191,6 +192,7 @@
 				FA84EE82D3AE4B339EEA7D98 /* CMakeLists.txt */,
 				FA4D60181DBA425A001EC9D6 /* env.sh */,
 				FA4D60191DBA5598001EC9D6 /* auto-install.sh */,
+				FAF785BE1DDB28DF00E084E2 /* auto-install-no-delphes.sh */,
 				FA4D60161DBA40F4001EC9D6 /* example.rootcuts */,
 				FA4D60171DBA40F4001EC9D6 /* README.md */,
 			);
