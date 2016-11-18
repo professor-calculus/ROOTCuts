@@ -17,3 +17,4 @@
 13	1.      # Sig/bkg ratio (only used for input containing 2 root files.)
 14	800.    # min. HT
 15	5       # min. no. of jets
+16  0.0     # minimum Biased-delta-phi: 0.5 for CMS SUSY searches, set to 0.0 to switch off.

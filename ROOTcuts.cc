@@ -34,9 +34,16 @@ int main(int argc, char *argv[])
 	//		13		User specify Signal/Background ratio (double precision)
     //      14      min. HT
     //      15      min. no. of jets
+    //      16      minimum Biased-Delta-Phi: 0.5 for SUSY CMS Searches usually
 
     
-    double params[15];
+    double params[17];
+    
+    for(int i=0; i<17; i++)
+    {
+        params[i] = 0;
+    }
+    
     int param, bkg, signal;
     double value;
 

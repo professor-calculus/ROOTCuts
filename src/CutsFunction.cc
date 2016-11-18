@@ -38,6 +38,7 @@ void CutsFunction(const char* filename, double params[16])
     //      13      Sig/Bkg ratio
     //      14      min. HT
     //      15      min. no. of jets
+    //      16      minimum Biased-Delta-Phi: 0.5 for SUSY CMS Searches usually
 
     
     double jetPT1 = params[0];
@@ -81,6 +82,8 @@ void CutsFunction(const char* filename, double params[16])
     
     double DeltaR, DeltaR2, biaseddeltaphi, HT;
     
+    double BDP = params[16];
+    
     int percent, tintin;
 
     string bar;
@@ -108,6 +111,7 @@ void CutsFunction(const char* filename, double params[16])
     if (reader->GetEntries() < 1)
     {
         cout << "Problem! There's no entries!" << endl;
+        return;
     }
         
     entries = reader->GetEntries();
@@ -339,7 +343,7 @@ void CutsFunction(const char* filename, double params[16])
             
             biaseddeltaphi = BiasedDeltaPhi(vectorjet, N_jets);
             
-            if(biaseddeltaphi > 0.5)
+            if(biaseddeltaphi > BDP)
             {
                 pass_biaseddeltaphi++;
                 npass++;
