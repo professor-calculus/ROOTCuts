@@ -4,6 +4,8 @@ dependencies: /Users/alex/Documents/ROOTCuts/ROOTcuts.cc \
   /Users/alex/ROOT/root-install/include/TDirectory.h \
   /Users/alex/ROOT/root-install/include/TBuffer.h \
   /Users/alex/ROOT/root-install/include/TObject.h \
+  /Users/alex/ROOT/root-install/include/RConfigure.h \
+  /Users/alex/ROOT/root-install/include/Riosfwd.h \
   /Users/alex/ROOT/root-install/include/Rtypes.h \
   /Users/alex/ROOT/root-install/include/RtypesCore.h \
   /Users/alex/ROOT/root-install/include/RConfig.h \
@@ -16,12 +18,10 @@ dependencies: /Users/alex/Documents/ROOTCuts/ROOTcuts.cc \
   /Users/alex/ROOT/root-install/include/TSchemaHelper.h \
   /Users/alex/ROOT/root-install/include/TStorage.h \
   /Users/alex/ROOT/root-install/include/TVersionCheck.h \
-  /Users/alex/ROOT/root-install/include/Riosfwd.h \
   /Users/alex/ROOT/root-install/include/TNamed.h \
   /Users/alex/ROOT/root-install/include/TString.h \
   /Users/alex/ROOT/root-install/include/TMathBase.h \
   /Users/alex/ROOT/root-install/include/RStringView.h \
-  /Users/alex/ROOT/root-install/include/RConfigure.h \
   /Users/alex/ROOT/root-install/include/TList.h \
   /Users/alex/ROOT/root-install/include/TSeqCollection.h \
   /Users/alex/ROOT/root-install/include/TCollection.h \

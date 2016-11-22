@@ -104,7 +104,7 @@ CMAKE_NM:FILEPATH=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDef
 CMAKE_OBJCOPY:FILEPATH=CMAKE_OBJCOPY-NOTFOUND
 
 //Path to a program.
-CMAKE_OBJDUMP:FILEPATH=CMAKE_OBJDUMP-NOTFOUND
+CMAKE_OBJDUMP:FILEPATH=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/objdump
 
 //Build architectures for OSX
 CMAKE_OSX_ARCHITECTURES:STRING=
@@ -115,7 +115,7 @@ CMAKE_OSX_DEPLOYMENT_TARGET:STRING=
 
 //The product will be built against the headers and libraries located
 // inside the indicated SDK.
-CMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk
+CMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk
 
 //Value Computed by CMake
 CMAKE_PROJECT_NAME:STATIC=ROOTCuts
@@ -271,7 +271,7 @@ ROOT_rootrm_CMD:FILEPATH=/Users/alex/ROOT/root-install/bin/rootrm
 ########################
 
 //Stored Xcode object GUID
-ALL_BUILD_GUID_CMAKE:INTERNAL=7A675DD28D364C06BC771387
+ALL_BUILD_GUID_CMAKE:INTERNAL=589C89DC87FC4ACB9D40E56D
 //ADVANCED property for variable: CMAKE_AR
 CMAKE_AR-ADVANCED:INTERNAL=1
 //This is the directory where this CMakeCache.txt was created
@@ -388,9 +388,9 @@ CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Stored Xcode object GUID
-PROJECT_ROOTCuts_GUID_CMAKE:INTERNAL=FD6E65AB5F37467F8FAF257D
+PROJECT_ROOTCuts_GUID_CMAKE:INTERNAL=F59A298132D54E278C65179B
 //Stored Xcode object GUID
-ROOTCuts_GUID_CMAKE:INTERNAL=BA42CDD5B7EB4A3AAB565AD4
+ROOTCuts_GUID_CMAKE:INTERNAL=D23A9C53318D4232947E5255
 //ADVANCED property for variable: ROOT_Core_LIBRARY
 ROOT_Core_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ROOT_Gpad_LIBRARY
@@ -444,7 +444,7 @@ ROOT_rootmv_CMD-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ROOT_rootrm_CMD
 ROOT_rootrm_CMD-ADVANCED:INTERNAL=1
 //Stored Xcode object GUID
-ZERO_CHECK_GUID_CMAKE:INTERNAL=99C8A0BCF50C4F76AA3E773C
+ZERO_CHECK_GUID_CMAKE:INTERNAL=4D5B3A03E0C446EA862D69A4
 //Stored Xcode object GUID
-install_GUID_CMAKE:INTERNAL=00FCEF8D3E4847B09A0F8275
+install_GUID_CMAKE:INTERNAL=7F33C1F84BC44226BD46CD70
 

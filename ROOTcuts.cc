@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
             //the following line trims white space from the beginning of the string
             line2.erase(line2.begin(), find_if(line2.begin(), line2.end(), not1(ptr_fun<int, int>(isspace))));
             
-            if(line2[0] == "C" && line2.find("Cross section (pb):"))
+            if(strncmp(&line2[0], "C", 1) && line2.find("Cross section (pb):"))
             {
                 crosssection = line2;
                 
