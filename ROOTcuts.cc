@@ -79,22 +79,24 @@ int main(int argc, char *argv[])
         
         CutsFunction(rootpath.c_str(), params);
         
+        ifstream inputFile;
+        inputFile.open(crosssectionpath);
         
         string crosssection;
         double crosssectionvalue = 0;
         
-        fstream fin2(crosssectionpath);
-        while(getline(fin2, line2))
+        //fstream fin2(crosssectionpath);
+        while(!inputFile.eof())
         {
             //the following line trims white space from the beginning of the string
-            line2.erase(line2.begin(), find_if(line2.begin(), line2.end(), not1(ptr_fun<int, int>(isspace))));
+            //line2.erase(line2.begin(), find_if(line2.begin(), line2.end(), not1(ptr_fun<int, int>(isspace))));
             
             //if(line2.find("Cross section"))
             //{
             
-            crosssection = string(line2);
+            inputFile >> crosssection;
             
-            cout << crosssection << endl;
+            //cout << crosssection << endl;
                 
                 //size_t pos = line2.find(":");
                 //line2.erase(0,pos + 4);
@@ -105,13 +107,13 @@ int main(int argc, char *argv[])
                 //break;
             //}
         
-        size_t pos = line2.find(":");
-        line2.erase(0,pos + 4);
-        
             
         }
         
-        //crosssectionvalue = std::stod(crosssection);
+        size_t pos = crosssection.find(":");
+        crosssection.erase(0,pos + 4);
+        
+        crosssectionvalue = std::stod(crosssection);
         
         TTimeStamp time;
         
