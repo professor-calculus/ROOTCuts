@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
         CutsFunction(rootpath.c_str(), params);
         
         
-        double crosssection;
+        string crosssection;
         
         fstream fin2(crosssectionpath);
         while(getline(fin2, line2))
