@@ -113,7 +113,7 @@ int main(int argc, char *argv[])
     }
     
     
-    if(argc == 4)               // Here we would be feeding the program with 2 .root files (sig, bkg) and a parameter file.
+    else if(argc == 4)               // Here we would be feeding the program with 2 .root files (sig, bkg) and a parameter file.
     {
         fstream fin(argv[3]);
         string line;
