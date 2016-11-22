@@ -110,8 +110,8 @@ int main(int argc, char *argv[])
         ofstream outputfile;
         outputfile.open(outputfilename);
         
-        outputfile << "Cross-section from MG5/Pythia =\t" << crosssection << endl;
-        cout << "Cross-section from MG5/Pythia =\t" << crosssection << endl;
+        outputfile << "Cross-section from MG5/Pythia =\t" << line2 << endl;
+        cout << "Cross-section from MG5/Pythia =\t" << line2 << endl;
         
     }
     
