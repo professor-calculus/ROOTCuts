@@ -111,6 +111,7 @@ int main(int argc, char *argv[])
         outputfile.open(outputfilename);
         
         outputfile << "Cross-section from MG5/Pythia =\t" << crosssection << endl;
+        cout << "Cross-section from MG5/Pythia =\t" << crosssection << endl;
         
     }
     
