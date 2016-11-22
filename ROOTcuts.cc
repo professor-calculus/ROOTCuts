@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
             
         }
         
-        crosssectionvalue = stod(crosssection);
+        crosssectionvalue = std::stod(crosssection);
         
         TTimeStamp time;
         
