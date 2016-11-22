@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
     //      14      min. HT
     //      15      min. no. of jets
     //      16      minimum Biased-Delta-Phi: 0.5 for SUSY CMS Searches usually
+    
 
     
     double params[17];
@@ -48,6 +49,65 @@ int main(int argc, char *argv[])
     double value;
 
 	//double weight = params[13];
+    
+    
+    if(argc == 4 && (argv[3] == "folder" || argv[3] == "FOLDER")) // Here we input a MG output folder and a param card, with the
+                                                                  // option "folder". (no sig vs. bkg etc)
+    {
+        fstream fin(argv[2]);
+        string line, line2;
+        
+        while(getline(fin, line))
+        {
+            //the following line trims white space from the beginning of the string
+            line.erase(line.begin(), find_if(line.begin(), line.end(), not1(ptr_fun<int, int>(isspace))));
+            
+            if(line[0] == '#') continue;
+            
+            istringstream is(line);
+            is >> param >> value;
+            
+            params[param] = value;
+        }
+        
+        string rootpath = argv[1] + "/Events/run_01/tag_1_delphes_events.root";
+        string crosssectionpath = argv[1] + "/crossx.html";
+        
+        CutsFunction(rootpath, params);
+        
+        
+        double crosssection;
+        
+        fstream fin2(crosssectionpath);
+        while(getline(fin2, line2))
+        {
+            //the following line trims white space from the beginning of the string
+            line2.erase(line2.begin(), find_if(line2.begin(), line2.end(), not1(ptr_fun<int, int>(isspace))));
+            
+            if(line2.find("<td rowspan=2><center><a href=\"./HTML/run_01/results.html\">"))
+            {
+                size_t pos = line2.find("html\">");
+                line2.erase(0, pos+6);
+                
+                line2.erase(10, line2.length());
+                
+                istringstream is(line2);
+                is >> crosssection;
+                
+                break;
+            }
+            
+            
+        }
+        
+        string outputfilename = "In_Numbers_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".txt";
+        
+        ofstream outputfile;
+        outputfile.open(outputfilename);
+        
+        outputfile << "Cross-section from MG5/Pythia =\t" << crosssection << endl;
+        
+    }
     
     
     if(argc == 4)               // Here we would be feeding the program with 2 .root files (sig, bkg) and a parameter file.
@@ -174,7 +234,7 @@ int main(int argc, char *argv[])
     
     else
     {
-        std::cout << "Usage: ./ROOTCuts /path/to/root/file.root /path/to/parameters/file.something" << endl;
+        std::cout << "Usage: ./ROOTCuts /path/to/root/file.root /path/to/parameters/file.something or see README for other modes." << endl;
     }
 
     return 0;
