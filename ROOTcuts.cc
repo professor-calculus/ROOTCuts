@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
             //the following line trims white space from the beginning of the string
             line2.erase(line2.begin(), find_if(line2.begin(), line2.end(), not1(ptr_fun<int, int>(isspace))));
             
-            if(strncmp(&line2[1], "C", 1) && line2.find("section"))
+            if(line2.find("Cross section"))
             {
                 cout << line2 << endl;
                 
