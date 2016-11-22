@@ -101,7 +101,9 @@ int main(int argc, char *argv[])
             
         }
         
-        string outputfilename = "In_Numbers_" + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".txt";
+        TTimeStamp time;
+        
+        string outputfilename = "In_Numbers_" + to_string(time.GetDate()) + ".txt";
         
         ofstream outputfile;
         outputfile.open(outputfilename);
