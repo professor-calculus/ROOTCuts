@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 	//double weight = params[13];
     
     
-    if(argc == 4 && argv[3] == "FOLDER") // Here we input a MG output folder and a param card, with the
+    if(argc == 4 && string(argv[3]) == "FOLDER") // Here we input a MG output folder and a param card, with the
                                                                   // option "folder". (no sig vs. bkg etc)
     {
         cout <<  "FOLDER mode!" << endl;
@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
     }
     
     
-    else if(argc == 4 && argv[3] != "FOLDER")               // Here we would be feeding the program with 2 .root files (sig, bkg) and a parameter file.
+    else if(argc == 4)               // Here we would be feeding the program with 2 .root files (sig, bkg) and a parameter file.
     {
         fstream fin(argv[3]);
         string line;
