@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
         
         string inpstring(argv[1]);
         string rootpath = inpstring + "/Events/run_01/tag_1_delphes_events.root";
-        string crosssectionpath = inpstring + "/crossx.html";
+        string crosssectionpath = inpstring + "/Events/run_01/tag_1_pythia.log";
         
         CutsFunction(rootpath.c_str(), params);
         
@@ -87,15 +87,9 @@ int main(int argc, char *argv[])
             //the following line trims white space from the beginning of the string
             line2.erase(line2.begin(), find_if(line2.begin(), line2.end(), not1(ptr_fun<int, int>(isspace))));
             
-            if(line2.find("<td rowspan=2><center><a href=\"./HTML/run_01/results.html\">"))
+            if(line2[0] == "C" && line2.find("Cross section (pb):"))
             {
-                size_t pos = line2.find("html\">");
-                line2.erase(0, pos+6);
-                
-                line2.erase(10, line2.length());
-                
-                istringstream is(line2);
-                is >> crosssection;
+                crosssection = line2;
                 
                 break;
             }
@@ -110,8 +104,8 @@ int main(int argc, char *argv[])
         ofstream outputfile;
         outputfile.open(outputfilename);
         
-        outputfile << "Cross-section from MG5/Pythia =\t" << line2 << endl;
-        cout << "Cross-section from MG5/Pythia =\t" << line2 << endl;
+        outputfile << "Cross-section from MG5/Pythia =\t" << crosssection << endl;
+        cout << "Cross-section from MG5/Pythia =\t" << crosssection << endl;
         
     }
     
