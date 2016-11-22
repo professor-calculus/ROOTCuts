@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
         
         
         string crosssection;
-        double crosssectionvalue;
+        double crosssectionvalue = 0;
         
         fstream fin2(crosssectionpath);
         while(getline(fin2, line2))
@@ -90,8 +90,11 @@ int main(int argc, char *argv[])
             
             if(strncmp(&line2[1], "C", 1) && line2.find("section"))
             {
+                size_t pos = line2.find(":");
+                line2.erase(0,pos + 4);
+                
                 istringstream is2(line2);
-                is2 >> crosssection >> crosssectionvalue;
+                is2 >> crosssectionvalue;
                 
                 break;
             }
