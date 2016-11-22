@@ -90,6 +90,8 @@ int main(int argc, char *argv[])
             
             if(strncmp(&line2[1], "C", 1) && line2.find("section"))
             {
+                cout << line2 << endl;
+                
                 size_t pos = line2.find(":");
                 line2.erase(0,pos + 4);
                 
