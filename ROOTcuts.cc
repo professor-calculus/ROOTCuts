@@ -70,10 +70,10 @@ int main(int argc, char *argv[])
             params[param] = value;
         }
         
-        string rootpath = argv[1] + "/Events/run_01/tag_1_delphes_events.root";
-        string crosssectionpath = argv[1] + "/crossx.html";
+        string rootpath = to_string(argv[1]) + "/Events/run_01/tag_1_delphes_events.root";
+        string crosssectionpath = to_string(argv[1]) + "/crossx.html";
         
-        CutsFunction(rootpath, params);
+        CutsFunction(rootpath.c_str(), params);
         
         
         double crosssection;
