@@ -928,7 +928,7 @@ void CutsFunction(const char* filename, double params[16])
     
     //----- Output File
     
-    string outputfilename = "In_Numbers_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".txt";
+    string outputfilename = "In_Numbers_" + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".txt";
     
     ofstream outputfile;
     outputfile.open(outputfilename);
