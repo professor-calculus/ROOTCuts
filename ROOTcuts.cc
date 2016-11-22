@@ -10,6 +10,7 @@
 #include <fstream>
 
 
+
 int main(int argc, char *argv[])
 {
 	gSystem->Load("libTreePlayer");
@@ -86,23 +87,31 @@ int main(int argc, char *argv[])
         while(getline(fin2, line2))
         {
             //the following line trims white space from the beginning of the string
-            line2.erase(line2.begin(), find_if(line2.begin(), line2.end(), not1(ptr_fun<int, int>(isspace))));
+            //line2.erase(line2.begin(), find_if(line2.begin(), line2.end(), not1(ptr_fun<int, int>(isspace))));
             
-            if(line2.find("Cross section"))
-            {
-                cout << line2 << endl;
-                
-                size_t pos = line2.find(":");
-                line2.erase(0,pos + 4);
-                
-                istringstream is2(line2);
-                is2 >> crosssectionvalue;
-                
-                break;
-            }
+            //if(line2.find("Cross section"))
+            //{
             
+            crosssection = string(line2);
+            
+            cout << crosssection << endl;
+                
+                //size_t pos = line2.find(":");
+                //line2.erase(0,pos + 4);
+                
+                //istringstream is2(line2);
+                //is2 >> crosssectionvalue;
+                
+                //break;
+            //}
+        
+        size_t pos = line2.find(":");
+        line2.erase(0,pos + 4);
+        
             
         }
+        
+        crosssectionvalue = stod(crosssection);
         
         TTimeStamp time;
         
