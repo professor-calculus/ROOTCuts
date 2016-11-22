@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
             
         }
         
-        crosssectionvalue = std::stod(crosssection);
+        //crosssectionvalue = std::stod(crosssection);
         
         TTimeStamp time;
         
@@ -120,8 +120,8 @@ int main(int argc, char *argv[])
         ofstream outputfile;
         outputfile.open(outputfilename);
         
-        outputfile << "Cross-section from MG5/Pythia =\t" << crosssectionvalue << endl;
-        cout << "Cross-section from MG5/Pythia =\t" << crosssectionvalue << endl;
+        outputfile << "Cross-section from MG5/Pythia =\t" << crosssection << endl;
+        cout << "Cross-section from MG5/Pythia =\t" << crosssection << endl;
         
     }
     
