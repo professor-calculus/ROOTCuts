@@ -54,6 +54,8 @@ int main(int argc, char *argv[])
     if(argc == 4 && argv[3] == "FOLDER") // Here we input a MG output folder and a param card, with the
                                                                   // option "folder". (no sig vs. bkg etc)
     {
+        echo "FOLDER mode!";
+        
         fstream fin(argv[2]);
         string line, line2;
         
