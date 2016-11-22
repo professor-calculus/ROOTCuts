@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 	//double weight = params[13];
     
     
-    if(argc == 4 && (argv[3] == "folder" || argv[3] == "FOLDER")) // Here we input a MG output folder and a param card, with the
+    if(argc == 4 && argv[3] == "FOLDER") // Here we input a MG output folder and a param card, with the
                                                                   // option "folder". (no sig vs. bkg etc)
     {
         fstream fin(argv[2]);
