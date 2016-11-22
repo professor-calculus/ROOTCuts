@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
         }
         
         size_t pos = crosssection.find(":");
-        crosssection.erase(0,pos + 4);
+        crosssection.erase(0,pos + 1);
         
         crosssectionvalue = std::stod(crosssection);
         
