@@ -1095,6 +1095,8 @@ void CutsFunction(const char* filename, double params[21])
         TerminalPlot(histMHT, "Missing HT", 40, 0., 1000.);
     }
     
+    outputfile << "Count: " << eventpass << endl;
+    
     outputfile.close();
 
 };
