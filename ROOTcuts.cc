@@ -36,15 +36,14 @@ int main(int argc, char *argv[])
     //      14      min. HT
     //      15      min. no. of jets
     //      16      minimum Biased-Delta-Phi: 0.5 for SUSY CMS Searches usually
-    
+    //      17      minimum Missing HT
+    //      18      Lumi mode: 0 = off. 1 = on, return numbers of events at lumi before/after cuts. 2 = on, also scale histos.
+    //      19      Luminosity
+    //      20      Cross-section: Will be overridden if in FOLDER mode!
 
     
     double params[20];
     
-    for(int i=0; i<20; i++)
-    {
-        params[i] = 0;
-    }
     
     int param, bkg, signal;
     double value;
@@ -118,7 +117,8 @@ int main(int argc, char *argv[])
         
         TTimeStamp time;
         
-        string outputfilename = "In_Numbers_" + to_string(time.GetDate()) + ".txt";
+        //string outputfilename = "In_Numbers_" + to_string(time.GetDate()) + ".txt";
+        string outputfilename = "output.txt";
         
         ofstream outputfile;
         outputfile.open(outputfilename);

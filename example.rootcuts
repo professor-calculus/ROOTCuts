@@ -1,6 +1,6 @@
 #### Ulrich BP5 parameters, ArXiv 1412.6384 (masses in GeV)         ###
 #### This file is set up to look for 4 b-tags and                   ###
-#### (if fed with 2 root files) compare signal vs b-bbar background ###
+#### (if fed with 2 root files) compare signal vs background        ###
 0	100.    # 1st leading jet PT
 1	100.    # 2nd leading jet PT
 2	100.    # 3rd leading jet PT
@@ -18,3 +18,7 @@
 14	800.    # min. HT
 15	5       # min. no. of jets
 16  0.0     # minimum Biased-delta-phi: 0.5 for CMS SUSY searches, set to 0.0 to switch off.
+17  130.0   # minimum missing HT
+18  0       # Lumi mode: 0 = off. 1 = on, return numbers of events at lumi before/after cuts. 2 = on, also scale histos.
+19  12.9    #Luminosity in fb^-1
+20  1       #Cross-section in pb: Will be overridden if in FOLDER mode!

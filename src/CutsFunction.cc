@@ -15,7 +15,7 @@
 using namespace std;
 
 
-void CutsFunction(const char* filename, double params[20])
+void CutsFunction(const char* filename, double params[21])
 {
     gSystem->Load("libTreePlayer");
     //gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
@@ -39,9 +39,10 @@ void CutsFunction(const char* filename, double params[20])
     //      14      min. HT
     //      15      min. no. of jets
     //      16      minimum Biased-Delta-Phi: 0.5 for SUSY CMS Searches usually
-    //      17      Lumi mode: 0 = off. 1 = on, return numbers of events at lumi before/after cuts. 2 = on, also scale histos.
-    //      18      Luminosity
-    //      19      Cross-section: Will be overridden if in FOLDER mode!
+    //      17      minimum Missing HT
+    //      18      Lumi mode: 0 = off. 1 = on, return numbers of events at lumi before/after cuts. 2 = on, also scale histos.
+    //      19      Luminosity
+    //      20      Cross-section: Will be overridden if in FOLDER mode!
 
     
     double jetPT1 = params[0];
@@ -58,31 +59,40 @@ void CutsFunction(const char* filename, double params[20])
     
     double bjetminPT = params[5];
     
-    double minMET = params[6];
+    double minMET = 0;
+    minMET = params[6];
     
     double minTauinvmass = params[7];
     double maxTauinvmass = params[8];
     
     double minSumTauPT = params[9];
     
-    double minMbb = params[10];
-    double maxMbb = params[11];
+    double minMbb = 0;
+    minMbb = params[10];
+    double maxMbb = 16000;
+    maxMbb = params[11];
     
     int jetmatchingalgo = params[12];
     
 	double sigbkgratio = params[13];
     
-    double minHT = params[14];
+    double minHT = 0;
+    minHT = params[14];
     
-    int minN_jets = params[15];
+    int minN_jets = 0;
+    minN_jets = params[15];
     
-    double BDP = params[16];
+    double BDP = 0;
+    BDP = params[16];
     
-    int lumimode = params[17];          //
+    double min_MHT = params[17];
+    
+    int lumimode = 0;
+    lumimode = params[18];              //
                                         //
-    double lumi = params[18];           //
+    double lumi = 1000.0*params[19];    //
                                         //      These will be used further down to set histo, #events scales.
-    double crosssec = params[19];       //
+    double crosssec = params[20];       //
                                         //
     double scale, histoscale;           //
     
@@ -373,7 +383,7 @@ void CutsFunction(const char* filename, double params[20])
             
             ScalarMissingHT = TMath::Sqrt((HT_x*HT_x) + (HT_y*HT_y));
             
-            if(ScalarMissingHT > 130.)
+            if(ScalarMissingHT > min_MHT)
             {
                 cut_MHT = true;
                 npass++;
@@ -995,7 +1005,8 @@ void CutsFunction(const char* filename, double params[20])
     pass_tautau_mass = pass_tautau_mass*scale;
     pass_biaseddeltaphi = pass_biaseddeltaphi*scale;
     
-    string outputfilename = "In_Numbers_" + to_string(time.GetDate()) + ".txt";
+    //string outputfilename = "In_Numbers_" + to_string(time.GetDate()) + ".txt";
+    string outputfilename = "output.txt";
     
     ofstream outputfile;
     outputfile.open(outputfilename);
@@ -1026,9 +1037,9 @@ void CutsFunction(const char* filename, double params[20])
     cout << pass_tau << " or \t" << 100.*double(pass_tau)/double(entries) << " % of events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
     cout << pass_HT << " or \t" << 100.*double(pass_HT)/double(entries) << " % of events contained at least " << minHT << "GeV HT" << endl;
     cout << pass_N_jets << " or \t" << 100.*double(pass_N_jets)/double(entries) << " % of events contained at least " << minN_jets << " jets" << endl;
-    cout << pass_biaseddeltaphi << " or \t" << 100.*double(pass_biaseddeltaphi)/double(entries) << " % of events had biased delta-phi > 0.5" << endl;
-    cout << pass_MHT << " or \t" << 100.*double(pass_MHT)/double(entries) << " % of events had Missing HT > 130GeV" << endl;
-    cout << "\n" << 100.*double(eventpass)/double(entries) << " % efficiency" << endl;
+    cout << pass_biaseddeltaphi << " or \t" << 100.*double(pass_biaseddeltaphi)/double(entries) << " % of events had biased delta-phi > " << BDP << endl;
+    cout << pass_MHT << " or \t" << 100.*double(pass_MHT)/double(entries) << " % of events had Missing HT > " << min_MHT << endl;
+    cout << "\n" << 100.*double(eventpass)/double(scaledentries) << " % efficiency" << endl;
     
     cout << "\n\n\n" << endl;
     
@@ -1048,8 +1059,10 @@ void CutsFunction(const char* filename, double params[20])
     outputfile << pass_tau << " or " << 100.*double(pass_tau)/double(entries) << " % of events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
     outputfile << pass_HT << " or " << 100.*double(pass_HT)/double(entries) << " % of events contained at least " << minHT << "GeV HT" << endl;
     outputfile << pass_N_jets << " or " << 100.*double(pass_N_jets)/double(entries) << " % of events contained at least " << minN_jets << " jets" << endl;
-    outputfile << pass_biaseddeltaphi << " or " << 100.*double(pass_biaseddeltaphi)/double(entries) << " % of events had biased delta-phi > 0.5" << endl;
-    outputfile << "\n" << 100.*double(eventpass)/double(entries) << " % efficiency" << endl;
+    outputfile << pass_biaseddeltaphi << " or " << 100.*double(pass_biaseddeltaphi)/double(entries) << " % of events had biased delta-phi > " << BDP << endl;
+    outputfile << pass_MHT << " or \t" << 100.*double(pass_MHT)/double(entries) << " % of events had Missing HT > " << min_MHT << endl;
+
+    outputfile << "\n" << 100.*double(eventpass)/double(scaledentries) << " % efficiency" << endl;
     
     outputfile << "\n\n\n" << endl;
     
