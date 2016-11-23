@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
     //      20      Cross-section: Will be overridden if in FOLDER mode!
 
     
-    double params[20];
+    double params[21];
     
     
     int param, bkg, signal;
@@ -64,6 +64,8 @@ int main(int argc, char *argv[])
             //the following line trims white space from the beginning of the string
             line.erase(line.begin(), find_if(line.begin(), line.end(), not1(ptr_fun<int, int>(isspace))));
             
+            cout << line << endl;
+            
             if(line[0] == '#') continue;
             
             istringstream is(line);
@@ -75,8 +77,6 @@ int main(int argc, char *argv[])
         string inpstring(argv[1]);
         string rootpath = inpstring + "/Events/run_01/tag_1_delphes_events.root";
         string crosssectionpath = inpstring + "/Events/run_01/tag_1_pythia.log";
-        
-        CutsFunction(rootpath.c_str(), params);
         
         ifstream inputFile;
         inputFile.open(crosssectionpath);
@@ -94,19 +94,19 @@ int main(int argc, char *argv[])
             //{
             
             inputFile >> crosssection;      // Yolo-swagged to redefine crosssection as each line until it gets to the last line
-                                            // of tag_1_pythia.log, which contains the cross-section value after jet matching
+            // of tag_1_pythia.log, which contains the cross-section value after jet matching
             
             //cout << crosssection << endl;
-                
-                //size_t pos = line2.find(":");
-                //line2.erase(0,pos + 4);
-                
-                //istringstream is2(line2);
-                //is2 >> crosssectionvalue;
-                
-                //break;
+            
+            //size_t pos = line2.find(":");
+            //line2.erase(0,pos + 4);
+            
+            //istringstream is2(line2);
+            //is2 >> crosssectionvalue;
+            
+            //break;
             //}
-        
+            
             
         }
         
@@ -115,16 +115,9 @@ int main(int argc, char *argv[])
         
         crosssectionvalue = std::stod(crosssection);        // converts string to double so we can use the cross-sec
         
-        TTimeStamp time;
+        params[20] = crosssectionvalue;
         
-        //string outputfilename = "In_Numbers_" + to_string(time.GetDate()) + ".txt";
-        string outputfilename = "output.txt";
-        
-        ofstream outputfile;
-        outputfile.open(outputfilename);
-        
-        outputfile << "Cross-section from MG5/Pythia =\t" << crosssectionvalue << endl;
-        cout << "Cross-section from MG5/Pythia =\t" << crosssectionvalue << endl;
+        CutsFunction(rootpath.c_str(), params);
         
     }
     
