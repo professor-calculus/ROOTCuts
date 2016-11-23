@@ -15,7 +15,7 @@
 using namespace std;
 
 
-void CutsFunction(const char* filename, double params[16])
+void CutsFunction(const char* filename, double params[20])
 {
     gSystem->Load("libTreePlayer");
     //gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
@@ -39,6 +39,9 @@ void CutsFunction(const char* filename, double params[16])
     //      14      min. HT
     //      15      min. no. of jets
     //      16      minimum Biased-Delta-Phi: 0.5 for SUSY CMS Searches usually
+    //      17      Lumi mode: 0 = off. 1 = on, return numbers of events at lumi before/after cuts. 2 = on, also scale histos.
+    //      18      Luminosity
+    //      19      Cross-section: Will be overridden if in FOLDER mode!
 
     
     double jetPT1 = params[0];
@@ -72,6 +75,17 @@ void CutsFunction(const char* filename, double params[16])
     double minHT = params[14];
     
     int minN_jets = params[15];
+    
+    double BDP = params[16];
+    
+    int lumimode = params[17];          //
+                                        //
+    double lumi = params[18];           //
+                                        //      These will be used further down to set histo, #events scales.
+    double crosssec = params[19];       //
+                                        //
+    double scale, histoscale;           //
+    
 
 	int i, k, l, entries, npass, N_bjets, N_tau, N_PT, N_jets;
 
@@ -81,8 +95,6 @@ void CutsFunction(const char* filename, double params[16])
     double mbb2 = 0;
     
     double DeltaR, DeltaR2, biaseddeltaphi, HT;
-    
-    double BDP = params[16];
     
     int percent, tintin;
 
@@ -224,6 +236,35 @@ void CutsFunction(const char* filename, double params[16])
     string rootfile = "ROOTCuts_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".root";
     const char * rootfilename = rootfile.c_str();
     TFile *g = TFile::Open(rootfilename,"NEW");
+    
+    
+    
+    // #events & Histo scaling! Here we allow for the # of events pre/post-cuts to be scaled
+    // according to a desired luminosity and cross-section set by the user or read from the pythia log.
+    
+    if(lumimode == 0)
+    {
+        scale = 1;
+        histoscale = 1;
+    }
+    else if(lumimode == 1)
+    {
+        scale = lumi*crosssec/double(entries);
+        histoscale = 1;
+    }
+    else if(lumimode == 2)
+    {
+        scale = lumi*crosssec/double(entries);
+        histoscale = lumi*crosssec/double(entries);
+    }
+    else
+    {
+        scale = 1;
+        histoscale = 1;
+        cout << "No/Wrong Lumi mode given, switching it off (no scaling)." << endl;
+    }
+    
+    int scaledentries = entries*scale;
     
     
 
@@ -682,12 +723,14 @@ void CutsFunction(const char* filename, double params[16])
     //--------- # of jets plots (with and without the cut)
     TCanvas * cnjet = new TCanvas("cnjet", "cnjet", 600, 600);
     
+    histnjet->Scale(histoscale);
     histnjet->Draw();
     cnjet->Update();
     cnjet->SaveAs("N_jets.pdf");
 
     TCanvas * cnjet_precut = new TCanvas("cnjet_precut", "cnjet_precut", 600, 600);
     
+    histnjet_precut->Scale(histoscale);
     histnjet_precut->Draw();
     cnjet_precut->Update();
     cnjet_precut->SaveAs("N_jets_precut.pdf");
@@ -697,6 +740,7 @@ void CutsFunction(const char* filename, double params[16])
     //----------- M_inv. b-bbar plots (with/without cuts)
     TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
     
+    histMbb->Scale(histoscale);
     histMbb->Draw();
     cmbb->Update();
     
@@ -711,6 +755,7 @@ void CutsFunction(const char* filename, double params[16])
     
     TCanvas * cmbb_precut = new TCanvas("cmbb_precut", "cmbb_precut", 600, 600);
     
+    histMbb_precut->Scale(histoscale);
     histMbb_precut->Draw();
     cmbb_precut->Update();
     
@@ -729,6 +774,7 @@ void CutsFunction(const char* filename, double params[16])
 
     TCanvas * cbjet = new TCanvas("cbjet", "cbjet", 600, 600);
 
+    histnbjet->Scale(histoscale);
     histnbjet->Draw();
     cbjet->Update();
 
@@ -743,16 +789,17 @@ void CutsFunction(const char* filename, double params[16])
     
     TCanvas * cbjet_precut = new TCanvas("cbjet_precut", "cbjet_precut", 600, 600);
     
+    histnbjet_precut->Scale(histoscale);
     histnbjet_precut->Draw();
     cbjet_precut->Update();
     
     if(higgsdecay == 0)
     {
-        cbjet_precut->SaveAs("n_b_jets_tau_precut.pdf");
+        cbjet_precut->SaveAs("n_b_jets_tau_n-1cut.pdf");
     }
     else
     {
-        cbjet_precut->SaveAs("n_b_jets_precut.pdf");
+        cbjet_precut->SaveAs("n_b_jets_n-1cut.pdf");
     }
     
     
@@ -760,6 +807,7 @@ void CutsFunction(const char* filename, double params[16])
     
     TCanvas * cmet = new TCanvas ("cmet", "cmet", 600, 600);
     
+    histmet->Scale(histoscale);
     histmet->Draw();
     cmet->Update();
     
@@ -774,16 +822,17 @@ void CutsFunction(const char* filename, double params[16])
     
     TCanvas * cmet_precut = new TCanvas ("cmet_precut", "cmet_precut", 600, 600);
     
+    histmet_precut->Scale(histoscale);
     histmet_precut->Draw();
     cmet_precut->Update();
     
     if(higgsdecay == 0)
     {
-        cmet_precut->SaveAs("MET_tau_precut.pdf");
+        cmet_precut->SaveAs("MET_tau_n-1cut.pdf");
     }
     else
     {
-        cmet_precut->SaveAs("MET_precut.pdf");
+        cmet_precut->SaveAs("MET_n-1cut.pdf");
     }
     
     
@@ -792,6 +841,7 @@ void CutsFunction(const char* filename, double params[16])
     
     TCanvas * cdelr = new TCanvas ("cdelr", "cdelr", 600, 600);
     
+    histDeltaR->Scale(histoscale);
     histDeltaR->Draw();
     cdelr->Update();
     
@@ -807,17 +857,18 @@ void CutsFunction(const char* filename, double params[16])
     
     TCanvas * cdelr_precut = new TCanvas ("cdelr_precut", "cdelr_precut", 600, 600);
     
+    histDeltaR_precut->Scale(histoscale);
     histDeltaR_precut->Draw();
     cdelr_precut->Update();
     
     
     if(higgsdecay == 0)
     {
-        cdelr_precut->SaveAs("DeltaR_tau_precut.pdf");
+        cdelr_precut->SaveAs("DeltaR_tau_n-1cut.pdf");
     }
     else
     {
-        cdelr_precut->SaveAs("DeltaR_precut.pdf");
+        cdelr_precut->SaveAs("DeltaR_n-1cut.pdf");
     }
     
     
@@ -825,6 +876,7 @@ void CutsFunction(const char* filename, double params[16])
     //---------- Missing HT (There's currently no cut on this)
     TCanvas * cmht = new TCanvas("cmht", "cmht", 600, 600);
     
+    histMHT->Scale(histoscale);
     histMHT->Draw();
     cmht->Update();
     
@@ -841,6 +893,7 @@ void CutsFunction(const char* filename, double params[16])
     //---------- Biased Delta-Phi (With/Without the Cut)
     TCanvas * cbdp = new TCanvas("cbdp", "cbdp", 600, 600);
     
+    histBiasedDeltaPhi->Scale(histoscale);
     histBiasedDeltaPhi->Draw();
     cbdp->Update();
     
@@ -855,16 +908,17 @@ void CutsFunction(const char* filename, double params[16])
     
     TCanvas * cbdp_precut = new TCanvas("cbdp_precut", "cbdp_precut", 600, 600);
     
+    histBiasedDeltaPhi_precut->Scale(histoscale);
     histBiasedDeltaPhi_precut->Draw();
     cbdp_precut->Update();
     
     if(higgsdecay == 0)
     {
-        cbdp_precut->SaveAs("BiasedDeltaPhi_tau_precut.pdf");
+        cbdp_precut->SaveAs("BiasedDeltaPhi_tau_n-1cut.pdf");
     }
     else
     {
-        cbdp_precut->SaveAs("BiasedDeltaPhi_precut.pdf");
+        cbdp_precut->SaveAs("BiasedDeltaPhi_n-1cut.pdf");
     }
     
 
@@ -928,14 +982,29 @@ void CutsFunction(const char* filename, double params[16])
     
     //----- Output File
     
+    
+    //scaling the event pass #s
+    pass_HT = pass_HT*scale;
+    pass_MET = pass_MET*scale;
+    pass_MHT = pass_MHT*scale;
+    pass_tau = pass_tau*scale;
+    pass_jets = pass_jets*scale;
+    pass_N_jets = pass_N_jets*scale;
+    pass_bb_mass = pass_bb_mass*scale;
+    pass_N_b_jets = pass_N_b_jets*scale;
+    pass_tautau_mass = pass_tautau_mass*scale;
+    pass_biaseddeltaphi = pass_biaseddeltaphi*scale;
+    
     string outputfilename = "In_Numbers_" + to_string(time.GetDate()) + ".txt";
     
     ofstream outputfile;
     outputfile.open(outputfilename);
     outputfile << "\n\n\n SIGNAL:" << endl;
     outputfile << "Tree copied with " << entries << " entries\n\n" << endl;
+    outputfile << "Scaled to " << scaledentries << " entries\n\n" << endl;
     
-    efficiency = double(eventpass)/double(entries);
+    eventpass = eventpass*scale;
+    efficiency = double(eventpass)/double(scaledentries);
     
     cout << "\n" << endl;
     if(higgsdecay == 0)

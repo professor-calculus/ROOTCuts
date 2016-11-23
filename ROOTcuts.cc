@@ -39,9 +39,9 @@ int main(int argc, char *argv[])
     
 
     
-    double params[17];
+    double params[20];
     
-    for(int i=0; i<17; i++)
+    for(int i=0; i<20; i++)
     {
         params[i] = 0;
     }
@@ -94,7 +94,8 @@ int main(int argc, char *argv[])
             //if(line2.find("Cross section"))
             //{
             
-            inputFile >> crosssection;
+            inputFile >> crosssection;      // Yolo-swagged to redefine crosssection as each line until it gets to the last line
+                                            // of tag_1_pythia.log, which contains the cross-section value after jet matching
             
             //cout << crosssection << endl;
                 
@@ -113,7 +114,7 @@ int main(int argc, char *argv[])
         size_t pos = crosssection.find(":");
         crosssection.erase(0,pos + 1);
         
-        crosssectionvalue = std::stod(crosssection);
+        crosssectionvalue = std::stod(crosssection);        // converts string to double so we can use the cross-sec
         
         TTimeStamp time;
         
@@ -122,8 +123,8 @@ int main(int argc, char *argv[])
         ofstream outputfile;
         outputfile.open(outputfilename);
         
-        outputfile << "Cross-section from MG5/Pythia =\t" << crosssection << endl;
-        cout << "Cross-section from MG5/Pythia =\t" << crosssection << endl;
+        outputfile << "Cross-section from MG5/Pythia =\t" << crosssectionvalue << endl;
+        cout << "Cross-section from MG5/Pythia =\t" << crosssectionvalue << endl;
         
     }
     
