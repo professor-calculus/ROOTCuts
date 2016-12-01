@@ -42,11 +42,12 @@ int main(int argc, char *argv[])
     //      20      Cross-section: Will be overridden if in FOLDER mode!
 
     
-    double params[21];
+    double params[22];
     
     
     int param, bkg, signal;
     double value;
+    params[21] = 0;
 
 	//double weight = params[13];
     
@@ -73,6 +74,8 @@ int main(int argc, char *argv[])
             
             params[param] = value;
         }
+        
+        params[21] = 1;
         
         string inpstring(argv[1]);
         string rootpath = inpstring + "/Events/run_01/tag_1_delphes_events.root";

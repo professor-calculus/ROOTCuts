@@ -15,7 +15,7 @@
 using namespace std;
 
 
-void CutsFunction(const char* filename, double params[21])
+void CutsFunction(const char* filename, double params[22])
 {
     gSystem->Load("libTreePlayer");
     //gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
@@ -43,6 +43,7 @@ void CutsFunction(const char* filename, double params[21])
     //      18      Lumi mode: 0 = off. 1 = on, return numbers of events at lumi before/after cuts. 2 = on, also scale histos.
     //      19      Luminosity
     //      20      Cross-section: Will be overridden if in FOLDER mode!
+    //      21      Scan Mode (automatically set, does not matter)
 
     
     double jetPT1 = params[0];
@@ -96,6 +97,8 @@ void CutsFunction(const char* filename, double params[21])
                                         //
     double scale, histoscale;           //
     
+    int scan_mode = params[21];
+    
 
 	int i, k, l, entries, npass, N_bjets, N_tau, N_PT, N_jets;
 
@@ -113,26 +116,51 @@ void CutsFunction(const char* filename, double params[21])
     
 	string filename2,title, outputcountfile;
     
-    
-    if(higgsdecay == 0)
+    if(scan_mode == 1)
     {
-        outputcountfile = "../efficiencies_2b_2tau.txt";
-        n_b = "ge2";
-    }
-    else if(higgsdecay == 1)
-    {
-        outputcountfile = "../efficiencies_4b.txt";
-        n_b = "ge4";
-    }
-    else if(higgsdecay == 2)
-    {
-        outputcountfile = "../efficiencies_ge3b.txt";
-        n_b = "ge3";
+        if(higgsdecay == 0)
+        {
+            outputcountfile = "../../efficiencies_2b_2tau.txt";
+            n_b = "ge2";
+        }
+        else if(higgsdecay == 1)
+        {
+            outputcountfile = "../../efficiencies_4b.txt";
+            n_b = "ge4";
+        }
+        else if(higgsdecay == 2)
+        {
+            outputcountfile = "../../efficiencies_ge3b.txt";
+            n_b = "ge3";
+        }
+        else
+        {
+            outputcountfile = "../../efficiencies_2b.txt";
+            n_b = "=2";
+        }
     }
     else
     {
-        outputcountfile = "../efficiencies_2b.txt";
-        n_b = "=2";
+        if(higgsdecay == 0)
+        {
+            outputcountfile = "efficiencies_2b_2tau.txt";
+            n_b = "ge2";
+        }
+        else if(higgsdecay == 1)
+        {
+            outputcountfile = "efficiencies_4b.txt";
+            n_b = "ge4";
+        }
+        else if(higgsdecay == 2)
+        {
+            outputcountfile = "efficiencies_ge3b.txt";
+            n_b = "ge3";
+        }
+        else
+        {
+            outputcountfile = "efficiencies_2b.txt";
+            n_b = "=2";
+        }
     }
     
 	
