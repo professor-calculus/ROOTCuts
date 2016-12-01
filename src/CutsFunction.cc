@@ -107,11 +107,33 @@ void CutsFunction(const char* filename, double params[21])
     double DeltaR, DeltaR2, biaseddeltaphi, HT;
     
     int percent, tintin;
+    string n_b;
 
     string bar;
     
-	string filename2,title;
+	string filename2,title, outputcountfile;
     
+    
+    if(higgsdecay == 0)
+    {
+        outputcountfile = "../efficiencies_2b_2tau.txt";
+        n_b = "ge2";
+    }
+    else if(higgsdecay == 1)
+    {
+        outputcountfile = "../efficiencies_4b.txt";
+        n_b = "ge4";
+    }
+    else if(higgsdecay == 2)
+    {
+        outputcountfile = "../efficiencies_ge3b.txt";
+        n_b = "ge3";
+    }
+    else
+    {
+        outputcountfile = "../efficiencies_2b.txt";
+        n_b = "=2";
+    }
     
 	
     //---------Opening the .root file:
@@ -195,6 +217,15 @@ void CutsFunction(const char* filename, double params[21])
     bool cut_N_bjets = false;
     bool cut_N_jets = false;
     bool cut_MHT = false;
+    
+    int cumul_Mbb = 0;
+    int cumul_DeltaR = 0;
+    int cumul_biaseddeltaphi = 0;
+    int cumul_MET = 0;
+    int cumul_HT = 0;
+    int cumul_N_bjets = 0;
+    int cumul_N_jets = 0;
+    int cumul_MHT = 0;
 
 
     TLorentzVector p4[4];
@@ -650,6 +681,34 @@ void CutsFunction(const char* filename, double params[21])
         
         //------------- Post-cuts stuff
         
+        if(cut_HT)      // I know, it's terrible coding here...
+        {
+            cumul_HT++;
+            if(cut_MET)
+            {
+                cumul_MET++;
+                if(cut_MHT)
+                {
+                    cumul_MHT++;
+                    if(cut_N_jets)
+                    {
+                        cumul_N_jets++;
+                        if(cut_N_bjets)
+                        {
+                            cumul_N_bjets++;
+                            if(cut_Mbb)
+                            {
+                                cumul_Mbb++;
+                                if(cut_biaseddeltaphi)
+                                {
+                                    cumul_biaseddeltaphi++;
+                                }
+                            }
+                        }
+                    }   //Order: HT, MET, MHT, Nj, Nb, Mbb, BDP
+                }
+            }
+        }
 
         if(npass == 10)
         {
@@ -718,6 +777,8 @@ void CutsFunction(const char* filename, double params[21])
 
 
     }
+    
+    
     
     
     cout << "\n" << endl;
@@ -990,6 +1051,7 @@ void CutsFunction(const char* filename, double params[21])
     
     //------------ Outputting the results to .txt ...
     
+    
     //----- Output File
     
     
@@ -1098,6 +1160,31 @@ void CutsFunction(const char* filename, double params[21])
     outputfile << "Count: " << eventpass << endl;
     
     outputfile.close();
+    
+    
+    //----- Cumulative cuts file
+    
+    ofstream outputcount;
+    
+    if(fexists(outputcountfile.c_str()))
+    {
+        outputcount.open(outputcountfile.c_str(), ios::app);
+        
+        //Order: cross-section, efficiency, HT, MET, MHT, Nj, Nb, Mbb, BDP
+        outputcount << crosssec << "\t" << efficiency << "\t" << cumul_HT*scale << "\t" << double(cumul_HT)/double(entries) << "\t" << cumul_MET*scale << "\t" << double(cumul_MET)/double(entries) << "\t" << cumul_MHT*scale << "\t" << double(cumul_MHT)/double(entries) << "\t" << cumul_N_jets*scale << "\t" << double(cumul_N_jets)/double(entries) << "\t" << cumul_N_bjets*scale << "\t" << double(cumul_N_bjets)/double(entries) << "\t" << cumul_Mbb*scale << "\t" << double(cumul_Mbb)/double(entries) << "\t" << cumul_biaseddeltaphi*scale << "\t" << double(cumul_biaseddeltaphi)/double(entries) << endl;
+        
+        outputcount.close();
+    }
+    else
+    {
+        outputcount.open(outputcountfile.c_str(), ios::app);
+        
+        outputcount << "Cross-sec\t Efficiency\t HT>" << minHT << "\t eff \t MET>" << minMET << "\t eff \t MHT>" << min_MHT << "\t eff \t no. jets>" << minN_jets << "\t eff \t no. bjets" << n_b << "\t eff \t M_bb" << minMbb << "-" << maxMbb << "\t eff \t BDP>" << biaseddeltaphi << "\t eff" << endl;
+        //Order: cross-section, efficiency, HT, MET, MHT, Nj, Nb, Mbb, BDP
+        outputcount << crosssec << "\t" << efficiency << "\t" << cumul_HT*scale << "\t" << double(cumul_HT)/double(entries) << "\t" << cumul_MET*scale << "\t" << double(cumul_MET)/double(entries) << "\t" << cumul_MHT*scale << "\t" << double(cumul_MHT)/double(entries) << "\t" << cumul_N_jets*scale << "\t" << double(cumul_N_jets)/double(entries) << "\t" << cumul_N_bjets*scale << "\t" << double(cumul_N_bjets)/double(entries) << "\t" << cumul_Mbb*scale << "\t" << double(cumul_Mbb)/double(entries) << "\t" << cumul_biaseddeltaphi*scale << "\t" << double(cumul_biaseddeltaphi)/double(entries) << endl;
+        
+        outputcount.close();
+    }
 
 };
 
