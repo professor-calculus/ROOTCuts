@@ -108,9 +108,3 @@ public:
     vector<Jet*> j3;
     vector<Jet*> j4;
 };
-
-bool fexists(const char *filename)
-{
-    ifstream ifile(filename);
-    return !!ifile;
-};
