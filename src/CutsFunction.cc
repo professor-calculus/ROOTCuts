@@ -1235,8 +1235,8 @@ void CutsFunction(const char* filename, double params[22])
     meanMsq = histMsq->GetMean();
     meanMlsp = histMlsp->GetMean();
     
-    roundedMsq = 50*round(meanMsq/50.);
-    roundedMlsp = 50*round(meanMlsp/50.);
+    roundedMsq = 50*round(meanMsq/50.);     // Want to round this as the jets in Pythia etc change the mass slightly.
+    roundedMlsp = meanMlsp;                 // No need to round this as it won't change (no jets from neutralino)
     
     cout << "M_sq = " << roundedMsq << endl;
     cout << "M_LSP = " << roundedMlsp << endl;
