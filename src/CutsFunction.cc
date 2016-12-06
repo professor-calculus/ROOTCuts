@@ -398,19 +398,22 @@ void CutsFunction(const char* filename, double params[22])
         HT_x = 0;
         HT_y = 0;
         
-        for(int l = 0; l<branchParticle->GetEntries(); l++)
+        if(i<1000)
         {
-            if(((GenParticle*) branchParticle->At(l))->PID == 1000002)
+            for(int l = 0; l<branchParticle->GetEntries(); l++)
             {
-                Msq = ((GenParticle*) branchParticle->At(l))->Mass;
-                
-                histMsq->Fill(Msq);
-            }
-            else if(((GenParticle*) branchParticle->At(l))->PID == 1000022)
-            {
-                Mlsp = ((GenParticle*) branchParticle->At(l))->Mass;
-                
-                histMlsp->Fill(Mlsp);
+                if(((GenParticle*) branchParticle->At(l))->PID == 1000002)
+                {
+                    Msq = ((GenParticle*) branchParticle->At(l))->Mass;
+                    
+                    histMsq->Fill(Msq);
+                }
+                else if(((GenParticle*) branchParticle->At(l))->PID == 1000022)
+                {
+                    Mlsp = ((GenParticle*) branchParticle->At(l))->Mass;
+                    
+                    histMlsp->Fill(Mlsp);
+                }
             }
         }
         
