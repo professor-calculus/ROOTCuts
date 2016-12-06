@@ -218,18 +218,16 @@ void CutsFunction(const char* filename, double params[22])
     double Msq, Mlsp;
     int roundedMsq, roundedMlsp;
     
-    TH1 *histMsq = new TH1F();
-    chain.Draw("Particle.Mass>>histMsq","Particle.PID == 1000002","");
-    Msq = histMsq->GetMean();
-    roundedMsq = 50*round(Msq/50.);
+    TH1 *histMsq = new TH1F("histMsq", "histMsq", 3000, 0., 3000.);
+//    chain.Draw("Particle.Mass>>histMsq","Particle.PID == 1000002","");
+//    Msq = histMsq->GetMean();
+//    roundedMsq = 50*round(Msq/50.);
     
-    TH1 *histMlsp = new TH1F();
-    chain.Draw("Particle.Mass>>histMlsp","Particle.PID == 1000022","");
-    Mlsp = histMlsp->GetMean();
-    roundedMlsp = Mlsp;
+    TH1 *histMlsp = new TH1F("histMlsp", "histMlsp", 3000, 0., 3000.);
+//    chain.Draw("Particle.Mass>>histMlsp","Particle.PID == 1000022","");
+//    Mlsp = histMlsp->GetMean();
+//    roundedMlsp = Mlsp;
     
-    cout << "M_sq = " << roundedMsq << endl;
-    cout << "M_lsp = " << roundedMlsp << endl;
     
     
     static UNCUT uncut;
@@ -399,6 +397,22 @@ void CutsFunction(const char* filename, double params[22])
         
         HT_x = 0;
         HT_y = 0;
+        
+        for(int l = 0; l<branchParticle->GetEntries(); l++)
+        {
+            if(((GenParticle*) branchParticle->At(l))->PID == 1000002)
+            {
+                Msq = ((GenParticle*) branchParticle->At(l))->Mass;
+                
+                histMsq->Fill(Msq);
+            }
+            else if(((GenParticle*) branchParticle->At(l))->PID == 1000022)
+            {
+                Mlsp = ((GenParticle*) branchParticle->At(l))->Mass;
+                
+                histMlsp->Fill(Mlsp);
+            }
+        }
         
         N_jets = 0;
         
@@ -1215,6 +1229,17 @@ void CutsFunction(const char* filename, double params[22])
     TTree *effstree = new TTree("ROOTCuts","ROOTCuts efficiencies TTree");
     
     effstree->Branch("Efficiencies", &efficiencies, "Msq/I:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP:crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff");
+    
+    double meanMsq, meanMlsp;
+    
+    meanMsq = histMsq->GetMean();
+    meanMlsp = histMlsp->GetMean();
+    
+    roundedMsq = 50*round(meanMsq/50.);
+    roundedMlsp = 50*round(meanMlsp/50.);
+    
+    cout << "M_sq = " << roundedMsq << endl;
+    cout << "M_LSP = " << roundedMlsp << endl;
     
     efficiencies.Msq = roundedMsq;
     efficiencies.Mlsp - roundedMlsp;
