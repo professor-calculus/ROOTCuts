@@ -120,22 +120,22 @@ void CutsFunction(const char* filename, double params[22])
     {
         if(higgsdecay == 0)
         {
-            outputcountfile = "../../efficiencies_2b_2tau.txt";
+            outputcountfile = "../../efficiencies_2b_2tau.root";
             n_b = "ge2";
         }
         else if(higgsdecay == 1)
         {
-            outputcountfile = "../../efficiencies_4b.txt";
+            outputcountfile = "../../efficiencies_4b.root";
             n_b = "ge4";
         }
         else if(higgsdecay == 2)
         {
-            outputcountfile = "../../efficiencies_ge3b.txt";
+            outputcountfile = "../../efficiencies_ge3b.root";
             n_b = "ge3";
         }
         else
         {
-            outputcountfile = "../../efficiencies_2b.txt";
+            outputcountfile = "../../efficiencies_2b.root";
             n_b = "=2";
         }
     }
@@ -143,22 +143,22 @@ void CutsFunction(const char* filename, double params[22])
     {
         if(higgsdecay == 0)
         {
-            outputcountfile = "efficiencies_2b_2tau.txt";
+            outputcountfile = "efficiencies_2b_2tau.root";
             n_b = "ge2";
         }
         else if(higgsdecay == 1)
         {
-            outputcountfile = "efficiencies_4b.txt";
+            outputcountfile = "efficiencies_4b.root";
             n_b = "ge4";
         }
         else if(higgsdecay == 2)
         {
-            outputcountfile = "efficiencies_ge3b.txt";
+            outputcountfile = "efficiencies_ge3b.root";
             n_b = "ge3";
         }
         else
         {
-            outputcountfile = "efficiencies_2b.txt";
+            outputcountfile = "efficiencies_2b.root";
             n_b = "=2";
         }
     }
@@ -177,7 +177,8 @@ void CutsFunction(const char* filename, double params[22])
     TClonesArray *branchJet = reader->UseBranch("Jet");
     TClonesArray *branchMET = reader->UseBranch("MissingET");
     TClonesArray *branchScalarHT = reader->UseBranch("ScalarHT");
-    
+    TClonesArray *branchParticle = reader->UseBranch("Particle");
+
     
     //--------Tell it not to panic if there's no entries - it's better than a segfault!
     if (reader->GetEntries() < 1)
@@ -214,7 +215,25 @@ void CutsFunction(const char* filename, double params[22])
     TH1 *histBiasedDeltaPhi_precut = new TH1F("biaseddeltaphi_n-1cut", "Biased Delta Phi Before Cut; Biased Delta Phi", 50, 0., 5.);
 
     
+    double Msq, Mlsp;
+    int roundedMsq, roundedMlsp;
+    
+    TH1 *histMsq = new TH1F();
+    chain.Draw("Particle.Mass>>histMsq","Particle.PID == 1000002","");
+    Msq = histMsq->GetMean();
+    roundedMsq = 50*round(Msq/50.);
+    
+    TH1 *histMlsp = new TH1F();
+    chain.Draw("Particle.Mass>>histMlsp","Particle.PID == 1000022","");
+    Mlsp = histMlsp->GetMean();
+    roundedMlsp = Mlsp;
+    
+    cout << "M_sq = " << roundedMsq << endl;
+    cout << "M_lsp = " << roundedMlsp << endl;
+    
+    
     static UNCUT uncut;
+    static Efficiencies efficiencies;
     
 
     int pass_jets = 0;
@@ -673,7 +692,6 @@ void CutsFunction(const char* filename, double params[22])
         
         
         //------------- Uncut variables for .root file
-        
         
         uncut.M_bb = mbb;
         uncut.n_bjets = N_bjets;
@@ -1192,27 +1210,53 @@ void CutsFunction(const char* filename, double params[22])
     
     //----- Cumulative cuts file
     
-    ofstream outputcount;
+    //ofstream outputcount;
+    
+    TTree *effstree = new TTree("ROOTCuts","ROOTCuts efficiencies TTree");
+    
+    effstree->Branch("Efficiencies", &efficiencies, "Msq/I:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP:crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff");
+    
+    efficiencies.Msq = roundedMsq;
+    efficiencies.Mlsp - roundedMlsp;
+    efficiencies.HT = cumul_HT*scale;
+    efficiencies.MET = cumul_MET*scale;
+    efficiencies.MHT = cumul_MHT*scale;
+    efficiencies.Nj = cumul_N_jets*scale;
+    efficiencies.Nb = cumul_N_bjets*scale;
+    efficiencies.Mbb = cumul_Mbb*scale;
+    efficiencies.BDP = cumul_biaseddeltaphi*scale;
+    
+    efficiencies.HTeff = double(cumul_HT)/double(entries);
+    efficiencies.METeff = double(cumul_MET)/double(entries);
+    efficiencies.MHTeff = double(cumul_MHT)/double(entries);
+    efficiencies.Njeff = double(cumul_N_jets)/double(entries);
+    efficiencies.Nbeff = double(cumul_N_bjets)/double(entries);
+    efficiencies.Mbbeff = double(cumul_Mbb)/double(entries);
+    efficiencies.BDPeff = double(cumul_biaseddeltaphi)/double(entries);
+    
+    effstree->Fill();
+    
+    
+    //{int Msq, Mlsp, HT, MET, MHT, Nj, Nb, Mbb, BDP; double crosssec, eff, HTeff, METeff, MHTeff, Njeff, Nbeff, Mbbeff, BDPeff;}
     
     if(fexists(outputcountfile.c_str()))
     {
-        outputcount.open(outputcountfile.c_str(), ios::app);
+        TFile *effsfile = TFile::Open(outputcountfile.c_str(),"NEW");
         
-        //Order: cross-section, efficiency, HT, MET, MHT, Nj, Nb, Mbb, BDP
-        outputcount << crosssec << "\t" << efficiency << "\t" << cumul_HT*scale << "\t" << double(cumul_HT)/double(entries) << "\t" << cumul_MET*scale << "\t" << double(cumul_MET)/double(entries) << "\t" << cumul_MHT*scale << "\t" << double(cumul_MHT)/double(entries) << "\t" << cumul_N_jets*scale << "\t" << double(cumul_N_jets)/double(entries) << "\t" << cumul_N_bjets*scale << "\t" << double(cumul_N_bjets)/double(entries) << "\t" << cumul_Mbb*scale << "\t" << double(cumul_Mbb)/double(entries) << "\t" << cumul_biaseddeltaphi*scale << "\t" << double(cumul_biaseddeltaphi)/double(entries) << endl;
+        effstree->Write();
         
-        outputcount.close();
+        effsfile->Close();
     }
     else
     {
-        outputcount.open(outputcountfile.c_str(), ios::app);
+        TFile *effsfile = TFile::Open(outputcountfile.c_str(),"UPDATE");
         
-        outputcount << "Cross-sec\t Efficiency\t HT>" << minHT << "\t eff \t MET>" << minMET << "\t eff \t MHT>" << min_MHT << "\t eff \t no. jets>" << minN_jets << "\t eff \t no. bjets" << n_b << "\t eff \t M_bb" << minMbb << "-" << maxMbb << "\t eff \t BDP>" << biaseddeltaphi << "\t eff" << endl;
-        //Order: cross-section, efficiency, HT, MET, MHT, Nj, Nb, Mbb, BDP
-        outputcount << crosssec << "\t" << efficiency << "\t" << cumul_HT*scale << "\t" << double(cumul_HT)/double(entries) << "\t" << cumul_MET*scale << "\t" << double(cumul_MET)/double(entries) << "\t" << cumul_MHT*scale << "\t" << double(cumul_MHT)/double(entries) << "\t" << cumul_N_jets*scale << "\t" << double(cumul_N_jets)/double(entries) << "\t" << cumul_N_bjets*scale << "\t" << double(cumul_N_bjets)/double(entries) << "\t" << cumul_Mbb*scale << "\t" << double(cumul_Mbb)/double(entries) << "\t" << cumul_biaseddeltaphi*scale << "\t" << double(cumul_biaseddeltaphi)/double(entries) << endl;
+        effstree->Write();
         
-        outputcount.close();
+        effsfile->Close();
     }
+    
+    delete g;
 
 };
 

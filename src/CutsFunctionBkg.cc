@@ -15,7 +15,7 @@
 using namespace std;
 
 
-int CutsFunctionBkg(const char* filename, double params[16], string mode, TH1* histmb, int bkgentries)
+int CutsFunctionBkg(const char* filename, double params[22], string mode, TH1* histmb, int bkgentries)
 {
     gSystem->Load("libTreePlayer");
     //gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
