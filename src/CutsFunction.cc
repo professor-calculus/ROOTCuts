@@ -1264,27 +1264,13 @@ void CutsFunction(const char* filename, double params[22])
     
     effstree->Fill();
     
+
+    TFile *effsfile = TFile::Open(outputcountfile.c_str(),"UPDATE");
     
-    //{int Msq, Mlsp, HT, MET, MHT, Nj, Nb, Mbb, BDP; double crosssec, eff, HTeff, METeff, MHTeff, Njeff, Nbeff, Mbbeff, BDPeff;}
+    effstree->Write();
     
-    if(fexists(outputcountfile.c_str()))
-    {
-        TFile *effsfile = TFile::Open(outputcountfile.c_str(),"NEW");
-        
-        effstree->Write();
-        
-        effsfile->Close();
-    }
-    else
-    {
-        TFile *effsfile = TFile::Open(outputcountfile.c_str(),"UPDATE");
-        
-        effstree->Write();
-        
-        effsfile->Close();
-    }
+    effsfile->Close();
     
-    delete g;
 
 };
 
