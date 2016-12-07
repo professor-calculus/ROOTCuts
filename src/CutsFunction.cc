@@ -1257,6 +1257,10 @@ void CutsFunction(const char* filename, double params[24])
     cout << "M_sq = " << roundedMsq << endl;
     cout << "M_LSP = " << roundedMlsp << endl;
     
+    
+    TFile *effsfile = TFile::Open(outputcountfile.c_str(),"UPDATE");
+
+    
     efficiencies.Msq = roundedMsq;
     efficiencies.Mlsp = roundedMlsp;
     efficiencies.HT = cumul_HT*scale;
@@ -1290,8 +1294,6 @@ void CutsFunction(const char* filename, double params[24])
     effstree->Fill();
     
 
-    TFile *effsfile = TFile::Open(outputcountfile.c_str(),"UPDATE");
-    
     cout << "Arse" << endl;
     
     
