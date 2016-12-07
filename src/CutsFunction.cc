@@ -177,8 +177,12 @@ void CutsFunction(const char* filename, double params[24])
     TClonesArray *branchJet = reader->UseBranch("Jet");
     TClonesArray *branchMET = reader->UseBranch("MissingET");
     TClonesArray *branchScalarHT = reader->UseBranch("ScalarHT");
-    TClonesArray *branchParticle = reader->UseBranch("Particle");
-
+    TClonesArray *branchParticle;
+    
+    if(params[22] == -1)
+    {
+        branchParticle = reader->UseBranch("Particle");
+    }
     
     //--------Tell it not to panic if there's no entries - it's better than a segfault!
     if (reader->GetEntries() < 1)
