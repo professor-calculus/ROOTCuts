@@ -15,7 +15,7 @@
 using namespace std;
 
 
-void CutsFunction(const char* filename, double params[22])
+void CutsFunction(const char* filename, double params[24])
 {
     gSystem->Load("libTreePlayer");
     //gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
@@ -398,7 +398,7 @@ void CutsFunction(const char* filename, double params[22])
         HT_x = 0;
         HT_y = 0;
         
-        if(i<1000)
+        if(params[22] == -1 && i<100)
         {
             for(int l = 0; l<branchParticle->GetEntries(); l++)
             {
@@ -1235,17 +1235,25 @@ void CutsFunction(const char* filename, double params[22])
     
     double meanMsq, meanMlsp;
     
-    meanMsq = histMsq->GetMean();
-    meanMlsp = histMlsp->GetMean();
-    
-    roundedMsq = 50*round(meanMsq/50.);     // Want to round this as the jets in Pythia etc change the mass slightly.
-    roundedMlsp = meanMlsp;                 // No need to round this as it won't change (no jets from neutralino)
+    if(params[22] == -1)
+    {
+        meanMsq = histMsq->GetMean();
+        meanMlsp = histMlsp->GetMean();
+        
+        roundedMsq = 50*round(meanMsq/50.);     // Want to round this as the jets in Pythia etc change the mass slightly.
+        roundedMlsp = meanMlsp;                 // No need to round this as it won't change (no jets from neutralino)
+    }
+    else
+    {
+        roundedMsq = params[22];
+        roundedMlsp = params[23];
+    }
     
     cout << "M_sq = " << roundedMsq << endl;
     cout << "M_LSP = " << roundedMlsp << endl;
     
     efficiencies.Msq = roundedMsq;
-    efficiencies.Mlsp - roundedMlsp;
+    efficiencies.Mlsp = roundedMlsp;
     efficiencies.HT = cumul_HT*scale;
     efficiencies.MET = cumul_MET*scale;
     efficiencies.MHT = cumul_MHT*scale;

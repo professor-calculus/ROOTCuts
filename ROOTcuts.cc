@@ -40,19 +40,99 @@ int main(int argc, char *argv[])
     //      18      Lumi mode: 0 = off. 1 = on, return numbers of events at lumi before/after cuts. 2 = on, also scale histos.
     //      19      Luminosity
     //      20      Cross-section: Will be overridden if in FOLDER mode!
+    //      21      Scan Mode (automatically set, does not matter)
+    //      22      Mass of Squark (doesn't matter for non-scan mode)
+    //      23      Mass of LSP     (doesn't matter for non-scan mode)
 
     
-    double params[22];
+    double params[24];
     
     
     int param, bkg, signal;
     double value;
     params[21] = 0;
+    params[22] = 0;
+    params[23] = 0;
 
 	//double weight = params[13];
     
     
-    if(argc == 4 && string(argv[3]) == "FOLDER") // Here we input a MG output folder and a param card, with the
+    if(argc == 6 && string(argv[5]) == "FOLDER") // Here we input a MG output folder and a param card, with the
+                                                // options M_sq, M_LSP and "FOLDER". (no sig vs. bkg etc)
+    {
+        cout <<  "FOLDER mode!" << endl;
+        
+        fstream fin(argv[2]);
+        string line, line2;
+        
+        while(getline(fin, line))
+        {
+            //the following line trims white space from the beginning of the string
+            line.erase(line.begin(), find_if(line.begin(), line.end(), not1(ptr_fun<int, int>(isspace))));
+            
+            cout << line << endl;
+            
+            if(line[0] == '#') continue;
+            
+            istringstream is(line);
+            is >> param >> value;
+            
+            params[param] = value;
+        }
+        
+        params[21] = 1;
+        
+        params[22] = std::stod(argv[3]);
+        params[23] = std::stod(argv[4]);
+        
+        string inpstring(argv[1]);
+        string rootpath = inpstring + "/Events/run_01/tag_1_delphes_events.root";
+        string crosssectionpath = inpstring + "/Events/run_01/tag_1_pythia.log";
+        
+        ifstream inputFile;
+        inputFile.open(crosssectionpath);
+        
+        string crosssection;
+        double crosssectionvalue = 0;
+        
+        //fstream fin2(crosssectionpath);
+        while(!inputFile.eof())
+        {
+            //the following line trims white space from the beginning of the string
+            //line2.erase(line2.begin(), find_if(line2.begin(), line2.end(), not1(ptr_fun<int, int>(isspace))));
+            
+            //if(line2.find("Cross section"))
+            //{
+            
+            inputFile >> crosssection;      // Yolo-swagged to redefine crosssection as each line until it gets to the last line
+            // of tag_1_pythia.log, which contains the cross-section value after jet matching
+            
+            //cout << crosssection << endl;
+            
+            //size_t pos = line2.find(":");
+            //line2.erase(0,pos + 4);
+            
+            //istringstream is2(line2);
+            //is2 >> crosssectionvalue;
+            
+            //break;
+            //}
+            
+            
+        }
+        
+        size_t pos = crosssection.find(":");
+        crosssection.erase(0,pos + 1);
+        
+        crosssectionvalue = std::stod(crosssection);        // converts string to double so we can use the cross-sec
+        
+        params[20] = crosssectionvalue;
+        
+        CutsFunction(rootpath.c_str(), params);
+        
+    }
+    
+    else if(argc == 4 && string(argv[3]) == "FOLDER") // Here we input a MG output folder and a param card, with the
                                                                   // option "folder". (no sig vs. bkg etc)
     {
         cout <<  "FOLDER mode!" << endl;
@@ -76,6 +156,8 @@ int main(int argc, char *argv[])
         }
         
         params[21] = 1;
+        params[22] = -1;
+        params[23] = -1;
         
         string inpstring(argv[1]);
         string rootpath = inpstring + "/Events/run_01/tag_1_delphes_events.root";
