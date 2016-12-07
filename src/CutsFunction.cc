@@ -1289,7 +1289,7 @@ void CutsFunction(const char* filename, double params[24])
 
     TFile *effsfile = TFile::Open(outputcountfile.c_str(),"UPDATE");
     
-    cout << "test" << endl;
+    cout << "Arse" << endl;
     
     effstree->Write();
     
