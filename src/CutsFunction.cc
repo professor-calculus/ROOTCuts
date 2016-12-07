@@ -1267,6 +1267,9 @@ void CutsFunction(const char* filename, double params[24])
     efficiencies.Mbb = cumul_Mbb*scale;
     efficiencies.BDP = cumul_biaseddeltaphi*scale;
     
+    efficiencies.crosssec = crosssec;
+    efficiencies.eff = efficiency;
+    
     double efficiencies_HTeff = double(cumul_HT)/double(scaledentries);
     double efficiencies_METeff = double(cumul_MET)/double(scaledentries);
     double efficiencies_MHTeff = double(cumul_MHT)/double(scaledentries);
