@@ -1268,17 +1268,21 @@ void CutsFunction(const char* filename, double params[24])
     efficiencies.BDP = cumul_biaseddeltaphi*scale;
     
     efficiencies.HTeff = double(cumul_HT)/double(entries);
+    cout << double(cumul_HT)/double(entries) << endl;
     efficiencies.METeff = double(cumul_MET)/double(entries);
     efficiencies.MHTeff = double(cumul_MHT)/double(entries);
     efficiencies.Njeff = double(cumul_N_jets)/double(entries);
     efficiencies.Nbeff = double(cumul_N_bjets)/double(entries);
     efficiencies.Mbbeff = double(cumul_Mbb)/double(entries);
     efficiencies.BDPeff = double(cumul_biaseddeltaphi)/double(entries);
+    cout << double(cumul_biaseddeltaphi)/double(entries) << endl;
     
     effstree->Fill();
     
 
     TFile *effsfile = TFile::Open(outputcountfile.c_str(),"UPDATE");
+    
+    cout << "test" << endl;
     
     effstree->Write();
     
