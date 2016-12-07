@@ -1267,15 +1267,22 @@ void CutsFunction(const char* filename, double params[24])
     efficiencies.Mbb = cumul_Mbb*scale;
     efficiencies.BDP = cumul_biaseddeltaphi*scale;
     
-    efficiencies.HTeff = double(cumul_HT)/double(entries);
-    cout << double(cumul_HT)/double(entries) << endl;
-    efficiencies.METeff = double(cumul_MET)/double(entries);
-    efficiencies.MHTeff = double(cumul_MHT)/double(entries);
-    efficiencies.Njeff = double(cumul_N_jets)/double(entries);
-    efficiencies.Nbeff = double(cumul_N_bjets)/double(entries);
-    efficiencies.Mbbeff = double(cumul_Mbb)/double(entries);
-    efficiencies.BDPeff = double(cumul_biaseddeltaphi)/double(entries);
-    cout << double(cumul_biaseddeltaphi)/double(entries) << endl;
+    double efficiencies_HTeff = double(cumul_HT)/double(entries);
+    double efficiencies_METeff = double(cumul_MET)/double(entries);
+    double efficiencies_MHTeff = double(cumul_MHT)/double(entries);
+    double efficiencies_Njeff = double(cumul_N_jets)/double(entries);
+    double efficiencies_Nbeff = double(cumul_N_bjets)/double(entries);
+    double efficiencies_Mbbeff = double(cumul_Mbb)/double(entries);
+    double efficiencies_BDPeff = double(cumul_biaseddeltaphi)/double(entries);
+    
+    efficiencies.HTeff = efficiencies_HTeff;
+    efficiencies.METeff = efficiencies_METeff;
+    efficiencies.MHTeff = efficiencies_MHTeff;
+    efficiencies.Njeff = efficiencies_Njeff;
+    efficiencies.Nbeff = efficiencies_Nbeff;
+    efficiencies.Mbbeff = efficiencies_Mbbeff;
+    efficiencies.BDPeff = efficiencies_BDPeff;
+    
     
     effstree->Fill();
     
