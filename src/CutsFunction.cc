@@ -1274,13 +1274,13 @@ void CutsFunction(const char* filename, double params[24])
     newefficiencies.crosssec = crosssec;
     newefficiencies.eff = efficiency;
     
-    double efficiencies_HTeff = double(cumul_HT)/double(scaledentries);
-    double efficiencies_METeff = double(cumul_MET)/double(scaledentries);
-    double efficiencies_MHTeff = double(cumul_MHT)/double(scaledentries);
-    double efficiencies_Njeff = double(cumul_N_jets)/double(scaledentries);
-    double efficiencies_Nbeff = double(cumul_N_bjets)/double(scaledentries);
-    double efficiencies_Mbbeff = double(cumul_Mbb)/double(scaledentries);
-    double efficiencies_BDPeff = double(cumul_biaseddeltaphi)/double(scaledentries);
+    double efficiencies_HTeff = double(cumul_HT)/double(entries);
+    double efficiencies_METeff = double(cumul_MET)/double(entries);
+    double efficiencies_MHTeff = double(cumul_MHT)/double(entries);
+    double efficiencies_Njeff = double(cumul_N_jets)/double(entries);
+    double efficiencies_Nbeff = double(cumul_N_bjets)/double(entries);
+    double efficiencies_Mbbeff = double(cumul_Mbb)/double(entries);
+    double efficiencies_BDPeff = double(cumul_biaseddeltaphi)/double(entries);
     
     newefficiencies.HTeff = efficiencies_HTeff;
     newefficiencies.METeff = efficiencies_METeff;
@@ -1292,9 +1292,6 @@ void CutsFunction(const char* filename, double params[24])
     
     
     effstree->Fill();
-    
-
-    cout << "Arse" << endl;
     
     
     effstree->Write();
