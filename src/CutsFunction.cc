@@ -235,7 +235,7 @@ void CutsFunction(const char* filename, double params[24])
     
     
     static UNCUT uncut;
-    static Efficiencies efficiencies;
+    static Efficiencies newefficiencies;
     
 
     int pass_jets = 0;
@@ -1236,7 +1236,7 @@ void CutsFunction(const char* filename, double params[24])
     
     TTree *effstree = new TTree("ROOTCuts","ROOTCuts efficiencies TTree");
     
-    effstree->Branch("Efficiencies", &efficiencies, "Msq/I:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP:crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff");
+    effstree->Branch("Efficiencies", &newefficiencies, "Msq/I:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP:crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff");
     
     double meanMsq, meanMlsp;
     
@@ -1261,18 +1261,18 @@ void CutsFunction(const char* filename, double params[24])
     TFile *effsfile = TFile::Open(outputcountfile.c_str(),"UPDATE");
 
     
-    efficiencies.Msq = roundedMsq;
-    efficiencies.Mlsp = roundedMlsp;
-    efficiencies.HT = cumul_HT*scale;
-    efficiencies.MET = cumul_MET*scale;
-    efficiencies.MHT = cumul_MHT*scale;
-    efficiencies.Nj = cumul_N_jets*scale;
-    efficiencies.Nb = cumul_N_bjets*scale;
-    efficiencies.Mbb = cumul_Mbb*scale;
-    efficiencies.BDP = cumul_biaseddeltaphi*scale;
+    newefficiencies.Msq = roundedMsq;
+    newefficiencies.Mlsp = roundedMlsp;
+    newefficiencies.HT = cumul_HT*scale;
+    newefficiencies.MET = cumul_MET*scale;
+    newefficiencies.MHT = cumul_MHT*scale;
+    newefficiencies.Nj = cumul_N_jets*scale;
+    newefficiencies.Nb = cumul_N_bjets*scale;
+    newefficiencies.Mbb = cumul_Mbb*scale;
+    newefficiencies.BDP = cumul_biaseddeltaphi*scale;
     
-    efficiencies.crosssec = crosssec;
-    efficiencies.eff = efficiency;
+    newefficiencies.crosssec = crosssec;
+    newefficiencies.eff = efficiency;
     
     double efficiencies_HTeff = double(cumul_HT)/double(scaledentries);
     double efficiencies_METeff = double(cumul_MET)/double(scaledentries);
@@ -1282,13 +1282,13 @@ void CutsFunction(const char* filename, double params[24])
     double efficiencies_Mbbeff = double(cumul_Mbb)/double(scaledentries);
     double efficiencies_BDPeff = double(cumul_biaseddeltaphi)/double(scaledentries);
     
-    efficiencies.HTeff = efficiencies_HTeff;
-    efficiencies.METeff = efficiencies_METeff;
-    efficiencies.MHTeff = efficiencies_MHTeff;
-    efficiencies.Njeff = efficiencies_Njeff;
-    efficiencies.Nbeff = efficiencies_Nbeff;
-    efficiencies.Mbbeff = efficiencies_Mbbeff;
-    efficiencies.BDPeff = efficiencies_BDPeff;
+    newefficiencies.HTeff = efficiencies_HTeff;
+    newefficiencies.METeff = efficiencies_METeff;
+    newefficiencies.MHTeff = efficiencies_MHTeff;
+    newefficiencies.Njeff = efficiencies_Njeff;
+    newefficiencies.Nbeff = efficiencies_Nbeff;
+    newefficiencies.Mbbeff = efficiencies_Mbbeff;
+    newefficiencies.BDPeff = efficiencies_BDPeff;
     
     
     effstree->Fill();
