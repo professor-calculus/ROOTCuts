@@ -60,7 +60,7 @@ bool fexists(const char*);
 
 typedef struct {double M_bb, MET, DeltaR, biaseddeltaphi, HT, MHT; int n_bjets, n_jets; bool cut_Mbb, cut_DeltaR, cut_biaseddeltaphi, cut_MET, cut_HT, cut_N_bjets, cut_N_jets, cut_MHT;} UNCUT;
 
-typedef struct {int Msq, Mlsp, HT, MET, MHT, Nj, Nb, Mbb, BDP; double crosssec, eff, HTeff, METeff, MHTeff, Njeff, Nbeff, Mbbeff, BDPeff;} Efficiencies;
+typedef struct {double crosssec, eff, HTeff, METeff, MHTeff, Njeff, Nbeff, Mbbeff, BDPeff; int Msq, Mlsp, HT, MET, MHT, Nj, Nb, Mbb, BDP;} Efficiencies;
 
 
 //--------The class which will store the data for each TrackID - then we can loop over each to do the tracking.

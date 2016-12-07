@@ -1236,7 +1236,7 @@ void CutsFunction(const char* filename, double params[24])
     
     TTree *effstree = new TTree("ROOTCuts","ROOTCuts efficiencies TTree");
     
-    effstree->Branch("Efficiencies", &newefficiencies, "Msq/I:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP:crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff");
+    effstree->Branch("Efficiencies", &newefficiencies, "crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff:Msq/I:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP");
     
     double meanMsq, meanMlsp;
     
