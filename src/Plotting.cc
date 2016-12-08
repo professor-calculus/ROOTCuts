@@ -20,18 +20,31 @@ void Plotting(const char *filename)
     dick_cheney->SetBranchAddress("Efficiencies", &efficiencies);
     
     
-    TH2F *h1 = new TH2F("h1", "h1", 21, 1000., 2050., 18, 0., 900.);
+    TH2F *effs = new TH2F("effs", "effs", 21, 1000., 2050., 18, 0., 900.);
+    TH2F *crosssecs = new TH2F("crosssecs", "crosssecs", 21, 1000., 2050., 18, 0., 900.);
     
     Int_t nentries = Int_t(dick_cheney->GetEntriesFast());
     for (Int_t entryInChain=0; entryInChain<nentries; entryInChain++)
     {
         dick_cheney->GetEntry(entryInChain);
         
-        h1->Fill(efficiencies.Msq, efficiencies.Mlsp, efficiencies.eff);    //fill data from a tree to a histogram
+        effs->Fill(efficiencies.Msq, efficiencies.Mlsp, efficiencies.eff);    //fill data from a tree to a histogram
+        crosssecs->Fill(efficiencies.Msq, efficiencies.Mlsp, efficiencies.crosssec);
     }
     
-    TCanvas *can = new TCanvas("c", "c", 600, 600);
-    h1->Draw("colz");
-    can->Update();
-    can->SaveAs("test.pdf");
+    TFile *outfile = TFile::Open("Effs_Plots.root","RECREATE");
+    
+    TCanvas *can_effs = new TCanvas("c", "c", 600, 600);
+    effs->Draw("colz");
+    effs->Write();
+    can_effs->Update();
+    can_effs->SaveAs("efficiencies.pdf");
+    
+    TCanvas *can_crosssecs = new TCanvas("c", "c", 600, 600);
+    crosssecs->Draw("colz");
+    crosssecs->Write();
+    can_crosssecs->Update();
+    can_crosssecs->SaveAs("crosssecs.pdf");
+    
+    outfile->Close();
 };
