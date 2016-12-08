@@ -56,7 +56,7 @@
 		A1D5F5A15D9446EBBD80C5B6 /* JetPairFinder.cc in Sources */ = {isa = PBXBuildFile; fileRef = 8482CEA24EB445DAB0C5BE83 /* JetPairFinder.cc */; settings = {COMPILER_FLAGS = ""; }; };
 		ACD84FD1BE9E4C1E9F1F8211 /* CutsFunctionBkg.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2D3AA103931C425B946F4387 /* CutsFunctionBkg.cc */; settings = {COMPILER_FLAGS = ""; }; };
 		CD13419A7E464C8FB829536C /* JetDoublePairFinder.cc in Sources */ = {isa = PBXBuildFile; fileRef = EDE13E9A52FC4C9BB51144E7 /* JetDoublePairFinder.cc */; settings = {COMPILER_FLAGS = ""; }; };
-		FA33AAB21DF07EEA002D0F5F /* FileExists.cc in Sources */ = {isa = PBXBuildFile; fileRef = FA33AAB11DF07EEA002D0F5F /* FileExists.cc */; };
+		FA33AAB21DF07EEA002D0F5F /* Plotting.cc in Sources */ = {isa = PBXBuildFile; fileRef = FA33AAB11DF07EEA002D0F5F /* Plotting.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,7 +114,7 @@
 		FA1041251DE5BC59001B740D /* env.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = env.sh; path = bin/env.sh; sourceTree = "<group>"; };
 		FA1041261DE5BC59001B740D /* auto-install.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "auto-install.sh"; path = "bin/auto-install.sh"; sourceTree = "<group>"; };
 		FA1041271DE5BC59001B740D /* INSTALL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = INSTALL.txt; path = bin/INSTALL.txt; sourceTree = "<group>"; };
-		FA33AAB11DF07EEA002D0F5F /* FileExists.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileExists.cc; path = src/FileExists.cc; sourceTree = "<group>"; };
+		FA33AAB11DF07EEA002D0F5F /* Plotting.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plotting.cc; path = src/Plotting.cc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -222,7 +222,7 @@
 				8081D78B088C4E769D4C0EDF /* JetDoubleMbbPairFinder.cc */,
 				EDE13E9A52FC4C9BB51144E7 /* JetDoublePairFinder.cc */,
 				8482CEA24EB445DAB0C5BE83 /* JetPairFinder.cc */,
-				FA33AAB11DF07EEA002D0F5F /* FileExists.cc */,
+				FA33AAB11DF07EEA002D0F5F /* Plotting.cc */,
 				5762A80268F146A7BC66AB2D /* TerminalPlot.cc */,
 			);
 			name = "Source Files";
@@ -319,7 +319,7 @@
 				0C7CC62FBE7743C0B19E5A4A /* ROOTcuts.cc in Sources */,
 				7D73F2107CCC4929B96B944D /* BiasedDeltaPhi.cc in Sources */,
 				53C083E71F684DC3AD07005F /* CutsFunction.cc in Sources */,
-				FA33AAB21DF07EEA002D0F5F /* FileExists.cc in Sources */,
+				FA33AAB21DF07EEA002D0F5F /* Plotting.cc in Sources */,
 				ACD84FD1BE9E4C1E9F1F8211 /* CutsFunctionBkg.cc in Sources */,
 				25E144B354834C878AA4B5C1 /* Jet2Plus1Finder.cc in Sources */,
 				79F9244C98674F59A1A6C7B8 /* Jet2Plus1MbbFinder.cc in Sources */,

@@ -13,7 +13,45 @@
 
 int main(int argc, char *argv[])
 {
-	gSystem->Load("libTreePlayer");
+    string bar;
+    string temp;
+    
+    string snow[2];
+    snow[0] = " ";
+    snow[1] = "*";
+    int random;
+    
+    cout << "\n\n \e[1;31m *****  MERRY CHRISTMAS! ***** \e[0m \n\n" << endl;
+    
+    bar = "*   * *  *   * *   *   *      *   * *   * ";
+    cout << bar << endl;
+    
+    for(int haddock = 1; haddock < 20; haddock++)
+    {
+        temp.clear();
+        
+        for(int b=0; b<42; b++)
+        {
+            random = rand() % 2;
+            temp += snow[random];
+        }
+        bar = temp;
+        
+        usleep(500000);
+        
+        cout << bar << endl;
+    }
+    
+    usleep(500000);
+    
+    
+    
+    cout << "\r" << bar;
+    
+    
+    cout << "\n";
+    
+    gSystem->Load("libTreePlayer");
     //gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
     //gSystem->Load("libExRootAnalysis.so");
     
@@ -60,7 +98,7 @@ int main(int argc, char *argv[])
     if(argc == 6 && string(argv[5]) == "FOLDER") // Here we input a MG output folder and a param card, with the
                                                 // options M_sq, M_LSP and "FOLDER". (no sig vs. bkg etc)
     {
-        cout <<  "FOLDER mode!" << endl;
+        cout <<  "\n FOLDER mode!\n\n" << endl;
         
         fstream fin(argv[2]);
         string line, line2;
@@ -179,20 +217,7 @@ int main(int argc, char *argv[])
             //{
             
             inputFile >> crosssection;      // Yolo-swagged to redefine crosssection as each line until it gets to the last line
-            // of tag_1_pythia.log, which contains the cross-section value after jet matching
-            
-            //cout << crosssection << endl;
-            
-            //size_t pos = line2.find(":");
-            //line2.erase(0,pos + 4);
-            
-            //istringstream is2(line2);
-            //is2 >> crosssectionvalue;
-            
-            //break;
-            //}
-            
-            
+                                            // of tag_1_pythia.log, which contains the cross-section value after jet matching
         }
         
         size_t pos = crosssection.find(":");
@@ -285,6 +310,14 @@ int main(int argc, char *argv[])
         
     }
     
+    else if(argc == 3 && string(argv[2]) == "EFF")     // Plotting tool for efficiencies
+    {
+        cout << "\n Plotting Mode\n" << endl;
+        Plotting(argv[1]);
+        
+    }
+        
+            
     else if(argc == 3)                  // Here just one .root file and a parameter file. (i.e. no sig vs. bkg etc)
     {
         fstream fin(argv[2]);
@@ -306,7 +339,6 @@ int main(int argc, char *argv[])
         CutsFunction(argv[1], params);
     
     }
-    
     
     else if(argc == 2)                  // Uses default parameter file, for test purposes
     {
@@ -331,7 +363,10 @@ int main(int argc, char *argv[])
     
     else
     {
-        std::cout << "Usage: ./ROOTCuts /path/to/root/file.root /path/to/parameters/file.something or see README for other modes." << endl;
+        std::cout << "Usage:" << endl;
+        std::cout << "\"ROOTCuts /path/to/rootfile /path/to/params.rootcuts <Sqmass> <LSPmass> FOLDER\" for running over MG output folder." << endl;
+        std::cout << "\"ROOTCuts /path/to/rootfile EFF\" for plotting the output from a scan" << endl;
+        std::cout << "\"ROOTCuts /path/to/rootfile /path/to/params.rootcuts\" for one .root file. Main use." << endl;
     }
 
     return 0;
