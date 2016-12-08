@@ -8,11 +8,26 @@
 
 #include "include/Ulrich_cuts.hh"
 #include <fstream>
-
+#include <sys/ioctl.h>
+#include <unistd.h>
 
 
 int main(int argc, char *argv[])
 {
+    
+    int cols = 80;
+    
+#ifdef TIOCGSIZE
+    struct ttysize ts;
+    ioctl(STDIN_FILENO, TIOCGSIZE, &ts);
+    cols = ts.ts_cols;
+#elif defined(TIOCGWINSZ)
+    struct winsize ts;
+    ioctl(STDIN_FILENO, TIOCGWINSZ, &ts);
+    cols = ts.ws_col;
+    lines = ts.ws_row;
+#endif /* TIOCGSIZE */
+    
     string bar;
     string temp;
     
@@ -24,22 +39,23 @@ int main(int argc, char *argv[])
     cout << "\n\n \e[1;31m *****  MERRY CHRISTMAS! ***** \e[0m \n\n" << endl;
     
     bar = "*   * *  *   * *   *   *      *   * *   * ";
-    cout << bar << endl;
+    cout << bar << "\n" << endl;
     
     for(int haddock = 1; haddock < 20; haddock++)
     {
         temp.clear();
         
-        for(int b=0; b<42; b++)
+        for(int b=0; b<cols/2; b++)
         {
             random = rand() % 2;
             temp += snow[random];
+            temp += " ";
         }
         bar = temp;
         
         usleep(500000);
         
-        cout << bar << endl;
+        cout << bar << "\n" << endl;
     }
     
     usleep(500000);
