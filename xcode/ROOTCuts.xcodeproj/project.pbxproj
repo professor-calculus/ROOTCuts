@@ -115,7 +115,7 @@
 		FA1041251DE5BC59001B740D /* env.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = env.sh; path = bin/env.sh; sourceTree = "<group>"; };
 		FA1041261DE5BC59001B740D /* auto-install.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "auto-install.sh"; path = "bin/auto-install.sh"; sourceTree = "<group>"; };
 		FA1041271DE5BC59001B740D /* INSTALL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = INSTALL.txt; path = bin/INSTALL.txt; sourceTree = "<group>"; };
-		FA255C471DF9BCD300B5E35D /* Christmas.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Christmas.cc; sourceTree = "<group>"; };
+		FA255C471DF9BCD300B5E35D /* Christmas.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Christmas.cc; path = /Users/alex/Documents/ROOTCuts/src/Christmas.cc; sourceTree = "<absolute>"; };
 		FA33AAB11DF07EEA002D0F5F /* Plotting.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plotting.cc; path = src/Plotting.cc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
