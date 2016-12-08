@@ -56,6 +56,7 @@
 		A1D5F5A15D9446EBBD80C5B6 /* JetPairFinder.cc in Sources */ = {isa = PBXBuildFile; fileRef = 8482CEA24EB445DAB0C5BE83 /* JetPairFinder.cc */; settings = {COMPILER_FLAGS = ""; }; };
 		ACD84FD1BE9E4C1E9F1F8211 /* CutsFunctionBkg.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2D3AA103931C425B946F4387 /* CutsFunctionBkg.cc */; settings = {COMPILER_FLAGS = ""; }; };
 		CD13419A7E464C8FB829536C /* JetDoublePairFinder.cc in Sources */ = {isa = PBXBuildFile; fileRef = EDE13E9A52FC4C9BB51144E7 /* JetDoublePairFinder.cc */; settings = {COMPILER_FLAGS = ""; }; };
+		FA255C481DF9BCD300B5E35D /* Christmas.cc in Sources */ = {isa = PBXBuildFile; fileRef = FA255C471DF9BCD300B5E35D /* Christmas.cc */; };
 		FA33AAB21DF07EEA002D0F5F /* Plotting.cc in Sources */ = {isa = PBXBuildFile; fileRef = FA33AAB11DF07EEA002D0F5F /* Plotting.cc */; };
 /* End PBXBuildFile section */
 
@@ -114,6 +115,7 @@
 		FA1041251DE5BC59001B740D /* env.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = env.sh; path = bin/env.sh; sourceTree = "<group>"; };
 		FA1041261DE5BC59001B740D /* auto-install.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "auto-install.sh"; path = "bin/auto-install.sh"; sourceTree = "<group>"; };
 		FA1041271DE5BC59001B740D /* INSTALL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = INSTALL.txt; path = bin/INSTALL.txt; sourceTree = "<group>"; };
+		FA255C471DF9BCD300B5E35D /* Christmas.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Christmas.cc; sourceTree = "<group>"; };
 		FA33AAB11DF07EEA002D0F5F /* Plotting.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Plotting.cc; path = src/Plotting.cc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -218,6 +220,7 @@
 				0F1E4C9417AB49A2AFD0AD27 /* CutsFunction.cc */,
 				2D3AA103931C425B946F4387 /* CutsFunctionBkg.cc */,
 				03E345C754474E78B93B060D /* Jet2Plus1Finder.cc */,
+				FA255C471DF9BCD300B5E35D /* Christmas.cc */,
 				B44E695FD4664B2C903FC1ED /* Jet2Plus1MbbFinder.cc */,
 				8081D78B088C4E769D4C0EDF /* JetDoubleMbbPairFinder.cc */,
 				EDE13E9A52FC4C9BB51144E7 /* JetDoublePairFinder.cc */,
@@ -320,6 +323,7 @@
 				7D73F2107CCC4929B96B944D /* BiasedDeltaPhi.cc in Sources */,
 				53C083E71F684DC3AD07005F /* CutsFunction.cc in Sources */,
 				FA33AAB21DF07EEA002D0F5F /* Plotting.cc in Sources */,
+				FA255C481DF9BCD300B5E35D /* Christmas.cc in Sources */,
 				ACD84FD1BE9E4C1E9F1F8211 /* CutsFunctionBkg.cc in Sources */,
 				25E144B354834C878AA4B5C1 /* Jet2Plus1Finder.cc in Sources */,
 				79F9244C98674F59A1A6C7B8 /* Jet2Plus1MbbFinder.cc in Sources */,

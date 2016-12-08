@@ -57,6 +57,7 @@ vector<Jet *> JetDoubleMbbPairFinder(vector<Jet *>, int);
 vector<Jet *> Jet2Plus1Finder(vector<Jet *>, int);
 vector<Jet *> Jet2Plus1MbbFinder(vector<Jet *>, int);
 void Plotting(const char*);
+void Christmas();
 
 
 typedef struct {double M_bb, MET, DeltaR, biaseddeltaphi, HT, MHT; int n_bjets, n_jets; bool cut_Mbb, cut_DeltaR, cut_biaseddeltaphi, cut_MET, cut_HT, cut_N_bjets, cut_N_jets, cut_MHT;} UNCUT;
