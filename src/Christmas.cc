@@ -53,15 +53,15 @@ void Christmas()
         bar = temp;
         if(haddock<19)
         {
-            temp.erase(20,cols/2);
+            temp.erase(0,3*cols/4);
             temp2[haddock-1] = temp;
         }
-        usleep(250000);
+        usleep(150000);
         
         cout << bar << "\n" << endl;
     }
     
-    usleep(250000);
+    usleep(150000);
     
     cout << temp2[17] << "        _" << temp2[0] << endl;
     cout << temp2[16] << "       {_}" << temp2[1] << endl;
