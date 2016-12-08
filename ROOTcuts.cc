@@ -25,7 +25,6 @@ int main(int argc, char *argv[])
     struct winsize ts;
     ioctl(STDIN_FILENO, TIOCGWINSZ, &ts);
     cols = ts.ws_col;
-    lines = ts.ws_row;
 #endif /* TIOCGSIZE */
     
     string bar;
