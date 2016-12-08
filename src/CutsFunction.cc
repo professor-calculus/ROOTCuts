@@ -1241,13 +1241,17 @@ void CutsFunction(const char* filename, double params[24])
     if(effsfile->GetListOfKeys()->Contains("ROOTCuts"))
     {
         effstree = (TTree*)effsfile->Get("ROOTCuts");
+        
+        effstree->SetBranchAddress("Efficiencies", &newefficiencies);
     }
     else
     {
         effstree = new TTree("ROOTCuts","ROOTCuts efficiencies TTree");
+        
+        effstree->Branch("Efficiencies", &newefficiencies, "crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff:Msq/I:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP");
     }
     
-    effstree->Branch("Efficiencies", &newefficiencies, "crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff:Msq/I:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP");
+    //effstree->Branch("Efficiencies", &newefficiencies, "crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff:Msq/I:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP");
     
     double meanMsq, meanMlsp;
     
@@ -1303,7 +1307,7 @@ void CutsFunction(const char* filename, double params[24])
     effstree->Fill();
     
     
-    effstree->Write();
+    effstree->TObject::Write(0,TObject::kWriteDelete,0);
     
     effsfile->Close();
     
