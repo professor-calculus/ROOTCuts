@@ -1234,7 +1234,18 @@ void CutsFunction(const char* filename, double params[24])
     
     //ofstream outputcount;
     
-    TTree *effstree = new TTree("ROOTCuts","ROOTCuts efficiencies TTree");
+    TFile *effsfile = TFile::Open(outputcountfile.c_str(),"UPDATE");
+    
+    TTree *effstree;
+    
+    if(effsfile->GetListOfKeys()->Contains("ROOTCuts"))
+    {
+        effstree = (TTree*)effsfile->Get("ROOTCuts");
+    }
+    else
+    {
+        effstree = new TTree("ROOTCuts","ROOTCuts efficiencies TTree");
+    }
     
     effstree->Branch("Efficiencies", &newefficiencies, "crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff:Msq/I:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP");
     
@@ -1257,8 +1268,6 @@ void CutsFunction(const char* filename, double params[24])
     cout << "M_sq = " << roundedMsq << endl;
     cout << "M_LSP = " << roundedMlsp << endl;
     
-    
-    TFile *effsfile = TFile::Open(outputcountfile.c_str(),"UPDATE");
 
     
     newefficiencies.Msq = roundedMsq;
