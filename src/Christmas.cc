@@ -23,7 +23,7 @@ void Christmas()
     struct winsize ts;
     ioctl(STDIN_FILENO, TIOCGWINSZ, &ts);
     cols = ts.ws_col;
-    lines = ts.ws_row;
+    //lines = ts.ws_row;
 #endif /* TIOCGSIZE */
     
     string bar;
@@ -51,35 +51,35 @@ void Christmas()
             temp += " ";
         }
         bar = temp;
-        if(haddock<18)
+        if(haddock<19)
         {
             temp.erase(1,20);
-            temp2[haddock] = temp;
+            temp2[haddock-1] = temp;
         }
-        usleep(500000);
+        usleep(250000);
         
         cout << bar << "\n" << endl;
     }
     
-    usleep(500000);
+    usleep(250000);
     
     cout << "        _" << temp2[0] << endl;
-    cout << "       {_}" << temp2[0] << endl;
-    cout << "\e[91m       / \\" << temp2[0] << endl;
-    cout << "      /   \\" << temp2[0] << endl;
-    cout << "     /_____\\\e[0m" << temp2[0] << endl;
-    cout << "   {`_______`}" << temp2[0] << endl;
-    cout << "    // . . \\\\" << temp2[0] << endl;
-    cout << "   (/(__7__)\\)" << temp2[0] << endl;
-    cout << "   |'-' = `-'|" << temp2[0] << endl;
-    cout << "   |         |" << temp2[0] << endl;
-    cout << "\e[91m   /\e[0m\\       /\e[91m\\" << temp2[0] << endl;
-    cout << "  /  \e[0m'.   .'\e[91m  \\" << temp2[0] << endl;
-    cout << " /_/   \e[0m`\"`\e[91m   \\_\\" << temp2[0] << endl;
-    cout << "\e[0m{__}###[_]###{__}" << temp2[0] << endl;
-    cout << "(_/\e[91m\\_________/\e[0m\\_)" << temp2[0] << endl;
-    cout << "\e[91m    |___|___|" << temp2[0] << endl;
-    cout << "     |--|--|" << temp2[0] << endl;
-    cout << "\e[0m    (__)`(__)" << temp2[0] << endl;
+    cout << "       {_}" << temp2[1] << endl;
+    cout << "\e[91m       / \\" << temp2[2] << endl;
+    cout << "      /   \\" << temp2[3] << endl;
+    cout << "     /_____\\\e[0m" << temp2[4] << endl;
+    cout << "   {`_______`}" << temp2[5] << endl;
+    cout << "    // . . \\\\" << temp2[6] << endl;
+    cout << "   (/(__7__)\\)" << temp2[7] << endl;
+    cout << "   |'-' = `-'|" << temp2[8] << endl;
+    cout << "   |         |" << temp2[9] << endl;
+    cout << "\e[91m   /\e[0m\\       /\e[91m\\" << temp2[10] << endl;
+    cout << "  /  \e[0m'.   .'\e[91m  \\" << temp2[11] << endl;
+    cout << " /_/   \e[0m`\"`\e[91m   \\_\\" << temp2[12] << endl;
+    cout << "\e[0m{__}###[_]###{__}" << temp2[13] << endl;
+    cout << "(_/\e[91m\\_________/\e[0m\\_)" << temp2[14] << endl;
+    cout << "\e[91m    |___|___|" << temp2[15] << endl;
+    cout << "     |--|--|" << temp2[16] << endl;
+    cout << "\e[0m    (__)`(__)" << temp2[17] << endl;
     
 };
