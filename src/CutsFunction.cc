@@ -266,6 +266,7 @@ void CutsFunction(const char* filename, double params[24])
     bool cut_N_bjets = false;
     bool cut_N_jets = false;
     bool cut_MHT = false;
+    bool hard_jets = false;
     
     int cumul_Mbb = 0;
     int cumul_DeltaR = 0;
@@ -398,6 +399,7 @@ void CutsFunction(const char* filename, double params[24])
         cut_N_bjets = false;
         cut_N_jets = false;
         cut_MHT = false;
+        hard_jets = false;
         
         HT_x = 0;
         HT_y = 0;
@@ -626,6 +628,7 @@ void CutsFunction(const char* filename, double params[24])
             if(vectorjet[0]->PT > jetPT1 && vectorjet[1]->PT > jetPT2 && vectorjet[2]->PT > jetPT3 && vectorjet[3]->PT > jetPT4)
             {
                 pass_jets++;
+                hard_jets = true;
                 npass++;                    //passes the PT of 4 leading jets test
             }
 
@@ -748,6 +751,7 @@ void CutsFunction(const char* filename, double params[24])
         
         //------------- Post-cuts stuff
         
+        
         if(cut_HT)      // I know, it's terrible coding here...
         {
             cumul_HT++;
@@ -760,19 +764,19 @@ void CutsFunction(const char* filename, double params[24])
         {
             cumul_MHT++;
         }
-        if(cut_HT && cut_MET && cut_MHT && cut_N_jets)
+        if(cut_HT && cut_MET && cut_MHT && cut_N_jets && hard_jets)
         {
             cumul_N_jets++;
         }
-        if(cut_HT && cut_MET && cut_MHT && cut_N_jets && cut_N_bjets)
+        if(cut_HT && cut_MET && cut_MHT && cut_N_jets && cut_N_bjets && hard_jets)
         {
             cumul_N_bjets++;
         }
-        if(cut_HT && cut_MET && cut_MHT && cut_N_jets && cut_N_bjets && cut_Mbb)
+        if(cut_HT && cut_MET && cut_MHT && cut_N_jets && cut_N_bjets && cut_Mbb && hard_jets)
         {
             cumul_Mbb++;
         }
-        if(cut_HT && cut_MET && cut_MHT && cut_N_jets && cut_N_bjets && cut_Mbb && cut_biaseddeltaphi)
+        if(cut_HT && cut_MET && cut_MHT && cut_N_jets && cut_N_bjets && cut_Mbb && cut_biaseddeltaphi && hard_jets)
         {
             cumul_biaseddeltaphi++;
         }
@@ -1248,7 +1252,7 @@ void CutsFunction(const char* filename, double params[24])
     {
         effstree = new TTree("ROOTCuts","ROOTCuts efficiencies TTree");
         
-        effstree->Branch("Efficiencies", &newefficiencies, "crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff:Msq/I:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP");
+        effstree->Branch("Efficiencies", &newefficiencies, "crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff:Msq/I:Mlsp:eventpass:HT:MET:MHT:Nj:Nb:Mbb:BDP");
     }
     
     //effstree->Branch("Efficiencies", &newefficiencies, "crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff:Msq/I:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP");
@@ -1273,7 +1277,7 @@ void CutsFunction(const char* filename, double params[24])
     cout << "M_LSP = " << roundedMlsp << endl;
     
 
-    
+    newefficiencies.eventpass = eventpass;
     newefficiencies.Msq = roundedMsq;
     newefficiencies.Mlsp = roundedMlsp;
     newefficiencies.HT = cumul_HT*scale;
