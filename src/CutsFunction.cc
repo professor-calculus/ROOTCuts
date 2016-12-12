@@ -1245,15 +1245,15 @@ void CutsFunction(const char* filename, double params[24])
     
     TTree *effstree;
     
-    if(effsfile->GetListOfKeys()->Contains("ROOTCuts"))
+    if(effsfile->GetListOfKeys()->Contains("ROOTEffs"))
     {
-        effstree = (TTree*)effsfile->Get("ROOTCuts");
+        effstree = (TTree*)effsfile->Get("ROOTEffs");
         
         effstree->SetBranchAddress("Efficiencies", &newefficiencies);
     }
     else
     {
-        effstree = new TTree("ROOTCuts","ROOTCuts efficiencies TTree");
+        effstree = new TTree("ROOTEffs","ROOTCuts efficiencies TTree");
         
         effstree->Branch("Efficiencies", &newefficiencies, "crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff:Msq/I:Mlsp:eventpass:HT:MET:MHT:Nj:Nb:Mbb:BDP");
     }
@@ -1315,7 +1315,6 @@ void CutsFunction(const char* filename, double params[24])
     
     
     effstree->TObject::Write(0,TObject::kWriteDelete,0);
-    outputtree->TObject::Write(0,TObject::kWriteDelete,0);
     
     effsfile->Close();
     
