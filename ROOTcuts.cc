@@ -8,17 +8,11 @@
 
 #include "include/Ulrich_cuts.hh"
 #include <fstream>
-#include <sys/ioctl.h>
-#include <unistd.h>
 
 
 int main(int argc, char *argv[])
 {
-    
 
-    
-    Christmas();
-    
     cout << "\n";
     
     gSystem->Load("libTreePlayer");
@@ -307,7 +301,8 @@ int main(int argc, char *argv[])
         }
     
         CutsFunction(argv[1], params);
-    
+        
+        Christmas();
     }
     
     else if(argc == 2)                  // Uses default parameter file, for test purposes
