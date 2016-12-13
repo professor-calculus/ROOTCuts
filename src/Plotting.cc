@@ -13,7 +13,7 @@ void Plotting(const char *filename)
 {
     static Efficiencies efficiencies;
     
-    TChain *dick_cheney = new TChain("ROOTCuts");           // TChain named after Dick Cheney. Maybe he used ROOT
+    TChain *dick_cheney = new TChain("ROOTEffs");           // TChain named after Dick Cheney. Maybe he used ROOT
                                                             // too, it's making me want to shoot somebody!
     dick_cheney->Add(filename);
     
