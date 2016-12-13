@@ -23,12 +23,15 @@ void Plotting(const char *filename)
     TH2F *effs = new TH2F("effs", "effs", 21, 1000., 2050., 18, 0., 900.);
     TH2F *crosssecs = new TH2F("crosssecs", "crosssecs", 21, 1000., 2050., 18, 0., 900.);
     
-    Int_t nentries = Int_t(dick_cheney->GetEntriesFast());
+    Int_t nentries = Int_t(dick_cheney->GetEntries());
+    
+    //cout << nentries << endl;
+    
     for (Int_t entryInChain=0; entryInChain<nentries; entryInChain++)
     {
         dick_cheney->GetEntry(entryInChain);
         
-        cout << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << efficiencies.eff << endl;
+        //cout << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << efficiencies.eff << endl;
         
         effs->Fill(efficiencies.Msq, efficiencies.Mlsp, efficiencies.eff);    //fill data from a tree to a histogram
         crosssecs->Fill(efficiencies.Msq, efficiencies.Mlsp, efficiencies.crosssec);
