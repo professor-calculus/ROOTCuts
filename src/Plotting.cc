@@ -25,17 +25,31 @@ void Plotting(const char *filename)
     
     Int_t nentries = Int_t(dick_cheney->GetEntries());
     
+    ofstream outputfile;
+    ofstream cutflowfile;
+    
+    string outputfilename = "yields.txt";
+    string cutflowfilename = "cutflow.txt";
+    
+    outputfile.open(outputfilename, std::ios_base::trunc);
+    cutflowfile.open(cutflowfilename, std::ios_base::trunc);
+    
     //cout << nentries << endl;
     
     for (Int_t entryInChain=0; entryInChain<nentries; entryInChain++)
     {
         dick_cheney->GetEntry(entryInChain);
         
-        //cout << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << efficiencies.eff << endl;
+        outputfile << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << efficiencies.eventpass << endl;
+        
+        cutflowfile << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << efficiencies.crosssec << "\t" << efficiencies.eff << "\t" << efficiencies.HT << "\t" << efficiencies.HTeff << "\t" << efficiencies.MET << "\t" << efficiencies.METeff << "\t" << efficiencies.MHT << "\t" << efficiencies.MHTeff << "\t" << efficiencies.Nj << "\t" << efficiencies.Njeff << "\t" << efficiencies.Nb << "\t" << efficiencies.Nbeff << "\t" << efficiencies.Mbb << "\t" << efficiencies.Mbbeff << "\t" << efficiencies.BDP << "\t" << efficiencies.BDPeff << "\t" << endl;
         
         effs->Fill(efficiencies.Msq, efficiencies.Mlsp, efficiencies.eff);    //fill data from a tree to a histogram
         crosssecs->Fill(efficiencies.Msq, efficiencies.Mlsp, efficiencies.crosssec);
     }
+    
+    outputfile.close();
+    cutflowfile.close();
     
     TFile *outfile = TFile::Open("Effs_Plots.root","RECREATE");
     
