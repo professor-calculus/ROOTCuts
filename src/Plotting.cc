@@ -28,7 +28,7 @@ void Plotting(const char *filename)
     {
         dick_cheney->GetEntry(entryInChain);
         
-        cout << efficiencies.eff << endl;
+        cout << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << efficiencies.eff << endl;
         
         effs->Fill(efficiencies.Msq, efficiencies.Mlsp, efficiencies.eff);    //fill data from a tree to a histogram
         crosssecs->Fill(efficiencies.Msq, efficiencies.Mlsp, efficiencies.crosssec);
