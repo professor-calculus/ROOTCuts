@@ -1018,8 +1018,39 @@ void CutsFunction(const char* filename, double params[24])
     }
     
     
-    
     //---------- Missing HT (There's currently no cut on this)
+    TCanvas * cHT = new TCanvas("cHT", "cHT", 600, 600);
+    
+    histHT->Scale(histoscale);
+    histHT->Draw();
+    cHT->Update();
+    
+    if(higgsdecay == 0)
+    {
+        cHT->SaveAs("MissingHT_tau.pdf");
+    }
+    else
+    {
+        cHT->SaveAs("MissingHT.pdf");
+    }
+    
+    TCanvas * cHT_precut = new TCanvas ("cHT_n-1cut", "cHT_n-1cut", 600, 600);
+    
+    histHT_precut->Scale(histoscale);
+    histHT_precut->Draw();
+    cHT_precut->Update();
+    
+    if(higgsdecay == 0)
+    {
+        cHT_precut->SaveAs("MET_tau_n-1cut.pdf");
+    }
+    else
+    {
+        cHT_precut->SaveAs("MET_n-1cut.pdf");
+    }
+    
+    
+    //---------- Missing HT
     TCanvas * cmht = new TCanvas("cmht", "cmht", 600, 600);
     
     histMHT->Scale(histoscale);
@@ -1033,6 +1064,21 @@ void CutsFunction(const char* filename, double params[24])
     else
     {
         cmht->SaveAs("MissingHT.pdf");
+    }
+    
+    TCanvas * cMHT_precut = new TCanvas ("cMHT_n-1cut", "cMHT_n-1cut", 600, 600);
+    
+    histMHT_precut->Scale(histoscale);
+    histMHT_precut->Draw();
+    cMHT_precut->Update();
+    
+    if(higgsdecay == 0)
+    {
+        cMHT_precut->SaveAs("MET_tau_n-1cut.pdf");
+    }
+    else
+    {
+        cMHT_precut->SaveAs("MET_n-1cut.pdf");
     }
 
     
@@ -1101,6 +1147,9 @@ void CutsFunction(const char* filename, double params[24])
     
     histMHT->Write();
     histMHT_precut->Write();
+    
+    histHT->Write();
+    histHT_precut->Write();
     
     histMbb->Write("Mbb_hist");
     histMbb_precut->Write("Mbb_hist_precut");
