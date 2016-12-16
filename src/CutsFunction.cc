@@ -341,17 +341,17 @@ void CutsFunction(const char* filename, double params[24])
     else if(lumimode == 1)
     {
         scale = lumi*crosssec/double(entries);
-        histoscale = 1;
+        histoscale = entries;
     }
     else if(lumimode == 2)
     {
         scale = lumi*crosssec/double(entries);
-        histoscale = lumi*crosssec/double(entries);
+        histoscale = lumi*crosssec;
     }
     else
     {
         scale = 1;
-        histoscale = 1;
+        histoscale = entries;
         cout << "No/Wrong Lumi mode given, switching it off (no scaling)." << endl;
     }
     
