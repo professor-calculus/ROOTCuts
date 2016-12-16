@@ -330,32 +330,7 @@ void CutsFunction(const char* filename, double params[24])
     
     
     
-    // #events & Histo scaling! Here we allow for the # of events pre/post-cuts to be scaled
-    // according to a desired luminosity and cross-section set by the user or read from the pythia log.
     
-    if(lumimode == 0)
-    {
-        scale = 1;
-        histoscale = 1;
-    }
-    else if(lumimode == 1)
-    {
-        scale = lumi*crosssec/double(entries);
-        histoscale = entries;
-    }
-    else if(lumimode == 2)
-    {
-        scale = lumi*crosssec/double(entries);
-        histoscale = lumi*crosssec;
-    }
-    else
-    {
-        scale = 1;
-        histoscale = entries;
-        cout << "No/Wrong Lumi mode given, switching it off (no scaling)." << endl;
-    }
-    
-    int scaledentries = entries*scale;
     
     
 
@@ -852,6 +827,35 @@ void CutsFunction(const char* filename, double params[24])
 
 
     }
+    
+    
+    
+    // #events & Histo scaling! Here we allow for the # of events pre/post-cuts to be scaled
+    // according to a desired luminosity and cross-section set by the user or read from the pythia log.
+    
+    if(lumimode == 0)
+    {
+        scale = 1;
+        histoscale = 1;
+    }
+    else if(lumimode == 1)
+    {
+        scale = lumi*crosssec/double(entries);
+        histoscale = entries;
+    }
+    else if(lumimode == 2)
+    {
+        scale = lumi*crosssec/double(entries);
+        histoscale = lumi*crosssec*double(eventpass)/double(entries);
+    }
+    else
+    {
+        scale = 1;
+        histoscale = 1;
+        cout << "No/Wrong Lumi mode given, switching it off (no scaling)." << endl;
+    }
+    
+    int scaledentries = entries*scale;
     
     
     
