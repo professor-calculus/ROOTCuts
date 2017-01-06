@@ -324,7 +324,8 @@ void CutsFunction(const char* filename, double params[24])
 //    outputtree->Branch("cut_biaseddeltaphi",cut_biaseddeltaphi,"O",320000);
     
     TTimeStamp time;
-    string rootfile = "ROOTCuts_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".root";
+    //string rootfile = "ROOTCuts_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".root";
+    string rootfile = "ROOTCuts.root";
     const char * rootfilename = rootfile.c_str();
     TFile *g = TFile::Open(rootfilename,"NEW");
     
