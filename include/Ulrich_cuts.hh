@@ -60,7 +60,7 @@ void Plotting(const char*);
 void Christmas();
 
 
-typedef struct {double M_bb, MET, DeltaR, biaseddeltaphi, HT, MHT; int n_bjets, n_jets, Msq, Mlsp; bool cut_Mbb, cut_DeltaR, cut_biaseddeltaphi, cut_MET, cut_HT, cut_N_bjets, cut_N_jets, cut_MHT;} UNCUT;
+typedef struct {double M_bb, MET, DeltaR, hardDeltaR, biaseddeltaphi, HT, MHT; int n_bjets, n_jets, Msq, Mlsp; bool cut_Mbb, cut_DeltaR, cut_biaseddeltaphi, cut_MET, cut_HT, cut_N_bjets, cut_N_jets, cut_MHT;} UNCUT;
 
 typedef struct {double crosssec, eff, HTeff, METeff, MHTeff, Njeff, Nbeff, Mbbeff, BDPeff; int Msq, Mlsp, eventpass, HT, MET, MHT, Nj, Nb, Mbb, BDP;} Efficiencies;
 

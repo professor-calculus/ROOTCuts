@@ -107,7 +107,7 @@ void CutsFunction(const char* filename, double params[24])
     double mbb = 0;
     double mbb2 = 0;
     
-    double DeltaR, DeltaR2, biaseddeltaphi, HT;
+    double DeltaR, DeltaR2, biaseddeltaphi, HT, Hardjets_DeltaR;
     
     int percent, tintin;
     string n_b;
@@ -205,6 +205,7 @@ void CutsFunction(const char* filename, double params[24])
     TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b); M_{inv}(b, b) (GeV)", 40, 0., 200.);
     TH1 *histmet = new TH1F ("met", "Missing ET; MET (GeV)", 50, 0.0, 1000.);
     TH1 *histDeltaR = new TH1F("DeltaR", "Delta R between b-jets; Delta R", 60, 0, 6);
+    TH1 *histHardjets_DeltaR = new TH1F("DeltaR", "Delta R between leading jets; Delta R", 60, 0, 6);
     TH1 *histMHT = new TH1F("MHT", "Missing HT; Missing HT (GeV)", 100, 0., 8000.);
     TH1 *histHT = new TH1F("HT", "Scalar HT; Scalar HT (GeV)", 100, 0., 8000.);
     TH1 *histBiasedDeltaPhi = new TH1F("biaseddeltaphi", "Biased Delta Phi; Biased Delta Phi", 50, 0., 5.);
@@ -279,6 +280,7 @@ void CutsFunction(const char* filename, double params[24])
 
 
     TLorentzVector p4[4];
+    TLorentzVector hardp4[2];
     TLorentzVector MissingHT;
     TVector2 MissingHT2Vector;
     double ScalarMissingHT;
@@ -303,7 +305,7 @@ void CutsFunction(const char* filename, double params[24])
     histnjet_nocuts = &N_jets;
     
     
-    outputtree->Branch("Uncut", &uncut, "M_bb/D:MET:DeltaR:biaseddeltaphi:HT:MHT:n_bjets/I:n_jets:Msq:Mlsp:cut_Mbb/O:cut_DeltaR:cut_biaseddeltaphi:cut_MET:cut_HT:cut_N_bjets:cut_N_jets:cut_MHT");
+    outputtree->Branch("Uncut", &uncut, "M_bb/D:MET:DeltaR:hardDeltaR:biaseddeltaphi:HT:MHT:n_bjets/I:n_jets:Msq:Mlsp:cut_Mbb/O:cut_DeltaR:cut_biaseddeltaphi:cut_MET:cut_HT:cut_N_bjets:cut_N_jets:cut_MHT");
     
     
 //    outputtree->Branch("n_bjet",&histnbjet_nocuts,"I",320000);
@@ -453,6 +455,13 @@ void CutsFunction(const char* filename, double params[24])
                 }
                 
             }
+            
+            
+            //    --------   Delta-R between leading jets.
+            hardp4[0] = vectorjet[0]->P4();
+            hardp4[1] = vectorjet[1]->P4();
+            
+            Hardjets_DeltaR = hardp4[0].DeltaR(hardp4[1]);
             
             
             
@@ -697,6 +706,7 @@ void CutsFunction(const char* filename, double params[24])
         uncut.n_bjets = N_bjets;
         uncut.MET = met;
         uncut.DeltaR = DeltaR;
+        uncut.hardDeltaR = Hardjets_DeltaR;
         uncut.biaseddeltaphi = biaseddeltaphi;
         uncut.HT = HT;
         uncut.n_jets = N_jets;
@@ -769,6 +779,7 @@ void CutsFunction(const char* filename, double params[24])
             histnbjet->Fill(N_bjets);
             histmet->Fill(met);
             histDeltaR->Fill(DeltaR);
+            histHardjets_DeltaR->Fill(Hardjets_DeltaR);
             histBiasedDeltaPhi->Fill(biaseddeltaphi);
             histHT->Fill(HT);
             histnjet->Fill(N_jets);
@@ -1021,6 +1032,15 @@ void CutsFunction(const char* filename, double params[24])
     {
         cdelr_precut->SaveAs("DeltaR_n-1cut.pdf");
     }
+    
+    
+    //---------- Delta-R between leading jets
+    
+    TCanvas * charddelr = new TCanvas ("charddelr", "charddelr", 600, 600);
+    
+    histHardjets_DeltaR->Scale(histoscale);
+    histHardjets_DeltaR->Draw();
+    charddelr->Update();
     
     
     //---------- Missing HT (There's currently no cut on this)
