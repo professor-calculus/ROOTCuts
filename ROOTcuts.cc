@@ -302,7 +302,7 @@ int main(int argc, char *argv[])
     
         CutsFunction(argv[1], params);
         
-        Christmas();
+        //Christmas();
     }
     
     else if(argc == 2)                  // Uses default parameter file, for test purposes
