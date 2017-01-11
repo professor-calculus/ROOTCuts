@@ -1042,6 +1042,15 @@ void CutsFunction(const char* filename, double params[24])
     histHardjets_DeltaR->Draw();
     charddelr->Update();
     
+    if(higgsdecay == 0)
+    {
+        charddelr->SaveAs("Hardjets_DeltaR_tau_n-1cut.pdf");
+    }
+    else
+    {
+        charddelr->SaveAs("Hardjets_DeltaR_n-1cut.pdf");
+    }
+    
     
     //---------- Missing HT (There's currently no cut on this)
     TCanvas * cHT = new TCanvas("cHT", "cHT", 600, 600);
@@ -1187,6 +1196,8 @@ void CutsFunction(const char* filename, double params[24])
     
     histDeltaR->Write();
     histDeltaR_precut->Write();
+    
+    histHardjets_DeltaR->Write();
     
     histnbjet->Write("n_b_jet_hist");
     histnbjet_precut->Write("n_b_jet_hist_precuts");
