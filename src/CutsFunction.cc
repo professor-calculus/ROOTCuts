@@ -100,14 +100,14 @@ void CutsFunction(const char* filename, double params[24])
     int scan_mode = params[21];
     
 
-	int i, k, l, entries, npass, N_bjets, N_tau, N_PT, N_jets;
+	int i, k, l, entries, npass, N_bjets, N_tau, N_PT, N_jets, N_NLSP, N_LSP;
 
     double mtautau, PT_tau, met, efficiency;
     
     double mbb = 0;
     double mbb2 = 0;
     
-    double DeltaR, DeltaR2, biaseddeltaphi, HT, Hardjets_DeltaR;
+    double DeltaR, DeltaR2, biaseddeltaphi, HT, Hardjets_DeltaR, NLSP_DeltaR, LSP_DeltaR;
     
     int percent, tintin;
     string n_b;
@@ -177,12 +177,7 @@ void CutsFunction(const char* filename, double params[24])
     TClonesArray *branchJet = reader->UseBranch("Jet");
     TClonesArray *branchMET = reader->UseBranch("MissingET");
     TClonesArray *branchScalarHT = reader->UseBranch("ScalarHT");
-    TClonesArray *branchParticle;
-    
-    if(params[22] == -1)
-    {
-        branchParticle = reader->UseBranch("Particle");
-    }
+    TClonesArray *branchParticle = reader->UseBranch("Particle");
     
     //--------Tell it not to panic if there's no entries - it's better than a segfault!
     if (reader->GetEntries() < 1)
@@ -205,6 +200,8 @@ void CutsFunction(const char* filename, double params[24])
     TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b); M_{inv}(b, b) (GeV)", 40, 0., 200.);
     TH1 *histmet = new TH1F ("met", "Missing ET; MET (GeV)", 50, 0.0, 1000.);
     TH1 *histDeltaR = new TH1F("DeltaR", "Delta R between b-jets; Delta R", 60, 0, 6);
+    TH1 *histNLSPDeltaR = new TH1F("NLSPDeltaR", "Delta R between NLSPs; Delta R", 60, 0, 6);
+    TH1 *histLSPDeltaR = new TH1F("LSPDeltaR", "Delta R between LSPs; Delta R", 60, 0, 6);
     TH1 *histHardjets_DeltaR = new TH1F("DeltaR", "Delta R between leading jets; Delta R", 60, 0, 6);
     TH1 *histMHT = new TH1F("MHT", "Missing HT; Missing HT (GeV)", 100, 0., 8000.);
     TH1 *histHT = new TH1F("HT", "Scalar HT; Scalar HT (GeV)", 100, 0., 8000.);
@@ -215,6 +212,8 @@ void CutsFunction(const char* filename, double params[24])
     TH1 *histMbb_precut = new TH1F("mbb_n-1cut", "M_{inv}(b, b) Before Cut; M_{inv}(b, b) (GeV)", 40, 0., 200.);
     TH1 *histmet_precut = new TH1F ("met_n-1cut", "Missing ET Before Cut; MET (GeV)", 50, 0.0, 1000.);
     TH1 *histDeltaR_precut = new TH1F("DeltaR_n-1cut", "Delta R between b-jets Before Cut; Delta R", 60, 0, 6);
+    TH1 *histNLSPDeltaR_nocuts = new TH1F("NLSPDeltaR_nocuts", "Delta R between NLSPs; Delta R", 60, 0, 6);
+    TH1 *histLSPDeltaR_nocuts = new TH1F("LSPDeltaR_nocuts", "Delta R between LSPs; Delta R", 60, 0, 6);
     TH1 *histMHT_precut = new TH1F("MHT_n-1cut", "Missing HT Before Cut; Missing HT (GeV)", 100, 0., 8000.);
     TH1 *histHT_precut = new TH1F("HT_n-1cut", "Scalar HT Before Cut; Scalar HT (GeV)", 100, 0., 8000.);
     TH1 *histBiasedDeltaPhi_precut = new TH1F("biaseddeltaphi_n-1cut", "Biased Delta Phi Before Cut; Biased Delta Phi", 50, 0., 5.);
@@ -259,6 +258,9 @@ void CutsFunction(const char* filename, double params[24])
     vector<Jet *> matchingbjets;
     vector<Jet *> matchingtaujets;
     
+    vector<GenParticle *> vectorNLSP;
+    vector<GenParticle *> vectorLSP;
+    
     bool cut_Mbb = false;
     bool cut_DeltaR = false;
     bool cut_biaseddeltaphi = false;
@@ -281,6 +283,8 @@ void CutsFunction(const char* filename, double params[24])
 
     TLorentzVector p4[4];
     TLorentzVector hardp4[2];
+    TLorentzVector NLSPp4[2];
+    TLorentzVector LSPp4[2];
     TLorentzVector MissingHT;
     TVector2 MissingHT2Vector;
     double ScalarMissingHT;
@@ -353,11 +357,16 @@ void CutsFunction(const char* filename, double params[24])
         vectortaujet.clear();
         matchingbjets.clear();
         matchingtaujets.clear();
+        vectorLSP.clear();
+        vectorNLSP.clear();
         
         MissingHT.Clear();
 
         Jet *jet = NULL;
         Jet *jet2 = NULL;
+        
+        GenParticle *NLSP = NULL;
+        //GenParticle *LSP = NULL;
 
         npass = 0;
 
@@ -368,6 +377,8 @@ void CutsFunction(const char* filename, double params[24])
         N_tau = 0;
         PT_tau = 0.0;
         N_PT = 0;
+        N_NLSP = 0;
+        N_LSP = 0;
         
         cut_Mbb = false;
         cut_DeltaR = false;
@@ -381,6 +392,44 @@ void CutsFunction(const char* filename, double params[24])
         
         HT_x = 0;
         HT_y = 0;
+        
+        
+        //Delta-R between NLSP pair and between LSP pair
+        for(int nlsp=0; nlsp<branchParticle->GetEntries(); nlsp++)
+        {
+            
+            NLSP = ((GenParticle*) branchParticle->At(nlsp));
+            
+            if(NLSP->PID == 1000023)
+            {
+                vectorNLSP.push_back(NLSP);
+            }
+            else if(NLSP->PID == 1000022)
+            {
+                vectorLSP.push_back(NLSP);
+            }
+            
+        }
+        
+        if(vectorNLSP.size() > 1)
+        {
+            NLSPp4[0] = vectorNLSP[0]->P4();
+            NLSPp4[1] = vectorNLSP[1]->P4();
+            
+            NLSP_DeltaR = NLSPp4[0].DeltaR(NLSPp4[1]);
+            histNLSPDeltaR_nocuts->Fill(NLSP_DeltaR);
+        }
+        
+        if(vectorLSP.size() > 1)
+        {
+            LSPp4[0] = vectorLSP[0]->P4();
+            LSPp4[1] = vectorLSP[1]->P4();
+            
+            LSP_DeltaR = LSPp4[0].DeltaR(LSPp4[1]);
+            histLSPDeltaR_nocuts->Fill(LSP_DeltaR);
+        }
+        
+        
         
         if(params[22] == -1 && i<100)
         {
@@ -707,6 +756,8 @@ void CutsFunction(const char* filename, double params[24])
         uncut.MET = met;
         uncut.DeltaR = DeltaR;
         uncut.hardDeltaR = Hardjets_DeltaR;
+        uncut.NLSPDeltaR = NLSP_DeltaR;
+        uncut.LSPDeltaR = LSP_DeltaR;
         uncut.biaseddeltaphi = biaseddeltaphi;
         uncut.HT = HT;
         uncut.n_jets = N_jets;
@@ -808,6 +859,16 @@ void CutsFunction(const char* filename, double params[24])
             
             histMHT->Fill(ScalarMissingHT);
             histMHT_precut->Fill(ScalarMissingHT);
+            
+            if(vectorNLSP.size() > 1)
+            {
+                histNLSPDeltaR->Fill(NLSP_DeltaR);
+            }
+            
+            if(vectorLSP.size() > 1)
+            {
+                histLSPDeltaR->Fill(LSP_DeltaR);
+            }
             
         }
         else if(npass == 9)
@@ -998,6 +1059,40 @@ void CutsFunction(const char* filename, double params[24])
     }
     
     
+    //---------- Delta-R between NLSP (With/Without passing all cuts)
+    
+    //NLSP
+    TCanvas * cNLSPdelr = new TCanvas ("cNLSPdelr", "cNLSPdelr", 600, 600);
+    
+    histNLSPDeltaR->Scale(histoscale);
+    histNLSPDeltaR->Draw();
+    cNLSPdelr->Update();
+    cNLSPdelr->SaveAs("NLSP_DeltaR.pdf");
+    
+    TCanvas * cNLSPdelr_nocuts = new TCanvas ("cNLSPdelr_nocuts", "cNLSPdelr_nocuts", 600, 600);
+    
+    histNLSPDeltaR_nocuts->Scale(histoscale);
+    histNLSPDeltaR_nocuts->Draw();
+    cNLSPdelr_nocuts->Update();
+    cNLSPdelr_nocuts->SaveAs("NLSP_DeltaR_nocuts.pdf");
+    
+    //LSP
+    TCanvas * cLSPdelr = new TCanvas ("cLSPdelr", "cLSPdelr", 600, 600);
+    
+    histLSPDeltaR->Scale(histoscale);
+    histLSPDeltaR->Draw();
+    cLSPdelr->Update();
+    cLSPdelr->SaveAs("LSP_DeltaR.pdf");
+    
+    TCanvas * cLSPdelr_nocuts = new TCanvas ("cLSPdelr_nocuts", "cLSPdelr_nocuts", 600, 600);
+    
+    histLSPDeltaR_nocuts->Scale(histoscale);
+    histLSPDeltaR_nocuts->Draw();
+    cLSPdelr_nocuts->Update();
+    cLSPdelr_nocuts->SaveAs("LSP_DeltaR_nocuts.pdf");
+    
+    
+    
     
     //---------- Delta-R between b-jets (With/Without the cut)
     
@@ -1050,6 +1145,8 @@ void CutsFunction(const char* filename, double params[24])
     {
         charddelr->SaveAs("Hardjets_DeltaR_n-1cut.pdf");
     }
+    
+    
     
     
     //---------- Missing HT (There's currently no cut on this)
