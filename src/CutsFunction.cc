@@ -1294,7 +1294,13 @@ void CutsFunction(const char* filename, double params[24])
     histDeltaR->Write();
     histDeltaR_precut->Write();
     
-    histHardjets_DeltaR->Write();
+    histHardjets_DeltaR->Write("hard_jets_DeltaR");
+    
+    histLSPDeltaR->Write("LSP_DeltaR");
+    histLSPDeltaR_nocuts->Write("LSP_DeltaR_nocuts");
+    
+    histNLSPDeltaR->Write("NLSP_DeltaR");
+    histLSPDeltaR_nocuts->Write("NLSP_DeltaR_nocuts");
     
     histnbjet->Write("n_b_jet_hist");
     histnbjet_precut->Write("n_b_jet_hist_precuts");
