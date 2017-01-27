@@ -1471,7 +1471,7 @@ void CutsFunction(const char* filename, double params[24])
     cout << "M_LSP = " << roundedMlsp << endl;
     
 
-    newefficiencies.eventpass = doubleeventpass;
+    newefficiencies.doubleeventpass = doubleeventpass;
     newefficiencies.Msq = double(roundedMsq);
     newefficiencies.Mlsp = double(roundedMlsp);
     newefficiencies.HT = double(cumul_HT)*scale;
