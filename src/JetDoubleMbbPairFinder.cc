@@ -42,11 +42,11 @@ vector<Jet*> JetDoubleMbbPairFinder(vector<Jet*> inputjets, int numberofjets)
                     
                     Mbb2[0] = ((p[0]) + (p[2])).M();
                     Mbb2[1] = ((p[1]) + (p[3])).M();
-                    DeltaMbb.push_back(abs(Mbb[0] - Mbb[1]));
+                    DeltaMbb.push_back(abs(Mbb2[0] - Mbb2[1]));
                     
                     Mbb3[0] = ((p[0]) + (p[3])).M();
                     Mbb3[1] = ((p[1]) + (p[2])).M();
-                    DeltaMbb.push_back(abs(Mbb[0] - Mbb[1]));
+                    DeltaMbb.push_back(abs(Mbb3[0] - Mbb3[1]));
                     
                     minindex2 = min_element(DeltaMbb.begin(), DeltaMbb.end()) - DeltaMbb.begin();
                     

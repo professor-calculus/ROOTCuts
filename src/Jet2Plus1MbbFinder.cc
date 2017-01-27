@@ -40,11 +40,11 @@ vector<Jet*> Jet2Plus1MbbFinder(vector<Jet*> inputjets, int numberofjets)
                     
                     Mbb2[0] = ((p[0]) + (p[2])).M();
                     Mbb2[1] = inputjets[a]->Mass;
-                    DeltaMbb.push_back(abs(Mbb[0] - Mbb[1]));
+                    DeltaMbb.push_back(abs(Mbb2[0] - Mbb2[1]));
                     
                     Mbb3[0] = ((p[1]) + (p[2])).M();
                     Mbb3[1] = inputjets[j]->Mass;
-                    DeltaMbb.push_back(abs(Mbb[0] - Mbb[1]));
+                    DeltaMbb.push_back(abs(Mbb3[0] - Mbb3[1]));
                     
                     minindex2 = min_element(DeltaMbb.begin(), DeltaMbb.end()) - DeltaMbb.begin();
                     
