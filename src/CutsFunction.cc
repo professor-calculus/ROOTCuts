@@ -850,7 +850,7 @@ void CutsFunction(const char* filename, double params[24])
             histHT_precut->Fill(HT);
             histnjet_precut->Fill(N_jets);
             
-            if(higgsdecay == 1 || (higgsdecay == 2 && N-bjets > 3))
+            if(higgsdecay == 1 || (higgsdecay == 2 && N_bjets > 3))
             {
                 histMbb->Fill(mbb2);
                 
@@ -882,7 +882,7 @@ void CutsFunction(const char* filename, double params[24])
             else if(!cut_N_jets) histnjet_precut->Fill(N_jets);
             else if(!cut_MHT) histMHT_precut->Fill(ScalarMissingHT);
             
-            if(higgsdecay == 1 || (higgsdecay == 2 && N-bjets > 3))
+            if(higgsdecay == 1 || (higgsdecay == 2 && N_bjets > 3))
             {
                 if(!cut_Mbb) histMbb_precut->Fill(mbb2);
                 
