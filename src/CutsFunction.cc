@@ -202,21 +202,21 @@ void CutsFunction(const char* filename, double params[24])
     TH1 *histDeltaR = new TH1F("DeltaR", "Delta R between b-jets; Delta R", 60, 0, 6);
     TH1 *histNLSPDeltaR = new TH1F("NLSPDeltaR", "Delta R between NLSPs; Delta R", 60, 0, 6);
     TH1 *histLSPDeltaR = new TH1F("LSPDeltaR", "Delta R between LSPs; Delta R", 60, 0, 6);
-    TH1 *histHardjets_DeltaR = new TH1F("DeltaR", "Delta R between leading jets; Delta R", 60, 0, 6);
-    TH1 *histMHT = new TH1F("MHT", "Missing HT; Missing HT (GeV)", 100, 0., 8000.);
-    TH1 *histHT = new TH1F("HT", "Scalar HT; Scalar HT (GeV)", 100, 0., 8000.);
+    TH1 *histHardjets_DeltaR = new TH1F("HardDeltaR", "Delta R between leading jets; Delta R", 60, 0, 6);
+    TH1 *histMHT = new TH1F("MHT", "Missing HT; Missing HT (GeV)", 200, 0., 2000.);
+    TH1 *histHT = new TH1F("HT", "Scalar HT; Scalar HT (GeV)", 200, 0., 8000.);
     TH1 *histBiasedDeltaPhi = new TH1F("biaseddeltaphi", "Biased Delta Phi; Biased Delta Phi", 50, 0., 5.);
     
-    TH1 *histnbjet_precut = new TH1F("nbjet_n-1cut", "Number of b-jets Before Cut; No. b-jets", 10, 0.0, 10.0);
-    TH1 *histnjet_precut = new TH1F("njet_n-1cut", "Number of Jets; No. Jets", 15, 0.0, 15.0);
-    TH1 *histMbb_precut = new TH1F("mbb_n-1cut", "M_{inv}(b, b) Before Cut; M_{inv}(b, b) (GeV)", 40, 0., 200.);
-    TH1 *histmet_precut = new TH1F ("met_n-1cut", "Missing ET Before Cut; MET (GeV)", 50, 0.0, 1000.);
-    TH1 *histDeltaR_precut = new TH1F("DeltaR_n-1cut", "Delta R between b-jets Before Cut; Delta R", 60, 0, 6);
+    TH1 *histnbjet_precut = new TH1F("nbjet_n-1cut", "Number of b-jets n-1 Cut; No. b-jets", 10, 0.0, 10.0);
+    TH1 *histnjet_precut = new TH1F("njet_n-1cut", "Number of Jets n-1 Cut; No. Jets", 15, 0.0, 15.0);
+    TH1 *histMbb_precut = new TH1F("mbb_n-1cut", "M_{inv}(b, b) n-1 Cut; M_{inv}(b, b) (GeV)", 40, 0., 200.);
+    TH1 *histmet_precut = new TH1F ("met_n-1cut", "Missing ET n-1 Cut; MET (GeV)", 50, 0.0, 1000.);
+    TH1 *histDeltaR_precut = new TH1F("DeltaR_n-1cut", "Delta R between b-jets n-1 Cut; Delta R", 60, 0, 6);
     TH1 *histNLSPDeltaR_nocuts = new TH1F("NLSPDeltaR_nocuts", "Delta R between NLSPs; Delta R", 60, 0, 6);
     TH1 *histLSPDeltaR_nocuts = new TH1F("LSPDeltaR_nocuts", "Delta R between LSPs; Delta R", 60, 0, 6);
-    TH1 *histMHT_precut = new TH1F("MHT_n-1cut", "Missing HT Before Cut; Missing HT (GeV)", 100, 0., 8000.);
-    TH1 *histHT_precut = new TH1F("HT_n-1cut", "Scalar HT Before Cut; Scalar HT (GeV)", 100, 0., 8000.);
-    TH1 *histBiasedDeltaPhi_precut = new TH1F("biaseddeltaphi_n-1cut", "Biased Delta Phi Before Cut; Biased Delta Phi", 50, 0., 5.);
+    TH1 *histMHT_precut = new TH1F("MHT_n-1cut", "Missing HT n-1 Cut; Missing HT (GeV)", 200, 0., 2000.);
+    TH1 *histHT_precut = new TH1F("HT_n-1cut", "Scalar HT n-1 Cut; Scalar HT (GeV)", 200, 0., 8000.);
+    TH1 *histBiasedDeltaPhi_precut = new TH1F("biaseddeltaphi_n-1cut", "Biased Delta Phi n-1 Cut; Biased Delta Phi", 50, 0., 5.);
 
     
     double Msq, Mlsp;
@@ -561,7 +561,7 @@ void CutsFunction(const char* filename, double params[24])
                     DeltaR = p4[0].DeltaR(p4[1]);
                 }
             }
-            else if(higgsdecay == 1 && N_bjets > 3)
+            else if((higgsdecay == 1 || higgsdecay == 2) && N_bjets > 3)
             {
                 pass_N_b_jets++;
                 npass += 2;                   //passes the number of b-jets test
@@ -600,7 +600,7 @@ void CutsFunction(const char* filename, double params[24])
                 }
             }
             
-            else if(higgsdecay == 2 && N_bjets > 2)
+            else if(higgsdecay == 2 && N_bjets == 3)
             {
                 pass_N_b_jets++;
                 npass += 2;                   //passes the number of b-jets test
@@ -850,7 +850,7 @@ void CutsFunction(const char* filename, double params[24])
             histHT_precut->Fill(HT);
             histnjet_precut->Fill(N_jets);
             
-            if(higgsdecay == 1)
+            if(higgsdecay == 1 || (higgsdecay == 2 && N-bjets > 3))
             {
                 histMbb->Fill(mbb2);
                 
@@ -882,7 +882,7 @@ void CutsFunction(const char* filename, double params[24])
             else if(!cut_N_jets) histnjet_precut->Fill(N_jets);
             else if(!cut_MHT) histMHT_precut->Fill(ScalarMissingHT);
             
-            if(higgsdecay == 1)
+            if(higgsdecay == 1 || (higgsdecay == 2 && N-bjets > 3))
             {
                 if(!cut_Mbb) histMbb_precut->Fill(mbb2);
                 
