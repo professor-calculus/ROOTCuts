@@ -40,7 +40,7 @@ void Plotting(const char *filename)
     {
         dick_cheney->GetEntry(entryInChain);
         
-        outputfile << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << efficiencies.eventpass << endl;
+        outputfile << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << efficiencies.doubleeventpass << endl;
         
         cutflowfile << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << efficiencies.crosssec << "\t" << efficiencies.eff << "\t" << efficiencies.HT << "\t" << efficiencies.HTeff << "\t" << efficiencies.MET << "\t" << efficiencies.METeff << "\t" << efficiencies.MHT << "\t" << efficiencies.MHTeff << "\t" << efficiencies.Nj << "\t" << efficiencies.Njeff << "\t" << efficiencies.Nb << "\t" << efficiencies.Nbeff << "\t" << efficiencies.Mbb << "\t" << efficiencies.Mbbeff << "\t" << efficiencies.BDP << "\t" << efficiencies.BDPeff << "\t" << endl;
         
