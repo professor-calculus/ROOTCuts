@@ -250,7 +250,7 @@ void CutsFunction(const char* filename, double params[24])
     int pass_HT = 0;
     int pass_MHT = 0;
 
-    double eventpass = 0;
+    int eventpass = 0;
     
     vector<Jet *> vectorjet;
     vector<Jet *> vectorbjet;
@@ -1319,16 +1319,16 @@ void CutsFunction(const char* filename, double params[24])
     
     
     //scaling the event pass #s
-    pass_HT = pass_HT*scale;
-    pass_MET = pass_MET*scale;
-    pass_MHT = pass_MHT*scale;
-    pass_tau = pass_tau*scale;
-    pass_jets = pass_jets*scale;
-    pass_N_jets = pass_N_jets*scale;
-    pass_bb_mass = pass_bb_mass*scale;
-    pass_N_b_jets = pass_N_b_jets*scale;
-    pass_tautau_mass = pass_tautau_mass*scale;
-    pass_biaseddeltaphi = pass_biaseddeltaphi*scale;
+    pass_HT = double(pass_HT)*scale;
+    pass_MET = double(pass_MET)*scale;
+    pass_MHT = double(pass_MHT)*scale;
+    pass_tau = double(pass_tau)*scale;
+    pass_jets = double(pass_jets)*scale;
+    pass_N_jets = double(pass_N_jets)*scale;
+    pass_bb_mass = double(pass_bb_mass)*scale;
+    pass_N_b_jets = double(pass_N_b_jets)*scale;
+    pass_tautau_mass = double(pass_tautau_mass)*scale;
+    pass_biaseddeltaphi = double(pass_biaseddeltaphi)*scale;
     
     //string outputfilename = "In_Numbers_" + to_string(time.GetDate()) + ".txt";
     string outputfilename = "output.txt";
@@ -1339,7 +1339,9 @@ void CutsFunction(const char* filename, double params[24])
     outputfile << "Tree copied with " << entries << " entries\n\n" << endl;
     outputfile << "Scaled to " << scaledentries << " entries\n\n" << endl;
     
-    eventpass = double(eventpass)*double(scale);
+    eventpass = eventpass*double(scale);
+	double doubleeventpass = double(eventpass)*double(scale);
+
     efficiency = double(eventpass)/double(scaledentries);
     
 
@@ -1421,7 +1423,7 @@ void CutsFunction(const char* filename, double params[24])
         TerminalPlot(histMHT, "Missing HT", 40, 0., 1000.);
     }
     
-    outputfile << "Count: " << eventpass << endl;
+    outputfile << "Count: " << doubleeventpass << endl;
     
     outputfile.close();
     
@@ -1444,7 +1446,7 @@ void CutsFunction(const char* filename, double params[24])
     {
         effstree = new TTree("ROOTEffs","ROOTCuts efficiencies TTree");
         
-        effstree->Branch("Efficiencies", &newefficiencies, "crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff:double1eventpass:Msq/I:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP");
+        effstree->Branch("Efficiencies", &newefficiencies, "crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff:doubleeventpass:Msq:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP");
     }
     
     //effstree->Branch("Efficiencies", &newefficiencies, "crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff:Msq/I:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP");
@@ -1470,15 +1472,15 @@ void CutsFunction(const char* filename, double params[24])
     
 
     newefficiencies.eventpass = doubleeventpass;
-    newefficiencies.Msq = roundedMsq;
-    newefficiencies.Mlsp = roundedMlsp;
-    newefficiencies.HT = cumul_HT*scale;
-    newefficiencies.MET = cumul_MET*scale;
-    newefficiencies.MHT = cumul_MHT*scale;
-    newefficiencies.Nj = cumul_N_jets*scale;
-    newefficiencies.Nb = cumul_N_bjets*scale;
-    newefficiencies.Mbb = cumul_Mbb*scale;
-    newefficiencies.BDP = cumul_biaseddeltaphi*scale;
+    newefficiencies.Msq = double(roundedMsq);
+    newefficiencies.Mlsp = double(roundedMlsp);
+    newefficiencies.HT = double(cumul_HT)*scale;
+    newefficiencies.MET = double(cumul_MET)*scale;
+    newefficiencies.MHT = double(cumul_MHT)*scale;
+    newefficiencies.Nj = double(cumul_N_jets)*scale;
+    newefficiencies.Nb = double(cumul_N_bjets)*scale;
+    newefficiencies.Mbb = double(cumul_Mbb)*scale;
+    newefficiencies.BDP = double(cumul_biaseddeltaphi)*scale;
     
     newefficiencies.crosssec = crosssec;
     newefficiencies.eff = efficiency;
