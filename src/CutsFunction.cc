@@ -250,7 +250,7 @@ void CutsFunction(const char* filename, double params[24])
     int pass_HT = 0;
     int pass_MHT = 0;
 
-    int eventpass = 0;
+    double eventpass = 0;
     
     vector<Jet *> vectorjet;
     vector<Jet *> vectorbjet;
@@ -1339,9 +1339,10 @@ void CutsFunction(const char* filename, double params[24])
     outputfile << "Tree copied with " << entries << " entries\n\n" << endl;
     outputfile << "Scaled to " << scaledentries << " entries\n\n" << endl;
     
-    eventpass = eventpass*scale;
+    eventpass = double(eventpass)*double(scale);
     efficiency = double(eventpass)/double(scaledentries);
     
+
     cout << "\n" << endl;
     if(higgsdecay == 0)
     {
@@ -1443,7 +1444,7 @@ void CutsFunction(const char* filename, double params[24])
     {
         effstree = new TTree("ROOTEffs","ROOTCuts efficiencies TTree");
         
-        effstree->Branch("Efficiencies", &newefficiencies, "crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff:Msq/I:Mlsp:eventpass:HT:MET:MHT:Nj:Nb:Mbb:BDP");
+        effstree->Branch("Efficiencies", &newefficiencies, "crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff:double1eventpass:Msq/I:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP");
     }
     
     //effstree->Branch("Efficiencies", &newefficiencies, "crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff:Msq/I:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP");
@@ -1468,7 +1469,7 @@ void CutsFunction(const char* filename, double params[24])
     cout << "M_LSP = " << roundedMlsp << endl;
     
 
-    newefficiencies.eventpass = eventpass;
+    newefficiencies.eventpass = doubleeventpass;
     newefficiencies.Msq = roundedMsq;
     newefficiencies.Mlsp = roundedMlsp;
     newefficiencies.HT = cumul_HT*scale;
