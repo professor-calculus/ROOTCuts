@@ -1454,22 +1454,22 @@ void CutsFunction(const char* filename, double params[24])
     {
         if(higgsdecay == 0)
         {
-            outputcountfile = "../../efficiencies_2b_2tau_" + roundedMsq + "sq_" + roundedMlsp + "X1.root";
+            outputcountfile = "../../efficiencies_2b_2tau_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
             n_b = "ge2";
         }
         else if(higgsdecay == 1)
         {
-            outputcountfile = "../../efficiencies_4b_" + roundedMsq + "sq_" + roundedMlsp + "X1.root";
+            outputcountfile = "../../efficiencies_4b_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
             n_b = "ge4";
         }
         else if(higgsdecay == 2)
         {
-            outputcountfile = "../../efficiencies_ge3b_" + roundedMsq + "sq_" + roundedMlsp + "X1.root";
+            outputcountfile = "../../efficiencies_ge3b_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
             n_b = "ge3";
         }
         else
         {
-            outputcountfile = "../../efficiencies_2b_" + roundedMsq + "sq_" + roundedMlsp + "X1.root";
+            outputcountfile = "../../efficiencies_2b_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
             n_b = "=2";
         }
     }
