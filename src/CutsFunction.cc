@@ -3,7 +3,7 @@
 //---------------U. Bristol/U. Southampton/RAL----------------
 //------------------------------------------------------------
 //
-//
+//			Adapted for parallel running in bash
 //
 
 #include <iostream>
@@ -335,6 +335,7 @@ void CutsFunction(const char* filename, double params[24])
     const char * rootfilename = rootfile.c_str();
     TFile *g = TFile::Open(rootfilename,"RECREATE");
     
+		
     
     
     
@@ -497,7 +498,7 @@ void CutsFunction(const char* filename, double params[24])
                     N_tau++;
                 }
                 
-                if(jet->PT > 40.)
+                if(jet->PT > 40.)					// Should we make this (currently) 40GeV user-input? I think so!
                 {
                     HT_x += jet->P4().Px();
                     HT_y += jet->P4().Py();
