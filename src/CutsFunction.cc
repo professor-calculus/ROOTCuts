@@ -523,7 +523,7 @@ void CutsFunction(const char* filename, double params[24])
             
             ScalarMissingHT = TMath::Sqrt((HT_x*HT_x) + (HT_y*HT_y));
             
-            if(ScalarMissingHT > min_MHT && ScalarMissingHT < max_MHT)
+            if(ScalarMissingHT > min_MHT && (ScalarMissingHT < max_MHT || max_MHT < 0.) )
             {
                 cut_MHT = true;
                 npass++;
