@@ -56,8 +56,7 @@ int main(int argc, char *argv[])
     params[22] = 0;
     params[23] = 0;
 
-	//double weight = params[13];
-    
+
     
     if(argc == 6 && string(argv[5]) == "FOLDER") // Here we input a MG output folder and a param card, with the
                                                 // options M_sq, M_LSP and "FOLDER". (no sig vs. bkg etc)
@@ -97,30 +96,10 @@ int main(int argc, char *argv[])
         string crosssection;
         double crosssectionvalue = 0;
         
-        //fstream fin2(crosssectionpath);
         while(!inputFile.eof())
         {
-            //the following line trims white space from the beginning of the string
-            //line2.erase(line2.begin(), find_if(line2.begin(), line2.end(), not1(ptr_fun<int, int>(isspace))));
-            
-            //if(line2.find("Cross section"))
-            //{
-            
             inputFile >> crosssection;      // Yolo-swagged to redefine crosssection as each line until it gets to the last line
-            // of tag_1_pythia.log, which contains the cross-section value after jet matching
-            
-            //cout << crosssection << endl;
-            
-            //size_t pos = line2.find(":");
-            //line2.erase(0,pos + 4);
-            
-            //istringstream is2(line2);
-            //is2 >> crosssectionvalue;
-            
-            //break;
-            //}
-            
-            
+            																// of tag_1_pythia.log, which contains the cross-section value after jet matching
         }
         
         size_t pos = crosssection.find(":");
@@ -174,12 +153,6 @@ int main(int argc, char *argv[])
         //fstream fin2(crosssectionpath);
         while(!inputFile.eof())
         {
-            //the following line trims white space from the beginning of the string
-            //line2.erase(line2.begin(), find_if(line2.begin(), line2.end(), not1(ptr_fun<int, int>(isspace))));
-            
-            //if(line2.find("Cross section"))
-            //{
-            
             inputFile >> crosssection;      // Yolo-swagged to redefine crosssection as each line until it gets to the last line
                                             // of tag_1_pythia.log, which contains the cross-section value after jet matching
         }
@@ -274,7 +247,7 @@ int main(int argc, char *argv[])
         
     }
     
-    else if(argc == 3 && string(argv[2]) == "EFF")     // Plotting tool for efficiencies
+    else if(argc == 3 && (string(argv[2]) == "EFF" || string(argv[2]) == "PLOTTING"))     // Plotting tool for efficiencies
     {
         cout << "\n Plotting Mode\n" << endl;
         Plotting(argv[1]);
@@ -330,7 +303,7 @@ int main(int argc, char *argv[])
     {
         std::cout << "Usage:" << endl;
         std::cout << "\"ROOTCuts /path/to/rootfile /path/to/params.rootcuts <Sqmass> <LSPmass> FOLDER\" for running over MG output folder." << endl;
-        std::cout << "\"ROOTCuts /path/to/rootfile EFF\" for plotting the output from a scan" << endl;
+        std::cout << "\"ROOTCuts /path/to/rootfile EFF (or PLOTTING)\" for plotting the output from a scan" << endl;
         std::cout << "\"ROOTCuts /path/to/rootfile /path/to/params.rootcuts\" for one .root file. Main use." << endl;
     }
 

@@ -44,6 +44,9 @@ void CutsFunction(const char* filename, double params[24])
     //      19      Luminosity
     //      20      Cross-section: Will be overridden if in FOLDER mode!
     //      21      Scan Mode (automatically set, does not matter)
+    //      22      Mass of Squark (doesn't matter for non-scan mode)
+    //      23      Mass of LSP     (doesn't matter for non-scan mode)
+		//			24			Max. MHT
 
     
     double jetPT1 = params[0];
@@ -87,7 +90,8 @@ void CutsFunction(const char* filename, double params[24])
     BDP = params[16];
     
     double min_MHT = params[17];
-    
+    double max_MHT = params[24];
+		
     int lumimode = 0;
     lumimode = params[18];              //
                                         //
@@ -120,22 +124,22 @@ void CutsFunction(const char* filename, double params[24])
     {
         if(higgsdecay == 0)
         {
-            outputcountfile = "../../efficiencies_2b_2tau.root";
+            outputcountfile = "../efficiencies_2b_2tau.root";
             n_b = "ge2";
         }
         else if(higgsdecay == 1)
         {
-            outputcountfile = "../../efficiencies_4b.root";
+            outputcountfile = "../efficiencies_4b.root";
             n_b = "ge4";
         }
         else if(higgsdecay == 2)
         {
-            outputcountfile = "../../efficiencies_ge3b.root";
+            outputcountfile = "../efficiencies_ge3b.root";
             n_b = "ge3";
         }
         else
         {
-            outputcountfile = "../../efficiencies_2b.root";
+            outputcountfile = "../efficiencies_2b.root";
             n_b = "=2";
         }
     }
@@ -519,7 +523,7 @@ void CutsFunction(const char* filename, double params[24])
             
             ScalarMissingHT = TMath::Sqrt((HT_x*HT_x) + (HT_y*HT_y));
             
-            if(ScalarMissingHT > min_MHT)
+            if(ScalarMissingHT > min_MHT && ScalarMissingHT < max_MHT)
             {
                 cut_MHT = true;
                 npass++;
@@ -1454,22 +1458,22 @@ void CutsFunction(const char* filename, double params[24])
     {
         if(higgsdecay == 0)
         {
-            outputcountfile = "../../efficiencies_2b_2tau_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
+            outputcountfile = "../efficiencies_2b_2tau_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
             n_b = "ge2";
         }
         else if(higgsdecay == 1)
         {
-            outputcountfile = "../../efficiencies_4b_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
+            outputcountfile = "../efficiencies_4b_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
             n_b = "ge4";
         }
         else if(higgsdecay == 2)
         {
-            outputcountfile = "../../efficiencies_ge3b_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
+            outputcountfile = "../efficiencies_ge3b_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
             n_b = "ge3";
         }
         else
         {
-            outputcountfile = "../../efficiencies_2b_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
+            outputcountfile = "../efficiencies_2b_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
             n_b = "=2";
         }
     }
