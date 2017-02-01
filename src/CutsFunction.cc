@@ -1430,8 +1430,49 @@ void CutsFunction(const char* filename, double params[24])
     
     
     //----- Cumulative cuts file
+		
+		
+		double meanMsq, meanMlsp;
+		
+		if(params[22] == -1)
+    {
+        meanMsq = histMsq->GetMean();
+        meanMlsp = histMlsp->GetMean();
+        
+        roundedMsq = 50*round(meanMsq/50.);     // Want to round this as the jets in Pythia etc change the mass slightly.
+        roundedMlsp = meanMlsp;                 // No need to round this as it won't change (no jets from neutralino)
+    }
+    else
+    {
+        roundedMsq = params[22];
+        roundedMlsp = params[23];
+    }
     
     //ofstream outputcount;
+		
+		    if(scan_mode == 1)
+    {
+        if(higgsdecay == 0)
+        {
+            outputcountfile = "../../efficiencies_2b_2tau_" + roundedMsq + "sq_" + roundedMlsp + "X1.root";
+            n_b = "ge2";
+        }
+        else if(higgsdecay == 1)
+        {
+            outputcountfile = "../../efficiencies_4b_" + roundedMsq + "sq_" + roundedMlsp + "X1.root";
+            n_b = "ge4";
+        }
+        else if(higgsdecay == 2)
+        {
+            outputcountfile = "../../efficiencies_ge3b_" + roundedMsq + "sq_" + roundedMlsp + "X1.root";
+            n_b = "ge3";
+        }
+        else
+        {
+            outputcountfile = "../../efficiencies_2b_" + roundedMsq + "sq_" + roundedMlsp + "X1.root";
+            n_b = "=2";
+        }
+    }
     
     TFile *effsfile = TFile::Open(outputcountfile.c_str(),"UPDATE");
     
@@ -1452,21 +1493,9 @@ void CutsFunction(const char* filename, double params[24])
     
     //effstree->Branch("Efficiencies", &newefficiencies, "crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff:Msq/I:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP");
     
-    double meanMsq, meanMlsp;
     
-    if(params[22] == -1)
-    {
-        meanMsq = histMsq->GetMean();
-        meanMlsp = histMlsp->GetMean();
-        
-        roundedMsq = 50*round(meanMsq/50.);     // Want to round this as the jets in Pythia etc change the mass slightly.
-        roundedMlsp = meanMlsp;                 // No need to round this as it won't change (no jets from neutralino)
-    }
-    else
-    {
-        roundedMsq = params[22];
-        roundedMlsp = params[23];
-    }
+    
+    
     
     cout << "M_sq = " << roundedMsq << endl;
     cout << "M_LSP = " << roundedMlsp << endl;
