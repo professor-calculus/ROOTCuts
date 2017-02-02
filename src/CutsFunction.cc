@@ -43,7 +43,7 @@ void CutsFunction(const char* filename, double params[25])
     //      18      Lumi mode: 0 = off. 1 = on, return numbers of events at lumi before/after cuts. 2 = on, also scale histos.
     //      19      Luminosity
     //      20      Cross-section: Will be overridden if in FOLDER mode!
-    //      21      Scan Mode (automatically set, does not matter)
+    //      21      Scan Mode (automatically set)
     //      22      Mass of Squark (doesn't matter for non-scan mode)
     //      23      Mass of LSP     (doesn't matter for non-scan mode)
 		//			24			Max. MHT
@@ -71,9 +71,9 @@ void CutsFunction(const char* filename, double params[25])
     
     double minSumTauPT = params[9];
     
-    double minMbb = 0;
+    double minMbb = -1;
     minMbb = params[10];
-    double maxMbb = 16000;
+    double maxMbb = -1;
     maxMbb = params[11];
     
     int jetmatchingalgo = params[12];
@@ -111,7 +111,7 @@ void CutsFunction(const char* filename, double params[25])
     double mbb = 0;
     double mbb2 = 0;
     
-    double DeltaR, DeltaR2, biaseddeltaphi, HT, Hardjets_DeltaR, NLSP_DeltaR, LSP_DeltaR;
+    double DeltaR, DeltaR2, biaseddeltaphi, HT, Hardjets_DeltaR, NLSP_DeltaR, LSP_DeltaR, NLSP_PT[2], LSP_PT[2];
     
     int percent, tintin;
     string n_b;
@@ -119,53 +119,6 @@ void CutsFunction(const char* filename, double params[25])
     string bar;
     
 	string filename2,title, outputcountfile;
-    
-    if(scan_mode == 1)
-    {
-        if(higgsdecay == 0)
-        {
-            outputcountfile = "../efficiencies_2b_2tau.root";
-            n_b = "ge2";
-        }
-        else if(higgsdecay == 1)
-        {
-            outputcountfile = "../efficiencies_4b.root";
-            n_b = "ge4";
-        }
-        else if(higgsdecay == 2)
-        {
-            outputcountfile = "../efficiencies_ge3b.root";
-            n_b = "ge3";
-        }
-        else
-        {
-            outputcountfile = "../efficiencies_2b.root";
-            n_b = "=2";
-        }
-    }
-    else
-    {
-        if(higgsdecay == 0)
-        {
-            outputcountfile = "efficiencies_2b_2tau.root";
-            n_b = "ge2";
-        }
-        else if(higgsdecay == 1)
-        {
-            outputcountfile = "efficiencies_4b.root";
-            n_b = "ge4";
-        }
-        else if(higgsdecay == 2)
-        {
-            outputcountfile = "efficiencies_ge3b.root";
-            n_b = "ge3";
-        }
-        else
-        {
-            outputcountfile = "efficiencies_2b.root";
-            n_b = "=2";
-        }
-    }
     
 	
     //---------Opening the .root file:
@@ -206,6 +159,8 @@ void CutsFunction(const char* filename, double params[25])
     TH1 *histDeltaR = new TH1F("DeltaR", "Delta R between b-jets; Delta R", 60, 0, 6);
     TH1 *histNLSPDeltaR = new TH1F("NLSPDeltaR", "Delta R between NLSPs; Delta R", 60, 0, 6);
     TH1 *histLSPDeltaR = new TH1F("LSPDeltaR", "Delta R between LSPs; Delta R", 60, 0, 6);
+		TH1 *histNLSP_PT = new TH1F("NLSP_PT", "NLSP P_{T}; P_{T}/GeV", 200, 0., 2000.);
+    TH1 *histLSP_PT = new TH1F("LSP_PT", "LSP P_{T}; P_{T}/GeV", 200, 0., 2000.);
     TH1 *histHardjets_DeltaR = new TH1F("HardDeltaR", "Delta R between leading jets; Delta R", 60, 0, 6);
     TH1 *histMHT = new TH1F("MHT", "Missing HT; Missing HT (GeV)", 200, 0., 2000.);
     TH1 *histHT = new TH1F("HT", "Scalar HT; Scalar HT (GeV)", 200, 0., 8000.);
@@ -313,7 +268,7 @@ void CutsFunction(const char* filename, double params[25])
     histnjet_nocuts = &N_jets;
     
     
-    outputtree->Branch("Uncut", &uncut, "M_bb/D:MET:DeltaR:hardDeltaR:biaseddeltaphi:HT:MHT:n_bjets/I:n_jets:Msq:Mlsp:cut_Mbb/O:cut_DeltaR:cut_biaseddeltaphi:cut_MET:cut_HT:cut_N_bjets:cut_N_jets:cut_MHT");
+    outputtree->Branch("Uncut", &uncut, "M_bb/D:MET:DeltaR:hardDeltaR:NSLPDeltaR:LSPDeltaR:NLSP_PT1:NLSP_PT2:LSP_PT1:LSP_PT2:biaseddeltaphi:HT:MHT:n_bjets/I:n_jets:Msq:Mlsp:cut_Mbb/O:cut_DeltaR:cut_biaseddeltaphi:cut_MET:cut_HT:cut_N_bjets:cut_N_jets:cut_MHT");
     
     
 //    outputtree->Branch("n_bjet",&histnbjet_nocuts,"I",320000);
@@ -420,6 +375,12 @@ void CutsFunction(const char* filename, double params[25])
         {
             NLSPp4[0] = vectorNLSP[0]->P4();
             NLSPp4[1] = vectorNLSP[1]->P4();
+						
+						NLSP_PT[0] = vectorNLSP[0]->PT;
+						NLSP_PT[1] = vectorNLSP[1]->PT;
+						
+						histNLSP_PT->Fill(NLSP_PT[0]);
+						histNLSP_PT->Fill(NLSP_PT[1]);
             
             NLSP_DeltaR = NLSPp4[0].DeltaR(NLSPp4[1]);
             histNLSPDeltaR_nocuts->Fill(NLSP_DeltaR);
@@ -429,6 +390,12 @@ void CutsFunction(const char* filename, double params[25])
         {
             LSPp4[0] = vectorLSP[0]->P4();
             LSPp4[1] = vectorLSP[1]->P4();
+						
+						LSP_PT[0] = vectorLSP[0]->PT;
+						LSP_PT[1] = vectorLSP[1]->PT;
+						
+						histLSP_PT->Fill(LSP_PT[0]);
+						histLSP_PT->Fill(LSP_PT[1]);
             
             LSP_DeltaR = LSPp4[0].DeltaR(LSPp4[1]);
             histLSPDeltaR_nocuts->Fill(LSP_DeltaR);
@@ -436,7 +403,7 @@ void CutsFunction(const char* filename, double params[25])
         
         
         
-        if(params[22] == -1 && i<100)
+        if(i<40 && params[22] == -1)
         {
             for(int l = 0; l<branchParticle->GetEntries(); l++)
             {
@@ -516,8 +483,6 @@ void CutsFunction(const char* filename, double params[25])
             hardp4[1] = vectorjet[1]->P4();
             
             Hardjets_DeltaR = hardp4[0].DeltaR(hardp4[1]);
-            
-            
             
             MissingHT2Vector.Set(MissingHT.Px(), MissingHT.Py());
             
@@ -678,7 +643,7 @@ void CutsFunction(const char* filename, double params[25])
                 met += metv;
             }
 
-            if(met > minMET)
+            if(met > minMET || minMET < 0)
             {
                 pass_MET++;
                 npass++;                    //passes the MET test
@@ -691,7 +656,7 @@ void CutsFunction(const char* filename, double params[25])
                 HT += HTv;
             }
             
-            if(HT > minHT)
+            if(HT > minHT || minHT < 0)
             {
                 pass_HT++;
                 npass++;                    //passes the HT test
@@ -763,6 +728,10 @@ void CutsFunction(const char* filename, double params[25])
         uncut.hardDeltaR = Hardjets_DeltaR;
         uncut.NLSPDeltaR = NLSP_DeltaR;
         uncut.LSPDeltaR = LSP_DeltaR;
+				uncut.NLSP_PT1 = NLSP_PT[0];
+				uncut.NLSP_PT2 = NLSP_PT[1];
+				uncut.LSP_PT1 = LSP_PT[0];
+				uncut.LSP_PT2 = LSP_PT[1];
         uncut.biaseddeltaphi = biaseddeltaphi;
         uncut.HT = HT;
         uncut.n_jets = N_jets;
@@ -1454,26 +1423,72 @@ void CutsFunction(const char* filename, double params[25])
     
     //ofstream outputcount;
 		
-		    if(scan_mode == 1)
+		if(scan_mode == 2)
     {
         if(higgsdecay == 0)
         {
-            outputcountfile = "../efficiencies_2b_2tau_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
+            outputcountfile = "../../efficiencies_2b_2tau.root";
             n_b = "ge2";
         }
         else if(higgsdecay == 1)
         {
-            outputcountfile = "../efficiencies_4b_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
+            outputcountfile = "../../efficiencies_4b.root";
             n_b = "ge4";
         }
         else if(higgsdecay == 2)
         {
-            outputcountfile = "../efficiencies_ge3b_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
+            outputcountfile = "../../efficiencies_ge3b.root";
             n_b = "ge3";
         }
         else
         {
-            outputcountfile = "../efficiencies_2b_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
+            outputcountfile = "../../efficiencies_2b.root";
+            n_b = "=2";
+        }
+    }
+		else if(scan_mode == 1)
+    {
+        if(higgsdecay == 0)
+        {
+            outputcountfile = "efficiencies_2b_2tau_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
+            n_b = "ge2";
+        }
+        else if(higgsdecay == 1)
+        {
+            outputcountfile = "efficiencies_4b_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
+            n_b = "ge4";
+        }
+        else if(higgsdecay == 2)
+        {
+            outputcountfile = "efficiencies_ge3b_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
+            n_b = "ge3";
+        }
+        else
+        {
+            outputcountfile = "efficiencies_2b_" + to_string(roundedMsq) + "sq_" + to_string(roundedMlsp) + "X1.root";
+            n_b = "=2";
+        }
+    }
+		else
+    {
+        if(higgsdecay == 0)
+        {
+            outputcountfile = "efficiencies_2b_2tau.root";
+            n_b = "ge2";
+        }
+        else if(higgsdecay == 1)
+        {
+            outputcountfile = "efficiencies_4b.root";
+            n_b = "ge4";
+        }
+        else if(higgsdecay == 2)
+        {
+            outputcountfile = "efficiencies_ge3b.root";
+            n_b = "ge3";
+        }
+        else
+        {
+            outputcountfile = "efficiencies_2b.root";
             n_b = "=2";
         }
     }
