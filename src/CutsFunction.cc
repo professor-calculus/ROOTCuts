@@ -15,7 +15,7 @@
 using namespace std;
 
 
-void CutsFunction(const char* filename, double params[24])
+void CutsFunction(const char* filename, double params[25])
 {
     gSystem->Load("libTreePlayer");
     //gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
@@ -556,7 +556,7 @@ void CutsFunction(const char* filename, double params[24])
 
                 mbb = ((p4[0]) + (p4[1])).M();
 
-                if(mbb > minMbb && mbb < maxMbb)
+                if( (mbb > minMbb && mbb < maxMbb) || (minMbb < 0 && maxMbb < 0) )
                 {
                     npass++;
                     pass_bb_mass++;               //passes the M_bb inv. mass test
@@ -592,7 +592,7 @@ void CutsFunction(const char* filename, double params[24])
                 
                 
                 
-                if(mbb > minMbb && mbb < maxMbb && mbb2 > minMbb && mbb2 < maxMbb)
+                if( (mbb > minMbb && mbb < maxMbb && mbb2 > minMbb && mbb2 < maxMbb) || (maxMbb < 0 && minMbb < 0) )
                 {
                     npass += 2;
                     pass_bb_mass++;               //passes the M_bb inv. mass test
@@ -628,7 +628,7 @@ void CutsFunction(const char* filename, double params[24])
                 
                 
                 
-                if(mbb > minMbb && mbb < maxMbb)
+                if( (mbb > minMbb && mbb < maxMbb) || (minMbb < 0 && maxMbb < 0) )
                 {
                     npass += 2;
                     pass_bb_mass++;               //passes the M_bb inv. mass test
@@ -651,7 +651,7 @@ void CutsFunction(const char* filename, double params[24])
                 
                 mbb = ((p4[0]) + (p4[1])).M();
                 
-                if(mbb > minMbb && mbb < maxMbb)
+                if( (mbb > minMbb && mbb < maxMbb) || (minMbb < 0 && maxMbb < 0) )
                 {
                     npass+=2;
                     pass_bb_mass++;               //passes the M_bb inv. mass test

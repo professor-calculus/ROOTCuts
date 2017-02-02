@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
     //      23      Mass of LSP     (doesn't matter for non-scan mode)
 
     
-    double params[24];
+    double params[25];
     
     
     int param, bkg, signal;
@@ -55,6 +55,7 @@ int main(int argc, char *argv[])
     params[21] = 0;
     params[22] = 0;
     params[23] = 0;
+		params[24] = -1;
 
 
     
