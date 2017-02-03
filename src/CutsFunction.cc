@@ -112,6 +112,7 @@ void CutsFunction(const char* filename, double params[25])
     double mbb2 = 0;
     
     double DeltaR, DeltaR2, biaseddeltaphi, HT, Hardjets_DeltaR, NLSP_DeltaR, LSP_DeltaR, NLSP_PT[2], LSP_PT[2];
+		double b_PT[4];
     
     int percent, tintin;
     string n_b;
@@ -165,6 +166,12 @@ void CutsFunction(const char* filename, double params[25])
     TH1 *histMHT = new TH1F("MHT", "Missing HT; Missing HT (GeV)", 200, 0., 2000.);
     TH1 *histHT = new TH1F("HT", "Scalar HT; Scalar HT (GeV)", 200, 0., 8000.);
     TH1 *histBiasedDeltaPhi = new TH1F("biaseddeltaphi", "Biased Delta Phi; Biased Delta Phi", 50, 0., 5.);
+		
+		TH1 *histb_PT1 = new TH1F("b_PT1", "1st b-jet P_{T}; P_{T}/GeV", 200, 0., 2000.);
+		TH1 *histb_PT2 = new TH1F("b_PT2", "2nd b-jet P_{T}; P_{T}/GeV", 200, 0., 2000.);
+		TH1 *histb_PT3 = new TH1F("b_PT3", "3rd b-jet P_{T}; P_{T}/GeV", 200, 0., 2000.);
+		TH1 *histb_PT4 = new TH1F("b_PT4", "4th b-jet P_{T}; P_{T}/GeV", 200, 0., 2000.);
+
     
     TH1 *histnbjet_precut = new TH1F("nbjet_n-1cut", "Number of b-jets n-1 Cut; No. b-jets", 10, 0.0, 10.0);
     TH1 *histnjet_precut = new TH1F("njet_n-1cut", "Number of Jets n-1 Cut; No. Jets", 15, 0.0, 15.0);
@@ -268,36 +275,14 @@ void CutsFunction(const char* filename, double params[25])
     histnjet_nocuts = &N_jets;
     
     
-    outputtree->Branch("Uncut", &uncut, "M_bb/D:MET:DeltaR:hardDeltaR:NSLPDeltaR:LSPDeltaR:NLSP_PT1:NLSP_PT2:LSP_PT1:LSP_PT2:biaseddeltaphi:HT:MHT:n_bjets/I:n_jets:Msq:Mlsp:cut_Mbb/O:cut_DeltaR:cut_biaseddeltaphi:cut_MET:cut_HT:cut_N_bjets:cut_N_jets:cut_MHT");
+    outputtree->Branch("Uncut", &uncut, "M_bb/D:MET:DeltaR:hardDeltaR:NSLPDeltaR:LSPDeltaR:NLSP_PT1:NLSP_PT2:LSP_PT1:LSP_PT2:b_PT1:b_PT2:b_PT3:b_PT4:biaseddeltaphi:HT:MHT:n_bjets/I:n_jets:Msq:Mlsp:cut_Mbb/O:cut_DeltaR:cut_biaseddeltaphi:cut_MET:cut_HT:cut_N_bjets:cut_N_jets:cut_MHT");
     
-    
-//    outputtree->Branch("n_bjet",&histnbjet_nocuts,"I",320000);
-//    outputtree->Branch("n_jet",&histnjet_nocuts,"I",320000);
-//    outputtree->Branch("M_bb",&histMbb_nocuts,"D",320000);
-//    outputtree->Branch("M_ET",&histmet_nocuts,"D",320000);
-//    outputtree->Branch("Delta_R",&histDeltaR_nocuts,"D",320000);
-//    outputtree->Branch("M_HT",&histMHT_nocuts,"D",320000);
-//    outputtree->Branch("Total_HT",&histHT_nocuts,"D",320000);
-//    outputtree->Branch("biased_deltaphi",&histBiasedDeltaPhi_nocuts,"D",320000);
-//    
-//    outputtree->Branch("cut_n_jets",cut_N_jets,"O",320000);
-//    outputtree->Branch("cut_n_b_jets",cut_N_bjets,"O",320000);
-//    outputtree->Branch("cut_M_bb",cut_Mbb,"O",320000);
-//    outputtree->Branch("cut_MET",cut_MET,"O",320000);
-//    outputtree->Branch("cut_HT",cut_HT,"O",320000);
-//    outputtree->Branch("cut_Delta_R",cut_DeltaR,"O",320000);
-//    outputtree->Branch("cut_biaseddeltaphi",cut_biaseddeltaphi,"O",320000);
-    
+
     TTimeStamp time;
     //string rootfile = "ROOTCuts_" + to_string(*filename) + to_string(time.GetDate()) + "_" + to_string(time.GetTime()) + ".root";
     string rootfile = "ROOTCuts.root";
     const char * rootfilename = rootfile.c_str();
     TFile *g = TFile::Open(rootfilename,"RECREATE");
-    
-		
-    
-    
-    
     
     
 
@@ -518,6 +503,11 @@ void CutsFunction(const char* filename, double params[25])
                 
                 p4[0] = matchingbjets[0]->P4();
                 p4[1] = matchingbjets[1]->P4();
+								
+								b_PT[0] = matchingbjets[0]->PT;
+								b_PT[1] = matchingbjets[1]->PT;
+								b_PT[2] = 0.;
+								b_PT[3] = 0.;
 
                 mbb = ((p4[0]) + (p4[1])).M();
 
@@ -550,6 +540,11 @@ void CutsFunction(const char* filename, double params[25])
                 p4[1] = matchingbjets[1]->P4();
                 p4[2] = matchingbjets[2]->P4();
                 p4[3] = matchingbjets[3]->P4();
+								
+								b_PT[0] = matchingbjets[0]->PT;
+								b_PT[1] = matchingbjets[1]->PT;
+								b_PT[2] = matchingbjets[2]->PT;
+								b_PT[3] = matchingbjets[3]->PT;
                 
                 
                 mbb = ((p4[0]) + (p4[1])).M();
@@ -590,6 +585,11 @@ void CutsFunction(const char* filename, double params[25])
                 
                 mbb = ((p4[0]) + (p4[1])).M();
                 mbb2 = matchingbjets[2]->Mass;
+								
+								b_PT[0] = matchingbjets[0]->PT;
+								b_PT[1] = matchingbjets[1]->PT;
+								b_PT[2] = matchingbjets[2]->PT;
+								b_PT[3] = 0.;
                 
                 
                 
@@ -613,6 +613,11 @@ void CutsFunction(const char* filename, double params[25])
                 
                 p4[0] = vectorbjet[0]->P4();
                 p4[1] = vectorbjet[1]->P4();
+								
+								b_PT[0] = matchingbjets[0]->PT;
+								b_PT[1] = matchingbjets[1]->PT;
+								b_PT[2] = 0.;
+								b_PT[3] = 0.;
                 
                 mbb = ((p4[0]) + (p4[1])).M();
                 
@@ -732,6 +737,10 @@ void CutsFunction(const char* filename, double params[25])
 				uncut.NLSP_PT2 = NLSP_PT[1];
 				uncut.LSP_PT1 = LSP_PT[0];
 				uncut.LSP_PT2 = LSP_PT[1];
+				uncut.b_PT1 = b_PT[0];
+				uncut.b_PT2 = b_PT[1];
+				uncut.b_PT3 = b_PT[2];
+				uncut.b_PT4 = b_PT[3];
         uncut.biaseddeltaphi = biaseddeltaphi;
         uncut.HT = HT;
         uncut.n_jets = N_jets;
@@ -808,6 +817,12 @@ void CutsFunction(const char* filename, double params[25])
             histBiasedDeltaPhi->Fill(biaseddeltaphi);
             histHT->Fill(HT);
             histnjet->Fill(N_jets);
+						
+						histb_PT1->Fill(b_PT[0]);
+						histb_PT2->Fill(b_PT[1]);
+						histb_PT3->Fill(b_PT[2]);
+						histb_PT4->Fill(b_PT[3]);
+						
             
             if(higgsdecay == 1)
             {
@@ -1066,8 +1081,62 @@ void CutsFunction(const char* filename, double params[25])
     cLSPdelr_nocuts->SaveAs("LSP_DeltaR_nocuts.pdf");
     
     
+		//PT of various stuff
+		
+		TCanvas * cLSPPT1 = new TCanvas ("cLSPPT1", "cLSPPT1", 600, 600);
+    histLSP_PT1->Scale(histoscale);
+    histLSP_PT1->Draw();
+    cLSPPT1->Update();
+    cLSPPT1->SaveAs("LSP_PT1.pdf");
+		
+		
+		TCanvas * cLSPPT2 = new TCanvas ("cLSPPT2", "cLSPPT2", 600, 600);
+    histLSP_PT2->Scale(histoscale);
+    histLSP_PT2->Draw();
+    cLSPPT2->Update();
+    cLSPPT2->SaveAs("LSP_PT2.pdf");
+		
+		
+		TCanvas * cNLSPPT1 = new TCanvas ("cNLSPPT1", "cNLSPPT1", 600, 600);
+    histNLSP_PT1->Scale(histoscale);
+    histNLSP_PT1->Draw();
+    cNLSPPT1->Update();
+    cNLSPPT1->SaveAs("NLSP_PT1.pdf");
     
     
+		TCanvas * cNLSPPT2 = new TCanvas ("cNLSPPT2", "cNLSPPT2", 600, 600);
+    histNLSP_PT2->Scale(histoscale);
+    histNLSP_PT2->Draw();
+    cNLSPPT2->Update();
+    cNLSPPT2->SaveAs("NLSP_PT2.pdf");
+		
+		
+		
+		TCanvas * cbPT1 = new TCanvas ("cbPT1", "cbPT1", 600, 600);
+    histb_PT1->Scale(histoscale);
+    histb_PT1->Draw();
+    cbPT1->Update();
+    cbPT1->SaveAs("b_PT1.pdf");
+		
+		TCanvas * cbPT2 = new TCanvas ("cbPT2", "cbPT2", 600, 600);
+    histb_PT2->Scale(histoscale);
+    histb_PT2->Draw();
+    cbPT2->Update();
+    cbPT2->SaveAs("b_PT2.pdf");
+		
+		TCanvas * cbPT3 = new TCanvas ("cbPT3", "cbPT3", 600, 600);
+    histb_PT3->Scale(histoscale);
+    histb_PT3->Draw();
+    cbPT3->Update();
+    cbPT3->SaveAs("b_PT3.pdf");
+		
+		TCanvas * cbPT4 = new TCanvas ("cbPT4", "cbPT4", 600, 600);
+    histb_PT4->Scale(histoscale);
+    histb_PT4->Draw();
+    cbPT4->Update();
+    cbPT4->SaveAs("b_PT4.pdf");
+		
+		
     //---------- Delta-R between b-jets (With/Without the cut)
     
     TCanvas * cdelr = new TCanvas ("cdelr", "cdelr", 600, 600);
