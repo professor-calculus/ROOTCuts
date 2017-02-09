@@ -27,7 +27,7 @@ if(NOT CMAKE_INSTALL_COMPONENT)
   endif()
 endif()
 
-if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+if("${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
      "/Users/alex/Documents/ROOTCuts/ROOTCuts")
@@ -41,7 +41,7 @@ file(INSTALL DESTINATION "/Users/alex/Documents/ROOTCuts" TYPE EXECUTABLE FILES 
     if(EXISTS "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts" AND
        NOT IS_SYMLINK "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       execute_process(COMMAND /usr/bin/install_name_tool
-        -delete_rpath "/Users/alex/ROOT/root-install/lib"
+        -delete_rpath "/Users/alex/root_build/lib"
         "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       execute_process(COMMAND /usr/bin/install_name_tool
         -delete_rpath "/Users/alex/delphes"
@@ -63,7 +63,7 @@ file(INSTALL DESTINATION "/Users/alex/Documents/ROOTCuts" TYPE EXECUTABLE FILES 
     if(EXISTS "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts" AND
        NOT IS_SYMLINK "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       execute_process(COMMAND /usr/bin/install_name_tool
-        -delete_rpath "/Users/alex/ROOT/root-install/lib"
+        -delete_rpath "/Users/alex/root_build/lib"
         "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       execute_process(COMMAND /usr/bin/install_name_tool
         -delete_rpath "/Users/alex/delphes"
@@ -85,7 +85,7 @@ file(INSTALL DESTINATION "/Users/alex/Documents/ROOTCuts" TYPE EXECUTABLE FILES 
     if(EXISTS "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts" AND
        NOT IS_SYMLINK "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       execute_process(COMMAND /usr/bin/install_name_tool
-        -delete_rpath "/Users/alex/ROOT/root-install/lib"
+        -delete_rpath "/Users/alex/root_build/lib"
         "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       execute_process(COMMAND /usr/bin/install_name_tool
         -delete_rpath "/Users/alex/delphes"
@@ -107,7 +107,7 @@ file(INSTALL DESTINATION "/Users/alex/Documents/ROOTCuts" TYPE EXECUTABLE FILES 
     if(EXISTS "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts" AND
        NOT IS_SYMLINK "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       execute_process(COMMAND /usr/bin/install_name_tool
-        -delete_rpath "/Users/alex/ROOT/root-install/lib"
+        -delete_rpath "/Users/alex/root_build/lib"
         "$ENV{DESTDIR}/Users/alex/Documents/ROOTCuts/ROOTCuts")
       execute_process(COMMAND /usr/bin/install_name_tool
         -delete_rpath "/Users/alex/delphes"

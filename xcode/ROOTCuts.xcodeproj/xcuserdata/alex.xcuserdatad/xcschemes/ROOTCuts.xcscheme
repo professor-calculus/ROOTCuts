@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0810"
+   LastUpgradeVersion = "0820"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D23A9C53318D4232947E5255"
+               BlueprintIdentifier = "3836690DFC484D5EB8D6B035"
                BuildableName = "ROOTCuts"
                BlueprintName = "ROOTCuts"
                ReferencedContainer = "container:xcode/ROOTCuts.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D23A9C53318D4232947E5255"
+            BlueprintIdentifier = "3836690DFC484D5EB8D6B035"
             BuildableName = "ROOTCuts"
             BlueprintName = "ROOTCuts"
             ReferencedContainer = "container:xcode/ROOTCuts.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D23A9C53318D4232947E5255"
+            BlueprintIdentifier = "3836690DFC484D5EB8D6B035"
             BuildableName = "ROOTCuts"
             BlueprintName = "ROOTCuts"
             ReferencedContainer = "container:xcode/ROOTCuts.xcodeproj">
@@ -74,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D23A9C53318D4232947E5255"
+            BlueprintIdentifier = "3836690DFC484D5EB8D6B035"
             BuildableName = "ROOTCuts"
             BlueprintName = "ROOTCuts"
             ReferencedContainer = "container:xcode/ROOTCuts.xcodeproj">

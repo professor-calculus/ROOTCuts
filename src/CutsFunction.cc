@@ -160,17 +160,19 @@ void CutsFunction(const char* filename, double params[25])
     TH1 *histDeltaR = new TH1F("DeltaR", "Delta R between b-jets; Delta R", 60, 0, 6);
     TH1 *histNLSPDeltaR = new TH1F("NLSPDeltaR", "Delta R between NLSPs; Delta R", 60, 0, 6);
     TH1 *histLSPDeltaR = new TH1F("LSPDeltaR", "Delta R between LSPs; Delta R", 60, 0, 6);
-		TH1 *histNLSP_PT = new TH1F("NLSP_PT", "NLSP P_{T}; P_{T}/GeV", 200, 0., 2000.);
-    TH1 *histLSP_PT = new TH1F("LSP_PT", "LSP P_{T}; P_{T}/GeV", 200, 0., 2000.);
+    TH1 *histNLSP_PT1 = new TH1F("NLSP_PT1", "NLSP P_{T}; P_{T}/GeV", 200, 0., 2000.);
+    TH1 *histNLSP_PT2 = new TH1F("NLSP_PT2", "NLSP P_{T}; P_{T}/GeV", 200, 0., 2000.);
+    TH1 *histLSP_PT1 = new TH1F("LSP_PT1", "LSP P_{T}; P_{T}/GeV", 200, 0., 2000.);
+    TH1 *histLSP_PT2 = new TH1F("LSP_PT2", "LSP P_{T}; P_{T}/GeV", 200, 0., 2000.);
     TH1 *histHardjets_DeltaR = new TH1F("HardDeltaR", "Delta R between leading jets; Delta R", 60, 0, 6);
     TH1 *histMHT = new TH1F("MHT", "Missing HT; Missing HT (GeV)", 200, 0., 2000.);
     TH1 *histHT = new TH1F("HT", "Scalar HT; Scalar HT (GeV)", 200, 0., 8000.);
     TH1 *histBiasedDeltaPhi = new TH1F("biaseddeltaphi", "Biased Delta Phi; Biased Delta Phi", 50, 0., 5.);
 		
-		TH1 *histb_PT1 = new TH1F("b_PT1", "1st b-jet P_{T}; P_{T}/GeV", 200, 0., 2000.);
-		TH1 *histb_PT2 = new TH1F("b_PT2", "2nd b-jet P_{T}; P_{T}/GeV", 200, 0., 2000.);
-		TH1 *histb_PT3 = new TH1F("b_PT3", "3rd b-jet P_{T}; P_{T}/GeV", 200, 0., 2000.);
-		TH1 *histb_PT4 = new TH1F("b_PT4", "4th b-jet P_{T}; P_{T}/GeV", 200, 0., 2000.);
+    TH1 *histb_PT1 = new TH1F("b_PT1", "1st b-jet P_{T}; P_{T}/GeV", 200, 0., 2000.);
+    TH1 *histb_PT2 = new TH1F("b_PT2", "2nd b-jet P_{T}; P_{T}/GeV", 200, 0., 2000.);
+    TH1 *histb_PT3 = new TH1F("b_PT3", "3rd b-jet P_{T}; P_{T}/GeV", 200, 0., 2000.);
+    TH1 *histb_PT4 = new TH1F("b_PT4", "4th b-jet P_{T}; P_{T}/GeV", 200, 0., 2000.);
 
     
     TH1 *histnbjet_precut = new TH1F("nbjet_n-1cut", "Number of b-jets n-1 Cut; No. b-jets", 10, 0.0, 10.0);
@@ -364,8 +366,8 @@ void CutsFunction(const char* filename, double params[25])
 						NLSP_PT[0] = vectorNLSP[0]->PT;
 						NLSP_PT[1] = vectorNLSP[1]->PT;
 						
-						histNLSP_PT->Fill(NLSP_PT[0]);
-						histNLSP_PT->Fill(NLSP_PT[1]);
+						histNLSP_PT1->Fill(NLSP_PT[0]);
+						histNLSP_PT2->Fill(NLSP_PT[1]);
             
             NLSP_DeltaR = NLSPp4[0].DeltaR(NLSPp4[1]);
             histNLSPDeltaR_nocuts->Fill(NLSP_DeltaR);
@@ -379,8 +381,8 @@ void CutsFunction(const char* filename, double params[25])
 						LSP_PT[0] = vectorLSP[0]->PT;
 						LSP_PT[1] = vectorLSP[1]->PT;
 						
-						histLSP_PT->Fill(LSP_PT[0]);
-						histLSP_PT->Fill(LSP_PT[1]);
+						histLSP_PT1->Fill(LSP_PT[0]);
+						histLSP_PT2->Fill(LSP_PT[1]);
             
             LSP_DeltaR = LSPp4[0].DeltaR(LSPp4[1]);
             histLSPDeltaR_nocuts->Fill(LSP_DeltaR);
@@ -852,11 +854,15 @@ void CutsFunction(const char* filename, double params[25])
             if(vectorNLSP.size() > 1)
             {
                 histNLSPDeltaR->Fill(NLSP_DeltaR);
+                histLSP_PT1->Fill(LSP_PT[0]);
+                histLSP_PT2->Fill(LSP_PT[1]);
             }
             
             if(vectorLSP.size() > 1)
             {
                 histLSPDeltaR->Fill(LSP_DeltaR);
+                histNLSP_PT1->Fill(NLSP_PT[0]);
+                histNLSP_PT2->Fill(NLSP_PT[1]);
             }
             
         }
