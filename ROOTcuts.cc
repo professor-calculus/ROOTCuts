@@ -94,6 +94,13 @@ int main(int argc, char *argv[])
         ifstream inputFile;
         inputFile.open(crosssectionpath);
         
+        if(!inputFile)
+        {
+            cout << "What folder? I don't know anything about it..." << endl;
+            cout << "\n There's likely a typo in the folder path somewhere!" << endl;
+            return 1;
+        }
+        
         string crosssection;
         double crosssectionvalue = 0;
         
