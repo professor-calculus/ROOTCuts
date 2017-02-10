@@ -506,10 +506,10 @@ void CutsFunction(const char* filename, double params[25])
                 p4[0] = matchingbjets[0]->P4();
                 p4[1] = matchingbjets[1]->P4();
 								
-								b_PT[0] = matchingbjets[0]->PT;
-								b_PT[1] = matchingbjets[1]->PT;
-								b_PT[2] = 0.;
-								b_PT[3] = 0.;
+                b_PT[0] = matchingbjets[0]->PT;
+                b_PT[1] = matchingbjets[1]->PT;
+                b_PT[2] = 0.;
+                b_PT[3] = 0.;
 
                 mbb = ((p4[0]) + (p4[1])).M();
 
@@ -616,10 +616,10 @@ void CutsFunction(const char* filename, double params[25])
                 p4[0] = vectorbjet[0]->P4();
                 p4[1] = vectorbjet[1]->P4();
 								
-								b_PT[0] = matchingbjets[0]->PT;
-								b_PT[1] = matchingbjets[1]->PT;
-								b_PT[2] = 0.;
-								b_PT[3] = 0.;
+                b_PT[0] = vectorbjet[0]->PT;
+                b_PT[1] = vectorbjet[1]->PT;
+                b_PT[2] = 0.;
+                b_PT[3] = 0.;
                 
                 mbb = ((p4[0]) + (p4[1])).M();
                 
