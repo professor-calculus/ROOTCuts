@@ -1388,8 +1388,9 @@ void CutsFunction(const char* filename, double params[25])
     outputfile << "Tree copied with " << entries << " entries\n\n" << endl;
     outputfile << "Scaled to " << scaledentries << " entries\n\n" << endl;
     
+    
+    double doubleeventpass = double(eventpass)*double(scale);
     eventpass = eventpass*double(scale);
-	double doubleeventpass = double(eventpass)*double(scale);
 
     efficiency = double(eventpass)/double(scaledentries);
     
