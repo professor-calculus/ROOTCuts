@@ -14,6 +14,8 @@ void Plotting(const char *filename)
 {
     static Efficiencies efficiencies;
     
+    double dbeventpass;
+    
     
     TChain *dick_cheney = new TChain("ROOTEffs");           // TChain named after Dick Cheney. Maybe he used ROOT
                                                             // too, it's making me want to shoot somebody!
@@ -38,13 +40,16 @@ void Plotting(const char *filename)
     
     //cout << nentries << endl;
     
+    
     for (Int_t entryInChain=0; entryInChain<nentries; entryInChain++)
     {
         dick_cheney->GetEntry(entryInChain);
         
-        outputfile << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << std::setprecision(3) << efficiencies.doubleeventpass << endl;
+        dbeventpass = round(efficiencies.doubleeventpass * 100.)/100.;
         
-        cutflowfile << std::setprecision(0) << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << efficiencies.crosssec << "\t" << efficiencies.eff << "\t" << efficiencies.HT << "\t" << efficiencies.HTeff << "\t" << efficiencies.MET << "\t" << efficiencies.METeff << "\t" << efficiencies.MHT << "\t" << efficiencies.MHTeff << "\t" << efficiencies.Nj << "\t" << efficiencies.Njeff << "\t" << efficiencies.Nb << "\t" << efficiencies.Nbeff << "\t" << efficiencies.Mbb << "\t" << efficiencies.Mbbeff << "\t" << efficiencies.BDP << "\t" << efficiencies.BDPeff << "\t" << endl;
+        outputfile << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << dbeventpass << endl;
+        
+        cutflowfile << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << efficiencies.crosssec << "\t" << efficiencies.eff << "\t" << efficiencies.HT << "\t" << efficiencies.HTeff << "\t" << efficiencies.MET << "\t" << efficiencies.METeff << "\t" << efficiencies.MHT << "\t" << efficiencies.MHTeff << "\t" << efficiencies.Nj << "\t" << efficiencies.Njeff << "\t" << efficiencies.Nb << "\t" << efficiencies.Nbeff << "\t" << efficiencies.Mbb << "\t" << efficiencies.Mbbeff << "\t" << efficiencies.BDP << "\t" << efficiencies.BDPeff << "\t" << endl;
         
         effs->Fill(efficiencies.Msq, efficiencies.Mlsp, efficiencies.eff);    //fill data from a tree to a histogram
         crosssecs->Fill(efficiencies.Msq, efficiencies.Mlsp, efficiencies.crosssec);
