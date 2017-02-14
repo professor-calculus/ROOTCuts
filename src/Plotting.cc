@@ -45,7 +45,7 @@ void Plotting(const char *filename)
     {
         dick_cheney->GetEntry(entryInChain);
         
-        dbeventpass = round(efficiencies.doubleeventpass * 100.)/100.;
+        dbeventpass = round(efficiencies.doubleeventpass * 10000.)/10000.;
         
         outputfile << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << dbeventpass << endl;
         
