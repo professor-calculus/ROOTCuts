@@ -543,10 +543,10 @@ void CutsFunction(const char* filename, double params[25])
                 p4[2] = matchingbjets[2]->P4();
                 p4[3] = matchingbjets[3]->P4();
 								
-								b_PT[0] = matchingbjets[0]->PT;
-								b_PT[1] = matchingbjets[1]->PT;
-								b_PT[2] = matchingbjets[2]->PT;
-								b_PT[3] = matchingbjets[3]->PT;
+                b_PT[0] = matchingbjets[0]->PT;
+                b_PT[1] = matchingbjets[1]->PT;
+                b_PT[2] = matchingbjets[2]->PT;
+                b_PT[3] = matchingbjets[3]->PT;
                 
                 
                 mbb = ((p4[0]) + (p4[1])).M();
@@ -588,10 +588,10 @@ void CutsFunction(const char* filename, double params[25])
                 mbb = ((p4[0]) + (p4[1])).M();
                 mbb2 = matchingbjets[2]->Mass;
 								
-								b_PT[0] = matchingbjets[0]->PT;
-								b_PT[1] = matchingbjets[1]->PT;
-								b_PT[2] = matchingbjets[2]->PT;
-								b_PT[3] = 0.;
+                b_PT[0] = matchingbjets[0]->PT;
+                b_PT[1] = matchingbjets[1]->PT;
+                b_PT[2] = matchingbjets[2]->PT;
+                b_PT[3] = 0.;
                 
                 
                 
@@ -735,14 +735,14 @@ void CutsFunction(const char* filename, double params[25])
         uncut.hardDeltaR = Hardjets_DeltaR;
         uncut.NLSPDeltaR = NLSP_DeltaR;
         uncut.LSPDeltaR = LSP_DeltaR;
-				uncut.NLSP_PT1 = NLSP_PT[0];
-				uncut.NLSP_PT2 = NLSP_PT[1];
-				uncut.LSP_PT1 = LSP_PT[0];
-				uncut.LSP_PT2 = LSP_PT[1];
-				uncut.b_PT1 = b_PT[0];
-				uncut.b_PT2 = b_PT[1];
-				uncut.b_PT3 = b_PT[2];
-				uncut.b_PT4 = b_PT[3];
+        uncut.NLSP_PT1 = NLSP_PT[0];
+        uncut.NLSP_PT2 = NLSP_PT[1];
+        uncut.LSP_PT1 = LSP_PT[0];
+        uncut.LSP_PT2 = LSP_PT[1];
+        uncut.b_PT1 = b_PT[0];
+        uncut.b_PT2 = b_PT[1];
+        uncut.b_PT3 = b_PT[2];
+        uncut.b_PT4 = b_PT[3];
         uncut.biaseddeltaphi = biaseddeltaphi;
         uncut.HT = HT;
         uncut.n_jets = N_jets;

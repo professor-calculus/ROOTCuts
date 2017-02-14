@@ -13,6 +13,8 @@ void Plotting(const char *filename)
 {
     static Efficiencies efficiencies;
     
+    std::streamsize ss = std::cout.precision();
+    
     TChain *dick_cheney = new TChain("ROOTEffs");           // TChain named after Dick Cheney. Maybe he used ROOT
                                                             // too, it's making me want to shoot somebody!
     dick_cheney->Add(filename);
@@ -40,9 +42,9 @@ void Plotting(const char *filename)
     {
         dick_cheney->GetEntry(entryInChain);
         
-        outputfile << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << efficiencies.doubleeventpass << endl;
+        outputfile << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << std::setprecision(3) << efficiencies.doubleeventpass << endl;
         
-        cutflowfile << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << efficiencies.crosssec << "\t" << efficiencies.eff << "\t" << efficiencies.HT << "\t" << efficiencies.HTeff << "\t" << efficiencies.MET << "\t" << efficiencies.METeff << "\t" << efficiencies.MHT << "\t" << efficiencies.MHTeff << "\t" << efficiencies.Nj << "\t" << efficiencies.Njeff << "\t" << efficiencies.Nb << "\t" << efficiencies.Nbeff << "\t" << efficiencies.Mbb << "\t" << efficiencies.Mbbeff << "\t" << efficiencies.BDP << "\t" << efficiencies.BDPeff << "\t" << endl;
+        cutflowfile << std::setprecision(ss) << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << efficiencies.crosssec << "\t" << efficiencies.eff << "\t" << efficiencies.HT << "\t" << efficiencies.HTeff << "\t" << efficiencies.MET << "\t" << efficiencies.METeff << "\t" << efficiencies.MHT << "\t" << efficiencies.MHTeff << "\t" << efficiencies.Nj << "\t" << efficiencies.Njeff << "\t" << efficiencies.Nb << "\t" << efficiencies.Nbeff << "\t" << efficiencies.Mbb << "\t" << efficiencies.Mbbeff << "\t" << efficiencies.BDP << "\t" << efficiencies.BDPeff << "\t" << endl;
         
         effs->Fill(efficiencies.Msq, efficiencies.Mlsp, efficiencies.eff);    //fill data from a tree to a histogram
         crosssecs->Fill(efficiencies.Msq, efficiencies.Mlsp, efficiencies.crosssec);
