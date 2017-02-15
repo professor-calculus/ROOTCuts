@@ -14,35 +14,45 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>ZERO_CHECK.xcscheme</key>
+		<key>ROOTEffs.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
-		<key>install.xcscheme</key>
+		<key>ZERO_CHECK.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+		<key>install.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>01DCF8E374E1452DA3BC5555</key>
+		<key>53E64E4D608D4AC8BF102665</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1B848E81226E40E4910C64AA</key>
+		<key>73077581AF6D4FF386442CF3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3836690DFC484D5EB8D6B035</key>
+		<key>96087A2FEF044F8FB104B3B7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C15646D505AB45BAADB2662F</key>
+		<key>ACACD7D4C9F3458188004B88</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B3395149EAFD4900B05775A1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

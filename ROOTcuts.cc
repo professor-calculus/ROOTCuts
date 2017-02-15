@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
     params[21] = 0;
     params[22] = 0;
     params[23] = 0;
-		params[24] = -1;
+    params[24] = -1;
 
 
     
@@ -258,7 +258,9 @@ int main(int argc, char *argv[])
     else if(argc == 3 && (string(argv[2]) == "EFF" || string(argv[2]) == "PLOTTING"))     // Plotting tool for efficiencies
     {
         cout << "\n Plotting Mode\n" << endl;
-        Plotting(argv[1]);
+        //Plotting(argv[1]);
+        
+        return 0;
         
     }
         

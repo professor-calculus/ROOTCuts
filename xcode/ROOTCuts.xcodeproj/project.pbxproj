@@ -7,280 +7,334 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		01DCF8E374E1452DA3BC5555 /* install */ = {
+		53E64E4D608D4AC8BF102665 /* ZERO_CHECK */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = AE56B6A2E0ED4A5F925B91C7 /* Build configuration list for PBXAggregateTarget "install" */;
+			buildConfigurationList = 34205AF83CEA4478A8274989 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
 			buildPhases = (
-				BC0E9EA252AC4B0CB711FA58 /* CMake PostBuild Rules */,
-			);
-			dependencies = (
-				C4545E0B1B0848569875FA10 /* PBXTargetDependency */,
-			);
-			name = install;
-			productName = install;
-		};
-		1B848E81226E40E4910C64AA /* ZERO_CHECK */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 24FFCC5068534A048A85C026 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
-			buildPhases = (
-				8C1C4192C20C4EFEA6A811E6 /* CMake Rules */,
+				11EDE112BC0B4CC1BA1E15B4 /* CMake Rules */,
 			);
 			dependencies = (
 			);
 			name = ZERO_CHECK;
 			productName = ZERO_CHECK;
 		};
-		C15646D505AB45BAADB2662F /* ALL_BUILD */ = {
+		73077581AF6D4FF386442CF3 /* ALL_BUILD */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 6BF936EB2315413EAF84203C /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildConfigurationList = 783B6602D5E040D9AF72F85D /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
 			buildPhases = (
-				1830DB08739049EFBA38D469 /* CMake Rules */,
+				2AB92803957440899A9C237A /* CMake Rules */,
 			);
 			dependencies = (
-				225011A8CF5D4A1884F8585C /* PBXTargetDependency */,
-				15E7190C00244F729AC8804D /* PBXTargetDependency */,
+				87445C67B4EB4B3D966D6585 /* PBXTargetDependency */,
+				93B10A94E3C14ED9B91672FE /* PBXTargetDependency */,
+				73297C081F814C91BBD30D3F /* PBXTargetDependency */,
 			);
 			name = ALL_BUILD;
 			productName = ALL_BUILD;
 		};
+		ACACD7D4C9F3458188004B88 /* install */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = C24AE9437FBB477C8DD25BB4 /* Build configuration list for PBXAggregateTarget "install" */;
+			buildPhases = (
+				98EB3DFE96D04FCA9BFA0C16 /* CMake PostBuild Rules */,
+			);
+			dependencies = (
+				405D32BAFF3444D2945803F9 /* PBXTargetDependency */,
+			);
+			name = install;
+			productName = install;
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		051C5B9392FB480CAEAE96C1 /* Plotting.cc in Sources */ = {isa = PBXBuildFile; fileRef = A74BC12A5AB54F17A5F2CBAA /* Plotting.cc */; };
-		0E71D81271DF4EF1A2E63349 /* JetPairFinder.cc in Sources */ = {isa = PBXBuildFile; fileRef = C730F7AA0A2441A995B87172 /* JetPairFinder.cc */; };
-		1AD6301BC16240F3B5795DEF /* CutsFunction.cc in Sources */ = {isa = PBXBuildFile; fileRef = 63BE159593D546ABA59F9C15 /* CutsFunction.cc */; };
-		33510155434E44E7924D6A4A /* CutsFunctionBkg.cc in Sources */ = {isa = PBXBuildFile; fileRef = 72790FBC961B46BBA0F97590 /* CutsFunctionBkg.cc */; };
-		33C848FE5F444AED8D50A02A /* Jet2Plus1MbbFinder.cc in Sources */ = {isa = PBXBuildFile; fileRef = D7DDE91D012C4BC18E18D000 /* Jet2Plus1MbbFinder.cc */; };
-		52CF7A6E7D0441BC9A1D9DB9 /* ROOTcuts.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0E50CCF9632745D188229F5E /* ROOTcuts.cc */; };
-		571DC36D9F72481CA07C9E90 /* Christmas.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9C1C04B84E74491898165884 /* Christmas.cc */; };
-		5D35CF82D15B40ECA41F405D /* JetDoubleMbbPairFinder.cc in Sources */ = {isa = PBXBuildFile; fileRef = 842CB24FDAB84AEFA104265F /* JetDoubleMbbPairFinder.cc */; };
-		9D4DE4882DF849939C479D88 /* JetDoublePairFinder.cc in Sources */ = {isa = PBXBuildFile; fileRef = D6DA090D220147339B87D47A /* JetDoublePairFinder.cc */; };
-		A27CB9D46AF8416692E9496A /* Jet2Plus1Finder.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F2213EC454CAEAFAE3B6A /* Jet2Plus1Finder.cc */; };
-		B90591D8EEFB4F63B2F89C82 /* BiasedDeltaPhi.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6190289B199D4329A9B0AB3E /* BiasedDeltaPhi.cc */; };
-		FF8172DCACCF4CFA89B8B57C /* TerminalPlot.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D2EB75F294427A9A764DF /* TerminalPlot.cc */; };
+		1779551432AA4942965064F8 /* Plotting.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4161E38FCCBD446CB4C87164 /* Plotting.cc */; };
+		3026892F57D24EC290056E98 /* Jet2Plus1Finder.cc in Sources */ = {isa = PBXBuildFile; fileRef = 7F3BD23F682B492BA0904554 /* Jet2Plus1Finder.cc */; };
+		4D12B89D35F34630BBD44879 /* Christmas.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9CF8600603B24D9ABC5006CB /* Christmas.cc */; };
+		51B0F59CEE60445C9237A259 /* JetPairFinder.cc in Sources */ = {isa = PBXBuildFile; fileRef = B7920DD637174C4CB59475CD /* JetPairFinder.cc */; };
+		566E50451FF040BCAD3B8348 /* ROOTEffs.cc in Sources */ = {isa = PBXBuildFile; fileRef = A2A6CA0D42EA400E9BAF8F0F /* ROOTEffs.cc */; };
+		5E5179EFB993453FAF93240A /* Jet2Plus1MbbFinder.cc in Sources */ = {isa = PBXBuildFile; fileRef = C7AE365F906940459B362305 /* Jet2Plus1MbbFinder.cc */; };
+		887731F0BE6A4C76A6C97009 /* TerminalPlot.cc in Sources */ = {isa = PBXBuildFile; fileRef = FF27B361E49F4C49BE01D949 /* TerminalPlot.cc */; };
+		A30972A609AB4E4C9B75D698 /* JetDoubleMbbPairFinder.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2332C380A625468D9A314EB9 /* JetDoubleMbbPairFinder.cc */; };
+		B90DC95AAECB4ABFA5B2489C /* CutsFunction.cc in Sources */ = {isa = PBXBuildFile; fileRef = AA087C90C3F3408399EF6A7B /* CutsFunction.cc */; };
+		ED3F2E7D61A240DBA8C12B8F /* BiasedDeltaPhi.cc in Sources */ = {isa = PBXBuildFile; fileRef = B7391F7D5A6B43969826FDA7 /* BiasedDeltaPhi.cc */; };
+		EF8791D35A6F4D069EC7CF36 /* ROOTcuts.cc in Sources */ = {isa = PBXBuildFile; fileRef = 3AAD6FF941A543AF902E10E5 /* ROOTcuts.cc */; };
+		F75FB93C91984FD0B6911107 /* CutsFunctionBkg.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5A9ECB982BBF4527BAE0ECF0 /* CutsFunctionBkg.cc */; };
+		FA8D5FBF52C744F69BFC7916 /* JetDoublePairFinder.cc in Sources */ = {isa = PBXBuildFile; fileRef = 7A31BCC383A947A0B8A67C44 /* JetDoublePairFinder.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		303602E4EE134F719CA3F8CC /* PBXContainerItemProxy */ = {
+		2EF891C30A744C9B8E389090 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5FE64C4E195641F69D299B0C /* Project object */;
+			containerPortal = EA07AE3AB56E4B55A0DEF14F /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 1B848E81226E40E4910C64AA;
+			remoteGlobalIDString = 53E64E4D608D4AC8BF102665;
 			remoteInfo = ZERO_CHECK;
 		};
-		836B0FF0275A4C4086DB65AF /* PBXContainerItemProxy */ = {
+		5549567B2FC543749D29E3F8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5FE64C4E195641F69D299B0C /* Project object */;
+			containerPortal = EA07AE3AB56E4B55A0DEF14F /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 1B848E81226E40E4910C64AA;
+			remoteGlobalIDString = 53E64E4D608D4AC8BF102665;
 			remoteInfo = ZERO_CHECK;
 		};
-		90E75C27E9A0425E92337735 /* PBXContainerItemProxy */ = {
+		61FCD6F03A254565B8A462F0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5FE64C4E195641F69D299B0C /* Project object */;
+			containerPortal = EA07AE3AB56E4B55A0DEF14F /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = C15646D505AB45BAADB2662F;
-			remoteInfo = ALL_BUILD;
-		};
-		99B93EA817AC48D383E5ECBE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5FE64C4E195641F69D299B0C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3836690DFC484D5EB8D6B035;
+			remoteGlobalIDString = 96087A2FEF044F8FB104B3B7;
 			remoteInfo = ROOTCuts;
+		};
+		B972E5595C4644E199C22850 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA07AE3AB56E4B55A0DEF14F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 53E64E4D608D4AC8BF102665;
+			remoteInfo = ZERO_CHECK;
+		};
+		C2540FAEC3F141C7A39A2261 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA07AE3AB56E4B55A0DEF14F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B3395149EAFD4900B05775A1;
+			remoteInfo = ROOTEffs;
+		};
+		DDD6225686B2435DA7D68A5A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA07AE3AB56E4B55A0DEF14F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 73077581AF6D4FF386442CF3;
+			remoteInfo = ALL_BUILD;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		09FB16D22884441CAEB72AD7 /* BiasedDeltaPhi.hh */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = BiasedDeltaPhi.hh; path = include/BiasedDeltaPhi.hh; sourceTree = SOURCE_ROOT; };
-		0E50CCF9632745D188229F5E /* ROOTcuts.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = ROOTcuts.cc; sourceTree = SOURCE_ROOT; };
-		4A9D2EB75F294427A9A764DF /* TerminalPlot.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = TerminalPlot.cc; path = src/TerminalPlot.cc; sourceTree = SOURCE_ROOT; };
-		6190289B199D4329A9B0AB3E /* BiasedDeltaPhi.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = BiasedDeltaPhi.cc; path = src/BiasedDeltaPhi.cc; sourceTree = SOURCE_ROOT; };
-		63BE159593D546ABA59F9C15 /* CutsFunction.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CutsFunction.cc; path = src/CutsFunction.cc; sourceTree = SOURCE_ROOT; };
-		6B42A0CCC2AE46AF9CD4B807 /* Ulrich_cuts.hh */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = Ulrich_cuts.hh; path = include/Ulrich_cuts.hh; sourceTree = SOURCE_ROOT; };
-		6D9F2213EC454CAEAFAE3B6A /* Jet2Plus1Finder.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Jet2Plus1Finder.cc; path = src/Jet2Plus1Finder.cc; sourceTree = SOURCE_ROOT; };
-		72790FBC961B46BBA0F97590 /* CutsFunctionBkg.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CutsFunctionBkg.cc; path = src/CutsFunctionBkg.cc; sourceTree = SOURCE_ROOT; };
-		842CB24FDAB84AEFA104265F /* JetDoubleMbbPairFinder.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = JetDoubleMbbPairFinder.cc; path = src/JetDoubleMbbPairFinder.cc; sourceTree = SOURCE_ROOT; };
-		9C1C04B84E74491898165884 /* Christmas.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Christmas.cc; path = src/Christmas.cc; sourceTree = SOURCE_ROOT; };
-		A74BC12A5AB54F17A5F2CBAA /* Plotting.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Plotting.cc; path = src/Plotting.cc; sourceTree = SOURCE_ROOT; };
-		AD1856463D6F4F82BE899C03 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		C730F7AA0A2441A995B87172 /* JetPairFinder.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = JetPairFinder.cc; path = src/JetPairFinder.cc; sourceTree = SOURCE_ROOT; };
-		CABD7E0FA75E49099CFBAE2B /* TerminalPlot.hh */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = TerminalPlot.hh; path = include/TerminalPlot.hh; sourceTree = SOURCE_ROOT; };
-		D6DA090D220147339B87D47A /* JetDoublePairFinder.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = JetDoublePairFinder.cc; path = src/JetDoublePairFinder.cc; sourceTree = SOURCE_ROOT; };
-		D7DDE91D012C4BC18E18D000 /* Jet2Plus1MbbFinder.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Jet2Plus1MbbFinder.cc; path = src/Jet2Plus1MbbFinder.cc; sourceTree = SOURCE_ROOT; };
-		D9952736915F4D70BDA0BCCB /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		DC239153A4C143DBBE477670 /* ROOTCuts */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = ROOTCuts; sourceTree = BUILT_PRODUCTS_DIR; };
-		F06D46D256A845EB9952174F /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		FA07D4011E4C79B6005DD69B /* example.rootcuts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.rootcuts; sourceTree = "<group>"; };
+		2332C380A625468D9A314EB9 /* JetDoubleMbbPairFinder.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = JetDoubleMbbPairFinder.cc; path = src/JetDoubleMbbPairFinder.cc; sourceTree = SOURCE_ROOT; };
+		377456DBD84046AEB0D20F3B /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		3AAD6FF941A543AF902E10E5 /* ROOTcuts.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = ROOTcuts.cc; sourceTree = SOURCE_ROOT; };
+		3CA5C227C94B4515B82829D1 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		4161E38FCCBD446CB4C87164 /* Plotting.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Plotting.cc; path = src/Plotting.cc; sourceTree = SOURCE_ROOT; };
+		5A9ECB982BBF4527BAE0ECF0 /* CutsFunctionBkg.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CutsFunctionBkg.cc; path = src/CutsFunctionBkg.cc; sourceTree = SOURCE_ROOT; };
+		625FCFD8982942D3A0A82A30 /* ROOTEffs.hh */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = ROOTEffs.hh; path = include/ROOTEffs.hh; sourceTree = SOURCE_ROOT; };
+		6ADBB2FB08F14A938910F24A /* ROOTEffs */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = ROOTEffs; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A31BCC383A947A0B8A67C44 /* JetDoublePairFinder.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = JetDoublePairFinder.cc; path = src/JetDoublePairFinder.cc; sourceTree = SOURCE_ROOT; };
+		7F3BD23F682B492BA0904554 /* Jet2Plus1Finder.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Jet2Plus1Finder.cc; path = src/Jet2Plus1Finder.cc; sourceTree = SOURCE_ROOT; };
+		932C5EBD1E23419BA38D2FAB /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		9CF8600603B24D9ABC5006CB /* Christmas.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Christmas.cc; path = src/Christmas.cc; sourceTree = SOURCE_ROOT; };
+		A2A6CA0D42EA400E9BAF8F0F /* ROOTEffs.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = ROOTEffs.cc; sourceTree = SOURCE_ROOT; };
+		AA087C90C3F3408399EF6A7B /* CutsFunction.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CutsFunction.cc; path = src/CutsFunction.cc; sourceTree = SOURCE_ROOT; };
+		B0C420E33A064A82865C139F /* ROOTCuts */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = ROOTCuts; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7391F7D5A6B43969826FDA7 /* BiasedDeltaPhi.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = BiasedDeltaPhi.cc; path = src/BiasedDeltaPhi.cc; sourceTree = SOURCE_ROOT; };
+		B7920DD637174C4CB59475CD /* JetPairFinder.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = JetPairFinder.cc; path = src/JetPairFinder.cc; sourceTree = SOURCE_ROOT; };
+		BD5A61C1D5ED4975B20869BE /* BiasedDeltaPhi.hh */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = BiasedDeltaPhi.hh; path = include/BiasedDeltaPhi.hh; sourceTree = SOURCE_ROOT; };
+		C7AE365F906940459B362305 /* Jet2Plus1MbbFinder.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Jet2Plus1MbbFinder.cc; path = src/Jet2Plus1MbbFinder.cc; sourceTree = SOURCE_ROOT; };
+		CFF4FA62E7324E5F98517091 /* Ulrich_cuts.hh */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = Ulrich_cuts.hh; path = include/Ulrich_cuts.hh; sourceTree = SOURCE_ROOT; };
+		EAED5C6D455241A195C4736B /* TerminalPlot.hh */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = TerminalPlot.hh; path = include/TerminalPlot.hh; sourceTree = SOURCE_ROOT; };
+		F173E4B49F3F4C2C9A8D357B /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		FA365E261E547C1900FD8C36 /* example.rootcuts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.rootcuts; sourceTree = "<group>"; };
+		FF27B361E49F4C49BE01D949 /* TerminalPlot.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = TerminalPlot.cc; path = src/TerminalPlot.cc; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		054DCE0400364E6B89114849 /* Source Files */ = {
-			isa = PBXGroup;
-			children = (
-				0E50CCF9632745D188229F5E /* ROOTcuts.cc */,
-				6190289B199D4329A9B0AB3E /* BiasedDeltaPhi.cc */,
-				9C1C04B84E74491898165884 /* Christmas.cc */,
-				63BE159593D546ABA59F9C15 /* CutsFunction.cc */,
-				72790FBC961B46BBA0F97590 /* CutsFunctionBkg.cc */,
-				6D9F2213EC454CAEAFAE3B6A /* Jet2Plus1Finder.cc */,
-				D7DDE91D012C4BC18E18D000 /* Jet2Plus1MbbFinder.cc */,
-				842CB24FDAB84AEFA104265F /* JetDoubleMbbPairFinder.cc */,
-				D6DA090D220147339B87D47A /* JetDoublePairFinder.cc */,
-				C730F7AA0A2441A995B87172 /* JetPairFinder.cc */,
-				A74BC12A5AB54F17A5F2CBAA /* Plotting.cc */,
-				4A9D2EB75F294427A9A764DF /* TerminalPlot.cc */,
-			);
-			name = "Source Files";
-			sourceTree = "<group>";
-		};
-		10E568E1F9C74DDEB3294920 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				DC239153A4C143DBBE477670 /* ROOTCuts */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		1C80BDDA641C4C5F988AB587 /* CMake Rules */ = {
+		13735B4ED66E43BAB330CEE4 /* CMake Rules */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = "CMake Rules";
 			sourceTree = "<group>";
 		};
-		35CD37456BF64559A3038065 /* ZERO_CHECK */ = {
+		17A3D017C328474192B3A8BE /* CMake Rules */ = {
 			isa = PBXGroup;
 			children = (
-				F947F6D1CD1A4B16A56D9578 /* CMake Rules */,
-				AD1856463D6F4F82BE899C03 /* CMakeLists.txt */,
 			);
-			name = ZERO_CHECK;
+			name = "CMake Rules";
 			sourceTree = "<group>";
 		};
-		4CD8E6DB63D14089A52CCA3B /* Sources */ = {
+		195367DCC2DE409FACE6D1B5 /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
-				C38ACA780C16461B909433A4 /* ROOTCuts */,
-				A67BB769765F426DB31CA344 /* ALL_BUILD */,
-				35CD37456BF64559A3038065 /* ZERO_CHECK */,
+				3AAD6FF941A543AF902E10E5 /* ROOTcuts.cc */,
+				B7391F7D5A6B43969826FDA7 /* BiasedDeltaPhi.cc */,
+				9CF8600603B24D9ABC5006CB /* Christmas.cc */,
+				AA087C90C3F3408399EF6A7B /* CutsFunction.cc */,
+				5A9ECB982BBF4527BAE0ECF0 /* CutsFunctionBkg.cc */,
+				7F3BD23F682B492BA0904554 /* Jet2Plus1Finder.cc */,
+				C7AE365F906940459B362305 /* Jet2Plus1MbbFinder.cc */,
+				2332C380A625468D9A314EB9 /* JetDoubleMbbPairFinder.cc */,
+				7A31BCC383A947A0B8A67C44 /* JetDoublePairFinder.cc */,
+				B7920DD637174C4CB59475CD /* JetPairFinder.cc */,
+				FF27B361E49F4C49BE01D949 /* TerminalPlot.cc */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		1DE85DF7C3904CF2962D1B10 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				770EEEECB297451AB0A07EB5 /* ROOTEffs */,
+				9F6725D9A8BB4575A6CE07AF /* ROOTCuts */,
+				6B893D7673D44662B840EF26 /* ALL_BUILD */,
+				6F368E01B335480B83206A64 /* ZERO_CHECK */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
 		};
-		5BC60E457B2D4D26A5C6E56D /* Resources */ = {
+		1E18C87ED7334289A32B1EE1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B0C420E33A064A82865C139F /* ROOTCuts */,
+				6ADBB2FB08F14A938910F24A /* ROOTEffs */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		58FA49D96E974ADBA25BA8C4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		9B371263F03845A2A9245C19 = {
+		6B893D7673D44662B840EF26 /* ALL_BUILD */ = {
 			isa = PBXGroup;
 			children = (
-				4CD8E6DB63D14089A52CCA3B /* Sources */,
-				5BC60E457B2D4D26A5C6E56D /* Resources */,
-				10E568E1F9C74DDEB3294920 /* Products */,
-			);
-			sourceTree = "<group>";
-		};
-		9B7B7A0BF1134F3D885CD8C4 /* Header Files */ = {
-			isa = PBXGroup;
-			children = (
-				09FB16D22884441CAEB72AD7 /* BiasedDeltaPhi.hh */,
-				CABD7E0FA75E49099CFBAE2B /* TerminalPlot.hh */,
-				6B42A0CCC2AE46AF9CD4B807 /* Ulrich_cuts.hh */,
-			);
-			name = "Header Files";
-			sourceTree = "<group>";
-		};
-		A67BB769765F426DB31CA344 /* ALL_BUILD */ = {
-			isa = PBXGroup;
-			children = (
-				1C80BDDA641C4C5F988AB587 /* CMake Rules */,
-				F06D46D256A845EB9952174F /* CMakeLists.txt */,
+				17A3D017C328474192B3A8BE /* CMake Rules */,
+				3CA5C227C94B4515B82829D1 /* CMakeLists.txt */,
 			);
 			name = ALL_BUILD;
 			sourceTree = "<group>";
 		};
-		C38ACA780C16461B909433A4 /* ROOTCuts */ = {
+		6F368E01B335480B83206A64 /* ZERO_CHECK */ = {
 			isa = PBXGroup;
 			children = (
-				FA07D4011E4C79B6005DD69B /* example.rootcuts */,
-				054DCE0400364E6B89114849 /* Source Files */,
-				9B7B7A0BF1134F3D885CD8C4 /* Header Files */,
-				D9952736915F4D70BDA0BCCB /* CMakeLists.txt */,
+				13735B4ED66E43BAB330CEE4 /* CMake Rules */,
+				932C5EBD1E23419BA38D2FAB /* CMakeLists.txt */,
+			);
+			name = ZERO_CHECK;
+			sourceTree = "<group>";
+		};
+		770EEEECB297451AB0A07EB5 /* ROOTEffs */ = {
+			isa = PBXGroup;
+			children = (
+				E7334CCCB0C44B5B8D76493A /* Source Files */,
+				9114E363C1A04A6282AE032B /* Header Files */,
+				F173E4B49F3F4C2C9A8D357B /* CMakeLists.txt */,
+			);
+			name = ROOTEffs;
+			sourceTree = "<group>";
+		};
+		9114E363C1A04A6282AE032B /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				625FCFD8982942D3A0A82A30 /* ROOTEffs.hh */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		9F6725D9A8BB4575A6CE07AF /* ROOTCuts */ = {
+			isa = PBXGroup;
+			children = (
+				195367DCC2DE409FACE6D1B5 /* Source Files */,
+				CBFC742DA7DA4598BCE9A936 /* Header Files */,
+				377456DBD84046AEB0D20F3B /* CMakeLists.txt */,
 			);
 			name = ROOTCuts;
 			sourceTree = "<group>";
 		};
-		F947F6D1CD1A4B16A56D9578 /* CMake Rules */ = {
+		B8A9E28BD1E341A292B71E72 = {
 			isa = PBXGroup;
 			children = (
+				1DE85DF7C3904CF2962D1B10 /* Sources */,
+				FA365E261E547C1900FD8C36 /* example.rootcuts */,
+				58FA49D96E974ADBA25BA8C4 /* Resources */,
+				1E18C87ED7334289A32B1EE1 /* Products */,
 			);
-			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		CBFC742DA7DA4598BCE9A936 /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				BD5A61C1D5ED4975B20869BE /* BiasedDeltaPhi.hh */,
+				EAED5C6D455241A195C4736B /* TerminalPlot.hh */,
+				CFF4FA62E7324E5F98517091 /* Ulrich_cuts.hh */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		E7334CCCB0C44B5B8D76493A /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				A2A6CA0D42EA400E9BAF8F0F /* ROOTEffs.cc */,
+				4161E38FCCBD446CB4C87164 /* Plotting.cc */,
+			);
+			name = "Source Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3836690DFC484D5EB8D6B035 /* ROOTCuts */ = {
+		96087A2FEF044F8FB104B3B7 /* ROOTCuts */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FC3DFA43D1F9498F9D98888D /* Build configuration list for PBXNativeTarget "ROOTCuts" */;
+			buildConfigurationList = 69DA0BF9DA9F4E63AEEB37E9 /* Build configuration list for PBXNativeTarget "ROOTCuts" */;
 			buildPhases = (
-				22973D9DA1D241FF9857A78B /* Sources */,
+				2DFD91CA45BD4E399EB1C1FA /* Sources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				3E3F3749EED843398322860E /* PBXTargetDependency */,
+				A3C1C8B67B6744999B0BD565 /* PBXTargetDependency */,
 			);
 			name = ROOTCuts;
 			productName = ROOTCuts;
-			productReference = DC239153A4C143DBBE477670 /* ROOTCuts */;
+			productReference = B0C420E33A064A82865C139F /* ROOTCuts */;
+			productType = "com.apple.product-type.tool";
+		};
+		B3395149EAFD4900B05775A1 /* ROOTEffs */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27C35F3EA2D3426CADDF487E /* Build configuration list for PBXNativeTarget "ROOTEffs" */;
+			buildPhases = (
+				6ACD84F629FE49F9B9EE1048 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				96999E1E4F6342A0B04E5700 /* PBXTargetDependency */,
+			);
+			name = ROOTEffs;
+			productName = ROOTEffs;
+			productReference = 6ADBB2FB08F14A938910F24A /* ROOTEffs */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		5FE64C4E195641F69D299B0C /* Project object */ = {
+		EA07AE3AB56E4B55A0DEF14F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 0820;
 			};
-			buildConfigurationList = ECE648D5AB2A491AB8B96247 /* Build configuration list for PBXProject "ROOTCuts" */;
+			buildConfigurationList = 15BCF18B2DB14F8F8E0CD1B8 /* Build configuration list for PBXProject "ROOTCuts" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 9B371263F03845A2A9245C19;
+			mainGroup = B8A9E28BD1E341A292B71E72;
 			projectDirPath = ../;
 			projectRoot = "";
 			targets = (
-				C15646D505AB45BAADB2662F /* ALL_BUILD */,
-				3836690DFC484D5EB8D6B035 /* ROOTCuts */,
-				1B848E81226E40E4910C64AA /* ZERO_CHECK */,
-				01DCF8E374E1452DA3BC5555 /* install */,
+				73077581AF6D4FF386442CF3 /* ALL_BUILD */,
+				96087A2FEF044F8FB104B3B7 /* ROOTCuts */,
+				B3395149EAFD4900B05775A1 /* ROOTEffs */,
+				53E64E4D608D4AC8BF102665 /* ZERO_CHECK */,
+				ACACD7D4C9F3458188004B88 /* install */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1830DB08739049EFBA38D469 /* CMake Rules */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "CMake Rules";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "make -C /Users/alex/Documents/ROOTCuts/xcode -f /Users/alex/Documents/ROOTCuts/xcode/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
-			showEnvVarsInLog = 0;
-		};
-		8C1C4192C20C4EFEA6A811E6 /* CMake Rules */ = {
+		11EDE112BC0B4CC1BA1E15B4 /* CMake Rules */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -291,7 +345,18 @@
 			shellScript = "make -C /Users/alex/Documents/ROOTCuts/xcode -f /Users/alex/Documents/ROOTCuts/xcode/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
 			showEnvVarsInLog = 0;
 		};
-		BC0E9EA252AC4B0CB711FA58 /* CMake PostBuild Rules */ = {
+		2AB92803957440899A9C237A /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/alex/Documents/ROOTCuts/xcode -f /Users/alex/Documents/ROOTCuts/xcode/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+		98EB3DFE96D04FCA9BFA0C16 /* CMake PostBuild Rules */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -305,145 +370,79 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		22973D9DA1D241FF9857A78B /* Sources */ = {
+		2DFD91CA45BD4E399EB1C1FA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52CF7A6E7D0441BC9A1D9DB9 /* ROOTcuts.cc in Sources */,
-				B90591D8EEFB4F63B2F89C82 /* BiasedDeltaPhi.cc in Sources */,
-				571DC36D9F72481CA07C9E90 /* Christmas.cc in Sources */,
-				1AD6301BC16240F3B5795DEF /* CutsFunction.cc in Sources */,
-				33510155434E44E7924D6A4A /* CutsFunctionBkg.cc in Sources */,
-				A27CB9D46AF8416692E9496A /* Jet2Plus1Finder.cc in Sources */,
-				33C848FE5F444AED8D50A02A /* Jet2Plus1MbbFinder.cc in Sources */,
-				5D35CF82D15B40ECA41F405D /* JetDoubleMbbPairFinder.cc in Sources */,
-				9D4DE4882DF849939C479D88 /* JetDoublePairFinder.cc in Sources */,
-				0E71D81271DF4EF1A2E63349 /* JetPairFinder.cc in Sources */,
-				051C5B9392FB480CAEAE96C1 /* Plotting.cc in Sources */,
-				FF8172DCACCF4CFA89B8B57C /* TerminalPlot.cc in Sources */,
+				EF8791D35A6F4D069EC7CF36 /* ROOTcuts.cc in Sources */,
+				ED3F2E7D61A240DBA8C12B8F /* BiasedDeltaPhi.cc in Sources */,
+				4D12B89D35F34630BBD44879 /* Christmas.cc in Sources */,
+				B90DC95AAECB4ABFA5B2489C /* CutsFunction.cc in Sources */,
+				F75FB93C91984FD0B6911107 /* CutsFunctionBkg.cc in Sources */,
+				3026892F57D24EC290056E98 /* Jet2Plus1Finder.cc in Sources */,
+				5E5179EFB993453FAF93240A /* Jet2Plus1MbbFinder.cc in Sources */,
+				A30972A609AB4E4C9B75D698 /* JetDoubleMbbPairFinder.cc in Sources */,
+				FA8D5FBF52C744F69BFC7916 /* JetDoublePairFinder.cc in Sources */,
+				51B0F59CEE60445C9237A259 /* JetPairFinder.cc in Sources */,
+				887731F0BE6A4C76A6C97009 /* TerminalPlot.cc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6ACD84F629FE49F9B9EE1048 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				566E50451FF040BCAD3B8348 /* ROOTEffs.cc in Sources */,
+				1779551432AA4942965064F8 /* Plotting.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		15E7190C00244F729AC8804D /* PBXTargetDependency */ = {
+		405D32BAFF3444D2945803F9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 1B848E81226E40E4910C64AA /* ZERO_CHECK */;
-			targetProxy = 836B0FF0275A4C4086DB65AF /* PBXContainerItemProxy */;
+			target = 73077581AF6D4FF386442CF3 /* ALL_BUILD */;
+			targetProxy = DDD6225686B2435DA7D68A5A /* PBXContainerItemProxy */;
 		};
-		225011A8CF5D4A1884F8585C /* PBXTargetDependency */ = {
+		73297C081F814C91BBD30D3F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3836690DFC484D5EB8D6B035 /* ROOTCuts */;
-			targetProxy = 99B93EA817AC48D383E5ECBE /* PBXContainerItemProxy */;
+			target = 53E64E4D608D4AC8BF102665 /* ZERO_CHECK */;
+			targetProxy = 2EF891C30A744C9B8E389090 /* PBXContainerItemProxy */;
 		};
-		3E3F3749EED843398322860E /* PBXTargetDependency */ = {
+		87445C67B4EB4B3D966D6585 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 1B848E81226E40E4910C64AA /* ZERO_CHECK */;
-			targetProxy = 303602E4EE134F719CA3F8CC /* PBXContainerItemProxy */;
+			target = B3395149EAFD4900B05775A1 /* ROOTEffs */;
+			targetProxy = C2540FAEC3F141C7A39A2261 /* PBXContainerItemProxy */;
 		};
-		C4545E0B1B0848569875FA10 /* PBXTargetDependency */ = {
+		93B10A94E3C14ED9B91672FE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C15646D505AB45BAADB2662F /* ALL_BUILD */;
-			targetProxy = 90E75C27E9A0425E92337735 /* PBXContainerItemProxy */;
+			target = 96087A2FEF044F8FB104B3B7 /* ROOTCuts */;
+			targetProxy = 61FCD6F03A254565B8A462F0 /* PBXContainerItemProxy */;
+		};
+		96999E1E4F6342A0B04E5700 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 53E64E4D608D4AC8BF102665 /* ZERO_CHECK */;
+			targetProxy = 5549567B2FC543749D29E3F8 /* PBXContainerItemProxy */;
+		};
+		A3C1C8B67B6744999B0BD565 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 53E64E4D608D4AC8BF102665 /* ZERO_CHECK */;
+			targetProxy = B972E5595C4644E199C22850 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		04867C44000F41DCB456AE9F /* Debug */ = {
+		01DCA9C8B1ED41AA99F68445 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/Users/alex/root_build/include,
-					/Users/alex/Documents/ROOTCuts,
-					/Users/alex/delphes/external,
-					/Users/alex/delphes,
-				);
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = install;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode/build;
 			};
 			name = Debug;
 		};
-		2AB86C52A8C24EDDA03B7453 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/Users/alex/root_build/include,
-					/Users/alex/Documents/ROOTCuts,
-					/Users/alex/delphes/external,
-					/Users/alex/delphes,
-				);
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = install;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
-			};
-			name = Release;
-		};
-		35E09E1EDB734B1D849D7136 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/Users/alex/root_build/include,
-					/Users/alex/Documents/ROOTCuts,
-					/Users/alex/delphes/external,
-					/Users/alex/delphes,
-				);
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = install;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
-			};
-			name = MinSizeRel;
-		};
-		381F71BFFD7D4DF7AF8B443B /* MinSizeRel */ = {
+		01DF8001554E487AAD1E37FA /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -474,7 +473,312 @@
 			};
 			name = MinSizeRel;
 		};
-		4CCCA333CCC54B5DA4B37F3C /* RelWithDebInfo */ = {
+		02D771F44E8D437FA21148AB /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/alex/root_build/include,
+					/Users/alex/Documents/ROOTCuts,
+					/Users/alex/delphes/external,
+					/Users/alex/delphes,
+				);
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = "/Users/alex/root_build/lib /Users/alex/delphes";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/alex/root_build/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					/Users/alex/root_build/lib,
+					"/Users/alex/delphes/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					/Users/alex/delphes,
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-pthread",
+					"-std=c++11",
+					"-m64",
+					"-DNDEBUG",
+					"-pthread",
+					"-std=c++11",
+					"-m64",
+					"-std=c++11",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					/Users/alex/root_build/lib/libCore.so,
+					/Users/alex/root_build/lib/libRIO.so,
+					/Users/alex/root_build/lib/libNet.so,
+					/Users/alex/root_build/lib/libHist.so,
+					/Users/alex/root_build/lib/libGraf.so,
+					/Users/alex/root_build/lib/libGraf3d.so,
+					/Users/alex/root_build/lib/libGpad.so,
+					/Users/alex/root_build/lib/libTree.so,
+					/Users/alex/root_build/lib/libRint.so,
+					/Users/alex/root_build/lib/libPostscript.so,
+					/Users/alex/root_build/lib/libMatrix.so,
+					/Users/alex/root_build/lib/libPhysics.so,
+					/Users/alex/root_build/lib/libMathCore.so,
+					/Users/alex/root_build/lib/libThread.so,
+					/Users/alex/root_build/lib/libMultiProc.so,
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ROOTEffs;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = MinSizeRel;
+		};
+		06DF65F0FA33405591D106F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/alex/root_build/include,
+					/Users/alex/Documents/ROOTCuts,
+					/Users/alex/delphes/external,
+					/Users/alex/delphes,
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Debug;
+		};
+		2CCD893E2938488083E61238 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/alex/root_build/include,
+					/Users/alex/Documents/ROOTCuts,
+					/Users/alex/delphes/external,
+					/Users/alex/delphes,
+				);
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = "/Users/alex/root_build/lib /Users/alex/delphes";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/alex/root_build/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					/Users/alex/root_build/lib,
+					"/Users/alex/delphes/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					/Users/alex/delphes,
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-pthread",
+					"-std=c++11",
+					"-m64",
+					"-pthread",
+					"-std=c++11",
+					"-m64",
+					"-std=c++11",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					/Users/alex/root_build/lib/libCore.so,
+					/Users/alex/root_build/lib/libRIO.so,
+					/Users/alex/root_build/lib/libNet.so,
+					/Users/alex/root_build/lib/libHist.so,
+					/Users/alex/root_build/lib/libGraf.so,
+					/Users/alex/root_build/lib/libGraf3d.so,
+					/Users/alex/root_build/lib/libGpad.so,
+					/Users/alex/root_build/lib/libTree.so,
+					/Users/alex/root_build/lib/libRint.so,
+					/Users/alex/root_build/lib/libPostscript.so,
+					/Users/alex/root_build/lib/libMatrix.so,
+					/Users/alex/root_build/lib/libPhysics.so,
+					/Users/alex/root_build/lib/libMathCore.so,
+					/Users/alex/root_build/lib/libThread.so,
+					/Users/alex/root_build/lib/libMultiProc.so,
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ROOTEffs;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Debug;
+		};
+		30BC3BCDB3124F459A541378 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/alex/root_build/include,
+					/Users/alex/Documents/ROOTCuts,
+					/Users/alex/delphes/external,
+					/Users/alex/delphes,
+				);
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = "/Users/alex/root_build/lib /Users/alex/delphes";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/alex/root_build/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					/Users/alex/root_build/lib,
+					"/Users/alex/delphes/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					/Users/alex/delphes,
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-pthread",
+					"-std=c++11",
+					"-m64",
+					"-pthread",
+					"-std=c++11",
+					"-m64",
+					"-std=c++11",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"-lDelphes",
+					/Users/alex/root_build/lib/libCore.so,
+					/Users/alex/root_build/lib/libRIO.so,
+					/Users/alex/root_build/lib/libNet.so,
+					/Users/alex/root_build/lib/libHist.so,
+					/Users/alex/root_build/lib/libGraf.so,
+					/Users/alex/root_build/lib/libGraf3d.so,
+					/Users/alex/root_build/lib/libGpad.so,
+					/Users/alex/root_build/lib/libTree.so,
+					/Users/alex/root_build/lib/libRint.so,
+					/Users/alex/root_build/lib/libPostscript.so,
+					/Users/alex/root_build/lib/libMatrix.so,
+					/Users/alex/root_build/lib/libPhysics.so,
+					/Users/alex/root_build/lib/libMathCore.so,
+					/Users/alex/root_build/lib/libThread.so,
+					/Users/alex/root_build/lib/libMultiProc.so,
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ROOTCuts;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Debug;
+		};
+		3C702E3D53FA4B2690194607 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/alex/root_build/include,
+					/Users/alex/Documents/ROOTCuts,
+					/Users/alex/delphes/external,
+					/Users/alex/delphes,
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Release;
+		};
+		3CF26EA17D7F4AD3B11FB749 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode/build;
+			};
+			name = RelWithDebInfo;
+		};
+		417E209BF7C944F08576E5F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/alex/root_build/include,
+					/Users/alex/Documents/ROOTCuts,
+					/Users/alex/delphes/external,
+					/Users/alex/delphes,
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Debug;
+		};
+		4C35FDE8BB34452A903DB564 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -505,13 +809,15 @@
 			};
 			name = RelWithDebInfo;
 		};
-		518CF4A9E1604BF0A764B6C1 /* Release */ = {
+		4EA7B13B281F43D6961DB10D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
@@ -521,9 +827,44 @@
 					/Users/alex/delphes,
 				);
 				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
+				LD_RUNPATH_SEARCH_PATHS = "/Users/alex/root_build/lib /Users/alex/delphes";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/alex/root_build/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					/Users/alex/root_build/lib,
+					"/Users/alex/delphes/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					/Users/alex/delphes,
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-pthread",
+					"-std=c++11",
+					"-m64",
+					"-DNDEBUG",
+					"-pthread",
+					"-std=c++11",
+					"-m64",
+					"-std=c++11",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					/Users/alex/root_build/lib/libCore.so,
+					/Users/alex/root_build/lib/libRIO.so,
+					/Users/alex/root_build/lib/libNet.so,
+					/Users/alex/root_build/lib/libHist.so,
+					/Users/alex/root_build/lib/libGraf.so,
+					/Users/alex/root_build/lib/libGraf3d.so,
+					/Users/alex/root_build/lib/libGpad.so,
+					/Users/alex/root_build/lib/libTree.so,
+					/Users/alex/root_build/lib/libRint.so,
+					/Users/alex/root_build/lib/libPostscript.so,
+					/Users/alex/root_build/lib/libMatrix.so,
+					/Users/alex/root_build/lib/libPhysics.so,
+					/Users/alex/root_build/lib/libMathCore.so,
+					/Users/alex/root_build/lib/libThread.so,
+					/Users/alex/root_build/lib/libMultiProc.so,
+				);
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
+				PRODUCT_NAME = ROOTEffs;
 				SECTORDER_FLAGS = "";
 				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
 				USE_HEADERMAP = NO;
@@ -536,38 +877,7 @@
 			};
 			name = Release;
 		};
-		5836FA1D70EB47B79361FF03 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/Users/alex/root_build/include,
-					/Users/alex/Documents/ROOTCuts,
-					/Users/alex/delphes/external,
-					/Users/alex/delphes,
-				);
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
-			};
-			name = Debug;
-		};
-		5E49D538A6C046A8A8B16E3A /* MinSizeRel */ = {
+		5627758201D142D8B849EB80 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -636,84 +946,7 @@
 			};
 			name = MinSizeRel;
 		};
-		6A705A4EB8DC430483F351B9 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
-				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode/build;
-			};
-			name = MinSizeRel;
-		};
-		7A68D83BC2ED4520AFB5D331 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				EXECUTABLE_PREFIX = "";
-				EXECUTABLE_SUFFIX = "";
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/Users/alex/root_build/include,
-					/Users/alex/Documents/ROOTCuts,
-					/Users/alex/delphes/external,
-					/Users/alex/delphes,
-				);
-				INSTALL_PATH = "";
-				LD_RUNPATH_SEARCH_PATHS = "/Users/alex/root_build/lib /Users/alex/delphes";
-				LIBRARY_SEARCH_PATHS = (
-					"/Users/alex/root_build/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					/Users/alex/root_build/lib,
-					"/Users/alex/delphes/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
-					/Users/alex/delphes,
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"-pthread",
-					"-std=c++11",
-					"-m64",
-					"-pthread",
-					"-std=c++11",
-					"-m64",
-					"-std=c++11",
-				);
-				OTHER_LDFLAGS = (
-					"-Wl,-search_paths_first",
-					"-Wl,-headerpad_max_install_names",
-					"-lDelphes",
-					/Users/alex/root_build/lib/libCore.so,
-					/Users/alex/root_build/lib/libRIO.so,
-					/Users/alex/root_build/lib/libNet.so,
-					/Users/alex/root_build/lib/libHist.so,
-					/Users/alex/root_build/lib/libGraf.so,
-					/Users/alex/root_build/lib/libGraf3d.so,
-					/Users/alex/root_build/lib/libGpad.so,
-					/Users/alex/root_build/lib/libTree.so,
-					/Users/alex/root_build/lib/libRint.so,
-					/Users/alex/root_build/lib/libPostscript.so,
-					/Users/alex/root_build/lib/libMatrix.so,
-					/Users/alex/root_build/lib/libPhysics.so,
-					/Users/alex/root_build/lib/libMathCore.so,
-					/Users/alex/root_build/lib/libThread.so,
-					/Users/alex/root_build/lib/libMultiProc.so,
-				);
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ROOTCuts;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
-			};
-			name = Debug;
-		};
-		891BE8E8FD194273B3D3A219 /* Debug */ = {
+		5B2C7708725C4887AFB9246D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -731,140 +964,7 @@
 				INSTALL_PATH = "";
 				OTHER_LDFLAGS = " ";
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
-			};
-			name = Debug;
-		};
-		92033BDBE06F4A1D8E542343 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/Users/alex/root_build/include,
-					/Users/alex/Documents/ROOTCuts,
-					/Users/alex/delphes/external,
-					/Users/alex/delphes,
-				);
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
-			};
-			name = MinSizeRel;
-		};
-		A6054EFAEE294A6C9BA9B798 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/Users/alex/root_build/include,
-					/Users/alex/Documents/ROOTCuts,
-					/Users/alex/delphes/external,
-					/Users/alex/delphes,
-				);
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
-			};
-			name = RelWithDebInfo;
-		};
-		D492D7A6A8C8436A8A4CBF4D /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/Users/alex/root_build/include,
-					/Users/alex/Documents/ROOTCuts,
-					/Users/alex/delphes/external,
-					/Users/alex/delphes,
-				);
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-					"$(inherited)",
-				);
-			};
-			name = RelWithDebInfo;
-		};
-		D7D3AB5E4AA94F56AD475797 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
-				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode/build;
-			};
-			name = Debug;
-		};
-		D8EB9096E63D455695746F1F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (
-					/Users/alex/root_build/include,
-					/Users/alex/Documents/ROOTCuts,
-					/Users/alex/delphes/external,
-					/Users/alex/delphes,
-				);
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
+				PRODUCT_NAME = install;
 				SECTORDER_FLAGS = "";
 				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
 				USE_HEADERMAP = NO;
@@ -877,7 +977,87 @@
 			};
 			name = Release;
 		};
-		DE794B0A553D4EA3B1CC6A3E /* RelWithDebInfo */ = {
+		5D3EC95E554D46219E54BCE4 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/alex/root_build/include,
+					/Users/alex/Documents/ROOTCuts,
+					/Users/alex/delphes/external,
+					/Users/alex/delphes,
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = MinSizeRel;
+		};
+		65CE99B4093848F488E5C611 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/alex/root_build/include,
+					/Users/alex/Documents/ROOTCuts,
+					/Users/alex/delphes/external,
+					/Users/alex/delphes,
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Debug;
+		};
+		67BC8BB136294B9A949F9953 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode/build;
+			};
+			name = MinSizeRel;
+		};
+		98CB046FE3AF46D4ABB0BFA9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
+				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode/build;
+			};
+			name = Release;
+		};
+		9B39EDC70A1A42178BDCA02A /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -946,7 +1126,106 @@
 			};
 			name = RelWithDebInfo;
 		};
-		EAE91EFC3B3B4E63B0546954 /* Release */ = {
+		A4490FAAA3854B628ED495F9 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/alex/root_build/include,
+					/Users/alex/Documents/ROOTCuts,
+					/Users/alex/delphes/external,
+					/Users/alex/delphes,
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = MinSizeRel;
+		};
+		D0203AB365A945E7A5C5A64C /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/alex/root_build/include,
+					/Users/alex/Documents/ROOTCuts,
+					/Users/alex/delphes/external,
+					/Users/alex/delphes,
+				);
+				INSTALL_PATH = "";
+				LD_RUNPATH_SEARCH_PATHS = "/Users/alex/root_build/lib /Users/alex/delphes";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/alex/root_build/lib/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					/Users/alex/root_build/lib,
+					"/Users/alex/delphes/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+					/Users/alex/delphes,
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-pthread",
+					"-std=c++11",
+					"-m64",
+					"-DNDEBUG",
+					"-pthread",
+					"-std=c++11",
+					"-m64",
+					"-std=c++11",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					/Users/alex/root_build/lib/libCore.so,
+					/Users/alex/root_build/lib/libRIO.so,
+					/Users/alex/root_build/lib/libNet.so,
+					/Users/alex/root_build/lib/libHist.so,
+					/Users/alex/root_build/lib/libGraf.so,
+					/Users/alex/root_build/lib/libGraf3d.so,
+					/Users/alex/root_build/lib/libGpad.so,
+					/Users/alex/root_build/lib/libTree.so,
+					/Users/alex/root_build/lib/libRint.so,
+					/Users/alex/root_build/lib/libPostscript.so,
+					/Users/alex/root_build/lib/libMatrix.so,
+					/Users/alex/root_build/lib/libPhysics.so,
+					/Users/alex/root_build/lib/libMathCore.so,
+					/Users/alex/root_build/lib/libThread.so,
+					/Users/alex/root_build/lib/libMultiProc.so,
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ROOTEffs;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		EC07CB7AC00B4E95956C13CB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1015,83 +1294,169 @@
 			};
 			name = Release;
 		};
-		FB4C0F6B6ABD4DD8B247DC2B /* Release */ = {
+		F73658B47A314947823A3417 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
-				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode/build;
-			};
-			name = Release;
-		};
-		FCB3B18AD03F4A4187C5DF53 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk;
-				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode/build;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/alex/root_build/include,
+					/Users/alex/Documents/ROOTCuts,
+					/Users/alex/delphes/external,
+					/Users/alex/delphes,
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
 			};
 			name = RelWithDebInfo;
+		};
+		FBED0585F46C44F7AC4D24AA /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/alex/root_build/include,
+					/Users/alex/Documents/ROOTCuts,
+					/Users/alex/delphes/external,
+					/Users/alex/delphes,
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		FEC20AAE036645F7AFC6208A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					/Users/alex/root_build/include,
+					/Users/alex/Documents/ROOTCuts,
+					/Users/alex/delphes/external,
+					/Users/alex/delphes,
+				);
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/alex/Documents/ROOTCuts/xcode;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		24FFCC5068534A048A85C026 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+		15BCF18B2DB14F8F8E0CD1B8 /* Build configuration list for PBXProject "ROOTCuts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				891BE8E8FD194273B3D3A219 /* Debug */,
-				D8EB9096E63D455695746F1F /* Release */,
-				92033BDBE06F4A1D8E542343 /* MinSizeRel */,
-				A6054EFAEE294A6C9BA9B798 /* RelWithDebInfo */,
+				01DCA9C8B1ED41AA99F68445 /* Debug */,
+				98CB046FE3AF46D4ABB0BFA9 /* Release */,
+				67BC8BB136294B9A949F9953 /* MinSizeRel */,
+				3CF26EA17D7F4AD3B11FB749 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		6BF936EB2315413EAF84203C /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+		27C35F3EA2D3426CADDF487E /* Build configuration list for PBXNativeTarget "ROOTEffs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5836FA1D70EB47B79361FF03 /* Debug */,
-				518CF4A9E1604BF0A764B6C1 /* Release */,
-				381F71BFFD7D4DF7AF8B443B /* MinSizeRel */,
-				D492D7A6A8C8436A8A4CBF4D /* RelWithDebInfo */,
+				2CCD893E2938488083E61238 /* Debug */,
+				4EA7B13B281F43D6961DB10D /* Release */,
+				02D771F44E8D437FA21148AB /* MinSizeRel */,
+				D0203AB365A945E7A5C5A64C /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		AE56B6A2E0ED4A5F925B91C7 /* Build configuration list for PBXAggregateTarget "install" */ = {
+		34205AF83CEA4478A8274989 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				04867C44000F41DCB456AE9F /* Debug */,
-				2AB86C52A8C24EDDA03B7453 /* Release */,
-				35E09E1EDB734B1D849D7136 /* MinSizeRel */,
-				4CCCA333CCC54B5DA4B37F3C /* RelWithDebInfo */,
+				65CE99B4093848F488E5C611 /* Debug */,
+				3C702E3D53FA4B2690194607 /* Release */,
+				A4490FAAA3854B628ED495F9 /* MinSizeRel */,
+				F73658B47A314947823A3417 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		ECE648D5AB2A491AB8B96247 /* Build configuration list for PBXProject "ROOTCuts" */ = {
+		69DA0BF9DA9F4E63AEEB37E9 /* Build configuration list for PBXNativeTarget "ROOTCuts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D7D3AB5E4AA94F56AD475797 /* Debug */,
-				FB4C0F6B6ABD4DD8B247DC2B /* Release */,
-				6A705A4EB8DC430483F351B9 /* MinSizeRel */,
-				FCB3B18AD03F4A4187C5DF53 /* RelWithDebInfo */,
+				30BC3BCDB3124F459A541378 /* Debug */,
+				EC07CB7AC00B4E95956C13CB /* Release */,
+				5627758201D142D8B849EB80 /* MinSizeRel */,
+				9B39EDC70A1A42178BDCA02A /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		FC3DFA43D1F9498F9D98888D /* Build configuration list for PBXNativeTarget "ROOTCuts" */ = {
+		783B6602D5E040D9AF72F85D /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7A68D83BC2ED4520AFB5D331 /* Debug */,
-				EAE91EFC3B3B4E63B0546954 /* Release */,
-				5E49D538A6C046A8A8B16E3A /* MinSizeRel */,
-				DE794B0A553D4EA3B1CC6A3E /* RelWithDebInfo */,
+				417E209BF7C944F08576E5F0 /* Debug */,
+				FEC20AAE036645F7AFC6208A /* Release */,
+				01DF8001554E487AAD1E37FA /* MinSizeRel */,
+				FBED0585F46C44F7AC4D24AA /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C24AE9437FBB477C8DD25BB4 /* Build configuration list for PBXAggregateTarget "install" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				06DF65F0FA33405591D106F8 /* Debug */,
+				5B2C7708725C4887AFB9246D /* Release */,
+				5D3EC95E554D46219E54BCE4 /* MinSizeRel */,
+				4C35FDE8BB34452A903DB564 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 5FE64C4E195641F69D299B0C /* Project object */;
+	rootObject = EA07AE3AB56E4B55A0DEF14F /* Project object */;
 }

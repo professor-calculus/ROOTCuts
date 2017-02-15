@@ -5,6 +5,8 @@ project(ROOTCuts)
 
 file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
+list(REMOVE_ITEM sources ${PROJECT_SOURCE_DIR}/src/Plotting.cc)
+list(REMOVE_ITEM headers ${PROJECT_SOURCE_DIR}/include/ROOTEffs.hh)
 
 set(CMAKE_MODULE_PATH $ENV{ROOTSYS}/etc/cmake)
 set(CMAKE_PREFIX_PATH $ENV{DELPHES_DIR})
@@ -33,4 +35,7 @@ link_directories(${DELPHES})
 add_executable(ROOTCuts ROOTcuts.cc ${sources} ${headers})
 target_link_libraries(ROOTCuts Delphes ${ROOT_LIBRARIES})
 
-install(TARGETS ROOTCuts DESTINATION ${PROJECT_SOURCE_DIR})
+add_executable(ROOTEffs ROOTEffs.cc ${PROJECT_SOURCE_DIR}/src/Plotting.cc ${PROJECT_SOURCE_DIR}/include/ROOTEffs.hh)
+target_link_libraries(ROOTEffs ${ROOT_LIBRARIES})
+
+install(TARGETS ROOTCuts ROOTEffs DESTINATION ${PROJECT_SOURCE_DIR})

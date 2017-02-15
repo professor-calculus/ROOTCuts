@@ -56,7 +56,7 @@ vector<Jet *> JetDoublePairFinder(vector<Jet *>, int);
 vector<Jet *> JetDoubleMbbPairFinder(vector<Jet *>, int);
 vector<Jet *> Jet2Plus1Finder(vector<Jet *>, int);
 vector<Jet *> Jet2Plus1MbbFinder(vector<Jet *>, int);
-void Plotting(const char*);
+//void Plotting(const char*);
 void Christmas();
 
 
