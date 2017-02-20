@@ -50,19 +50,29 @@ class TTree;
 
 
 void CutsFunction(const char*, double []);
+
 int CutsFunctionBkg(const char*, double [], string, TH1*, int);
 vector<Jet *> JetPairFinder(vector<Jet *>, int);
 vector<Jet *> JetDoublePairFinder(vector<Jet *>, int);
 vector<Jet *> JetDoubleMbbPairFinder(vector<Jet *>, int);
 vector<Jet *> Jet2Plus1Finder(vector<Jet *>, int);
 vector<Jet *> Jet2Plus1MbbFinder(vector<Jet *>, int);
-//void Plotting(const char*);
 void Christmas();
 
 
 typedef struct {double M_bb, MET, DeltaR, hardDeltaR, NLSPDeltaR, LSPDeltaR, NLSP_PT1, NLSP_PT2, LSP_PT1, LSP_PT2, b_PT1, b_PT2, b_PT3, b_PT4, biaseddeltaphi, HT, MHT; int n_bjets, n_jets, Msq, Mlsp; bool cut_Mbb, cut_DeltaR, cut_biaseddeltaphi, cut_MET, cut_HT, cut_N_bjets, cut_N_jets, cut_MHT;} UNCUT;
 
 typedef struct {double crosssec, eff, HTeff, METeff, MHTeff, Njeff, Nbeff, Mbbeff, BDPeff, doubleeventpass, Msq, Mlsp, HT, MET, MHT, Nj, Nb, Mbb, BDP;} Efficiencies;
+
+class Yield
+{
+public:
+    double yield;
+    int M_LSP;
+    int M_Sq;
+};
+
+Yield YieldGetter(const char*, double[]);
 
 
 //--------The class which will store the data for each TrackID - then we can loop over each to do the tracking.

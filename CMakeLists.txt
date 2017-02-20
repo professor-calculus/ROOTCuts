@@ -6,7 +6,27 @@ project(ROOTCuts)
 file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 list(REMOVE_ITEM sources ${PROJECT_SOURCE_DIR}/src/Plotting.cc)
+list(REMOVE_ITEM sources ${PROJECT_SOURCE_DIR}/src/Yield_Adder.cc)
 list(REMOVE_ITEM headers ${PROJECT_SOURCE_DIR}/include/ROOTEffs.hh)
+
+file(GLOB sources2 ${PROJECT_SOURCE_DIR}/src/*.cc)
+file(GLOB headers2 ${PROJECT_SOURCE_DIR}/include/*.hh)
+list(REMOVE_ITEM sources2 ${PROJECT_SOURCE_DIR}/src/ROOTCuts.cc)
+list(REMOVE_ITEM sources2 ${PROJECT_SOURCE_DIR}/src/BiasedDeltaPhi.cc)
+list(REMOVE_ITEM sources2 ${PROJECT_SOURCE_DIR}/src/Christmas.cc)
+list(REMOVE_ITEM sources2 ${PROJECT_SOURCE_DIR}/src/CutsFunction.cc)
+list(REMOVE_ITEM sources2 ${PROJECT_SOURCE_DIR}/src/CutsFunctionBkg.cc)
+list(REMOVE_ITEM sources2 ${PROJECT_SOURCE_DIR}/src/Jet2Plus1Finder.cc)
+list(REMOVE_ITEM sources2 ${PROJECT_SOURCE_DIR}/src/Jet2Plus1MbbFinder.cc)
+list(REMOVE_ITEM sources2 ${PROJECT_SOURCE_DIR}/src/JetDoubleMbbPairFinder.cc)
+list(REMOVE_ITEM sources2 ${PROJECT_SOURCE_DIR}/src/JetDoublePairFinder.cc)
+list(REMOVE_ITEM sources2 ${PROJECT_SOURCE_DIR}/src/JetPairFinder.cc)
+list(REMOVE_ITEM sources2 ${PROJECT_SOURCE_DIR}/src/TerminalPlot.cc)
+list(REMOVE_ITEM sources2 ${PROJECT_SOURCE_DIR}/src/YieldGetter.cc)
+list(REMOVE_ITEM headers2 ${PROJECT_SOURCE_DIR}/include/TerminalPlot.hh)
+list(REMOVE_ITEM headers2 ${PROJECT_SOURCE_DIR}/include/Ulrich_cuts.hh)
+list(REMOVE_ITEM headers2 ${PROJECT_SOURCE_DIR}/include/BiasedDeltaPhi.hh)
+
 
 set(CMAKE_MODULE_PATH $ENV{ROOTSYS}/etc/cmake)
 set(CMAKE_PREFIX_PATH $ENV{DELPHES_DIR})
@@ -32,10 +52,12 @@ add_definitions(${ROOT_CXX_FLAGS} -std=c++11)
 link_directories(${DELPHES})
 
 #---Create  a main program using the library
+add_executable(ROOTEffs ROOTEffs.cc ${sources2} ${headers2})
+target_link_libraries(ROOTEffs ${ROOT_LIBRARIES})
+
 add_executable(ROOTCuts ROOTcuts.cc ${sources} ${headers})
 target_link_libraries(ROOTCuts Delphes ${ROOT_LIBRARIES})
 
-add_executable(ROOTEffs ROOTEffs.cc ${PROJECT_SOURCE_DIR}/src/Plotting.cc ${PROJECT_SOURCE_DIR}/include/ROOTEffs.hh)
-target_link_libraries(ROOTEffs ${ROOT_LIBRARIES})
 
-install(TARGETS ROOTCuts ROOTEffs DESTINATION ${PROJECT_SOURCE_DIR})
+install(TARGETS ROOTCuts DESTINATION ${PROJECT_SOURCE_DIR})
+install(TARGETS ROOTEffs DESTINATION ${PROJECT_SOURCE_DIR})

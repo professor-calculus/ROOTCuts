@@ -7,6 +7,8 @@
 //
 
 #include "include/Ulrich_cuts.hh"
+#include <stdio.h>
+#include <iostream>
 #include <fstream>
 
 
@@ -56,6 +58,9 @@ int main(int argc, char *argv[])
     params[22] = 0;
     params[23] = 0;
     params[24] = -1;
+    
+    int args = int(argc);
+    
 
 
     
@@ -118,6 +123,84 @@ int main(int argc, char *argv[])
         params[20] = crosssectionvalue;
         
         CutsFunction(rootpath.c_str(), params);
+        
+    }
+    
+    if(argc == 6 && string(argv[5]) == "YIELD") // Here we input a MG output folder and a param card, with the
+        // options M_sq, M_LSP and "FOLDER". (no sig vs. bkg etc)
+    {
+        cout <<  "\n YIELD mode!\n\n" << endl;
+        
+        fstream fin(argv[2]);
+        string line, line2;
+        
+        while(getline(fin, line))
+        {
+            //the following line trims white space from the beginning of the string
+            line.erase(line.begin(), find_if(line.begin(), line.end(), not1(ptr_fun<int, int>(isspace))));
+            
+            cout << line << endl;
+            
+            if(line[0] == '#') continue;
+            
+            istringstream is(line);
+            is >> param >> value;
+            
+            params[param] = value;
+        }
+        
+        params[21] = 1;
+        
+        params[22] = std::stod(argv[3]);
+        params[23] = std::stod(argv[4]);
+        
+        string inpstring(argv[1]);
+        string rootpath = inpstring + "/Events/run_01/tag_1_delphes_events.root";
+        string crosssectionpath = inpstring + "/Events/run_01/tag_1_pythia.log";
+        
+        ifstream inputFile;
+        inputFile.open(crosssectionpath);
+        
+        if(!inputFile)
+        {
+            cout << "What folder? I don't know anything about it..." << endl;
+            cout << "\n There's likely a typo in the folder path somewhere!" << endl;
+            return 1;
+        }
+        
+        string crosssection;
+        double crosssectionvalue = 0;
+        
+        while(!inputFile.eof())
+        {
+            inputFile >> crosssection;      // Yolo-swagged to redefine crosssection as each line until it gets to the last line
+            // of tag_1_pythia.log, which contains the cross-section value after jet matching
+        }
+        
+        size_t pos = crosssection.find(":");
+        crosssection.erase(0,pos + 1);
+        
+        crosssectionvalue = std::stod(crosssection);        // converts string to double so we can use the cross-sec
+        
+        params[20] = crosssectionvalue;
+        
+        Yield yields = YieldGetter(rootpath.c_str(), params);
+        
+        if(yields.yield < 0)
+        {
+            cout << "There's an error somewhere!" << endl;
+            return 1;
+        }
+        
+        ofstream outputfile;
+        
+        string outputfilename = "yields.txt";
+        
+        outputfile.open(outputfilename, std::ios_base::app);
+        
+        outputfile << yields.M_Sq << "\t" << yields.M_LSP << "\t" << yields.yield << endl;
+        
+        outputfile.close();
         
     }
     
@@ -255,14 +338,6 @@ int main(int argc, char *argv[])
         
     }
     
-    else if(argc == 3 && (string(argv[2]) == "EFF" || string(argv[2]) == "PLOTTING"))     // Plotting tool for efficiencies
-    {
-        cout << "\n Plotting Mode\n" << endl;
-        //Plotting(argv[1]);
-        
-        return 0;
-        
-    }
         
             
     else if(argc == 3)                  // Here just one .root file and a parameter file. (i.e. no sig vs. bkg etc)
@@ -286,27 +361,6 @@ int main(int argc, char *argv[])
         CutsFunction(argv[1], params);
         
         //Christmas();
-    }
-    
-    else if(argc == 2)                  // Uses default parameter file, for test purposes
-    {
-        fstream fin("$ROOTCUTS_DIR/example.rootcuts");
-        string line;
-        
-        while(getline(fin, line))
-        {
-            //the following line trims white space from the beginning of the string
-            line.erase(line.begin(), find_if(line.begin(), line.end(), not1(ptr_fun<int, int>(isspace))));
-            
-            if(line[0] == '#') continue;
-            
-            istringstream is(line);
-            is >> param >> value;
-            
-            params[param] = value;
-        }
-        
-        CutsFunction(argv[1], params);
     }
     
     else
