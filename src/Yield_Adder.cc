@@ -11,7 +11,7 @@
 
 using namespace std;
 
-void Yield_Adder(vector<string> yields, int n_yields)
+void Yields_Adder(vector<string> yields, int n_yields)
 {
     vector<double> yield_vals;
     double temp;

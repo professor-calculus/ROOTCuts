@@ -35,5 +35,6 @@ int main(int argc, char *argv[])
     else
     {
         std::cout << "Error: Please put the path(s) of the yields .txt files as the argument(s)." << endl;
+        return 1;
     }
 }
