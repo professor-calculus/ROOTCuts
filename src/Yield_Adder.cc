@@ -55,11 +55,11 @@ void Yields_Adder(vector<string> yields, int n_yields)
             k++;
         }
         
-        if(k != no_of_yields)
-        {
-            cout << "Problem: Not all files contain same amount of points!\n" << endl;
-            return;
-        }
+//        if(k != no_of_yields)
+//        {
+//            cout << "Problem: Not all files contain same amount of points!\n" << endl;
+//            return;
+//        }
     }
     
     ofstream outputfile;
