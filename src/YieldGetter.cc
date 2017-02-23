@@ -91,7 +91,7 @@ Yield YieldGetter(const char* filename, double params[25])
     
     int jetmatchingalgo = params[12];
     
-    double sigbkgratio = params[13];
+    //double sigbkgratio = params[13];
     
     double minHT = 0;
     minHT = params[14];
@@ -119,12 +119,12 @@ Yield YieldGetter(const char* filename, double params[25])
     
     int i, k, l, entries, npass, N_bjets, N_tau, N_PT, N_jets, N_NLSP, N_LSP;
     
-    double mtautau, PT_tau, met, efficiency;
+    double mtautau, PT_tau, met;
     
     double mbb = 0;
     double mbb2 = 0;
     
-    double DeltaR, DeltaR2, biaseddeltaphi, HT, Hardjets_DeltaR, NLSP_DeltaR, LSP_DeltaR, NLSP_PT[2], LSP_PT[2];
+    double DeltaR, DeltaR2, biaseddeltaphi, HT;
     double b_PT[4];
     
     string n_b;
@@ -147,7 +147,7 @@ Yield YieldGetter(const char* filename, double params[25])
     TClonesArray *branchJet = reader->UseBranch("Jet");
     TClonesArray *branchMET = reader->UseBranch("MissingET");
     TClonesArray *branchScalarHT = reader->UseBranch("ScalarHT");
-    TClonesArray *branchParticle = reader->UseBranch("Particle");
+    //TClonesArray *branchParticle = reader->UseBranch("Particle");
     
     //--------Tell it not to panic if there's no entries - it's better than a segfault!
     if (reader->GetEntries() < 1)
@@ -164,9 +164,6 @@ Yield YieldGetter(const char* filename, double params[25])
     
     
     // No histograms
-    
-    
-    double Msq, Mlsp;
     
     
     int pass_jets = 0;

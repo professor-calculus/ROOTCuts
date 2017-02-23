@@ -96,13 +96,23 @@ int main(int argc, char *argv[])
         string rootpath = inpstring + "/Events/run_01/tag_1_delphes_events.root";
         string crosssectionpath = inpstring + "/Events/run_01/tag_1_pythia.log";
         
+        ifstream delphesfile;
+        delphesfile.open(rootpath);
+        if(!delphesfile)
+        {
+            cout << "What folder? I don't know anything about it..." << endl;
+            cout << "\n There's likely a typo in the folder path somewhere, or .root file doesn't exist!" << endl;
+            return 1;
+        }
+        delphesfile.close();
+        
         ifstream inputFile;
         inputFile.open(crosssectionpath);
         
         if(!inputFile)
         {
             cout << "What folder? I don't know anything about it..." << endl;
-            cout << "\n There's likely a typo in the folder path somewhere!" << endl;
+            cout << "\n Pythia6 log file doesn't exist!" << endl;
             return 1;
         }
         
@@ -158,13 +168,23 @@ int main(int argc, char *argv[])
         string rootpath = inpstring + "/Events/run_01/tag_1_delphes_events.root";
         string crosssectionpath = inpstring + "/Events/run_01/tag_1_pythia.log";
         
+        ifstream delphesfile;
+        delphesfile.open(rootpath);
+        if(!delphesfile)
+        {
+            cout << "What folder? I don't know anything about it..." << endl;
+            cout << "\n There's likely a typo in the folder path somewhere, or .root file doesn't exist!" << endl;
+            return 1;
+        }
+        
+        
         ifstream inputFile;
         inputFile.open(crosssectionpath);
         
         if(!inputFile)
         {
             cout << "What folder? I don't know anything about it..." << endl;
-            cout << "\n There's likely a typo in the folder path somewhere!" << endl;
+            cout << "\n Pythia6 log file doesn't exist!" << endl;
             return 1;
         }
         
@@ -184,6 +204,8 @@ int main(int argc, char *argv[])
         
         params[20] = crosssectionvalue;
         
+        inputFile.close();
+        
         Yield yields = YieldGetter(rootpath.c_str(), params);
         
         if(yields.yield < 0)
@@ -191,6 +213,7 @@ int main(int argc, char *argv[])
             cout << "There's an error somewhere!" << endl;
             return 1;
         }
+        
         
         ofstream outputfile;
         
@@ -235,8 +258,26 @@ int main(int argc, char *argv[])
         string rootpath = inpstring + "/Events/run_01/tag_1_delphes_events.root";
         string crosssectionpath = inpstring + "/Events/run_01/tag_1_pythia.log";
         
+        ifstream delphesfile;
+        delphesfile.open(rootpath);
+        if(!delphesfile)
+        {
+            cout << "What folder? I don't know anything about it..." << endl;
+            cout << "\n There's likely a typo in the folder path somewhere, or .root file doesn't exist!" << endl;
+            return 1;
+        }
+        delphesfile.close();
+        
         ifstream inputFile;
         inputFile.open(crosssectionpath);
+        
+        if(!inputFile)
+        {
+            cout << "What folder? I don't know anything about it..." << endl;
+            cout << "\n Pythia6 log file doesn't exist!" << endl;
+            return 1;
+        }
+        
         
         string crosssection;
         double crosssectionvalue = 0;
@@ -254,6 +295,8 @@ int main(int argc, char *argv[])
         crosssectionvalue = std::stod(crosssection);        // converts string to double so we can use the cross-sec
         
         params[20] = crosssectionvalue;
+        
+        inputFile.close();
         
         CutsFunction(rootpath.c_str(), params);
         
@@ -282,7 +325,7 @@ int main(int argc, char *argv[])
         if(higgsdecay < 0 || higgsdecay > 3)
         {
             cout << "ERROR: Higgs Decay mode must be 0, 1, 2 or 3" << endl;
-            return 0;
+            return 1;
         }
         
         
@@ -367,8 +410,12 @@ int main(int argc, char *argv[])
     {
         std::cout << "Usage:" << endl;
         std::cout << "\"ROOTCuts /path/to/rootfile /path/to/params.rootcuts <Sqmass> <LSPmass> FOLDER\" for running over MG output folder." << endl;
-        std::cout << "\"ROOTCuts /path/to/rootfile EFF (or PLOTTING)\" for plotting the output from a scan" << endl;
+        std::cout << "\"ROOTCuts /path/to/rootfile /path/to/params.rootcuts <Sqmass> <LSPmass> YIELD\" for running over MG output folder quicker, no plots, just gives yield." << endl;
+        std::cout << "In either case not specifying the masses will just let the program calculate them, but this is slower.\n" << endl;
+        std::cout << "Standard usage for a simple .root file (just to test efficiency, not yield etc) is more like:" << endl;
         std::cout << "\"ROOTCuts /path/to/rootfile /path/to/params.rootcuts\" for one .root file. Main use." << endl;
+        
+        return 1;
     }
 
     return 0;

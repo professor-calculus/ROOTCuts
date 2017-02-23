@@ -78,7 +78,7 @@ void CutsFunction(const char* filename, double params[25])
     
     int jetmatchingalgo = params[12];
     
-	double sigbkgratio = params[13];
+	//double sigbkgratio = params[13];
     
     double minHT = 0;
     minHT = params[14];
@@ -145,8 +145,6 @@ void CutsFunction(const char* filename, double params[25])
     }
         
     entries = reader->GetEntries();
-
-	double weight = double(entries)*sigbkgratio;
 
     cout << "Tree copied with " << entries << " entries\n\n" << endl;
 
@@ -240,7 +238,6 @@ void CutsFunction(const char* filename, double params[25])
     bool hard_jets = false;
     
     int cumul_Mbb = 0;
-    int cumul_DeltaR = 0;
     int cumul_biaseddeltaphi = 0;
     int cumul_MET = 0;
     int cumul_HT = 0;
