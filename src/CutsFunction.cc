@@ -1379,12 +1379,7 @@ void CutsFunction(const char* filename, double params[25])
     //string outputfilename = "In_Numbers_" + to_string(time.GetDate()) + ".txt";
     string outputfilename = "output.txt";
     
-    ofstream outputfile;
-    outputfile.open(outputfilename);
-    outputfile << "\n\n\n SIGNAL:" << endl;
-    outputfile << "Tree copied with " << entries << " entries\n\n" << endl;
-    outputfile << "Scaled to " << scaledentries << " entries\n\n" << endl;
-    
+    freopen(outputfilename.c_str(),"w",stdout);
     
     double doubleeventpass = double(eventpass)*double(scale);
     eventpass = eventpass*double(scale);
@@ -1396,25 +1391,34 @@ void CutsFunction(const char* filename, double params[25])
     if(higgsdecay == 0)
     {
         cout << "Higgs to bb and Higgs to tau-tau required\n" << endl;
-        
-        outputfile << "Higgs to bb and Higgs to tau-tau required\n" << endl;
     }
-    else
+    else if(higgsdecay == 1)
     {
-        cout << "Higgs to bb in both cascades required\n" << endl;
-        
-        outputfile << "Higgs to bb in both cascades required\n" << endl;
+        cout << "At least 4 b-tags required (double h->bb)\n" << endl;
     }
-    cout << pass_jets << " or \t" << 100.*double(pass_jets)/double(scaledentries) << " % of events contained 4 leading jets with PT 400,300,200,100 GeV" << endl;
-    cout << pass_N_b_jets << " or \t" << 100.*double(pass_N_b_jets)/double(scaledentries) << " % of events contained at least 2 b-jets" << endl;
-    cout << pass_bb_mass << " or \t" << 100.*double(pass_bb_mass)/double(scaledentries) << " % of events contained at least 2 b-jets with invariant mass within the bounds" << endl;
-    cout << pass_MET << " or \t" << 100.*double(pass_MET)/double(scaledentries) << " % of events had at least 30GeV Missing ET" << endl;
-    cout << pass_tau << " or \t" << 100.*double(pass_tau)/double(scaledentries) << " % of events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
+    else if(higgsdecay == 2)
+    {
+        cout << "Exactly 2 b-jets required\n" << endl;
+    }
+    else if(higgsdecay == 3)
+    {
+        cout << "At least 3 b-jets required\n" << endl;
+    }
+    cout << pass_jets << " or \t" << 100.*double(pass_jets)/double(scaledentries) << " % of events contained 4 leading jets with PT above " << jetPT1 << ", " << jetPT2 << ", " << jetPT3 << ", " << jetPT4 << " GeV resp." << endl;
+    cout << pass_N_b_jets << " or \t" << 100.*double(pass_N_b_jets)/double(scaledentries) << " % of events containing desired no. of b-jets" << endl;
+    cout << pass_bb_mass << " or \t" << 100.*double(pass_bb_mass)/double(scaledentries) << " % of events containing desired no. of b-pairs with invariant mass within the bounds" << endl;
+    cout << pass_MET << " or \t" << 100.*double(pass_MET)/double(scaledentries) << " % of events had at least " << minMET << "GeV Missing ET" << endl;
+    
+    if(higgsdecay == 0)
+    {
+        cout << pass_tau << " or \t" << 100.*double(pass_tau)/double(scaledentries) << " % of events containing at least 2 tau tags with SUM(PT) > " << minSumTauPT << "GeV" << endl;
+    }
+    
     cout << pass_HT << " or \t" << 100.*double(pass_HT)/double(scaledentries) << " % of events contained at least " << minHT << "GeV HT" << endl;
     cout << pass_N_jets << " or \t" << 100.*double(pass_N_jets)/double(scaledentries) << " % of events contained at least " << minN_jets << " jets" << endl;
     cout << pass_biaseddeltaphi << " or \t" << 100.*double(pass_biaseddeltaphi)/double(scaledentries) << " % of events had biased delta-phi > " << BDP << endl;
-    cout << pass_MHT << " or \t" << 100.*double(pass_MHT)/double(scaledentries) << " % of events had Missing HT > " << min_MHT << endl;
-    cout << "\n" << 100.*double(eventpass)/double(scaledentries) << " % efficiency" << endl;
+    cout << pass_MHT << " or \t" << 100.*double(pass_MHT)/double(scaledentries) << " % of events had " << min_MHT << " < Missing HT < " << max_MHT << endl;
+    cout << "\n" << 100.*doubleeventpass/double(scaledentries) << " % efficiency" << endl;
     
     cout << "\n\n\n" << endl;
     
@@ -1426,38 +1430,12 @@ void CutsFunction(const char* filename, double params[25])
     cout << "Min. Missing ET = " << minMET << endl;
     
     
-    //--------- And outputting them to a file too...
-    outputfile << pass_jets << " or " << 100.*double(pass_jets)/double(scaledentries) << " % of events contained 4 leading jets with PT 400,300,200,100 GeV" << endl;
-    outputfile << pass_N_b_jets << " or " << 100.*double(pass_N_b_jets)/double(scaledentries) << " % of events contained at least 2 b-jets" << endl;
-    outputfile << pass_bb_mass << " or " << 100.*double(pass_bb_mass)/double(scaledentries) << " % of events contained at least 2 b-jets with invariant mass within the bounds" << endl;
-    outputfile << pass_MET << " or " << 100.*double(pass_MET)/double(scaledentries) << " % of events had at least 30GeV Missing ET" << endl;
-    outputfile << pass_tau << " or " << 100.*double(pass_tau)/double(scaledentries) << " % of events contained at least 2 tau with SUM(PT) > 100GeV" << endl;
-    outputfile << pass_HT << " or " << 100.*double(pass_HT)/double(scaledentries) << " % of events contained at least " << minHT << "GeV HT" << endl;
-    outputfile << pass_N_jets << " or " << 100.*double(pass_N_jets)/double(scaledentries) << " % of events contained at least " << minN_jets << " jets" << endl;
-    outputfile << pass_biaseddeltaphi << " or " << 100.*double(pass_biaseddeltaphi)/double(scaledentries) << " % of events had biased delta-phi > " << BDP << endl;
-    outputfile << pass_MHT << " or \t" << 100.*double(pass_MHT)/double(scaledentries) << " % of events had Missing HT > " << min_MHT << endl;
-
-    outputfile << "\n" << 100.*double(eventpass)/double(scaledentries) << " % efficiency" << endl;
-    
-    outputfile << "\n\n\n" << endl;
-    
-    outputfile << "Cross-section is now reduced by factor of " << efficiency << "\n\n" << endl;
-    outputfile << "\033[32m" << "Winner winner, chicken dinner\n" << "\033[0m" << "\n\n" << endl;
-    outputfile << "Cuts (Energy, masses, PT in GeV):\n" << endl;
-    outputfile << "PT of 1st-4th leading jets = " << jetPT1 << ", " << jetPT2 << ", " << jetPT3 << ", " << jetPT4 << " respectively" << endl;
-    outputfile << "Min. b-jet PT = " << bjetminPT << endl;
-    outputfile << "Min. Missing ET = " << minMET << endl;
-    
     if(higgsdecay == 0)
     {
         cout << "M_tautau from " << minTauinvmass << " to " << maxTauinvmass << endl;
         cout << "Min. Sum of taus' PT = " << minSumTauPT << endl;
-        
-        outputfile << "M_tautau from " << minTauinvmass << " to " << maxTauinvmass << endl;
-        outputfile << "Min. Sum of taus' PT = " << minSumTauPT << endl;
     }
     cout << "M_bb from " << minMbb << " to " << maxMbb << "\n\n" << endl;
-    outputfile << "M_bb from " << minMbb << " to " << maxMbb << "\n\n" << endl;
     
     cout << "Plots:\n" << endl;
     
@@ -1469,10 +1447,6 @@ void CutsFunction(const char* filename, double params[25])
         TerminalPlot(histDeltaR, "b-Jets DeltaR", 40, 0, 6);
         TerminalPlot(histMHT, "Missing HT", 40, 0., 1000.);
     }
-    
-    outputfile << "Count: " << doubleeventpass << endl;
-    
-    outputfile.close();
     
     
     //----- Cumulative cuts file
@@ -1586,12 +1560,9 @@ void CutsFunction(const char* filename, double params[25])
     //effstree->Branch("Efficiencies", &newefficiencies, "crosssec/D:eff:HTeff:METeff:MHTeff:Njeff:Nbeff:Mbbeff:BDPeff:Msq/I:Mlsp:HT:MET:MHT:Nj:Nb:Mbb:BDP");
     
     
-    
-    
-    
     cout << "M_sq = " << roundedMsq << endl;
     cout << "M_LSP = " << roundedMlsp << endl;
-    
+    cout << "Note, these will be zero or nonsensical values if not in FOLDER mode, since it does not matter." << endl;
 
     newefficiencies.doubleeventpass = doubleeventpass;
     newefficiencies.Msq = double(roundedMsq);
