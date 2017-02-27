@@ -26,6 +26,7 @@ void Plotting(const char *filename)
     
     TH2F *effs = new TH2F("effs", "effs", 21, 1000., 2050., 18, 0., 900.);
     TH2F *crosssecs = new TH2F("crosssecs", "crosssecs", 21, 1000., 2050., 18, 0., 900.);
+    TH1F *dcrosssecs = new TH1F("1Dcrosssecs", "1Dcrosssecs", 21, 1000, 2050.);
     
     Int_t nentries = Int_t(dick_cheney->GetEntries());
     
@@ -53,6 +54,7 @@ void Plotting(const char *filename)
         
         effs->Fill(efficiencies.Msq, efficiencies.Mlsp, efficiencies.eff);    //fill data from a tree to a histogram
         crosssecs->Fill(efficiencies.Msq, efficiencies.Mlsp, efficiencies.crosssec);
+        dcrosssecs->Fill(efficiencies.Msq, efficiencies.crosssec);
     }
     
     outputfile.close();
@@ -66,11 +68,17 @@ void Plotting(const char *filename)
     can_effs->Update();
     can_effs->SaveAs("efficiencies.pdf");
     
-    TCanvas *can_crosssecs = new TCanvas("c", "c", 600, 600);
-    crosssecs->Draw("colz");
+    TCanvas *can_crosssecs = new TCanvas("c2", "c2", 600, 600);
+    crosssecs->Draw("logzcolz");
     crosssecs->Write();
     can_crosssecs->Update();
     can_crosssecs->SaveAs("crosssecs.pdf");
+    
+    TCanvas *can_1Dcrosssecs = new TCanvas("c3", "c3", 600, 600);
+    dcrosssecs->Draw("logzcolz");
+    dcrosssecs->Write();
+    can_1Dcrosssecs->Update();
+    can_1Dcrosssecs->SaveAs("1D_crosssecs.pdf");
     
     outfile->Close();
 };
