@@ -41,12 +41,19 @@ void Plotting(const char *filename)
     
     //cout << nentries << endl;
     
+    double MLSP_temp;
+    
     
     for (Int_t entryInChain=0; entryInChain<nentries; entryInChain++)
     {
         dick_cheney->GetEntry(entryInChain);
         
-        dbeventpass = round(efficiencies.doubleeventpass * 10000.)/10000.;
+        if(entryInChain == 0)
+        {
+            MLSP_temp = efficiencies.Mlsp;
+        }
+        
+        dbeventpass = round(efficiencies.doubleeventpass * 1000000.)/1000000.;
         
         outputfile << efficiencies.Msq << "\t" << efficiencies.Mlsp << "\t" << dbeventpass << endl;
         
@@ -54,7 +61,10 @@ void Plotting(const char *filename)
         
         effs->Fill(efficiencies.Msq, efficiencies.Mlsp, efficiencies.eff);    //fill data from a tree to a histogram
         crosssecs->Fill(efficiencies.Msq, efficiencies.Mlsp, efficiencies.crosssec);
-        dcrosssecs->Fill(efficiencies.Msq, efficiencies.crosssec);
+        if(efficiencies.Mlsp == MLSP_temp)
+        {
+            dcrosssecs->Fill(efficiencies.Msq, efficiencies.crosssec);
+        }
     }
     
     outputfile.close();
