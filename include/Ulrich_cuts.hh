@@ -26,6 +26,7 @@
 #include <TBranch.h>
 #include <TLeaf.h>
 #include <TString.h>
+#include <TVectorD.h>
 #include <TH1D.h>
 #include <iostream>
 #include <vector>

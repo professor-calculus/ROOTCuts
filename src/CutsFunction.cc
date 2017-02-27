@@ -35,7 +35,7 @@ void CutsFunction(const char* filename, double params[25])
     //      10      min. M_bb
     //      11      max. M_bb
     //      12      Jet pair matching algorithm for 2 bb pairs: 0 = Smallest av. Delta-R; 1 = Pairs with closest M_inv(bb)
-    //      13      Sig/Bkg ratio
+    //      13      Pythia Version "6" OR "8" -- for getting the cross-section (Only matters in FOLDER mode!)
     //      14      min. HT
     //      15      min. no. of jets
     //      16      minimum Biased-Delta-Phi: 0.5 for SUSY CMS Searches usually
@@ -46,7 +46,7 @@ void CutsFunction(const char* filename, double params[25])
     //      21      Scan Mode (automatically set)
     //      22      Mass of Squark (doesn't matter for non-scan mode)
     //      23      Mass of LSP     (doesn't matter for non-scan mode)
-		//			24			Max. MHT
+    //		24		Max. MHT
 
     
     double jetPT1 = params[0];

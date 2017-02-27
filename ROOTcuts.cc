@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     //      10      min. M_bb
     //      11      max. M_bb
     //      12      Jet pair matching algorithm for 2 bb pairs: 0 = Smallest av. Delta-R; 1 = Pairs with closest M_inv(bb)
-	//		13		User specify Signal/Background ratio (double precision)
+    //      13      Pythia Version "6" OR "8" -- for getting the cross-section (Only matters in FOLDER mode!)
     //      14      min. HT
     //      15      min. no. of jets
     //      16      minimum Biased-Delta-Phi: 0.5 for SUSY CMS Searches usually
@@ -93,11 +93,22 @@ int main(int argc, char *argv[])
         params[23] = std::stod(argv[4]);
         
         string inpstring(argv[1]);
-        string rootpath = inpstring + "/Events/run_01/tag_1_delphes_events.root";
+        string rootpath;
+        if(params[13] == 8)
+        {
+            rootpath = inpstring + "/Events/run_01/delphes_py8.root";
+        }
+        else
+        {
+            rootpath = inpstring + "/Events/run_01/tag_1_delphes_events.root";
+        }
         string crosssectionpath = inpstring + "/Events/run_01/tag_1_pythia.log";
         
         ifstream delphesfile;
         delphesfile.open(rootpath);
+        
+        double crosssectionvalue = 0;
+        
         if(!delphesfile)
         {
             cout << "What folder? I don't know anything about it..." << endl;
@@ -106,29 +117,38 @@ int main(int argc, char *argv[])
         }
         delphesfile.close();
         
-        ifstream inputFile;
-        inputFile.open(crosssectionpath);
-        
-        if(!inputFile)
+        if(params[13] == 8)
         {
-            cout << "What folder? I don't know anything about it..." << endl;
-            cout << "\n Pythia6 log file doesn't exist!" << endl;
-            return 1;
+            TFile delphesinput(rootpath.c_str());
+            TVectorD *v = (TVectorD*)delphesinput.Get("crosssection");
+            
+            crosssectionvalue = v->Sum();
         }
-        
-        string crosssection;
-        double crosssectionvalue = 0;
-        
-        while(!inputFile.eof())
+        else
         {
-            inputFile >> crosssection;      // Yolo-swagged to redefine crosssection as each line until it gets to the last line
-            																// of tag_1_pythia.log, which contains the cross-section value after jet matching
+            ifstream inputFile;
+            inputFile.open(crosssectionpath);
+            
+            if(!inputFile)
+            {
+                cout << "What folder? I don't know anything about it..." << endl;
+                cout << "\n Pythia6 log file doesn't exist!" << endl;
+                return 1;
+            }
+            
+            string crosssection;
+            
+            while(!inputFile.eof())
+            {
+                inputFile >> crosssection;      // Yolo-swagged to redefine crosssection as each line until it gets to the last line
+                                                                                // of tag_1_pythia.log, which contains the cross-section value after jet matching
+            }
+            
+            size_t pos = crosssection.find(":");
+            crosssection.erase(0,pos + 1);
+            
+            crosssectionvalue = std::stod(crosssection);        // converts string to double so we can use the cross-sec
         }
-        
-        size_t pos = crosssection.find(":");
-        crosssection.erase(0,pos + 1);
-        
-        crosssectionvalue = std::stod(crosssection);        // converts string to double so we can use the cross-sec
         
         params[20] = crosssectionvalue;
         
