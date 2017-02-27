@@ -75,7 +75,8 @@ void Plotting(const char *filename)
     can_crosssecs->SaveAs("crosssecs.pdf");
     
     TCanvas *can_1Dcrosssecs = new TCanvas("c3", "c3", 600, 600);
-    dcrosssecs->Draw("logzcolz");
+    can_1Dcrosssecs->SetLogy();
+    dcrosssecs->Draw();
     dcrosssecs->Write();
     can_1Dcrosssecs->Update();
     can_1Dcrosssecs->SaveAs("1D_crosssecs.pdf");
