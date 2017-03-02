@@ -23,16 +23,16 @@ int main(int argc, char *argv[])
     
 
     //              Parameters:
-    //      0       1st Leading jet PT
-    //      1       2nd Leading jet PT
-    //      2       3rd Leading jet PT
-    //      3       4th Leading jet PT
-    //      4       0 = h->bb h->tau-tau; 1 = h->bb both cascades; 2 = 3 b-jets, 3: EXACTLY 2 b-jets
+    //      0       1st Leading jet min. PT
+    //      1       2nd Leading jet min. PT
+    //      2       3rd Leading jet min. PT
+    //      3       4th Leading jet min. PT
+    //      4       0 = h->bb h->tau-tau; 1 = 4 b-tags; 2 = 3 b-jets, 3: EXACTLY 2 b-jets
     //      5       b-jet lower bound PT
     //      6       MET lower bound
-    //      7       min. taus inv. mass
-    //      8       max. taus inv. mass
-    //      9       min. Sum taus' PT
+    //      7       min. taus inv. mass     }
+    //      8       max. taus inv. mass     }   Only for h->tau tau in one of the cascades
+    //      9       min. Sum taus' PT       }
     //      10      min. M_bb
     //      11      max. M_bb
     //      12      Jet pair matching algorithm for 2 bb pairs: 0 = Smallest av. Delta-R; 1 = Pairs with closest M_inv(bb)
@@ -47,21 +47,19 @@ int main(int argc, char *argv[])
     //      21      Scan Mode (automatically set, does not matter)
     //      22      Mass of Squark (doesn't matter for non-scan mode)
     //      23      Mass of LSP     (doesn't matter for non-scan mode)
+    //      24      Max. MHT (-1 means infinity)
+    //      25      min. alpha_T
 
     
-    double params[25];
+    double params[26];
     
     
-    int param, bkg, signal;
+    int param;
     double value;
     params[21] = 0;
     params[22] = 0;
     params[23] = 0;
     params[24] = -1;
-    
-    int args = int(argc);
-    
-
 
     
     if(argc == 6 && string(argv[5]) == "FOLDER") // Here we input a MG output folder and a param card, with the
@@ -96,7 +94,7 @@ int main(int argc, char *argv[])
         string rootpath;
         if(params[13] == 8)
         {
-            rootpath = inpstring + "/Events/run_01/delphes_py8.root";
+            rootpath = inpstring + "/Events/run_01/Py8/delphes_py8.root";
         }
         else
         {
@@ -156,8 +154,9 @@ int main(int argc, char *argv[])
         
     }
     
-    if(argc == 6 && string(argv[5]) == "YIELD") // Here we input a MG output folder and a param card, with the
-        // options M_sq, M_LSP and "FOLDER". (no sig vs. bkg etc)
+    
+    if(argc == 6 && string(argv[5]) == "YIELD")         // Here we input a MG output folder and a param card, with the
+                                                        // options M_sq, M_LSP and "FOLDER". (no sig vs. bkg etc)
     {
         cout <<  "\n YIELD mode!\n\n" << endl;
         
@@ -214,7 +213,7 @@ int main(int argc, char *argv[])
         while(!inputFile.eof())
         {
             inputFile >> crosssection;      // Yolo-swagged to redefine crosssection as each line until it gets to the last line
-            // of tag_1_pythia.log, which contains the cross-section value after jet matching
+                                            // of tag_1_pythia.log, which contains the cross-section value after jet matching
         }
         
         size_t pos = crosssection.find(":");
@@ -247,8 +246,8 @@ int main(int argc, char *argv[])
         
     }
     
-    else if(argc == 4 && string(argv[3]) == "FOLDER") // Here we input a MG output folder and a param card, with the
-                                                                  // option "folder". (no sig vs. bkg etc)
+    else if(argc == 4 && string(argv[3]) == "FOLDER")             // Here we input a MG output folder and a param card, with the
+                                                                  // option "folder", the code calculates the masses.
     {
         cout <<  "FOLDER mode!" << endl;
         
@@ -305,8 +304,8 @@ int main(int argc, char *argv[])
         //fstream fin2(crosssectionpath);
         while(!inputFile.eof())
         {
-            inputFile >> crosssection;      // Yolo-swagged to redefine crosssection as each line until it gets to the last line
-                                            // of tag_1_pythia.log, which contains the cross-section value after jet matching
+            inputFile >> crosssection;          // Yolo-swagged to redefine crosssection as each line until it gets to the last line
+                                                // of tag_1_pythia.log, which contains the cross-section value after jet matching
         }
         
         size_t pos = crosssection.find(":");
@@ -322,88 +321,8 @@ int main(int argc, char *argv[])
         
     }
     
-    
-    else if(argc == 4)               // Here we would be feeding the program with 2 .root files (sig, bkg) and a parameter file.
-    {
-        fstream fin(argv[3]);
-        string line;
-        
-        while(getline(fin, line))
-        {
-            //the following line trims white space from the beginning of the string
-            line.erase(line.begin(), find_if(line.begin(), line.end(), not1(ptr_fun<int, int>(isspace))));
             
-            if(line[0] == '#') continue;
-            
-            istringstream is(line);
-            is >> param >> value;
-            
-            params[param] = value;
-        }
-        
-        int higgsdecay = int(params[4]);
-        if(higgsdecay < 0 || higgsdecay > 3)
-        {
-            cout << "ERROR: Higgs Decay mode must be 0, 1, 2 or 3" << endl;
-            return 1;
-        }
-        
-        
-        //---- Output File
-        ofstream outputfile;
-        outputfile.open("output.txt", std::ios_base::app | std::ios_base::out);
-        outputfile << "\n\n ######## NEW RUN #######\n\n";
-        outputfile.close();
-        
-        
-        TH1 *histMbb = new TH1F("mbb", "M_{inv}(b, b) (h->bb in both cascades); M_{inv}(b, b) (GeV)", 20, params[10], params[11]);
-        TH1 *histMbbBkg = new TH1F("mbb_bkg", "", 20, params[10], params[11]);
-        
-        bkg = CutsFunctionBkg(argv[2], params, "Background", histMbbBkg, 0); //Background
-		signal = CutsFunctionBkg(argv[1], params, "Signal", histMbb, bkg);   //Signal
-        
-        TCanvas * cmbb = new TCanvas("cmbb", "cmbb", 600, 600);
-        
-        THStack *hs = new THStack("hs","M_{bb}^{inv.} Signal vs Background; M_{bb} / GeV");
-        
-        hs->Add(histMbb);
-        histMbb->SetLineColor(kBlue);
-        
-        hs->Add(histMbbBkg);
-        histMbbBkg->SetLineColor(kRed);
-        
-        hs->Draw("nostack");
-
-        cmbb->Update();
-        
-        TLegend *legend = new TLegend(0.1, 0.7, 0.48, 0.9);
-        legend->AddEntry(histMbb,"Signal","l");
-        legend->AddEntry(histMbbBkg,"Background","l");
-        legend->Draw();
-        cmbb->Update();
-        
-        if(higgsdecay == 0)
-        {
-            cmbb->SaveAs("Mbb_SigBkg_tau.pdf");
-        }
-        else
-        {
-            cmbb->SaveAs("Mbb_SigBkg.pdf");
-        }
-        
-        TCanvas * cmbb_bkg = new TCanvas("cmbb_bkg", "cmbb_bkg", 600, 600);
-        histMbbBkg->Draw();
-        cmbb_bkg->Update();
-        histMbb->Draw("Same");
-        cmbb_bkg->Update();
-        
-        cmbb_bkg->SaveAs("Mbb_Bkg.pdf");
-        
-    }
-    
-        
-            
-    else if(argc == 3)                  // Here just one .root file and a parameter file. (i.e. no sig vs. bkg etc)
+    else if(argc == 3)                  // Here just one .root file and a parameter file. Masses ignored since they don't matter.
     {
         fstream fin(argv[2]);
         string line;

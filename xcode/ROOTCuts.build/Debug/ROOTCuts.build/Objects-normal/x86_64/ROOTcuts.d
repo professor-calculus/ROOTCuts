@@ -98,6 +98,21 @@ dependencies: /Users/alex/Documents/ROOTCuts/ROOTcuts.cc \
   /Users/alex/root_build/include/TChain.h \
   /Users/alex/root_build/include/THStack.h \
   /Users/alex/root_build/include/TLeaf.h \
+  /Users/alex/root_build/include/TVectorD.h \
+  /Users/alex/root_build/include/TVectorT.h \
+  /Users/alex/root_build/include/TMatrixT.h \
+  /Users/alex/root_build/include/TMatrixTBase.h \
+  /Users/alex/root_build/include/TMatrixTUtils.h \
+  /Users/alex/root_build/include/TMatrixTSym.h \
+  /Users/alex/root_build/include/TMatrixTSparse.h \
+  /Users/alex/root_build/include/TMatrixD.h \
+  /Users/alex/root_build/include/TMatrixDfwd.h \
+  /Users/alex/root_build/include/TMatrixDUtils.h \
+  /Users/alex/root_build/include/TMatrixDUtilsfwd.h \
+  /Users/alex/root_build/include/TMatrixDSym.h \
+  /Users/alex/root_build/include/TMatrixDSymfwd.h \
+  /Users/alex/root_build/include/TMatrixDSparse.h \
+  /Users/alex/root_build/include/TMatrixDSparsefwd.h \
   /Users/alex/root_build/include/TH1D.h \
   /Users/alex/root_build/include/TApplication.h \
   /Users/alex/root_build/include/TApplicationImp.h \
@@ -111,9 +126,6 @@ dependencies: /Users/alex/Documents/ROOTCuts/ROOTcuts.cc \
   /Users/alex/root_build/include/TVector2.h \
   /Users/alex/root_build/include/TMatrix.h \
   /Users/alex/root_build/include/TMatrixF.h \
-  /Users/alex/root_build/include/TMatrixT.h \
-  /Users/alex/root_build/include/TMatrixTBase.h \
-  /Users/alex/root_build/include/TMatrixTUtils.h \
   /Users/alex/root_build/include/TMatrixFfwd.h \
   /Users/alex/root_build/include/TMatrixFUtils.h \
   /Users/alex/root_build/include/TMatrixFUtilsfwd.h \

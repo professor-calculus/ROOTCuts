@@ -15,23 +15,21 @@
 using namespace std;
 
 
-void CutsFunction(const char* filename, double params[25])
+void CutsFunction(const char* filename, double params[26])
 {
     gSystem->Load("libTreePlayer");
-    //gSystem->Load("/home/ast1g15/delphes/libDelphes.so");
-    //gSystem->Load("libExRootAnalysis.so");
     
     //              Parameters:
-    //      0       1st Leading jet PT
-    //      1       2nd Leading jet PT
-    //      2       3rd Leading jet PT
-    //      3       4th Leading jet PT
-    //      4       0 = h->bb h->tau-tau; 1 = h->bb both cascades; 2 = 3 b-jets
+    //      0       1st Leading jet min. PT
+    //      1       2nd Leading jet min. PT
+    //      2       3rd Leading jet min. PT
+    //      3       4th Leading jet min. PT
+    //      4       0 = h->bb h->tau-tau; 1 = 4 b-tags; 2 = 3 b-jets, 3: EXACTLY 2 b-jets
     //      5       b-jet lower bound PT
     //      6       MET lower bound
-    //      7       min. taus inv. mass
-    //      8       max. taus inv. mass
-    //      9       min. Sum taus' PT
+    //      7       min. taus inv. mass     }
+    //      8       max. taus inv. mass     }   Only for h->tau tau in one of the cascades
+    //      9       min. Sum taus' PT       }
     //      10      min. M_bb
     //      11      max. M_bb
     //      12      Jet pair matching algorithm for 2 bb pairs: 0 = Smallest av. Delta-R; 1 = Pairs with closest M_inv(bb)
@@ -43,10 +41,11 @@ void CutsFunction(const char* filename, double params[25])
     //      18      Lumi mode: 0 = off. 1 = on, return numbers of events at lumi before/after cuts. 2 = on, also scale histos.
     //      19      Luminosity
     //      20      Cross-section: Will be overridden if in FOLDER mode!
-    //      21      Scan Mode (automatically set)
+    //      21      Scan Mode (automatically set, does not matter)
     //      22      Mass of Squark (doesn't matter for non-scan mode)
     //      23      Mass of LSP     (doesn't matter for non-scan mode)
-    //		24		Max. MHT
+    //      24      Max. MHT (-1 means infinity)
+    //      25      min. alpha_T
 
     
     double jetPT1 = params[0];
@@ -103,15 +102,17 @@ void CutsFunction(const char* filename, double params[25])
     
     int scan_mode = params[21];
     
+    double min_alpha_T = params[25];
+    
 
-	int i, k, l, entries, npass, N_bjets, N_tau, N_PT, N_jets, N_NLSP, N_LSP;
+	int i, k, l, entries, npass, N_bjets, N_tau, N_PT, N_jets, N_NLSP, N_LSP, N_BDPjets;
 
     double mtautau, PT_tau, met, efficiency;
     
     double mbb = 0;
     double mbb2 = 0;
     
-    double DeltaR, DeltaR2, biaseddeltaphi, HT, Hardjets_DeltaR, NLSP_DeltaR, LSP_DeltaR, NLSP_PT[2], LSP_PT[2];
+    double DeltaR, DeltaR2, biaseddeltaphi, HT, Hardjets_DeltaR, NLSP_DeltaR, LSP_DeltaR, NLSP_PT[2], LSP_PT[2], alpha_t;
 		double b_PT[4];
     
     int percent, tintin;
@@ -165,7 +166,8 @@ void CutsFunction(const char* filename, double params[25])
     TH1 *histHardjets_DeltaR = new TH1F("HardDeltaR", "Delta R between leading jets; Delta R", 60, 0, 6);
     TH1 *histMHT = new TH1F("MHT", "Missing HT; Missing HT (GeV)", 200, 0., 2000.);
     TH1 *histHT = new TH1F("HT", "Scalar HT; Scalar HT (GeV)", 200, 0., 8000.);
-    TH1 *histBiasedDeltaPhi = new TH1F("biaseddeltaphi", "Biased Delta Phi; Biased Delta Phi", 50, 0., 5.);
+    TH1 *histBiasedDeltaPhi = new TH1F("biaseddeltaphi", "Biased Delta Phi; Biased Delta Phi", 100, 0., 5.);
+    TH1 *histalpha_T = new TH1F("alpha_T", "\alpha_{T}; \alpha_{T}", 100, 0., 5.);
 		
     TH1 *histb_PT1 = new TH1F("b_PT1", "1st b-jet P_{T}; P_{T}/GeV", 200, 0., 2000.);
     TH1 *histb_PT2 = new TH1F("b_PT2", "2nd b-jet P_{T}; P_{T}/GeV", 200, 0., 2000.);
@@ -183,6 +185,7 @@ void CutsFunction(const char* filename, double params[25])
     TH1 *histMHT_precut = new TH1F("MHT_n-1cut", "Missing HT n-1 Cut; Missing HT (GeV)", 200, 0., 2000.);
     TH1 *histHT_precut = new TH1F("HT_n-1cut", "Scalar HT n-1 Cut; Scalar HT (GeV)", 200, 0., 8000.);
     TH1 *histBiasedDeltaPhi_precut = new TH1F("biaseddeltaphi_n-1cut", "Biased Delta Phi n-1 Cut; Biased Delta Phi", 50, 0., 5.);
+    TH1 *histalpha_T_precut = new TH1F("alpha_T_n-1cut", "\alpha_{T} (n-1 cut); \alpha_{T}", 100, 0., 5.);
 
     
     double Msq, Mlsp;
@@ -215,11 +218,13 @@ void CutsFunction(const char* filename, double params[25])
     int pass_tautau_mass = 0;
     int pass_HT = 0;
     int pass_MHT = 0;
+    int pass_alpha_T = 0;
 
-    int eventpass = 0;
+    double eventpass = 0;
     
     vector<Jet *> vectorjet;
     vector<Jet *> vectorbjet;
+    vector<Jet *> vectorBDPjet;
     vector<Jet *> vectortaujet;
     vector<Jet *> matchingbjets;
     vector<Jet *> matchingtaujets;
@@ -236,6 +241,7 @@ void CutsFunction(const char* filename, double params[25])
     bool cut_N_jets = false;
     bool cut_MHT = false;
     bool hard_jets = false;
+    bool cut_alpha_T = false;
     
     int cumul_Mbb = 0;
     int cumul_biaseddeltaphi = 0;
@@ -244,6 +250,7 @@ void CutsFunction(const char* filename, double params[25])
     int cumul_N_bjets = 0;
     int cumul_N_jets = 0;
     int cumul_MHT = 0;
+    int cumul_alpha_T = 0;
 
 
     TLorentzVector p4[4];
@@ -251,6 +258,7 @@ void CutsFunction(const char* filename, double params[25])
     TLorentzVector NLSPp4[2];
     TLorentzVector LSPp4[2];
     TLorentzVector MissingHT;
+    TLorentzVector p4_temp;
     TVector2 MissingHT2Vector;
     double ScalarMissingHT;
     
@@ -298,6 +306,7 @@ void CutsFunction(const char* filename, double params[25])
 
         vectorjet.clear();
         vectorbjet.clear();
+        vectorBDPjet.clear();
         vectortaujet.clear();
         matchingbjets.clear();
         matchingtaujets.clear();
@@ -323,6 +332,7 @@ void CutsFunction(const char* filename, double params[25])
         N_PT = 0;
         N_NLSP = 0;
         N_LSP = 0;
+        N_BDPjets = 0;
         
         cut_Mbb = false;
         cut_DeltaR = false;
@@ -333,6 +343,7 @@ void CutsFunction(const char* filename, double params[25])
         cut_N_jets = false;
         cut_MHT = false;
         hard_jets = false;
+        cut_alpha_T = false;
         
         HT_x = 0;
         HT_y = 0;
@@ -412,7 +423,7 @@ void CutsFunction(const char* filename, double params[25])
         {
             jet2 = (Jet*) branchJet->At(lol);
             
-            if(jet2->PT > 40.)
+            if(jet2->PT > 40.)                  // 40 = min. jet PT to show up...
             {
                 N_jets += 1;
             }
@@ -435,12 +446,22 @@ void CutsFunction(const char* filename, double params[25])
             {
                 jet = (Jet*) branchJet->At(k);
 
-                if(jet->PT > jetPT4)
+                if(jet->PT > 40.)
                 {
                     N_PT++;
+                    vectorjet.push_back(jet);
+                    
+                    if(abs(jet->Eta) < 3.0)
+                    {
+                        vectorBDPjet.push_back(jet);
+                        N_BDPjets++;
+                        
+                        HT += jet->PT;
+                        
+                        HT_x += jet->P4().Px();
+                        HT_y += jet->P4().Py();
+                    }
                 }
-
-                vectorjet.push_back(jet);
 
                 if(jet->BTag && jet->PT > bjetminPT)
                 {
@@ -453,12 +474,6 @@ void CutsFunction(const char* filename, double params[25])
                     N_tau++;
                 }
                 
-                if(jet->PT > 40.)					// Should we make this (currently) 40GeV user-input? I think so!
-                {
-                    HT_x += jet->P4().Px();
-                    HT_y += jet->P4().Py();
-                }
-                
             }
             
             
@@ -468,7 +483,10 @@ void CutsFunction(const char* filename, double params[25])
             
             Hardjets_DeltaR = hardp4[0].DeltaR(hardp4[1]);
             
-            MissingHT2Vector.Set(MissingHT.Px(), MissingHT.Py());
+            
+            
+            // Missing HT
+            //MissingHT2Vector.Set(MissingHT.Px(), MissingHT.Py());
             
             ScalarMissingHT = TMath::Sqrt((HT_x*HT_x) + (HT_y*HT_y));
             
@@ -481,7 +499,7 @@ void CutsFunction(const char* filename, double params[25])
             
             
             
-            biaseddeltaphi = BiasedDeltaPhi(vectorjet, N_jets);
+            biaseddeltaphi = BiasedDeltaPhi(vectorBDPjet, N_BDPjets);
             
             if(biaseddeltaphi > BDP)
             {
@@ -632,8 +650,8 @@ void CutsFunction(const char* filename, double params[25])
             }
             
             
-
-            if(vectorjet[0]->PT > jetPT1 && vectorjet[1]->PT > jetPT2 && vectorjet[2]->PT > jetPT3 && vectorjet[3]->PT > jetPT4)
+            // PT of leading 4 jets -- if less than 4 jets then only those that exist are compared... (separate cut for N_jets elsewhere)
+            if( (jetPT1 < 0 || vectorjet[0]->PT > jetPT1) && (N_jets < 2 || vectorjet[1]->PT > jetPT2) && (N_jets < 3 || vectorjet[2]->PT > jetPT3) && (N_jets < 4 || vectorjet[3]->PT > jetPT4) )
             {
                 pass_jets++;
                 hard_jets = true;
@@ -654,11 +672,11 @@ void CutsFunction(const char* filename, double params[25])
                 cut_MET = true;
             }
             
-            for (int v = 0; v < branchScalarHT->GetEntries(); v++)
-            {
-                Double_t HTv = ((ScalarHT*) branchScalarHT->At(v))->HT;
-                HT += HTv;
-            }
+//            for (int v = 0; v < branchScalarHT->GetEntries(); v++)        // This isn't necessarily correct, so calculated better earlier on
+//            {
+//                Double_t HTv = ((ScalarHT*) branchScalarHT->At(v))->HT;
+//                HT += HTv;
+//            }
             
             if(HT > minHT || minHT < 0)
             {
@@ -696,6 +714,19 @@ void CutsFunction(const char* filename, double params[25])
                 }
                 
             }
+            
+            // alpha_T Calculation:
+            
+            alpha_t = alpha_T(vectorBDPjet, ScalarMissingHT);
+            
+            if(alpha_t > min_alpha_T)
+            {
+                npass++;
+                pass_alpha_T++;
+                cut_alpha_T = true;
+            }
+            
+            
             
             //----This bit gives a nice progress bar - unnecessary but looks so nice, like an iPad mini
         
@@ -741,6 +772,7 @@ void CutsFunction(const char* filename, double params[25])
         uncut.b_PT3 = b_PT[2];
         uncut.b_PT4 = b_PT[3];
         uncut.biaseddeltaphi = biaseddeltaphi;
+        uncut.alpha_T = alpha_t;
         uncut.HT = HT;
         uncut.n_jets = N_jets;
         
@@ -802,9 +834,13 @@ void CutsFunction(const char* filename, double params[25])
         {
             cumul_biaseddeltaphi++;
         }
+        if(cut_alpha_T && cut_HT && cut_MET && cut_MHT && cut_N_jets && cut_N_bjets && cut_Mbb && cut_biaseddeltaphi && hard_jets)
+        {
+            cumul_alpha_T++;
+        }
 
 
-        if(npass == 10)
+        if(npass == 11)
         {
             eventpass++;
 
@@ -814,13 +850,14 @@ void CutsFunction(const char* filename, double params[25])
             histDeltaR->Fill(DeltaR);
             histHardjets_DeltaR->Fill(Hardjets_DeltaR);
             histBiasedDeltaPhi->Fill(biaseddeltaphi);
+            histalpha_T->Fill(alpha_t);
             histHT->Fill(HT);
             histnjet->Fill(N_jets);
 						
-						histb_PT1->Fill(b_PT[0]);
-						histb_PT2->Fill(b_PT[1]);
-						histb_PT3->Fill(b_PT[2]);
-						histb_PT4->Fill(b_PT[3]);
+            histb_PT1->Fill(b_PT[0]);
+            histb_PT2->Fill(b_PT[1]);
+            histb_PT3->Fill(b_PT[2]);
+            histb_PT4->Fill(b_PT[3]);
 						
             
             if(higgsdecay == 1)
@@ -835,6 +872,7 @@ void CutsFunction(const char* filename, double params[25])
             histmet_precut->Fill(met);
             histDeltaR_precut->Fill(DeltaR);
             histBiasedDeltaPhi_precut->Fill(biaseddeltaphi);
+            histalpha_T_precut->Fill(alpha_t);
             histHT_precut->Fill(HT);
             histnjet_precut->Fill(N_jets);
             
@@ -863,13 +901,14 @@ void CutsFunction(const char* filename, double params[25])
             }
             
         }
-        else if(npass == 9)
+        else if(npass == 10)
         {
             if(!cut_Mbb) histMbb_precut->Fill(mbb);
             else if(!cut_N_bjets) histnbjet_precut->Fill(N_bjets);
             else if(!cut_MET) histmet_precut->Fill(met);
             else if(!cut_DeltaR) histDeltaR_precut->Fill(DeltaR);
             else if(!cut_biaseddeltaphi) histBiasedDeltaPhi_precut->Fill(biaseddeltaphi);
+            else if(!cut_alpha_T) histalpha_T_precut->Fill(alpha_t);
             else if(!cut_HT) histHT_precut->Fill(HT);
             else if(!cut_N_jets) histnjet_precut->Fill(N_jets);
             else if(!cut_MHT) histMHT_precut->Fill(ScalarMissingHT);
@@ -881,11 +920,11 @@ void CutsFunction(const char* filename, double params[25])
                 if(!cut_DeltaR) histDeltaR_precut->Fill(DeltaR2);
             }
         }
-        else if(npass == 8)
+        else if(npass == 9)
         {
             if(!cut_Mbb) histMbb_precut->Fill(mbb);
         }
-        else if(npass == 6)
+        else if(npass == 7)
         {
             if(!cut_N_bjets && !cut_Mbb) histnbjet_precut->Fill(N_bjets);
         }
@@ -1290,6 +1329,21 @@ void CutsFunction(const char* filename, double params[25])
         cbdp_precut->SaveAs("BiasedDeltaPhi_n-1cut.pdf");
     }
     
+    
+    //---------- alpha_T (With/Without the Cut)
+    TCanvas * calpha_T = new TCanvas("calpha_T", "calpha_T", 600, 600);
+    histalpha_T->Scale(histoscale);
+    histalpha_T->Draw();
+    calpha_T->Update();
+    calpha_T->SaveAs("BiasedDeltaPhi.pdf");
+    
+    
+    TCanvas * calpha_T_precut = new TCanvas("calpha_T_precut", "calpha_T_precut", 600, 600);
+    histalpha_T_precut->Scale(histoscale);
+    histalpha_T_precut->Draw();
+    calpha_T_precut->Update();
+    calpha_T_precut->SaveAs("BiasedDeltaPhi_n-1cut.pdf");
+    
 
     
 //    histMbb_nocuts->Draw();
@@ -1333,6 +1387,9 @@ void CutsFunction(const char* filename, double params[25])
     
     histBiasedDeltaPhi->Write();
     histBiasedDeltaPhi_precut->Write();
+    
+    histalpha_T->Write();
+    histalpha_T_precut->Write();
     
     histmet->Write();
     histmet_precut->Write();
