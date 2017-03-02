@@ -61,7 +61,7 @@
 		C9662A75A55F4C50B783E8CC /* ROOTEffs.cc in Sources */ = {isa = PBXBuildFile; fileRef = 52E7ED3E47794CF89C95CC6D /* ROOTEffs.cc */; };
 		CEAF047AB1F24D4CBC0A5B22 /* Plotting.cc in Sources */ = {isa = PBXBuildFile; fileRef = E780E1A6DF9E48CBB3B527D2 /* Plotting.cc */; };
 		E21EA6C4FCCA4DBD9E9FC26C /* JetDoublePairFinder.cc in Sources */ = {isa = PBXBuildFile; fileRef = 83A7459717594B468959E66D /* JetDoublePairFinder.cc */; };
-		FA801FA21E671A2D00D540BF /* alpha_T.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA801FA01E671A2D00D540BF /* alpha_T.cpp */; };
+		FA801FA21E671A2D00D540BF /* alpha_T.cc in Sources */ = {isa = PBXBuildFile; fileRef = FA801FA01E671A2D00D540BF /* alpha_T.cc */; };
 		FCA540D5880B49F3BAD6516D /* BiasedDeltaPhi.cc in Sources */ = {isa = PBXBuildFile; fileRef = D77AE40EA4104E46A432B82C /* BiasedDeltaPhi.cc */; };
 /* End PBXBuildFile section */
 
@@ -136,7 +136,8 @@
 		DA1CDB4AB8D247BD8AD31004 /* ROOTCuts */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = ROOTCuts; sourceTree = BUILT_PRODUCTS_DIR; };
 		E61A919DB59A4757BBD105CA /* ROOTEffs.hh */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = ROOTEffs.hh; path = include/ROOTEffs.hh; sourceTree = SOURCE_ROOT; };
 		E780E1A6DF9E48CBB3B527D2 /* Plotting.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Plotting.cc; path = src/Plotting.cc; sourceTree = SOURCE_ROOT; };
-		FA801FA01E671A2D00D540BF /* alpha_T.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = alpha_T.cpp; path = src/alpha_T.cpp; sourceTree = "<group>"; };
+		FA801FA01E671A2D00D540BF /* alpha_T.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = alpha_T.cc; path = src/alpha_T.cc; sourceTree = "<group>"; };
+		FA801FA31E686CA600D540BF /* example.rootcuts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = example.rootcuts; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -215,6 +216,7 @@
 				DE1A33AEAD114EDCA34A9F05 /* Source Files */,
 				11DB4BD687284E2BBDD5CCEB /* Header Files */,
 				2B21169086F84C6196DD4427 /* CMakeLists.txt */,
+				FA801FA31E686CA600D540BF /* example.rootcuts */,
 			);
 			name = ROOTCuts;
 			sourceTree = "<group>";
@@ -240,7 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				2204A5E44A7B4FFF88A28361 /* ROOTcuts.cc */,
-				FA801FA01E671A2D00D540BF /* alpha_T.cpp */,
+				FA801FA01E671A2D00D540BF /* alpha_T.cc */,
 				D77AE40EA4104E46A432B82C /* BiasedDeltaPhi.cc */,
 				024B0703686D498BB15FAC09 /* Christmas.cc */,
 				C093686DB6F84546B707B785 /* CutsFunction.cc */,
@@ -388,7 +390,7 @@
 				0EC791F551AE45C5810642B9 /* CutsFunctionBkg.cc in Sources */,
 				96824E0B31D646829CCE76BF /* Jet2Plus1Finder.cc in Sources */,
 				1316A7ABF2EF4041A23933FB /* Jet2Plus1MbbFinder.cc in Sources */,
-				FA801FA21E671A2D00D540BF /* alpha_T.cpp in Sources */,
+				FA801FA21E671A2D00D540BF /* alpha_T.cc in Sources */,
 				027B56916B7248D88FD0D41E /* JetDoubleMbbPairFinder.cc in Sources */,
 				E21EA6C4FCCA4DBD9E9FC26C /* JetDoublePairFinder.cc in Sources */,
 				71910B5DE8E84C28836AA096 /* JetPairFinder.cc in Sources */,

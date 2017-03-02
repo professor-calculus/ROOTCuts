@@ -2,25 +2,27 @@
 #   Setting an upper limit to -1 will act as infinity, so if you
 #   just set minima to 0 and maxima to -1 no cuts will be performed.
 #
+#### Ulrich BP5 parameters, ArXiv 1412.6384 (masses in GeV) ###
 0	40.     # 1st leading jet PT
 1	40.     # 2nd leading jet PT
 2	40.     # 3rd leading jet PT
 3	40.     # 4th leading jet PT
-4	2.      # 0 = h->bb h->tau-tau; 1 = h->bbx2
+4	3.      # 0 = h->bb h->tau-tau; 1 = h->bbx2; 2 = 3 b-jets, 3: EXACTLY 2 b-jets, no tau req.
 5	40.     # min. b-jet PT
 6	0.      # min. MET
 7	0.      # min. Taus inv. mass
-8	16000.  # max. Taus inv. mass
+8	160000.	# max. Taus inv. mass
 9	0.      # min. Sum Taus PT
-10	-1.     # min. Mbb
-11	-1.     # max. Mbb
+10	0.      # min. Mbb
+11	160000.	# max. Mbb
 12	1.      # Jet pair matching, 0 = smallest average deltaR; 1 = closest in M_inv(bb)
 13	1.      # Sig/bkg ratio
-14	800.    # min. HT
+14	800.	# min. HT
 15	5       # min. no. of jets
-16	0.5     # minimum Biased-Delta-Phi: 0.5 for SUSY CMS Searches usually
-17	130.    # minimum Missing HT
-24	200.    # Max. Missing HT
-18	2       # Lumi mode: 0 = off. 1 = on, return numbers of events at lumi before/after cuts. 2 = on, also scale histos.
-19	2.2     # Luminosity in  fb^-1
-20	1       # Cross-section: Will be overridden if in FOLDER mode!
+16  0.5     # minimum Biased-Delta-Phi: 0.5 for SUSY CMS Searches usually
+17  130.	# minimum Missing HT
+18  2       # Lumi mode: 0 = off. 1 = on, return numbers of events at lumi before/after cuts. 2 = on, also scale histos.
+19  12.9	# Luminosity in fb^-1
+20  1       # Cross-section: Will be overridden if in FOLDER mode!
+24	-1.     # max. MHT (-1 means inf.)
+25  0.5     # min. alpha_T
