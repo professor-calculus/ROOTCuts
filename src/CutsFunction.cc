@@ -105,7 +105,8 @@ void CutsFunction(const char* filename, double params[26])
     double min_alpha_T = params[25];
     
 
-	int i, k, l, entries, npass, N_bjets, N_tau, N_PT, N_jets, N_NLSP, N_LSP, N_BDPjets;
+    int i, k, l, entries, npass, N_bjets, N_tau, N_PT, N_jets, N_NLSP, N_LSP, N_BDPjets;
+    int Truth_Nbjets;
 
     double mtautau, PT_tau, met, efficiency;
     
@@ -113,7 +114,9 @@ void CutsFunction(const char* filename, double params[26])
     double mbb2 = 0;
     
     double DeltaR, DeltaR2, biaseddeltaphi, HT, Hardjets_DeltaR, NLSP_DeltaR, LSP_DeltaR, NLSP_PT[2], LSP_PT[2], alpha_t;
-		double b_PT[4];
+    double Truth_DeltaR, Truth_HT, Truth_NLSP_DeltaR, Truth_LSP_DeltaR, Truth_NLSP_PT[2], Truth_LSP_PT[2];
+    
+    double b_PT[4];
     
     int percent, tintin;
     string n_b;
@@ -205,6 +208,8 @@ void CutsFunction(const char* filename, double params[26])
     
     static UNCUT uncut;
     static Efficiencies newefficiencies;
+    static TRUTH truth;
+
     
 
     int pass_jets = 0;
@@ -231,6 +236,7 @@ void CutsFunction(const char* filename, double params[26])
     
     vector<GenParticle *> vectorNLSP;
     vector<GenParticle *> vectorLSP;
+    vector<GenParticle *> vectorTruthb;
     
     bool cut_Mbb = false;
     bool cut_DeltaR = false;
@@ -282,7 +288,7 @@ void CutsFunction(const char* filename, double params[26])
     histnjet_nocuts = &N_jets;
     
     
-    outputtree->Branch("Uncut", &uncut, "M_bb/D:MET:DeltaR:hardDeltaR:NSLPDeltaR:LSPDeltaR:NLSP_PT1:NLSP_PT2:LSP_PT1:LSP_PT2:b_PT1:b_PT2:b_PT3:b_PT4:biaseddeltaphi:HT:MHT:n_bjets/I:n_jets:Msq:Mlsp:cut_Mbb/O:cut_DeltaR:cut_biaseddeltaphi:cut_MET:cut_HT:cut_N_bjets:cut_N_jets:cut_MHT");
+    outputtree->Branch("Uncut", &uncut, "M_bb/D:MET:DeltaR:hardDeltaR:NSLPDeltaR:LSPDeltaR:NLSP_PT1:NLSP_PT2:LSP_PT1:LSP_PT2:b_PT1:b_PT2:b_PT3:b_PT4:biaseddeltaphi:alpha_T:HT:MHT:n_bjets/I:n_jets:Msq:Mlsp:cut_Mbb/O:cut_DeltaR:cut_biaseddeltaphi:cut_MET:cut_HT:cut_N_bjets:cut_N_jets:cut_MHT");
     
 
     TTimeStamp time;
@@ -318,7 +324,7 @@ void CutsFunction(const char* filename, double params[26])
         Jet *jet = NULL;
         Jet *jet2 = NULL;
         
-        GenParticle *NLSP = NULL;
+        GenParticle *particle = NULL;
         //GenParticle *LSP = NULL;
 
         npass = 0;
@@ -333,6 +339,8 @@ void CutsFunction(const char* filename, double params[26])
         N_NLSP = 0;
         N_LSP = 0;
         N_BDPjets = 0;
+        
+        Truth_Nbjets = 0;
         
         cut_Mbb = false;
         cut_DeltaR = false;
@@ -353,15 +361,21 @@ void CutsFunction(const char* filename, double params[26])
         for(int nlsp=0; nlsp<branchParticle->GetEntries(); nlsp++)
         {
             
-            NLSP = ((GenParticle*) branchParticle->At(nlsp));
+            particle = ((GenParticle*) branchParticle->At(nlsp));
             
-            if(NLSP->PID == 1000023)
+            if(particle->PID == 1000023)
             {
-                vectorNLSP.push_back(NLSP);
+                vectorNLSP.push_back(particle);
             }
-            else if(NLSP->PID == 1000022)
+            else if(particle->PID == 1000022)
             {
-                vectorLSP.push_back(NLSP);
+                vectorLSP.push_back(particle);
+            }
+            else if( abs(particle->PID) == 5)
+            {
+                Truth_Nbjets++;
+                
+                vectorTruthb.push_back(particle);
             }
             
         }

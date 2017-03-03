@@ -65,6 +65,8 @@ typedef struct {double M_bb, MET, DeltaR, hardDeltaR, NLSPDeltaR, LSPDeltaR, NLS
 
 typedef struct {double crosssec, eff, HTeff, METeff, MHTeff, Njeff, Nbeff, Mbbeff, BDPeff, doubleeventpass, Msq, Mlsp, HT, MET, MHT, Nj, Nb, Mbb, BDP;} Efficiencies;
 
+typedef struct {double M_bb, DeltaR, NLSPDeltaR, LSPDeltaR, NLSP_PT1, NLSP_PT2, LSP_PT1, LSP_PT2, HT, MHT; int N_bjets;} TRUTH;
+
 class Yield
 {
 public:
