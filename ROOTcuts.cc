@@ -60,6 +60,7 @@ int main(int argc, char *argv[])
     params[22] = 0;
     params[23] = 0;
     params[24] = -1;
+    params[25] = 0.;
 
     
     if(argc == 6 && string(argv[5]) == "FOLDER") // Here we input a MG output folder and a param card, with the
@@ -184,46 +185,67 @@ int main(int argc, char *argv[])
         params[23] = std::stod(argv[4]);
         
         string inpstring(argv[1]);
-        string rootpath = inpstring + "/Events/run_01/tag_1_delphes_events.root";
+        string rootpath;
+        if(params[13] == 8)
+        {
+            rootpath = inpstring + "/Events/run_01/Py8/delphes_py8.root";
+        }
+        else
+        {
+            rootpath = inpstring + "/Events/run_01/tag_1_delphes_events.root";
+        }
         string crosssectionpath = inpstring + "/Events/run_01/tag_1_pythia.log";
         
         ifstream delphesfile;
         delphesfile.open(rootpath);
+        
+        double crosssectionvalue = 0;
+        
         if(!delphesfile)
         {
             cout << "What folder? I don't know anything about it..." << endl;
             cout << "\n There's likely a typo in the folder path somewhere, or .root file doesn't exist!" << endl;
             return 1;
         }
+        delphesfile.close();
         
-        
-        ifstream inputFile;
-        inputFile.open(crosssectionpath);
-        
-        if(!inputFile)
+        if(params[13] == 8)
         {
-            cout << "What folder? I don't know anything about it..." << endl;
-            cout << "\n Pythia6 log file doesn't exist!" << endl;
-            return 1;
+            TFile delphesinput(rootpath.c_str());
+            TVectorD *v = (TVectorD*)delphesinput.Get("crosssection");
+            
+            crosssectionvalue = v->Sum();
         }
-        
-        string crosssection;
-        double crosssectionvalue = 0;
-        
-        while(!inputFile.eof())
+        else
         {
-            inputFile >> crosssection;      // Yolo-swagged to redefine crosssection as each line until it gets to the last line
-                                            // of tag_1_pythia.log, which contains the cross-section value after jet matching
+            ifstream inputFile;
+            inputFile.open(crosssectionpath);
+            
+            if(!inputFile)
+            {
+                cout << "What folder? I don't know anything about it..." << endl;
+                cout << "\n Pythia6 log file doesn't exist!" << endl;
+                return 1;
+            }
+            
+            string crosssection;
+            
+            while(!inputFile.eof())
+            {
+                inputFile >> crosssection;      // Yolo-swagged to redefine crosssection as each line until it gets to the last line
+                // of tag_1_pythia.log, which contains the cross-section value after jet matching
+            }
+            
+            size_t pos = crosssection.find(":");
+            crosssection.erase(0,pos + 1);
+            
+            crosssectionvalue = std::stod(crosssection);        // converts string to double so we can use the cross-sec
+            
+            inputFile.close();
         }
-        
-        size_t pos = crosssection.find(":");
-        crosssection.erase(0,pos + 1);
-        
-        crosssectionvalue = std::stod(crosssection);        // converts string to double so we can use the cross-sec
         
         params[20] = crosssectionvalue;
         
-        inputFile.close();
         
         Yield yields = YieldGetter(rootpath.c_str(), params);
         
@@ -274,11 +296,22 @@ int main(int argc, char *argv[])
         params[23] = -1;
         
         string inpstring(argv[1]);
-        string rootpath = inpstring + "/Events/run_01/tag_1_delphes_events.root";
+        string rootpath;
+        if(params[13] == 8)
+        {
+            rootpath = inpstring + "/Events/run_01/Py8/delphes_py8.root";
+        }
+        else
+        {
+            rootpath = inpstring + "/Events/run_01/tag_1_delphes_events.root";
+        }
         string crosssectionpath = inpstring + "/Events/run_01/tag_1_pythia.log";
         
         ifstream delphesfile;
         delphesfile.open(rootpath);
+        
+        double crosssectionvalue = 0;
+        
         if(!delphesfile)
         {
             cout << "What folder? I don't know anything about it..." << endl;
@@ -287,35 +320,42 @@ int main(int argc, char *argv[])
         }
         delphesfile.close();
         
-        ifstream inputFile;
-        inputFile.open(crosssectionpath);
-        
-        if(!inputFile)
+        if(params[13] == 8)
         {
-            cout << "What folder? I don't know anything about it..." << endl;
-            cout << "\n Pythia6 log file doesn't exist!" << endl;
-            return 1;
+            TFile delphesinput(rootpath.c_str());
+            TVectorD *v = (TVectorD*)delphesinput.Get("crosssection");
+            
+            crosssectionvalue = v->Sum();
         }
-        
-        
-        string crosssection;
-        double crosssectionvalue = 0;
-        
-        //fstream fin2(crosssectionpath);
-        while(!inputFile.eof())
+        else
         {
-            inputFile >> crosssection;          // Yolo-swagged to redefine crosssection as each line until it gets to the last line
-                                                // of tag_1_pythia.log, which contains the cross-section value after jet matching
+            ifstream inputFile;
+            inputFile.open(crosssectionpath);
+            
+            if(!inputFile)
+            {
+                cout << "What folder? I don't know anything about it..." << endl;
+                cout << "\n Pythia6 log file doesn't exist!" << endl;
+                return 1;
+            }
+            
+            string crosssection;
+            
+            while(!inputFile.eof())
+            {
+                inputFile >> crosssection;      // Yolo-swagged to redefine crosssection as each line until it gets to the last line
+                // of tag_1_pythia.log, which contains the cross-section value after jet matching
+            }
+            
+            size_t pos = crosssection.find(":");
+            crosssection.erase(0,pos + 1);
+            
+            crosssectionvalue = std::stod(crosssection);        // converts string to double so we can use the cross-sec
+            
+            inputFile.close();
         }
-        
-        size_t pos = crosssection.find(":");
-        crosssection.erase(0,pos + 1);
-        
-        crosssectionvalue = std::stod(crosssection);        // converts string to double so we can use the cross-sec
         
         params[20] = crosssectionvalue;
-        
-        inputFile.close();
         
         CutsFunction(rootpath.c_str(), params);
         

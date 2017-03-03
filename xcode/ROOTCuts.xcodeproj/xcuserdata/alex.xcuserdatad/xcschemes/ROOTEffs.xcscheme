@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "12C45C98FE3543DD80102FB1"
+               BlueprintIdentifier = "46D4CDF43B4640E7926A2FC0"
                BuildableName = "ROOTEffs"
                BlueprintName = "ROOTEffs"
                ReferencedContainer = "container:xcode/ROOTCuts.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "12C45C98FE3543DD80102FB1"
+            BlueprintIdentifier = "46D4CDF43B4640E7926A2FC0"
             BuildableName = "ROOTEffs"
             BlueprintName = "ROOTEffs"
             ReferencedContainer = "container:xcode/ROOTCuts.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "12C45C98FE3543DD80102FB1"
+            BlueprintIdentifier = "46D4CDF43B4640E7926A2FC0"
             BuildableName = "ROOTEffs"
             BlueprintName = "ROOTEffs"
             ReferencedContainer = "container:xcode/ROOTCuts.xcodeproj">
@@ -74,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "12C45C98FE3543DD80102FB1"
+            BlueprintIdentifier = "46D4CDF43B4640E7926A2FC0"
             BuildableName = "ROOTEffs"
             BlueprintName = "ROOTEffs"
             ReferencedContainer = "container:xcode/ROOTCuts.xcodeproj">
