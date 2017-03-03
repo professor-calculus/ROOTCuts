@@ -107,6 +107,7 @@ int main(int argc, char *argv[])
         delphesfile.open(rootpath);
         
         double crosssectionvalue = 0;
+        double crosssectionerror = 0;
         
         if(!delphesfile)
         {
@@ -120,8 +121,10 @@ int main(int argc, char *argv[])
         {
             TFile delphesinput(rootpath.c_str());
             TVectorD *v = (TVectorD*)delphesinput.Get("crosssection");
+            TVectorD *v2 = (TVectorD*)delphesinput.Get("crosssection_error");
             
             crosssectionvalue = v->Sum();
+            crosssectionerror = v2->Sum();
         }
         else
         {
@@ -150,6 +153,8 @@ int main(int argc, char *argv[])
         }
         
         params[20] = crosssectionvalue;
+        
+        cout << "Cross-section in pb: " << crosssectionvalue << " +/- " << crosssectionerror << "\n" << endl;
         
         CutsFunction(rootpath.c_str(), params);
         
